@@ -3,6 +3,14 @@
 > Bu dosya proje geliştikçe güncellenir. Yeni kararlar, kurallar ve iş akışları
 > konuşuldukça buraya eklenir.
 
+## İletişim kuralları (EN ÖNEMLİ — her zaman uy)
+
+- Kullanıcıyla **her zaman Türkçe** konuş. Asla İngilizce yazma.
+- Kullanıcı teknik değil: **çok basit, günlük dille** anlat. Teknik terim,
+  dosya adı, komut veya kod gösterme; gerekiyorsa ne işe yaradığını sade
+  bir cümleyle söyle.
+- Kullanıcı bu kuralları her seferinde tekrar etmek zorunda kalmamalı.
+
 ## Projenin amacı
 
 Sosyal medya (Instagram Reels, TikTok, YouTube Shorts vb.) için **organik içerik**

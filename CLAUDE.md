@@ -24,6 +24,12 @@ Sosyal medya (Instagram Reels, TikTok, YouTube Shorts vb.) için **organik içer
 İleride daha iyi bir araç çıkarsa onunla değiştirilebilir; mimariyi buna göre
 gevşek bağlı tut (ses üretimi ve video katmanı birbirinden ayrı).
 
+## Kullanıcıyla iletişim
+
+- Kullanıcı teknik değil. Cevaplar **Türkçe**, kısa ve **basit dille** olmalı;
+  jargon gerekiyorsa kısa bir benzetmeyle açıkla.
+- API anahtarlarını asla sohbete yapıştırmasını isteme.
+
 ## Proje yapısı
 
 ```
@@ -42,6 +48,10 @@ remotion.config.ts              Remotion CLI ayarları
 npm install
 cp .env.example .env   # ELEVENLABS_API_KEY değerini doldur
 ```
+
+Bulut (Claude Code web) oturumlarında `ELEVENLABS_API_KEY` ortam ayarlarına
+eklendi; script onu doğrudan ortam değişkeninden okur, `.env` gerekmez.
+Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 ## İş akışı
 

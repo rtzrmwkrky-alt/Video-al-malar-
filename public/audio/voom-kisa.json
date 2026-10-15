@@ -1,6 +1,6 @@
 {
-  "text": "Geçen hafta antrenmanı yine mi ektin?\nVum varken bu pek kolay olmaz.\nYaşını, kilonu, hedefini yazman yeterli. Programın hazır.\nSalonda da olur, evde de.\nHer hareketin videosu var, kaldırdığın kilolar da kayıtta.\nKısacası, cebinde bir koç.",
-  "durationInSeconds": 16.64,
+  "text": "Geçen hafta antrenmanı yine mi ektin?\nVum varken bu pek kolay olmaz.\nYaşını, kilonu, hedefini yazman yeterli. Programın hazır.\nSalonda da olur, evde de.\nÜstelik her hareketin bir videosu var. Kaldırdığın kilolar da kayıtta.\nResmen cebinde bir koç.",
+  "durationInSeconds": 16.88,
   "words": [
     {
       "text": "Geçen",
@@ -14,22 +14,22 @@
     },
     {
       "text": "antrenmanı",
-      "start": 0.72,
-      "end": 1.24
+      "start": 0.76,
+      "end": 1.2
     },
     {
       "text": "yine",
-      "start": 1.28,
+      "start": 1.24,
       "end": 1.44
     },
     {
       "text": "mi",
-      "start": 1.52,
-      "end": 1.6
+      "start": 1.48,
+      "end": 1.52
     },
     {
       "text": "ektin?",
-      "start": 1.72,
+      "start": 1.6,
       "end": 2.48
     },
     {
@@ -49,12 +49,12 @@
     },
     {
       "text": "pek",
-      "start": 3.48,
-      "end": 3.6
+      "start": 3.44,
+      "end": 3.52
     },
     {
       "text": "kolay",
-      "start": 3.68,
+      "start": 3.6,
       "end": 3.84
     },
     {
@@ -65,122 +65,132 @@
     {
       "text": "Yaşını,",
       "start": 4.88,
-      "end": 5.52
+      "end": 5.44
     },
     {
       "text": "kilonu,",
-      "start": 5.6,
-      "end": 6.16
+      "start": 5.52,
+      "end": 6.08
     },
     {
       "text": "hedefini",
-      "start": 6.2,
-      "end": 6.56
+      "start": 6.12,
+      "end": 6.48
     },
     {
       "text": "yazman",
-      "start": 6.64,
-      "end": 7.04
+      "start": 6.56,
+      "end": 6.96
     },
     {
       "text": "yeterli.",
-      "start": 7.08,
-      "end": 7.92
+      "start": 7,
+      "end": 7.84
     },
     {
       "text": "Programın",
-      "start": 8.08,
+      "start": 8.04,
       "end": 8.32
     },
     {
       "text": "hazır.",
-      "start": 8.4,
-      "end": 9.12
+      "start": 8.373,
+      "end": 8.72
     },
     {
       "text": "Salonda",
-      "start": 9.2,
+      "start": 9.04,
+      "end": 9.44
+    },
+    {
+      "text": "da",
+      "start": 9.48,
       "end": 9.52
     },
     {
-      "text": "da",
-      "start": 9.6,
-      "end": 9.68
-    },
-    {
       "text": "olur,",
-      "start": 9.76,
-      "end": 10.08
+      "start": 9.6,
+      "end": 9.92
     },
     {
       "text": "evde",
-      "start": 10.16,
-      "end": 10.4
+      "start": 10,
+      "end": 10.24
     },
     {
       "text": "de.",
-      "start": 10.48,
-      "end": 10.96
+      "start": 10.32,
+      "end": 10.8
     },
     {
-      "text": "Her",
-      "start": 11.04,
-      "end": 11.12
+      "text": "Üstelik",
+      "start": 10.84,
+      "end": 11.2
+    },
+    {
+      "text": "her",
+      "start": 11.28,
+      "end": 11.44
     },
     {
       "text": "hareketin",
-      "start": 11.2,
-      "end": 11.6
-    },
-    {
-      "text": "videosu",
-      "start": 11.68,
-      "end": 12.08
-    },
-    {
-      "text": "var,",
-      "start": 12.2,
-      "end": 12.56
-    },
-    {
-      "text": "kaldırdığın",
-      "start": 12.6,
-      "end": 13.12
-    },
-    {
-      "text": "kilolar",
-      "start": 13.2,
-      "end": 13.6
-    },
-    {
-      "text": "da",
-      "start": 13.68,
-      "end": 13.76
-    },
-    {
-      "text": "kayıtta.",
-      "start": 13.84,
-      "end": 14.64
-    },
-    {
-      "text": "Kısacası,",
-      "start": 14.68,
-      "end": 15.44
-    },
-    {
-      "text": "cebinde",
-      "start": 15.52,
-      "end": 15.84
+      "start": 11.52,
+      "end": 12
     },
     {
       "text": "bir",
-      "start": 15.92,
+      "start": 12.04,
+      "end": 12.08
+    },
+    {
+      "text": "videosu",
+      "start": 12.16,
+      "end": 12.56
+    },
+    {
+      "text": "var.",
+      "start": 12.68,
+      "end": 13.12
+    },
+    {
+      "text": "Kaldırdığın",
+      "start": 13.16,
+      "end": 13.68
+    },
+    {
+      "text": "kilolar",
+      "start": 13.76,
+      "end": 14.08
+    },
+    {
+      "text": "da",
+      "start": 14.16,
+      "end": 14.24
+    },
+    {
+      "text": "kayıtta.",
+      "start": 14.32,
+      "end": 15.12
+    },
+    {
+      "text": "Resmen",
+      "start": 15.24,
+      "end": 15.6
+    },
+    {
+      "text": "cebinde",
+      "start": 15.68,
       "end": 16
     },
     {
-      "text": "koç.",
+      "text": "bir",
       "start": 16.08,
-      "end": 16.64
+      "end": 16.16
+    },
+    {
+      "text": "koç.",
+      "start": 16.24,
+      "end": 16.88
     }
   ]
 }

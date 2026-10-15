@@ -72,6 +72,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
    ```
    `data` alanı `calculateMetadata` ile JSON'dan otomatik doldurulur; video
    süresi seslendirme süresine göre ayarlanır.
+4. **Paylaşım kopyası (ses yüksekliği):** ElevenLabs sesi sosyal medya için kısık kalır
+   (~-18 LUFS). Paylaşmadan önce -14 LUFS'a çek:
+   ```bash
+   ffmpeg -i out/x.mp4 -c:v libx264 -crf 20 -preset slow -af "loudnorm=I=-14:TP=-1:LRA=11" \
+     -c:a aac -b:a 192k -ar 48000 -ac 2 -movflags +faststart out/x-paylas.mp4
+   ```
 
 ## Mevcut kompozisyonlar
 

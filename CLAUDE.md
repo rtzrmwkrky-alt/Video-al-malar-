@@ -93,7 +93,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `icerik/voom-kisa.txt`. Kullanıcı isteği: yapay zekayla yapıldığı belli olmasın ve uygulamanın
   "yapay zeka koç" tarafı (sohbet/öneri ekranları) gösterilmesin. Bu yüzden koç sohbeti sahneleri
   yok, altyazı sade (`plain`, kelime kelime vurgu yok), ses daha canlı (`--stability 0.35 --speed 1.15`).
-- **HerKafadanAkici** — **güncel örnek / referans kurgu** (~26 sn). Kullanıcı DSÖ detayını
+- **HerKafadanAnimasyon** — **kullanıcının son tercihi: animasyon (3D manken)**, gerçek insandan
+  vazgeçti. Referans videodaki (Zack D. Films) gibi. Aynı metin/ses (her-kafadan-akici).
+  Tek kesintisiz 3D sahne; kamera karakterler arasında yumuşak süzülür (kesme yok, `SETUPS`).
+  Ana karakter ortada; turuncu (yerinde koşu = kardiyo), mor (hızlı hafif dambıl),
+  yeşil (matta plank = pilates). Balonlar 3D noktalara bağlı (`project`, kamera arkasındaysa gizli).
+  "Yol alamıyorsun"da ana karakter yerinde koşar, balonlar başı etrafında döner; "vücudunun neye
+  ihtiyacı"nda bacak/kol/karın sırayla yanar; kapanış yüze yaklaşma + "Senin hedefin ne?".
+  Ortak 3D parçalar `src/three/scene.tsx` (zemin, mat, dambıl, pozlar, arka plan, project).
+- **HerKafadanAkici** — (gerçek insan sürümü) referans kurgu (~26 sn). Kullanıcı DSÖ detayını
   istemedi → metinden ve ekrandan çıkarıldı; kapanış "Asıl soru şu: Senin hedefin ne?". Kullanıcının metni +
   bağlayıcı kendi cümlelerimiz, tek kahraman (52xxx serisi kadın) ile bütünlüklü hikâye,
   profesyonel kurgu: kesmeler cümle başında (efekt geçiş yok), ortak renk + vinyet + gren,
@@ -127,8 +135,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 ## Kurallar / kararlar
 
-- Kullanıcı **gerçek, yüzü görünen insan** görüntüsü istiyor; yüzsüz manken/3D figür kabul görmedi.
-  Gerçek insan için stok video (Mixkit, anahtar gerekmez) kullan.
+- Görsel tercih değişti: önce gerçek insan istedi, **en son 3D manken animasyonunda karar kıldı**
+  (referans: Zack D. Films). Emin değilsen sor; gerçek insan gerekiyorsa Mixkit stok video kullan.
+- 3D'de kamera karakterlerin içinden/arkasından geçmesin: her kurulumda kamera ile hedef arasında
+  başka karakter olmadığını kare kontrolüyle doğrula.
 - **Sade ama akıcı ve profesyonel**: ekranı kalabalıklaştırma (balon yağmuru, ölçer, çok etiket yok).
   Süre metne göre (~30-35 sn kabul gördü; aşırı kısaltma bütünlüğü bozdu).
 - **Profesyonel kurgu**: bulanık/kayan "whip" geçişler amatör duruyor → kullanma. Kesmeler

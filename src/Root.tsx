@@ -14,6 +14,10 @@ import {
 } from "./compositions/HerkesBaskaDiyorGercek";
 import { HerKafadan15, type HerKafadan15Props } from "./compositions/HerKafadan15";
 import { HerKafadanAkici, type HerKafadanAkiciProps } from "./compositions/HerKafadanAkici";
+import {
+  HerKafadanAnimasyon,
+  type HerKafadanAnimasyonProps,
+} from "./compositions/HerKafadanAnimasyon";
 import type { VoiceoverData } from "./types";
 
 const FPS = 30;
@@ -140,6 +144,16 @@ export const RemotionRoot: React.FC = () => {
       fps={FPS}
       durationInFrames={FPS * 26}
       defaultProps={{ audioName: "her-kafadan-duygulu", data: null } satisfies HerKafadanAkiciProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
+    />
+    <Composition
+      id="HerKafadanAnimasyon"
+      component={HerKafadanAnimasyon}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 27}
+      defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAnimasyonProps}
       calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
     </>

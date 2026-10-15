@@ -47,6 +47,12 @@ export type GirlLook = {
   style: "puffs" | "ponytail" | "bun" | "long" | "straight";
   /** gözlük ve kulaklık kalsın (fotoğraftaki gibi) */
   accessories?: boolean;
+  /** iris rengi: verilirse gözler yeniden yapılır (daha açık göz kapağı, belirgin kirpik) */
+  eyes?: string;
+  /** dudak rengi */
+  lips?: string;
+  /** küpe, kolye, bileklik */
+  jewelry?: boolean;
 };
 
 export const useImage = (file: string) => {
@@ -136,12 +142,13 @@ const recolor = (src: HTMLImageElement | ImageBitmap, uvl: HTMLImageElement, loo
       }
     } else if (L === 10) {
       // yüz: boyalı gölgeleri düzleştir (eski gözlük izi), kirpik/göz çizgisi koyu kalsın
-      if (v < 0.13 && s < 0.7) {
+      if (v < 0.13 && s < 0.7 && !look.eyes) {
         out = hair.map((x) => x * 0.35);
-      } else if (h > 0.9 || h < 0.01) {
-        out = null; // dudak
+      } else if ((h > 0.9 || h < 0.01) && s > 0.45) {
+        // boyalı dudak yerine ten (3B dudak ayrıca eklenir)
+        out = skin.map((x, n) => x * (n === 0 ? 1.0 : 0.94));
       } else {
-        const k = Math.min(1.1, Math.max(0.88, Math.pow(v / 0.29, 0.3)));
+        const k = Math.min(1.1, Math.max(0.93, Math.pow(v / 0.29, 0.3)));
         out = skin.map((x) => x * k);
       }
     } else if (L === 3 || L === 9) {
@@ -200,6 +207,201 @@ const tube = (pts: [number, number, number][], r0: number, r1: number) => {
 const rnd = (i: number) => {
   const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
+};
+
+/** Göz dokusu: beyaz zemin + degrade iris + halka + göz bebeği (küre UV'sine göre). */
+const eyeTexture = (iris: string) => {
+  const W = 1024;
+  const H = 512;
+  const cv = document.createElement("canvas");
+  cv.width = W;
+  cv.height = H;
+  const c = cv.getContext("2d")!;
+  c.fillStyle = "#f7f3f0";
+  c.fillRect(0, 0, W, H);
+  const cx = W / 2;
+  const cy = H / 2;
+  const R = 150;
+  const base = new THREE.Color(iris);
+  const g = c.createRadialGradient(cx, cy + R * 0.3, R * 0.1, cx, cy, R);
+  g.addColorStop(0, base.clone().lerp(new THREE.Color("#ffffff"), 0.5).getStyle());
+  g.addColorStop(0.5, base.getStyle());
+  g.addColorStop(1, base.clone().multiplyScalar(0.4).getStyle());
+  c.fillStyle = g;
+  c.beginPath();
+  c.arc(cx, cy, R, 0, Math.PI * 2);
+  c.fill();
+  c.strokeStyle = "rgba(0,0,0,0.13)";
+  c.lineWidth = 2;
+  for (let i = 0; i < 60; i++) {
+    const a = (i / 60) * Math.PI * 2;
+    c.beginPath();
+    c.moveTo(cx + Math.cos(a) * R * 0.42, cy + Math.sin(a) * R * 0.42);
+    c.lineTo(cx + Math.cos(a) * R * 0.94, cy + Math.sin(a) * R * 0.94);
+    c.stroke();
+  }
+  c.strokeStyle = "rgba(15,8,4,0.85)";
+  c.lineWidth = 12;
+  c.beginPath();
+  c.arc(cx, cy, R - 6, 0, Math.PI * 2);
+  c.stroke();
+  c.fillStyle = "#070505";
+  c.beginPath();
+  c.arc(cx, cy, R * 0.42, 0, Math.PI * 2);
+  c.fill();
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
+};
+
+/** Göz merkezleri (model uzayı, metre) */
+const EYE_C: [number, number, number][] = [
+  [0.0416, 1.4495, 0.0505],
+  [-0.0416, 1.4495, 0.0505],
+];
+const EYE_R = 0.0222;
+
+/** Göz kapağı açıklığını büyüt: göz çevresindeki deri noktalarını dikeyde göz merkezinden uzaklaştır */
+const openLids = (g: THREE.BufferGeometry, labels: Uint8Array) => {
+  const pos = g.attributes.position as THREE.BufferAttribute;
+  const idx = g.index!.array;
+  const isSkin = new Uint8Array(pos.count);
+  for (let t = 0; t < idx.length / 3; t++) {
+    if ((labels[t] ?? 0) !== 0) continue;
+    isSkin[idx[t * 3]] = isSkin[idx[t * 3 + 1]] = isSkin[idx[t * 3 + 2]] = 1;
+  }
+  for (let i = 0; i < pos.count; i++) {
+    if (!isSkin[i]) continue;
+    const x = pos.getX(i);
+    const y = pos.getY(i);
+    const z = pos.getZ(i);
+    if (z < 0.03) continue;
+    for (const [cx, cy] of EYE_C) {
+      const dx = (x - cx) / 0.03;
+      const dy = y - cy;
+      if (Math.abs(dx) > 1 || Math.abs(dy) > 0.022) continue;
+      const fall = (1 - dx * dx) * (1 - Math.abs(dy) / 0.022);
+      // üst kapak daha çok açılır
+      const f = dy > 0 ? 0.0055 : 0.0025;
+      pos.setY(i, y + Math.sign(dy) * f * fall);
+    }
+  }
+  pos.needsUpdate = true;
+  g.computeVertexNormals();
+};
+
+/** Gözler + kirpikler + eyeliner (baş kemiğine bağlanacak, model uzayı) */
+const buildEyes = (iris: string) => {
+  const grp = new THREE.Group();
+  const eyeMat = new THREE.MeshPhysicalMaterial({ map: eyeTexture(iris), roughness: 0.06, clearcoat: 1, clearcoatRoughness: 0.02 });
+  const lash = new THREE.MeshStandardMaterial({ color: "#120b0a", roughness: 0.55 });
+  const shine = new THREE.MeshBasicMaterial({ color: "#ffffff" });
+  for (const [i, c] of EYE_C.entries()) {
+    const side = i === 0 ? 1 : -1;
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(EYE_R, 48, 32), eyeMat);
+    eye.rotation.y = -Math.PI / 2 + side * 0.12;
+    eye.position.set(...c);
+    grp.add(eye);
+    // parıltı
+    const sp = new THREE.Mesh(new THREE.SphereGeometry(EYE_R * 0.085, 10, 8), shine);
+    sp.position.set(c[0] + EYE_R * 0.25, c[1] + EYE_R * 0.3, c[2] + EYE_R * 0.96);
+    grp.add(sp);
+    // üst kirpik çizgisi (kapak kenarında yay)
+    const dy = 0.0118;
+    const ring = Math.sqrt(EYE_R * EYE_R - dy * dy) + 0.0036;
+    const arc = new THREE.Mesh(new THREE.TorusGeometry(ring, 0.0024, 8, 40, Math.PI * 0.97), lash);
+    arc.rotation.set(Math.PI / 2 + 0.06, 0, Math.PI * 0.025);
+    arc.position.set(c[0], c[1] + dy, c[2]);
+    grp.add(arc);
+    // kirpik telleri: dış yarıda yukarı-dışa kıvrık
+    for (let k = 0; k < 11; k++) {
+      const u = 0.08 + k * 0.085; // 0 iç köşe … 1 dış köşe
+      const a = side > 0 ? Math.PI * (0.5 - u * 0.5) : Math.PI * (0.5 + u * 0.5);
+      const px = c[0] + Math.cos(a) * ring;
+      const pz = c[2] + Math.sin(a) * ring;
+      const len = 0.0045 + u * 0.0045;
+      const cone = new THREE.Mesh(new THREE.ConeGeometry(0.0011, len, 6), lash);
+      cone.position.set(px + side * u * 0.0015, c[1] + dy + len * 0.45, pz + 0.001);
+      cone.rotation.set(0.5, 0, -side * (0.25 + u * 0.7));
+      grp.add(cone);
+    }
+    // eyeliner kanadı
+    const wing = new THREE.Mesh(new THREE.ConeGeometry(0.002, 0.009, 6), lash);
+    wing.position.set(c[0] + side * (ring + 0.002), c[1] + dy - 0.001, c[2] + 0.004);
+    wing.rotation.set(0, 0, -side * 1.15);
+    grp.add(wing);
+    // alt kirpik (ince)
+    const low = new THREE.Mesh(new THREE.TorusGeometry(Math.sqrt(EYE_R * EYE_R - 0.0095 * 0.0095) + 0.0008, 0.0007, 6, 32, Math.PI * 0.8), lash);
+    low.rotation.set(Math.PI / 2 - 0.3, 0, Math.PI * 0.1);
+    low.position.set(c[0], c[1] - 0.0095, c[2]);
+    grp.add(low);
+  }
+  return grp;
+};
+
+/** 3B dudaklar (boyalı dudağın yerine, pürüzsüz) */
+const buildLips = (color: string) => {
+  const grp = new THREE.Group();
+  const mat = new THREE.MeshPhysicalMaterial({ color, roughness: 0.32, clearcoat: 0.7, clearcoatRoughness: 0.25, sheen: 0.3 });
+  for (const s of [1, -1]) {
+    const up = tube(
+      [
+        [0, 1.4012, 0.1004],
+        [s * 0.009, 1.4008, 0.0985],
+        [s * 0.0175, 1.3988, 0.0935],
+      ],
+      0.0036,
+      0.0012,
+    );
+    const low = tube(
+      [
+        [0, 1.3958, 0.1004],
+        [s * 0.009, 1.3962, 0.0982],
+        [s * 0.0165, 1.3984, 0.0935],
+      ],
+      0.0043,
+      0.0012,
+    );
+    [up, low].forEach((g) =>
+      g.traverse((o) => {
+        if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).material = mat;
+      }),
+    );
+    grp.add(up, low);
+  }
+  return grp;
+};
+
+/** Takılar: altın küpeler (baş), kolye (göğüs) */
+const gold = () => new THREE.MeshPhysicalMaterial({ color: "#e8b94a", metalness: 1, roughness: 0.22, clearcoat: 0.6 });
+const buildEarrings = () => {
+  const grp = new THREE.Group();
+  const m = gold();
+  for (const s of [1, -1]) {
+    const hoop = new THREE.Mesh(new THREE.TorusGeometry(0.011, 0.0017, 10, 32), m);
+    hoop.position.set(s * 0.1, 1.398, -0.018);
+    hoop.rotation.y = Math.PI / 2;
+    grp.add(hoop);
+    const stud = new THREE.Mesh(new THREE.SphereGeometry(0.0028, 12, 8), m);
+    stud.position.set(s * 0.1, 1.41, -0.018);
+    grp.add(stud);
+  }
+  return grp;
+};
+const buildNecklace = () => {
+  const grp = new THREE.Group();
+  const m = gold();
+  const chain = new THREE.Mesh(new THREE.TorusGeometry(0.044, 0.0012, 8, 64), m);
+  chain.rotation.x = Math.PI / 2 + 0.38;
+  chain.position.set(0, 1.315, -0.004);
+  chain.scale.set(1.05, 0.95, 1);
+  grp.add(chain);
+  const pendant = new THREE.Mesh(new THREE.OctahedronGeometry(0.007, 0), m);
+  pendant.scale.set(0.8, 1.2, 0.5);
+  pendant.position.set(0, 1.293, 0.043);
+  grp.add(pendant);
+  return grp;
 };
 
 /** Saç parçaları: sabit kısım + sallanan kısım (kuyruk) ayrı döndürülür */
@@ -345,7 +547,8 @@ export const Girl: React.FC<{
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const hideSet = useMemo(
-    () => new Set([...(look?.accessories ? [] : HIDE), ...(look && look.style !== "puffs" ? [9] : [])]),
+    () =>
+      new Set([...(look?.accessories ? [] : HIDE), ...(look && look.style !== "puffs" ? [9] : []), ...(look?.eyes ? [6] : [])]),
     [look],
   );
 
@@ -377,6 +580,13 @@ export const Girl: React.FC<{
         g.addGroup(start, k - start, lab);
       });
       g.setIndex(new THREE.BufferAttribute(out, 1));
+      if (look?.eyes) {
+        // etiketler sıralı indekse göre değil, orijinal üçgen sırasına göre: önce orijinal indeksle aç
+        const tmp = m.geometry.clone();
+        openLids(tmp, labels);
+        g.setAttribute("position", tmp.attributes.position);
+        g.setAttribute("normal", tmp.attributes.normal);
+      }
       m.geometry = g;
       const base = (m.material as THREE.MeshStandardMaterial).clone();
       base.metalness = 0;
@@ -425,6 +635,36 @@ export const Girl: React.FC<{
     holder.add(pivotGroup);
     holder.applyMatrix4(inv);
     head.add(holder);
+    const attach = (boneName: string, obj: THREE.Object3D) => {
+      const bone = dst.getObjectByName(boneName);
+      if (!bone) return;
+      const m = new THREE.Matrix4().copy(dst.matrixWorld).invert().multiply(bone.matrixWorld).invert();
+      obj.applyMatrix4(m);
+      bone.add(obj);
+    };
+    if (look.eyes) {
+      attach("mixamorigHead", buildEyes(look.eyes));
+      attach("mixamorigHead", buildLips(look.lips ?? "#d0767c"));
+    }
+    if (look.jewelry) {
+      attach("mixamorigHead", buildEarrings());
+      attach("mixamorigSpine2", buildNecklace());
+      // bileklik: sol bilekte, kol ekseni etrafında
+      const hand = dst.getObjectByName("mixamorigLeftHand");
+      const fore = dst.getObjectByName("mixamorigLeftForeArm");
+      if (hand && fore) {
+        const hp = dst.worldToLocal(hand.getWorldPosition(new THREE.Vector3()));
+        const fp = dst.worldToLocal(fore.getWorldPosition(new THREE.Vector3()));
+        const dir = hp.clone().sub(fp).normalize();
+        const br = new THREE.Group();
+        const m = gold();
+        const band = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.0035, 10, 40), m);
+        band.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
+        band.position.copy(hp.clone().addScaledVector(dir, -0.025));
+        br.add(band);
+        attach("mixamorigLeftForeArm", br);
+      }
+    }
     return { pivotGroup };
   }, [dst, look]);
 

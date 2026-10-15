@@ -1,10 +1,10 @@
 /**
  * Kullanıcının beğendiği kız (Michelle) — beyaz tenli, düz saçlı. İki hâli yan yana:
- * A: fotoğraftaki gibi (gözlük + kulaklık), B: sade.
+ * Gözlük/kulaklık yok; takılar (küpe, kolye, bileklik), belirgin göz ve kirpik.
  */
 import { ThreeCanvas } from "@remotion/three";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
-import { SANS, loadFonts } from "../fonts";
+import { loadFonts } from "../fonts";
 import { sm } from "../ornek/common";
 import { CameraRig, useGltf, type Clip } from "../three/Character";
 import { Girl, useImage, useLabels, type GirlLook } from "../three/Girl";
@@ -12,12 +12,13 @@ import { Backdrop, Floor, lerp3, type Cam } from "../three/scene";
 
 loadFonts();
 
-const BASE: GirlLook = { skin: "#f3cdb2", hair: "#2a1c16", style: "straight" };
-const VARIANTS: GirlLook[] = [{ ...BASE, accessories: true }, BASE];
-const X = [-0.3, 0.3];
+const BASE: GirlLook = { skin: "#f3cdb2", hair: "#2a1c16", style: "straight", eyes: "#6b4423", jewelry: true };
+const VARIANTS: GirlLook[] = [BASE];
+const X = [0];
 
 const SHOTS: { at: number; cam: Cam }[] = [
-  { at: 0, cam: { pos: [0, 1.42, 2.1], target: [0, 1.36, 0], fov: 40 } },
+  { at: 0, cam: { pos: [0.08, 1.46, 0.62], target: [0, 1.44, 0], fov: 36 } },
+  { at: 1.6, cam: { pos: [0.35, 1.42, 1.3], target: [0, 1.36, 0], fov: 38 } },
   { at: 3, cam: { pos: [0, 1.15, 3.6], target: [0, 0.9, 0], fov: 40 } },
   { at: 6, cam: { pos: [2.4, 1.2, 2.6], target: [0, 0.95, 0.4], fov: 40 } },
 ];
@@ -58,14 +59,10 @@ export const KizBeyaz: React.FC = () => {
               { name: "idle", weight: 1 - walk, time: t + i * 0.9 },
               { name: "walk", weight: walk, time: t + i * 0.3 },
             ];
-            return <Girl key={i} gltf={gltf} anim={anim} labels={labels} uvLabels={uvl} look={look} clips={clips} position={[X[i], 0, walk > 0 ? Math.max(0, (t - 6.1) * 0.7) : 0]} />;
+            return <Girl key={i} gltf={gltf} anim={anim} labels={labels} uvLabels={uvl} look={look} clips={clips} position={[X[i], 0, walk > 0 ? Math.min(0.9, Math.max(0, (t - 6.1) * 0.5)) : 0]} />;
           })}
         </ThreeCanvas>
       ) : null}
-      <div style={{ position: "absolute", top: 150, left: 0, right: 0, display: "flex", justifyContent: "space-around", fontFamily: SANS, fontWeight: 800, fontSize: 96, color: "white", WebkitTextStroke: "7px #111", paintOrder: "stroke" }}>
-        <span>A</span>
-        <span>B</span>
-      </div>
     </AbsoluteFill>
   );
 };

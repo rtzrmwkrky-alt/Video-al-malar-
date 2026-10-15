@@ -132,6 +132,16 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAkiciProps}
       calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
+    <Composition
+      id="HerKafadanAkiciDuygulu"
+      component={HerKafadanAkici}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 26}
+      defaultProps={{ audioName: "her-kafadan-duygulu", data: null } satisfies HerKafadanAkiciProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
+    />
     </>
   );
 };

@@ -157,6 +157,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `--language tr --stability 0.3 --style 0.45 --speed 1.05`. Seslendirme metninde doğal duraklar
   için "..." ve virgül kullan (`icerik/<ad>.seslendirme.txt`); altyazıda "..." gösterilmez.
   Ses denemesi gerekirse kısa bir karşılaştırma videosu (1-2-3) yapıp kullanıcıya seçtir.
+  Alternatif "duygulu" ses: `eleven_v3 --stability 0.5` + metinde İngilizce duygu etiketleri
+  (`[conversational]`, `[sighs]`, `[curious]`...; `icerik/her-kafadan-akici.duygulu.txt`);
+  etiketler okunmaz, altyazıdan otomatik ayıklanır. Kompozisyon: HerKafadanAkiciDuygulu.
+- HerKafadanAkici'de kesmeler saniyeyle değil **kelime sırasıyla** (`word`) tanımlı: ses
+  değişse de kesmeler cümle başında kalır.
 - ElevenLabs hesabı **ücretsiz** planda: kütüphanedeki (Türk) sesler API'den kullanılamıyor.
   Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
   (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).

@@ -30,8 +30,8 @@ export type HerKafadanAkiciProps = {
 };
 
 type Shot = {
-  /** kesme anı (sn) */
-  at: number;
+  /** kesmenin bağlı olduğu kelime (seslendirmedeki sırası); kesme o kelimeden ~2 kare önce */
+  word: number;
   id: string;
   /** klibin içinden başlangıç (sn) */
   from: number;
@@ -44,20 +44,25 @@ type Shot = {
   rate?: number;
 };
 
+// Kelime sıraları metne göre: 7 Biri, 12 Öbürü, 17 Bir, 23 Sen, 31 Dürüst, 40 senin, 46 Asıl, 49 Senin.
+// Böylece farklı bir ses (farklı tempo) seçilse de kesmeler cümle başında kalır.
 const SHOTS: Shot[] = [
-  { at: 0, id: "52107", from: 4.0, face: [0.56, 0.37], push: 0.08 },
-  { at: 2.64, id: "32807", from: 1.0 },
-  { at: 5.04, id: "42899", from: 1.0, face: [0.45, 0.46] },
-  { at: 7.79, id: "48564", from: 7.5, face: [0.35, 0.27] },
-  { at: 10.92, id: "52108", from: 3.0, face: [0.49, 0.3] },
-  { at: 14.32, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
-  { at: 18.24, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
-  { at: 21.36, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
-  { at: 22.8, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
+  { word: 0, id: "52107", from: 4.0, face: [0.56, 0.37], push: 0.08 },
+  { word: 7, id: "32807", from: 1.0 },
+  { word: 12, id: "42899", from: 1.0, face: [0.45, 0.46] },
+  { word: 17, id: "48564", from: 7.5, face: [0.35, 0.27] },
+  { word: 23, id: "52108", from: 3.0, face: [0.49, 0.3] },
+  { word: 31, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
+  { word: 40, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
+  { word: 46, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
+  { word: 49, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
 ];
+/** Kapanış sorusunun ("Senin hedefin ne?") ilk kelimesi */
+const FINAL_WORD = 49;
+const LEAD = 0.08;
 
-/** Müzik: bas girişi (parçada 15.35 sn) → videoda kapanış sorusu "Senin hedefin ne?" (22.8 sn). */
-const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, dropInVideo: 22.8, introFrom: 99 };
+/** Müzik: bas girişi (parçada 15.35 sn) → videoda kapanış sorusu "Senin hedefin ne?". */
+const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, introFrom: 99 };
 
 // ------------------------------------------------------------ görüntü
 
@@ -215,7 +220,9 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
   const t = frame / fps;
   const total = durationInFrames / fps;
   const voiceEnd = data?.durationInSeconds ?? 24.2;
-  const titleAt = 22.8;
+  const words = data?.words ?? [];
+  const cutAt = (w: number) => (w === 0 ? 0 : Math.max(0, (words[w]?.start ?? w * 0.45) - LEAD));
+  const titleAt = cutAt(FINAL_WORD);
 
   // siyahtan açılış / siyaha kapanış
   const fade = interpolate(t, [0, 0.25, total - 0.6, total], [1, 0, 0, 1], {
@@ -223,7 +230,7 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
     extrapolateRight: "clamp",
   });
 
-  const musicStart = MUSIC.dropInVideo - MUSIC.dropInTrack; // ana parçanın videoda başladığı an
+  const musicStart = titleAt - MUSIC.dropInTrack; // ana parçanın videoda başladığı an
   const musicVol = (vt: number) => {
     // konuşma altında kısık, sonda biraz açılır, en sonda kısılır
     const base = vt < voiceEnd ? 0.11 : 0.3;
@@ -234,8 +241,8 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
   return (
     <AbsoluteFill lang="tr" style={{ background: "#000" }}>
       {SHOTS.map((s, i) => {
-        const from = Math.round(s.at * fps);
-        const to = i + 1 < SHOTS.length ? Math.round(SHOTS[i + 1].at * fps) : durationInFrames;
+        const from = Math.round(cutAt(s.word) * fps);
+        const to = i + 1 < SHOTS.length ? Math.round(cutAt(SHOTS[i + 1].word) * fps) : durationInFrames;
         return (
           <Sequence key={i} from={from} durationInFrames={to - from} name={`${i + 1}-${s.id}`}>
             <ShotView shot={s} dur={(to - from) / fps} />

@@ -1,0 +1,266 @@
+{
+  "text": "[conversational] Her kafadan bir ses çıkıyor... değil mi?\n[playfully] Biri \"önce kardiyo yap\" diyor. Öbürü, \"hafif ağırlık, çok tekrar\". Bir başkası, \"pilates her şeyi çözer\".\n[sighs] Sen de hepsini dinleyip... bir türlü yol alamıyorsun.\n[sincere] Dürüst olalım. Başkalarının ne yaptığı, ya da ne dediği... senin vücudunun neye ihtiyacı olduğunu söylemez.\n[curious] Asıl soru şu:\nSenin hedefin ne?",
+  "durationInSeconds": 22.486,
+  "words": [
+    {
+      "text": "Her",
+      "start": 0.14,
+      "end": 0.16
+    },
+    {
+      "text": "kafadan",
+      "start": 0.2,
+      "end": 0.64
+    },
+    {
+      "text": "bir",
+      "start": 0.66,
+      "end": 0.72
+    },
+    {
+      "text": "ses",
+      "start": 0.78,
+      "end": 0.96
+    },
+    {
+      "text": "çıkıyor...",
+      "start": 1.02,
+      "end": 1.44
+    },
+    {
+      "text": "değil",
+      "start": 1.467,
+      "end": 1.6
+    },
+    {
+      "text": "mi?",
+      "start": 1.653,
+      "end": 1.92
+    },
+    {
+      "text": "Biri",
+      "start": 2.648,
+      "end": 2.72
+    },
+    {
+      "text": "\"önce",
+      "start": 2.8,
+      "end": 3.12
+    },
+    {
+      "text": "kardiyo",
+      "start": 3.16,
+      "end": 3.6
+    },
+    {
+      "text": "yap\"",
+      "start": 3.66,
+      "end": 4
+    },
+    {
+      "text": "diyor.",
+      "start": 4.027,
+      "end": 4.24
+    },
+    {
+      "text": "Öbürü,",
+      "start": 4.44,
+      "end": 4.88
+    },
+    {
+      "text": "\"hafif",
+      "start": 5,
+      "end": 5.36
+    },
+    {
+      "text": "ağırlık,",
+      "start": 5.44,
+      "end": 5.84
+    },
+    {
+      "text": "çok",
+      "start": 5.88,
+      "end": 6
+    },
+    {
+      "text": "tekrar\".",
+      "start": 6.069,
+      "end": 6.56
+    },
+    {
+      "text": "Bir",
+      "start": 6.68,
+      "end": 7.04
+    },
+    {
+      "text": "başkası,",
+      "start": 7.1,
+      "end": 7.68
+    },
+    {
+      "text": "\"pilates",
+      "start": 7.88,
+      "end": 8.56
+    },
+    {
+      "text": "her",
+      "start": 8.6,
+      "end": 8.72
+    },
+    {
+      "text": "şeyi",
+      "start": 8.768,
+      "end": 8.96
+    },
+    {
+      "text": "çözer\".",
+      "start": 9.04,
+      "end": 9.6
+    },
+    {
+      "text": "Sen",
+      "start": 10.29,
+      "end": 10.32
+    },
+    {
+      "text": "de",
+      "start": 10.373,
+      "end": 10.48
+    },
+    {
+      "text": "hepsini",
+      "start": 10.507,
+      "end": 10.8
+    },
+    {
+      "text": "dinleyip...",
+      "start": 10.86,
+      "end": 11.28
+    },
+    {
+      "text": "bir",
+      "start": 11.3,
+      "end": 11.36
+    },
+    {
+      "text": "türlü",
+      "start": 11.413,
+      "end": 11.68
+    },
+    {
+      "text": "yol",
+      "start": 11.74,
+      "end": 11.92
+    },
+    {
+      "text": "alamıyorsun.",
+      "start": 11.947,
+      "end": 12.96
+    },
+    {
+      "text": "Dürüst",
+      "start": 13.406,
+      "end": 13.686
+    },
+    {
+      "text": "olalım.",
+      "start": 13.739,
+      "end": 14.166
+    },
+    {
+      "text": "Başkalarının",
+      "start": 14.306,
+      "end": 15.126
+    },
+    {
+      "text": "ne",
+      "start": 15.179,
+      "end": 15.286
+    },
+    {
+      "text": "yaptığı,",
+      "start": 15.336,
+      "end": 15.766
+    },
+    {
+      "text": "ya",
+      "start": 15.819,
+      "end": 15.926
+    },
+    {
+      "text": "da",
+      "start": 15.979,
+      "end": 16.086
+    },
+    {
+      "text": "ne",
+      "start": 16.139,
+      "end": 16.246
+    },
+    {
+      "text": "dediği...",
+      "start": 16.31,
+      "end": 16.726
+    },
+    {
+      "text": "senin",
+      "start": 16.819,
+      "end": 17.286
+    },
+    {
+      "text": "vücudunun",
+      "start": 17.346,
+      "end": 17.926
+    },
+    {
+      "text": "neye",
+      "start": 17.979,
+      "end": 18.166
+    },
+    {
+      "text": "ihtiyacı",
+      "start": 18.219,
+      "end": 18.646
+    },
+    {
+      "text": "olduğunu",
+      "start": 18.69,
+      "end": 19.046
+    },
+    {
+      "text": "söylemez.",
+      "start": 19.099,
+      "end": 19.766
+    },
+    {
+      "text": "Asıl",
+      "start": 20.459,
+      "end": 20.566
+    },
+    {
+      "text": "soru",
+      "start": 20.614,
+      "end": 20.806
+    },
+    {
+      "text": "şu:",
+      "start": 20.886,
+      "end": 21.126
+    },
+    {
+      "text": "Senin",
+      "start": 21.266,
+      "end": 21.766
+    },
+    {
+      "text": "hedefin",
+      "start": 21.819,
+      "end": 22.166
+    },
+    {
+      "text": "ne?",
+      "start": 22.246,
+      "end": 22.486
+    }
+  ]
+}

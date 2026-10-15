@@ -105,11 +105,11 @@ const World: React.FC<{
   const shake = win(t, L(3), L(4), 0.3);
   const walk = win(t, L(6), L(9), 0.4);
   const run = sm(t, L(9) - 0.2, L(9) + 0.3) * (1 - sm(t, L(10), L(10) + 0.5));
-  const rest = Math.max(0, 1 - agree - sad - walk - run);
+  const rest = Math.max(0, 1 - agree - sad * 0.65 - walk - run);
   const clips: Clip[] = [
     { name: "idle", weight: rest },
     { name: "agree", weight: agree * (1 - sad) },
-    { name: "sad_pose", weight: sad * (1 - shake) },
+    { name: "sad_pose", weight: sad * (1 - shake) * 0.65 },
     { name: "headShake", weight: shake },
     { name: "walk", weight: walk * (1 - run) },
     { name: "run", weight: run },
@@ -236,17 +236,17 @@ const Overlays: React.FC<{ t: number; cam: Cam; L: (i: number) => number }> = ({
           10 dakika
         </Sticker>
       </PopBox>
-      <PopBox t={t} at={L(8) + 0.1} out={L(9)} x={leg.x + 170} y={leg.y}>
-        <Sticker size={40}>bacaklar</Sticker>
+      <PopBox t={t} at={L(8) + 0.1} out={L(9)} x={800} y={1150}>
+        <Sticker size={56}>bacaklar</Sticker>
       </PopBox>
-      <PopBox t={t} at={L(8) + 0.6} out={L(9)} x={chest.x - 160} y={chest.y}>
-        <Sticker size={40}>kalp</Sticker>
+      <PopBox t={t} at={L(8) + 0.6} out={L(9)} x={260} y={760}>
+        <Sticker size={56}>kalp</Sticker>
       </PopBox>
-      <PopBox t={t} at={L(8) + 1.1} out={L(9)} x={arm.x + 160} y={arm.y - 40}>
-        <Sticker size={40}>uyku</Sticker>
+      <PopBox t={t} at={L(8) + 1.1} out={L(9)} x={820} y={760}>
+        <Sticker size={56}>uyku</Sticker>
       </PopBox>
-      <PopBox t={t} at={L(8) + 1.5} out={L(9)} x={head.x - 150} y={head.y - 30}>
-        <Sticker size={40}>moral</Sticker>
+      <PopBox t={t} at={L(8) + 1.5} out={L(9)} x={260} y={1150}>
+        <Sticker size={56}>moral</Sticker>
       </PopBox>
     </>
   );

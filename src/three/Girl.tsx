@@ -668,7 +668,7 @@ export const Girl: React.FC<{
         attach("mixamorigLeftForeArm", br);
       }
     }
-    return { pivotGroup };
+    return { pivotGroup, holder };
   }, [dst, look]);
 
   // kaynak: Xbot (animasyonlar onun iskeletinde oynatılır)
@@ -734,7 +734,11 @@ export const Girl: React.FC<{
   }
 
   if (hair) {
-    hair.pivotGroup.rotation.set(Math.sin(t * 3.1) * 0.06, 0, Math.sin(t * 2.3 + 0.5) * 0.1);
+    // saç yerçekimiyle sarkar: baş öne eğilince kuyruk/arka saç yukarı kalkmasın
+    const sway = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.sin(t * 3.1) * 0.06, 0, Math.sin(t * 2.3 + 0.5) * 0.1));
+    const parentQ = modelQ(hair.holder, dst);
+    const gravity = parentQ.clone().invert().multiply(sway);
+    hair.pivotGroup.quaternion.copy(sway).slerp(gravity, 0.75);
   }
 
   return (

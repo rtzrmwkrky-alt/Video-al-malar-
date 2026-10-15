@@ -43,15 +43,15 @@ export type VoomTanitimProps = {
 /** Sahne başlangıçları (saniye) — seslendirme zamanlamasından. */
 const S = {
   hook: 0,
-  logo: 5.55,
-  kurulum: 6.45,
-  gunluk: 13.2,
-  checkin: 17.8,
-  yorgun: 22.3,
-  hareket: 24.3,
-  kilo: 28.8,
-  insta: 33.5,
-  final: 39.4,
+  logo: 5.62,
+  kurulum: 6.62,
+  gunluk: 13.5,
+  checkin: 18.1,
+  yorgun: 22.7,
+  hareket: 24.55,
+  kilo: 28.95,
+  insta: 33.45,
+  final: 39.3,
 };
 
 // ---------------------------------------------------------------- yardımcılar
@@ -324,9 +324,9 @@ const HookScene: React.FC = () => {
   const t = useSec();
   const days = ["PZT", "SAL", "ÇAR", "PER", "CUM", "CMT", "PAZ"];
   const miss = 3; // PER
-  const missP = usePop(1.3, 9);
-  const shake = t > 1.3 && t < 1.7 ? Math.sin(t * 90) * 10 * (1.7 - t) * 2.5 : 0;
-  const phoneP = usePop(2.45, 15);
+  const missP = usePop(1.2, 9);
+  const shake = t > 1.2 && t < 1.6 ? Math.sin(t * 90) * 10 * (1.6 - t) * 2.5 : 0;
+  const phoneP = usePop(2.35, 15);
   const msgP = usePop(4.1, 12);
 
   return (
@@ -502,15 +502,15 @@ const KurulumScene: React.FC = () => {
   const t = useSec();
   const rows: [string, string, number][] = [
     ["Yaş", "27", 0.1],
-    ["Boy", "168 cm", 0.72],
-    ["Kilo", "61 kg", 1.39],
-    ["Hedef", "Şekillenme", 2.08],
+    ["Boy", "168 cm", 0.82],
+    ["Kilo", "61 kg", 1.5],
+    ["Hedef", "Şekillenme", 2.18],
   ];
-  const loadStart = 3.75;
+  const loadStart = 3.62;
   const load = keyframes(t, [loadStart, loadStart + 1.3], [0, 1]);
   const loadP = usePop(loadStart, 16);
-  const salonP = usePop(5.2, 10);
-  const evP = usePop(5.98, 10);
+  const salonP = usePop(5.26, 10);
+  const evP = usePop(6.1, 10);
 
   return (
     <AbsoluteFill style={{ background: C.bg }}>
@@ -619,7 +619,7 @@ const KurulumScene: React.FC = () => {
 /** 3 — Günlük ekran: rutin → makrolar → suplement → uyku. */
 const GunlukScene: React.FC = () => {
   const t = useSec();
-  const uykuP = usePop(3.15, 12);
+  const uykuP = usePop(3.2, 12);
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Camera>
@@ -628,12 +628,12 @@ const GunlukScene: React.FC = () => {
           centerY={760}
           cams={[
             { t: 0, y: 0.5, s: 1.25 },
-            { t: 0.85, y: 0.5, s: 1.3 },
-            { t: 1.15, y: 0.17, s: 1.5 },
-            { t: 1.7, y: 0.17, s: 1.55 },
-            { t: 1.95, y: 0.81, s: 1.5 },
-            { t: 2.9, y: 0.81, s: 1.55 },
-            { t: 3.4, y: 0.5, s: 0.95 },
+            { t: 1.05, y: 0.5, s: 1.3 },
+            { t: 1.35, y: 0.17, s: 1.5 },
+            { t: 1.75, y: 0.17, s: 1.55 },
+            { t: 2.0, y: 0.81, s: 1.5 },
+            { t: 2.95, y: 0.81, s: 1.55 },
+            { t: 3.45, y: 0.5, s: 0.95 },
           ]}
         />
         <div
@@ -700,7 +700,7 @@ const CheckinScene: React.FC = () => {
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 22, marginTop: 70 }}>
             {opts.map((o, i) => {
-              const p = usePop(2.15 + i * 0.09, 14);
+              const p = usePop(2.1 + i * 0.09, 14);
               return (
                 <div
                   key={o}
@@ -862,9 +862,9 @@ const KiloScene: React.FC = () => {
     ["60 kg × 10", 0.75],
     ["60 kg × 9", 1.35],
   ];
-  const restLeft = Math.max(0, 90 - Math.floor(keyframes(t, [1.6, 2.1], [0, 18])));
-  const restP = keyframes(t, [1.6, 2.1], [0, 0.2]);
-  const nextP = usePop(2.1, 11);
+  const restLeft = Math.max(0, 90 - Math.floor(keyframes(t, [1.45, 1.95], [0, 18])));
+  const restP = keyframes(t, [1.45, 1.95], [0, 0.2]);
+  const nextP = usePop(1.95, 11);
   const fmt = (s: number) => `0${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   return (
@@ -1049,8 +1049,8 @@ const InstaScene: React.FC = () => {
 /** 9 — Kapanış: "cebinde bir koç" → logo. */
 const FinalScene: React.FC = () => {
   const t = useSec();
-  const logoP = usePop(2.4, 13);
-  const phoneOut = keyframes(t, [2.2, 2.9], [0, 1]);
+  const logoP = usePop(2.2, 13);
+  const phoneOut = keyframes(t, [2.0, 2.7], [0, 1]);
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Camera punch={0.04}>
@@ -1060,7 +1060,7 @@ const FinalScene: React.FC = () => {
             centerY={760}
             cams={[
               { t: 0, y: 0.3, s: 1.2 },
-              { t: 2.2, y: 0.42, s: 0.95 },
+              { t: 2.0, y: 0.42, s: 0.95 },
             ]}
           />
         </div>
@@ -1110,7 +1110,13 @@ const toPages = (words: Word[]): Word[][] => {
   return pages;
 };
 
-const clean = (s: string) => s.replace(/\.\.\.$/, "").replace(/[.,:]$/, "");
+/** Seslendirmede okunuşa göre yazılan kelimeler ekranda doğru yazılsın. */
+const DISPLAY: Record<string, string> = { Vum: "Voom" };
+
+const clean = (s: string) => {
+  const w = s.replace(/\.\.\.$/, "").replace(/[.,:]$/, "");
+  return DISPLAY[w] ?? w;
+};
 
 const Captions: React.FC<{ words: Word[] }> = ({ words }) => {
   const frame = useCurrentFrame();
@@ -1147,7 +1153,7 @@ const Captions: React.FC<{ words: Word[] }> = ({ words }) => {
     >
       {page.map((w, i) => {
         const spoken = t >= w.start - 0.03;
-        const key = /voom|kaytar|saçmalık|koç|ektin/i.test(w.text);
+        const key = /vum|voom|kaytar|saçmalık|koç|ektin/i.test(w.text);
         return (
           <span
             key={i}

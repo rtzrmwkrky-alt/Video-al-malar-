@@ -5,6 +5,7 @@
  *   npm run voice -- --name ornek "Seslendirilecek metin"
  *   npm run voice -- --name ornek --file metin.txt
  *   npm run voice -- --name ornek --voice <voiceId> "Metin"
+ *   npm run voice -- --name ornek --model eleven_v4 --language tr "Metin"
  *
  * Çıktılar:
  *   public/audio/<name>.mp3   -> ses
@@ -24,6 +25,7 @@ const { values, positionals } = parseArgs({
     file: { type: "string" },
     voice: { type: "string" },
     model: { type: "string" },
+    language: { type: "string" },
   },
 });
 
@@ -43,6 +45,8 @@ if (!text) {
 
 const voiceId = values.voice ?? process.env.ELEVENLABS_VOICE_ID ?? "21m00Tcm4TlvDq8ikWAM";
 const modelId = values.model ?? process.env.ELEVENLABS_MODEL_ID ?? "eleven_multilingual_v2";
+// Dili zorlar (ör. "tr"): aksanı azaltır. Her model desteklemeyebilir.
+const languageCode = values.language ?? process.env.ELEVENLABS_LANGUAGE;
 
 const client = new ElevenLabsClient({ apiKey });
 
@@ -50,6 +54,7 @@ console.log(`Seslendiriliyor (voice=${voiceId}, model=${modelId})...`);
 const res = await client.textToSpeech.convertWithTimestamps(voiceId, {
   text,
   modelId,
+  ...(languageCode ? { languageCode } : {}),
   outputFormat: "mp3_44100_128",
 });
 

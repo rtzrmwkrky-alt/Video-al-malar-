@@ -60,6 +60,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
    npm run voice -- --name bolum1 "Seslendirilecek metin buraya"
    # veya dosyadan:
    npm run voice -- --name bolum1 --file metin.txt
+   # Türkçe aksanı için önerilen:
+   npm run voice -- --name bolum1 --model eleven_v4 --language tr --file metin.txt
    ```
    → `public/audio/bolum1.mp3` ve `public/audio/bolum1.json` oluşur.
 2. **Önizle:** `npm run dev` (Remotion Studio), `audioName` prop'unu `bolum1` yap.
@@ -94,8 +96,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - Yazı tipleri `public/fonts/` içinde (Geist, Geist Mono, Instrument Serif), `src/fonts.ts`
   ile yüklenir; render sırasında internet gerekmez.
 - ElevenLabs hesabı **ücretsiz** planda: kütüphanedeki (Türk) sesler API'den kullanılamıyor.
-  Şimdilik hazır ses "Sarah" (EXAVITQu4vr4xnSDxMaL). Ücretli plana geçilirse önerilen
-  Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).
+  Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
+  (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).
+  Ücretli plana geçilirse önerilen Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).
+- Okunuşu bozuk kelimeler seslendirme metninde okunduğu gibi yazılır
+  (`icerik/<ad>.seslendirme.txt`, ör. "Voom" → "Vum"); ekranda doğru yazım için
+  kompozisyondaki `DISPLAY` eşlemesi kullanılır.
 
 ## Geliştirme notları
 

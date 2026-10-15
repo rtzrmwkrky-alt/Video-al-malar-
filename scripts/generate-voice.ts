@@ -29,6 +29,7 @@ const { values, positionals } = parseArgs({
     language: { type: "string" },
     stability: { type: "string" },
     speed: { type: "string" },
+    style: { type: "string" },
   },
 });
 
@@ -54,9 +55,15 @@ const languageCode = values.language ?? process.env.ELEVENLABS_LANGUAGE;
 // Daha doğal (insansı) okuma için: düşük stability = daha canlı tonlama.
 const stability = values.stability ? Number(values.stability) : undefined;
 const speed = values.speed ? Number(values.speed) : undefined;
+// style: duygusal vurgu (0-1); yükseldikçe daha ifadeli, konuşur gibi.
+const style = values.style ? Number(values.style) : undefined;
 const voiceSettings =
-  stability !== undefined || speed !== undefined
-    ? { ...(stability !== undefined ? { stability } : {}), ...(speed !== undefined ? { speed } : {}) }
+  stability !== undefined || speed !== undefined || style !== undefined
+    ? {
+        ...(stability !== undefined ? { stability } : {}),
+        ...(speed !== undefined ? { speed } : {}),
+        ...(style !== undefined ? { style } : {}),
+      }
     : undefined;
 
 const client = new ElevenLabsClient({ apiKey });
@@ -74,7 +81,14 @@ const res = await client.textToSpeech.convertWithTimestamps(voiceId, {
 const toWords = (chars: string[], starts: number[], ends: number[]): Word[] => {
   const words: Word[] = [];
   let current: Word | null = null;
+  // eleven_v3 duygu etiketleri ([sighs] gibi) okunmaz; altyazıya da girmesin
+  let inTag = false;
   chars.forEach((c, i) => {
+    if (c === "[") inTag = true;
+    if (inTag) {
+      if (c === "]") inTag = false;
+      return;
+    }
     if (/\s/.test(c)) {
       if (current) words.push(current);
       current = null;

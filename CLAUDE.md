@@ -153,6 +153,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - Yazı tipleri `public/fonts/` içinde (Geist, Geist Mono, Instrument Serif), `src/fonts.ts`
   ile yüklenir; render sırasında internet gerekmez.
+- **Ses tercihi (kullanıcı seçti, "robot gibi" bulduğu düz okumaya karşı):** `eleven_v4`,
+  `--language tr --stability 0.3 --style 0.45 --speed 1.05`. Seslendirme metninde doğal duraklar
+  için "..." ve virgül kullan (`icerik/<ad>.seslendirme.txt`); altyazıda "..." gösterilmez.
+  Ses denemesi gerekirse kısa bir karşılaştırma videosu (1-2-3) yapıp kullanıcıya seçtir.
 - ElevenLabs hesabı **ücretsiz** planda: kütüphanedeki (Türk) sesler API'den kullanılamıyor.
   Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
   (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).

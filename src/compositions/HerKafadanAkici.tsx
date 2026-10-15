@@ -46,18 +46,18 @@ type Shot = {
 
 const SHOTS: Shot[] = [
   { at: 0, id: "52107", from: 4.0, face: [0.56, 0.37], push: 0.08 },
-  { at: 2.24, id: "32807", from: 1.0 },
-  { at: 4.64, id: "42899", from: 1.0, face: [0.45, 0.46] },
-  { at: 7.48, id: "48564", from: 7.5, face: [0.35, 0.27] },
-  { at: 10.6, id: "52108", from: 3.0, face: [0.49, 0.3] },
-  { at: 13.68, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
-  { at: 17.52, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
-  { at: 20.8, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
-  { at: 22.16, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
+  { at: 2.64, id: "32807", from: 1.0 },
+  { at: 5.04, id: "42899", from: 1.0, face: [0.45, 0.46] },
+  { at: 7.79, id: "48564", from: 7.5, face: [0.35, 0.27] },
+  { at: 10.92, id: "52108", from: 3.0, face: [0.49, 0.3] },
+  { at: 14.32, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
+  { at: 18.24, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
+  { at: 21.36, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
+  { at: 22.8, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
 ];
 
-/** Müzik: bas girişi (parçada 15.35 sn) → videoda kapanış sorusu "Senin hedefin ne?" (22.16 sn). */
-const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, dropInVideo: 22.16, introFrom: 99 };
+/** Müzik: bas girişi (parçada 15.35 sn) → videoda kapanış sorusu "Senin hedefin ne?" (22.8 sn). */
+const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, dropInVideo: 22.8, introFrom: 99 };
 
 // ------------------------------------------------------------ görüntü
 
@@ -142,6 +142,7 @@ const pagesOf = (words: Word[]) => {
 const show = (s: string) =>
   s
     .replace(/["“”]/g, "")
+    .replace(/(\.{2,}|…)$/, "")
     .replace(/[.,:]$/, "");
 
 const Subtitles: React.FC<{ words: Word[]; t: number; hideAfter: number }> = ({ words, t, hideAfter }) => {
@@ -213,8 +214,8 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
   const { fps, durationInFrames } = useVideoConfig();
   const t = frame / fps;
   const total = durationInFrames / fps;
-  const voiceEnd = data?.durationInSeconds ?? 23.6;
-  const titleAt = 22.16;
+  const voiceEnd = data?.durationInSeconds ?? 24.2;
+  const titleAt = 22.8;
 
   // siyahtan açılış / siyaha kapanış
   const fade = interpolate(t, [0, 0.25, total - 0.6, total], [1, 0, 0, 1], {

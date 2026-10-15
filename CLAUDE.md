@@ -126,6 +126,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Tek 3D sahne tüm video boyunca açık; kamera `cameraAt(t)` ile, etiketler aynı kamerayla
   3D noktalara bağlanır (`project`).
 
+- **Sessiz örnekler (Ornek1–4)** — kullanıcı referans videolardan (Pixar tarzı hikâye, Zack D.
+  Films, glassbox.tr koyu teknik anlatım, eski kâğıt çizim masal) harman, spor/antrenman konulu,
+  her yaşa uygun viral örnekler istedi. **Seslendirme yok, kredi harcanmadı**; kullanıcı birini
+  seçince seslendirilecek. Voom gösterilmiyor. Zamanlama metin satırlarından (`src/ornek/common.tsx`,
+  `timeline`), sahneler satır sırasına (`at(i)`) bağlı; satırlar ileride seslendirme metni olur.
+  1 KasAgrisi (koyu teknik çizim), 2 Pazartesi (3D manken hikâye), 3 TasUstasi (kâğıt üstü
+  karakalem masal), 4 DogruYanlis (4 soruluk efsane testi, sarı zemin).
+
 ## 3D karakter (src/three/Character.tsx)
 
 - Model: `public/models/Xbot.glb` (three.js örneklerinden, Mixamo iskeleti). Klipler:

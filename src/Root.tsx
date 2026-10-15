@@ -19,6 +19,10 @@ import {
   type HerKafadanAnimasyonProps,
 } from "./compositions/HerKafadanAnimasyon";
 import type { VoiceoverData } from "./types";
+import { PAZ_TL, OrnekPazartesi } from "./compositions/OrnekPazartesi";
+import { TAS_TL, OrnekTasUstasi } from "./compositions/OrnekTasUstasi";
+import { DY_TL, OrnekDogruYanlis } from "./compositions/OrnekDogruYanlis";
+import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
 
 const FPS = 30;
 
@@ -156,6 +160,11 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAnimasyonProps}
       calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
+        {/* Sessiz örnekler (seslendirme yok) */}
+    <Composition id="Ornek1KasAgrisi" component={OrnekKasAgrisi} width={1080} height={1920} fps={FPS} durationInFrames={KAS_TL.frames} />
+    <Composition id="Ornek2Pazartesi" component={OrnekPazartesi} width={1080} height={1920} fps={FPS} durationInFrames={PAZ_TL.frames} />
+    <Composition id="Ornek3TasUstasi" component={OrnekTasUstasi} width={1080} height={1920} fps={FPS} durationInFrames={TAS_TL.frames} />
+    <Composition id="Ornek4DogruYanlis" component={OrnekDogruYanlis} width={1080} height={1920} fps={FPS} durationInFrames={DY_TL.frames} />
     </>
   );
 };

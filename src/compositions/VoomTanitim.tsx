@@ -1128,6 +1128,24 @@ const toPages = (words: Word[]): Word[][] => {
   return pages;
 };
 
+/** Sade altyazı: cümleyi (noktalama) bütün tutar; 4 kelimeden uzunsa eşit parçalara böler. */
+const toPhrasePages = (words: Word[]): Word[][] => {
+  const pages: Word[][] = [];
+  let cur: Word[] = [];
+  const flush = () => {
+    const n = Math.ceil(cur.length / 4);
+    const size = Math.ceil(cur.length / n);
+    for (let i = 0; i < cur.length; i += size) pages.push(cur.slice(i, i + size));
+    cur = [];
+  };
+  for (const w of words) {
+    cur.push(w);
+    if (/[.?!:…,]$/.test(w.text)) flush();
+  }
+  if (cur.length) flush();
+  return pages;
+};
+
 /** Seslendirmede okunuşa göre yazılan kelimeler ekranda doğru yazılsın. */
 const DISPLAY: Record<string, string> = { Vum: "Voom" };
 
@@ -1140,7 +1158,7 @@ const Captions: React.FC<{ words: Word[]; plain?: boolean }> = ({ words, plain }
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const pages = toPages(words);
+  const pages = plain ? toPhrasePages(words) : toPages(words);
   const idx = pages.findIndex(
     (p, i) => t >= p[0].start - 0.05 && t < (pages[i + 1]?.[0].start ?? Infinity) - 0.05,
   );

@@ -1,5 +1,5 @@
 /**
- * Örnek 2 — "Pazartesi başlarım" (3D manken ile kısa hikâye, Zack D. Films havası).
+ * Örnek 2 — "Pazartesi başlarım" (seçilen kız karakterle kısa hikâye, animasyon havası).
  * Sessiz örnek: zaman satırlardan hesaplanır, ses yok.
  */
 import { ThreeCanvas } from "@remotion/three";
@@ -7,7 +7,8 @@ import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remo
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { SANS, SERIF, loadFonts } from "../fonts";
 import { type Line, Subtitle, pop, sm, timeline, win } from "../ornek/common";
-import { CameraRig, Character, useGltf, type Clip } from "../three/Character";
+import { CameraRig, useGltf, type Clip } from "../three/Character";
+import { Girl, KIZ, useImage, useLabels } from "../three/Girl";
 import { Backdrop, Floor, Track, lerp3, project, type Cam, type V3 } from "../three/scene";
 import { Bubble, Sticker } from "../ui/overlays";
 
@@ -34,17 +35,17 @@ export const PAZ_TL = timeline(PAZ_LINES, 0.3);
 // ------------------------------------------------------------ kamera (satır başına bir kurulum)
 
 const SHOTS: { from: Cam; to: Cam }[] = [
-  { from: { pos: [0.5, 1.6, 3.8], target: [0, 1.45, 0], fov: 40 }, to: { pos: [0.3, 1.6, 3.3], target: [0, 1.5, 0], fov: 40 } },
-  { from: { pos: [0.3, 1.7, 2.8], target: [0, 1.65, 0], fov: 40 }, to: { pos: [0.2, 1.7, 2.5], target: [0, 1.7, 0], fov: 40 } },
-  { from: { pos: [-1.4, 1.5, 3.2], target: [0, 1.5, 0], fov: 40 }, to: { pos: [-1.2, 1.5, 2.9], target: [0, 1.5, 0], fov: 40 } },
-  { from: { pos: [-0.3, 1.7, 2.8], target: [0, 1.65, 0], fov: 40 }, to: { pos: [-0.2, 1.7, 2.5], target: [0, 1.7, 0], fov: 40 } },
-  { from: { pos: [0, 2.6, 4.2], target: [0, 1.4, 0], fov: 42 }, to: { pos: [0, 4.0, 6.4], target: [0, 1.6, 0], fov: 42 } },
-  { from: { pos: [0, 1.5, 3.4], target: [0, 1.5, 0], fov: 40 }, to: { pos: [0, 1.6, 2.7], target: [0, 1.6, 0], fov: 40 } },
-  { from: { pos: [2.2, 1.3, 2.8], target: [0, 1.3, 0], fov: 40 }, to: { pos: [2.4, 1.3, 2.0], target: [0, 1.3, 0], fov: 40 } },
-  { from: { pos: [1.0, 1.2, 3.8], target: [0, 1.6, 0], fov: 40 }, to: { pos: [0.6, 1.2, 3.4], target: [0, 1.6, 0], fov: 40 } },
-  { from: { pos: [-0.3, 1.3, 3.0], target: [0, 1.1, 0], fov: 38 }, to: { pos: [0.3, 1.3, 2.8], target: [0, 1.1, 0], fov: 38 } },
-  { from: { pos: [-2.4, 1.1, 1.6], target: [0, 1.2, 0], fov: 42 }, to: { pos: [-1.6, 0.9, 2.6], target: [0, 1.25, 0], fov: 42 } },
-  { from: { pos: [0, 1.5, 2.8], target: [0, 1.35, 0], fov: 40 }, to: { pos: [0, 1.55, 2.3], target: [0, 1.4, 0], fov: 40 } },
+  { from: { pos: [0.5, 1.45, 3.8], target: [0, 1.3, 0], fov: 40 }, to: { pos: [0.3, 1.45, 3.3], target: [0, 1.35, 0], fov: 40 } },
+  { from: { pos: [0.3, 1.55, 2.8], target: [0, 1.5, 0], fov: 40 }, to: { pos: [0.2, 1.55, 2.5], target: [0, 1.55, 0], fov: 40 } },
+  { from: { pos: [-1.4, 1.35, 3.2], target: [0, 1.35, 0], fov: 40 }, to: { pos: [-1.2, 1.35, 2.9], target: [0, 1.35, 0], fov: 40 } },
+  { from: { pos: [-0.3, 1.55, 2.8], target: [0, 1.5, 0], fov: 40 }, to: { pos: [-0.2, 1.55, 2.5], target: [0, 1.55, 0], fov: 40 } },
+  { from: { pos: [0, 2.45, 4.2], target: [0, 1.25, 0], fov: 42 }, to: { pos: [0, 3.85, 6.4], target: [0, 1.45, 0], fov: 42 } },
+  { from: { pos: [0, 1.35, 3.4], target: [0, 1.35, 0], fov: 40 }, to: { pos: [0, 1.45, 2.7], target: [0, 1.45, 0], fov: 40 } },
+  { from: { pos: [2.2, 1.15, 2.8], target: [0, 1.15, 0], fov: 40 }, to: { pos: [2.4, 1.15, 2.0], target: [0, 1.15, 0], fov: 40 } },
+  { from: { pos: [1.0, 1.05, 3.8], target: [0, 1.45, 0], fov: 40 }, to: { pos: [0.6, 1.05, 3.4], target: [0, 1.45, 0], fov: 40 } },
+  { from: { pos: [-0.3, 1.15, 3.0], target: [0, 0.95, 0], fov: 38 }, to: { pos: [0.3, 1.15, 2.8], target: [0, 0.95, 0], fov: 38 } },
+  { from: { pos: [-2.4, 0.95, 1.6], target: [0, 1.05, 0], fov: 42 }, to: { pos: [-1.6, 0.75, 2.6], target: [0, 1.1, 0], fov: 42 } },
+  { from: { pos: [0, 1.35, 2.8], target: [0, 1.2, 0], fov: 40 }, to: { pos: [0, 1.4, 2.3], target: [0, 1.25, 0], fov: 40 } },
 ];
 
 const ease = (k: number) => {
@@ -90,7 +91,15 @@ const Sofa: React.FC = () => (
   </group>
 );
 
-const World: React.FC<{ t: number; bot: GLTF; cam: Cam; L: (i: number) => number }> = ({ t, bot, cam, L }) => {
+const World: React.FC<{
+  t: number;
+  girl: GLTF;
+  bot: GLTF;
+  labels: Uint8Array;
+  uvl: HTMLImageElement;
+  cam: Cam;
+  L: (i: number) => number;
+}> = ({ t, girl, bot, labels, uvl, cam, L }) => {
   const agree = win(t, L(1), L(2), 0.3);
   const sad = win(t, L(2), L(5), 0.4);
   const shake = win(t, L(3), L(4), 0.3);
@@ -105,7 +114,6 @@ const World: React.FC<{ t: number; bot: GLTF; cam: Cam; L: (i: number) => number
     { name: "walk", weight: walk * (1 - run) },
     { name: "run", weight: run },
   ];
-  const glow = (i: number, d: number) => sm(t, L(i) + d, L(i) + d + 0.3) * (1 - sm(t, L(i + 1) - 0.2, L(i + 1) + 0.3)) * 0.75;
   const moving = walk + run;
   const sofaOut = sm(t, L(5), L(6));
   return (
@@ -121,15 +129,7 @@ const World: React.FC<{ t: number; bot: GLTF; cam: Cam; L: (i: number) => number
         </group>
       ) : null}
       {moving > 0.05 ? <Track t={t} speed={1.2 + run * 2.2} /> : null}
-      <Character
-        gltf={bot}
-        clips={clips}
-        glow={{
-          legs: [COL.lime, glow(8, 0)],
-          core: [COL.lime, glow(8, 0.5)],
-          arms: [COL.lime, glow(8, 1.0)],
-        }}
-      />
+      <Girl gltf={girl} anim={bot} labels={labels} uvLabels={uvl} look={KIZ} clips={clips} />
     </>
   );
 };
@@ -183,7 +183,7 @@ const Calendar: React.FC<{ t: number; L: (i: number) => number }> = ({ t, L }) =
 
 /** 30 günlük işaret tablosu + dakika sayacı */
 const Month: React.FC<{ t: number; L: (i: number) => number }> = ({ t, L }) => {
-  const o = win(t, L(6) + 0.6, L(8), 0.3);
+  const o = win(t, L(7) - 0.3, L(8), 0.3);
   if (o <= 0) return null;
   const days = Math.round(interpolate(t, [L(7) - 0.2, L(7) + 1.6], [1, 30], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
   const mins = days * 10;
@@ -218,11 +218,11 @@ const Month: React.FC<{ t: number; L: (i: number) => number }> = ({ t, L }) => {
 };
 
 const Overlays: React.FC<{ t: number; cam: Cam; L: (i: number) => number }> = ({ t, cam, L }) => {
-  const head = project(cam, [0, 1.95, 0] as V3);
+  const head = project(cam, [0, 1.72, 0] as V3);
   const P = (p: V3) => project(cam, p);
-  const leg = P([0.3, 0.5, 0]);
-  const chest = P([-0.35, 1.25, 0]);
-  const arm = P([0.4, 1.35, 0]);
+  const leg = P([0.25, 0.45, 0]);
+  const chest = P([-0.3, 1.12, 0]);
+  const arm = P([0.35, 1.2, 0]);
   return (
     <>
       <PopBox t={t} at={L(1) + 0.1} out={L(2)} x={head.x + 60} y={head.y - 10}>
@@ -276,14 +276,17 @@ export const OrnekPazartesi: React.FC = () => {
   const tl = PAZ_TL;
   const L = tl.at;
   const bot = useGltf("models/Xbot.glb");
+  const girl = useGltf("models/Michelle.glb");
+  const labels = useLabels();
+  const uvl = useImage("models/michelle-uvlabels.png");
   const cam = cameraAt(t, L, tl.idx(t));
   const endAt = L(10) + 0.2;
   return (
     <AbsoluteFill lang="tr" style={{ background: "#2a84d8", overflow: "hidden" }}>
       <Backdrop t={t} />
-      {bot ? (
+      {bot && girl && labels && uvl ? (
         <ThreeCanvas width={width} height={height} shadows gl={{ antialias: true }}>
-          <World t={t} bot={bot} cam={cam} L={L} />
+          <World t={t} girl={girl} bot={bot} labels={labels} uvl={uvl} cam={cam} L={L} />
         </ThreeCanvas>
       ) : null}
       <Calendar t={t} L={L} />

@@ -7,12 +7,12 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { loadFonts } from "../fonts";
 import { sm } from "../ornek/common";
 import { CameraRig, useGltf, type Clip } from "../three/Character";
-import { Girl, useImage, useLabels, type GirlLook } from "../three/Girl";
+import { Girl, KIZ, useImage, useLabels, type GirlLook } from "../three/Girl";
 import { Backdrop, Floor, lerp3, type Cam } from "../three/scene";
 
 loadFonts();
 
-const BASE: GirlLook = { skin: "#f3cdb2", hair: "#7f5a3e", style: "straight", eyes: "#6b4423", jewelry: true };
+const BASE: GirlLook = KIZ;
 const VARIANTS: GirlLook[] = [BASE];
 const X = [0];
 

@@ -55,6 +55,9 @@ export type GirlLook = {
   jewelry?: boolean;
 };
 
+/** Kullanıcının seçtiği kız: beyaz ten, kumral düz saç, belirgin gözler, altın takılar */
+export const KIZ: GirlLook = { skin: "#f3cdb2", hair: "#7f5a3e", style: "straight", eyes: "#6b4423", jewelry: true };
+
 export const useImage = (file: string) => {
   const [img, setImg] = useState<HTMLImageElement | null>(null);
   const [handle] = useState(() => delayRender(`Görsel: ${file}`));

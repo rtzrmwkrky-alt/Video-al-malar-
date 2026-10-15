@@ -89,7 +89,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (siyah + limon yeşili #D4F24A). Render:
   `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
-- **HerKafadan15** — **kullanıcının tercih ettiği format**: ~15 sn, sade. Metin
+- **HerKafadanAkici** — **güncel örnek / referans kurgu** (~35 sn). Kullanıcının metni +
+  bağlayıcı kendi cümlelerimiz, tek kahraman (52xxx serisi kadın) ile bütünlüklü hikâye,
+  profesyonel kurgu: kesmeler cümle başında (efekt geçiş yok), ortak renk + vinyet + gren,
+  yüze doğru yavaş push-in, sade altyazı, DSÖ alt bandı, kapanış başlığı, müzik
+  (Mixkit "Deep Urban", `public/music/623.mp3`; bas girişi dönüm cümlesine denk).
+- **HerKafadan15** — 15 sn deneme; kullanıcı "ilk video daha iyiydi, bütünlük ve geçişler amatör" dedi.
+  ~15 sn, sade. Metin
   `icerik/her-kafadan-15sn.txt` (kullanıcının metni). 6 çekim, sadece altyazı + sonda tek
   DSÖ bilgi kartı. Yüz konumları OpenCV ile ölçülüp `face` olarak yazıldı (yüz tam görünsün).
 - **HerkesBaskaDiyorGercek** — (uzun, 50 sn; kullanıcı "çok uzun ve karmaşık" buldu) aynı metin, **gerçek insan** stok videolarıyla (Mixkit).
@@ -118,8 +124,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - Kullanıcı **gerçek, yüzü görünen insan** görüntüsü istiyor; yüzsüz manken/3D figür kabul görmedi.
   Gerçek insan için stok video (Mixkit, anahtar gerekmez) kullan.
-- **Kısa ve sade**: ~15 sn yeterli. Ekranı kalabalıklaştırma (balon yağmuru, ölçer, çok etiket yok);
-  altyazı + gerekirse tek bir bilgi kartı.
+- **Sade ama akıcı ve profesyonel**: ekranı kalabalıklaştırma (balon yağmuru, ölçer, çok etiket yok).
+  Süre metne göre (~30-35 sn kabul gördü; aşırı kısaltma bütünlüğü bozdu).
+- **Profesyonel kurgu**: bulanık/kayan "whip" geçişler amatör duruyor → kullanma. Kesmeler
+  cümle başında; tüm kliplere aynı renk ayarı; mümkünse tek kahraman ile hikâye bütünlüğü;
+  kapanışta "daha yakına kes" gibi sade teknikler; arka planda konuşmanın altında kısık müzik.
+- Metin: kullanıcının cümlelerini koru, akıcılık için bağlayıcı kendi cümlelerimizi ekle.
 - **Yüzler yarım kalmasın**: dikey kadrajda yüz tam görünmeli. Yüz konumunu ölç
   (`pip install "opencv-python-headless<5"`, Haar cascade) ve kadrajı yüze göre ayarla;
   yüzü kadraj genişliğinden büyük (kaynak yüksekliğinin ~%50'sinden büyük) klipleri kullanma.

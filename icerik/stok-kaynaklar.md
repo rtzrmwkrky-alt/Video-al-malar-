@@ -37,3 +37,15 @@ Arama: `https://mixkit.co/free-stock-video/<kelime>/` (ör. squat, pilates, trea
 | 48556 | Pilates grubu (soluk) | "başkaları" |
 | 52117 | Kahraman geniş salonda yalnız | senin vücudun |
 | 21273, 44438, 52116, 52115, 52110, 52108 ... | yedek (aynı seri / squat) | — |
+
+## Müzik
+
+| id | ad | kullanım |
+|---|---|---|
+| 623 | Deep Urban (Eugenio Mininni, House) | HerKafadanAkici — giriş: parçanın 99. sn'si, ana: 0. sn; bas girişi 15.35 sn |
+
+İndirme: `curl -o public/music/623.mp3 https://assets.mixkit.co/music/623/623.mp3`
+(Mixkit Stock Music Free License)
+
+## HerKafadanAkici ek klipler
+52108 (burpee), 52110 (lunge), 52116 (squat), 32019, 48564, 44432, 47462, 47877

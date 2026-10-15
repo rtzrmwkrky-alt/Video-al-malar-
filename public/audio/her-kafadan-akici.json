@@ -1,6 +1,6 @@
 {
-  "text": "Her kafadan bir ses çıkıyor, değil mi?\nBiri \"önce kardiyo yap\" diyor. Öbürü \"hafif ağırlık, çok tekrar\". Bir başkası \"pilates her şeyi çözer\".\nSen de hepsini dinleyip, bir türlü yol alamıyorsun.\nDürüst olalım: başkalarının ne yaptığı ya da ne dediği, senin vücudunun neye ihtiyacı olduğunu söylemez.\nDünya Sağlık Örgütü'nün önerisi aslında çok basit: haftada en az yüz elli dakika hareket, haftada iki gün de kuvvet çalışması.\nGerisi tek bir soruya bağlı.\nSenin hedefin ne?",
-  "durationInSeconds": 32.56,
+  "text": "Her kafadan bir ses çıkıyor, değil mi?\nBiri \"önce kardiyo yap\" diyor. Öbürü \"hafif ağırlık, çok tekrar\". Bir başkası \"pilates her şeyi çözer\".\nSen de hepsini dinleyip, bir türlü yol alamıyorsun.\nDürüst olalım: başkalarının ne yaptığı ya da ne dediği, senin vücudunun neye ihtiyacı olduğunu söylemez.\nAsıl soru şu:\nSenin hedefin ne?",
+  "durationInSeconds": 23.6,
   "words": [
     {
       "text": "Her",
@@ -9,368 +9,258 @@
     },
     {
       "text": "kafadan",
-      "start": 0.2,
+      "start": 0.24,
       "end": 0.64
     },
     {
       "text": "bir",
-      "start": 0.68,
-      "end": 0.72
+      "start": 0.72,
+      "end": 0.8
     },
     {
       "text": "ses",
-      "start": 0.8,
-      "end": 0.96
+      "start": 0.92,
+      "end": 1.04
     },
     {
       "text": "çıkıyor,",
-      "start": 1.04,
-      "end": 1.387
+      "start": 1.12,
+      "end": 1.467
     },
     {
       "text": "değil",
-      "start": 1.413,
+      "start": 1.493,
       "end": 1.6
     },
     {
       "text": "mi?",
-      "start": 1.68,
-      "end": 2.24
+      "start": 1.72,
+      "end": 2.08
     },
     {
       "text": "Biri",
-      "start": 2.28,
+      "start": 2.32,
       "end": 2.56
     },
     {
       "text": "\"önce",
       "start": 2.8,
-      "end": 3.04
+      "end": 3.12
     },
     {
       "text": "kardiyo",
-      "start": 3.12,
+      "start": 3.16,
       "end": 3.6
     },
     {
       "text": "yap\"",
       "start": 3.64,
-      "end": 3.88
+      "end": 4
     },
     {
       "text": "diyor.",
-      "start": 3.92,
-      "end": 4.48
+      "start": 4.08,
+      "end": 4.56
     },
     {
       "text": "Öbürü",
-      "start": 4.64,
-      "end": 5.04
+      "start": 4.72,
+      "end": 5.12
     },
     {
       "text": "\"hafif",
-      "start": 5.28,
-      "end": 5.6
+      "start": 5.44,
+      "end": 5.76
     },
     {
       "text": "ağırlık,",
-      "start": 5.68,
-      "end": 6.16
+      "start": 5.84,
+      "end": 6.32
     },
     {
       "text": "çok",
-      "start": 6.24,
-      "end": 6.4
+      "start": 6.4,
+      "end": 6.56
     },
     {
       "text": "tekrar\".",
-      "start": 6.48,
-      "end": 7.28
+      "start": 6.64,
+      "end": 7.52
     },
     {
       "text": "Bir",
-      "start": 7.307,
-      "end": 7.36
+      "start": 7.56,
+      "end": 7.68
     },
     {
       "text": "başkası",
-      "start": 7.44,
-      "end": 7.92
+      "start": 7.76,
+      "end": 8.24
     },
     {
       "text": "\"pilates",
-      "start": 8.24,
-      "end": 8.8
+      "start": 8.56,
+      "end": 9.12
     },
     {
       "text": "her",
-      "start": 8.92,
-      "end": 9.04
+      "start": 9.24,
+      "end": 9.36
     },
     {
       "text": "şeyi",
-      "start": 9.12,
-      "end": 9.32
+      "start": 9.44,
+      "end": 9.64
     },
     {
       "text": "çözer\".",
-      "start": 9.36,
-      "end": 10.24
+      "start": 9.68,
+      "end": 10.56
     },
     {
       "text": "Sen",
-      "start": 10.36,
-      "end": 10.48
+      "start": 10.68,
+      "end": 10.8
     },
     {
       "text": "de",
-      "start": 10.56,
-      "end": 10.64
+      "start": 10.84,
+      "end": 10.88
     },
     {
       "text": "hepsini",
-      "start": 10.68,
-      "end": 11.04
+      "start": 10.96,
+      "end": 11.36
     },
     {
       "text": "dinleyip,",
-      "start": 11.12,
-      "end": 11.6
+      "start": 11.48,
+      "end": 11.92
     },
     {
       "text": "bir",
-      "start": 11.64,
-      "end": 11.68
+      "start": 12,
+      "end": 12.08
     },
     {
       "text": "türlü",
-      "start": 11.76,
-      "end": 12.04
+      "start": 12.12,
+      "end": 12.36
     },
     {
       "text": "yol",
-      "start": 12.08,
-      "end": 12.24
+      "start": 12.4,
+      "end": 12.56
     },
     {
       "text": "alamıyorsun.",
-      "start": 12.36,
-      "end": 13.24
+      "start": 12.68,
+      "end": 13.48
     },
     {
       "text": "Dürüst",
-      "start": 13.52,
-      "end": 13.84
+      "start": 13.76,
+      "end": 14.08
     },
     {
       "text": "olalım:",
-      "start": 13.92,
-      "end": 14.56
+      "start": 14.16,
+      "end": 14.8
     },
     {
       "text": "başkalarının",
-      "start": 14.6,
-      "end": 15.2
+      "start": 14.88,
+      "end": 15.52
     },
     {
       "text": "ne",
-      "start": 15.28,
-      "end": 15.36
+      "start": 15.6,
+      "end": 15.68
     },
     {
       "text": "yaptığı",
-      "start": 15.44,
-      "end": 15.92
-    },
-    {
-      "text": "ya",
-      "start": 16,
-      "end": 16.08
-    },
-    {
-      "text": "da",
-      "start": 16.16,
+      "start": 15.72,
       "end": 16.24
     },
     {
-      "text": "ne",
+      "text": "ya",
       "start": 16.32,
       "end": 16.4
     },
     {
-      "text": "dediği,",
+      "text": "da",
       "start": 16.48,
-      "end": 17.04
+      "end": 16.56
+    },
+    {
+      "text": "ne",
+      "start": 16.64,
+      "end": 16.72
+    },
+    {
+      "text": "dediği,",
+      "start": 16.8,
+      "end": 17.28
     },
     {
       "text": "senin",
-      "start": 17.2,
-      "end": 17.44
+      "start": 17.6,
+      "end": 17.84
     },
     {
       "text": "vücudunun",
-      "start": 17.52,
-      "end": 18.08
+      "start": 17.88,
+      "end": 18.48
     },
     {
       "text": "neye",
-      "start": 18.16,
-      "end": 18.4
+      "start": 18.6,
+      "end": 18.8
     },
     {
       "text": "ihtiyacı",
-      "start": 18.44,
-      "end": 18.96
-    },
-    {
-      "text": "olduğunu",
-      "start": 19.04,
+      "start": 18.84,
       "end": 19.36
     },
     {
+      "text": "olduğunu",
+      "start": 19.44,
+      "end": 19.76
+    },
+    {
       "text": "söylemez.",
-      "start": 19.4,
-      "end": 20.08
+      "start": 19.84,
+      "end": 20.68
     },
     {
-      "text": "Dünya",
-      "start": 20.56,
-      "end": 20.8
-    },
-    {
-      "text": "Sağlık",
+      "text": "Asıl",
       "start": 20.88,
-      "end": 21.2
+      "end": 21.12
     },
     {
-      "text": "Örgütü'nün",
-      "start": 21.28,
-      "end": 21.76
+      "text": "soru",
+      "start": 21.2,
+      "end": 21.44
     },
     {
-      "text": "önerisi",
-      "start": 21.84,
-      "end": 22.32
-    },
-    {
-      "text": "aslında",
-      "start": 22.48,
-      "end": 22.88
-    },
-    {
-      "text": "çok",
-      "start": 22.96,
-      "end": 23.12
-    },
-    {
-      "text": "basit:",
-      "start": 23.24,
-      "end": 23.92
-    },
-    {
-      "text": "haftada",
-      "start": 24.04,
-      "end": 24.4
-    },
-    {
-      "text": "en",
-      "start": 24.48,
-      "end": 24.64
-    },
-    {
-      "text": "az",
-      "start": 24.72,
-      "end": 24.88
-    },
-    {
-      "text": "yüz",
-      "start": 24.96,
-      "end": 25.04
-    },
-    {
-      "text": "elli",
-      "start": 25.12,
-      "end": 25.28
-    },
-    {
-      "text": "dakika",
-      "start": 25.36,
-      "end": 25.76
-    },
-    {
-      "text": "hareket,",
-      "start": 25.88,
-      "end": 26.56
-    },
-    {
-      "text": "haftada",
-      "start": 26.68,
-      "end": 27.04
-    },
-    {
-      "text": "iki",
-      "start": 27.12,
-      "end": 27.2
-    },
-    {
-      "text": "gün",
-      "start": 27.28,
-      "end": 27.44
-    },
-    {
-      "text": "de",
-      "start": 27.52,
-      "end": 27.6
-    },
-    {
-      "text": "kuvvet",
-      "start": 27.68,
-      "end": 28
-    },
-    {
-      "text": "çalışması.",
-      "start": 28.08,
-      "end": 28.8
-    },
-    {
-      "text": "Gerisi",
-      "start": 29.2,
-      "end": 29.6
-    },
-    {
-      "text": "tek",
-      "start": 29.68,
-      "end": 29.92
-    },
-    {
-      "text": "bir",
-      "start": 29.96,
-      "end": 30
-    },
-    {
-      "text": "soruya",
-      "start": 30.08,
-      "end": 30.4
-    },
-    {
-      "text": "bağlı.",
-      "start": 30.48,
-      "end": 30.88
+      "text": "şu:",
+      "start": 21.52,
+      "end": 21.84
     },
     {
       "text": "Senin",
-      "start": 31.28,
-      "end": 31.6
+      "start": 22.24,
+      "end": 22.56
     },
     {
       "text": "hedefin",
-      "start": 31.64,
-      "end": 32.08
+      "start": 22.6,
+      "end": 23.04
     },
     {
       "text": "ne?",
-      "start": 32.2,
-      "end": 32.56
+      "start": 23.16,
+      "end": 23.6
     }
   ]
 }

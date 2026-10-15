@@ -128,9 +128,9 @@ export const RemotionRoot: React.FC = () => {
       width={1080}
       height={1920}
       fps={FPS}
-      durationInFrames={FPS * 35}
+      durationInFrames={FPS * 26}
       defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAkiciProps}
-      calculateMetadata={({ props }) => withVoiceoverTail(2.2, props)}
+      calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
     </>
   );

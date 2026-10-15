@@ -1,12 +1,12 @@
 /**
- * "Her kafadan bir ses" — akıcı, profesyonel kurgu (~35 sn).
+ * "Her kafadan bir ses" — akıcı, profesyonel kurgu (~26 sn).
  *
  * Kurgu ilkeleri:
  * - Kesmeler cümle başlarında, sesten ~2 kare önce (görüntü sesi taşır). Efekt geçişi yok.
  * - Tüm kliplere aynı renk ayarı + vinyet + hafif gren → tek film gibi.
  * - Her çekimde yavaş "push-in"; zoom merkezi yüzde (yüz konumları OpenCV ile ölçüldü).
- * - Müzik (Mixkit "Deep Urban") bas girişi "Dünya Sağlık Örgütü" cümlesine denk getirildi.
- * - Ekranda: sade altyazı + DSÖ bilgisi için tek alt bant + kapanış başlığı.
+ * - Müzik (Mixkit "Deep Urban") bas girişi kapanış sorusuna denk getirildi.
+ * - Ekranda: yalnızca sade altyazı + kapanış başlığı.
  */
 import {
   AbsoluteFill,
@@ -19,7 +19,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { MONO, SANS, SERIF, loadFonts } from "../fonts";
+import { SANS, SERIF, loadFonts } from "../fonts";
 import type { VoiceoverData, Word } from "../types";
 
 loadFonts();
@@ -46,21 +46,18 @@ type Shot = {
 
 const SHOTS: Shot[] = [
   { at: 0, id: "52107", from: 4.0, face: [0.56, 0.37], push: 0.08 },
-  { at: 2.2, id: "32807", from: 1.0 },
-  { at: 4.56, id: "42899", from: 1.0, face: [0.45, 0.46] },
-  { at: 7.22, id: "48564", from: 7.5, face: [0.35, 0.27] },
-  { at: 10.28, id: "52108", from: 3.0, face: [0.49, 0.3] },
-  { at: 13.44, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
-  { at: 17.12, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
-  { at: 20.45, id: "52106", from: 0.0, face: [0.54, 0.73], push: 0.05 },
-  { at: 23.96, id: "52110", from: 0.0, face: [0.55, 0.5] },
-  { at: 26.6, id: "52111", from: 11.0, face: [0.58, 0.51] },
-  { at: 29.12, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
-  { at: 31.2, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
+  { at: 2.24, id: "32807", from: 1.0 },
+  { at: 4.64, id: "42899", from: 1.0, face: [0.45, 0.46] },
+  { at: 7.48, id: "48564", from: 7.5, face: [0.35, 0.27] },
+  { at: 10.6, id: "52108", from: 3.0, face: [0.49, 0.3] },
+  { at: 13.68, id: "48556", from: 4.0, face: [0.5, 0.4], rate: 0.85 },
+  { at: 17.52, id: "52117", from: 0.3, face: [0.6, 0.45], push: 0.1 },
+  { at: 20.8, id: "52107", from: 0.5, face: [0.54, 0.3], push: 0.05 },
+  { at: 22.16, id: "52107", from: 9.0, face: [0.5, 0.26], push: 0.08, base: 1.3 },
 ];
 
-/** Müzik: bas girişi (parçada 15.35 sn) → videoda "Dünya" (20.45 sn). */
-const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, dropInVideo: 20.45, introFrom: 99 };
+/** Müzik: bas girişi (parçada 15.35 sn) → videoda kapanış sorusu "Senin hedefin ne?" (22.16 sn). */
+const MUSIC = { file: "music/623.mp3", dropInTrack: 15.35, dropInVideo: 22.16, introFrom: 99 };
 
 // ------------------------------------------------------------ görüntü
 
@@ -184,55 +181,6 @@ const Subtitles: React.FC<{ words: Word[]; t: number; hideAfter: number }> = ({ 
   );
 };
 
-/** DSÖ alt bandı: cümleyle birlikte satır satır açılır. */
-const WhoBand: React.FC<{ t: number }> = ({ t }) => {
-  const { fps } = useVideoConfig();
-  const start = 21.2;
-  const end = 29.0;
-  if (t < start || t > end + 0.4) return null;
-  const inP = spring({ frame: Math.round((t - start) * fps), fps, config: { damping: 22 } });
-  const out = interpolate(t, [end, end + 0.4], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const row = (at: number, big: string, small: string) => {
-    const r = spring({ frame: Math.round((t - at) * fps), fps, config: { damping: 22 } });
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "baseline",
-          gap: 22,
-          marginTop: 18,
-          opacity: t < at ? 0 : r,
-          transform: `translateX(${(1 - r) * -20}px)`,
-        }}
-      >
-        <span style={{ fontFamily: SANS, fontWeight: 800, fontSize: 64, color: "white", letterSpacing: -1.5 }}>{big}</span>
-        <span style={{ fontFamily: SANS, fontWeight: 500, fontSize: 36, color: "rgba(255,255,255,0.8)" }}>{small}</span>
-      </div>
-    );
-  };
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: 80,
-        top: 250,
-        opacity: inP * out,
-        transform: `translateY(${(1 - inP) * 16}px)`,
-        borderLeft: "6px solid #E8FF59",
-        paddingLeft: 30,
-        textShadow: "0 2px 16px rgba(0,0,0,0.6)",
-      }}
-    >
-      <div style={{ fontFamily: MONO, fontSize: 26, letterSpacing: 6, color: "#E8FF59" }}>DÜNYA SAĞLIK ÖRGÜTÜ</div>
-      {row(24.9, "150+ dk", "her hafta hareket")}
-      {row(27.2, "2 gün", "her hafta kuvvet")}
-      <div style={{ fontFamily: SANS, fontSize: 22, color: "rgba(255,255,255,0.6)", marginTop: 16 }}>
-        Kaynak: WHO Fiziksel Aktivite Rehberi, 2020
-      </div>
-    </div>
-  );
-};
-
 /** Kapanış başlığı. */
 const EndTitle: React.FC<{ t: number; at: number }> = ({ t, at }) => {
   const { fps } = useVideoConfig();
@@ -265,8 +213,8 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
   const { fps, durationInFrames } = useVideoConfig();
   const t = frame / fps;
   const total = durationInFrames / fps;
-  const voiceEnd = data?.durationInSeconds ?? 32.6;
-  const titleAt = 31.2;
+  const voiceEnd = data?.durationInSeconds ?? 23.6;
+  const titleAt = 22.16;
 
   // siyahtan açılış / siyaha kapanış
   const fade = interpolate(t, [0, 0.25, total - 0.6, total], [1, 0, 0, 1], {
@@ -277,7 +225,7 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
   const musicStart = MUSIC.dropInVideo - MUSIC.dropInTrack; // ana parçanın videoda başladığı an
   const musicVol = (vt: number) => {
     // konuşma altında kısık, sonda biraz açılır, en sonda kısılır
-    const base = vt < voiceEnd ? 0.11 : 0.24;
+    const base = vt < voiceEnd ? 0.11 : 0.3;
     const outro = interpolate(vt, [total - 1.2, total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
     return base * outro;
   };
@@ -304,10 +252,9 @@ export const HerKafadanAkici: React.FC<HerKafadanAkiciProps> = ({ audioName, dat
           <Subtitles words={data.words} t={t} hideAfter={titleAt - 0.05} />
         </>
       ) : null}
-      <WhoBand t={t} />
       <EndTitle t={t} at={titleAt + 0.1} />
 
-      {/* müzik: girişte parçanın sakin bölümü, sonra ana parça (bas girişi DSÖ cümlesinde) */}
+      {/* müzik: girişte parçanın sakin bölümü, sonra ana parça (bas girişi kapanış sorusunda) */}
       <Sequence durationInFrames={Math.round((musicStart + 0.6) * fps)} name="müzik-giriş">
         <Audio
           src={staticFile(MUSIC.file)}

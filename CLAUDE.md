@@ -93,11 +93,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `icerik/voom-kisa.txt`. Kullanıcı isteği: yapay zekayla yapıldığı belli olmasın ve uygulamanın
   "yapay zeka koç" tarafı (sohbet/öneri ekranları) gösterilmesin. Bu yüzden koç sohbeti sahneleri
   yok, altyazı sade (`plain`, kelime kelime vurgu yok), ses daha canlı (`--stability 0.35 --speed 1.15`).
-- **HerKafadanAkici** — **güncel örnek / referans kurgu** (~35 sn). Kullanıcının metni +
+- **HerKafadanAkici** — **güncel örnek / referans kurgu** (~26 sn). Kullanıcı DSÖ detayını
+  istemedi → metinden ve ekrandan çıkarıldı; kapanış "Asıl soru şu: Senin hedefin ne?". Kullanıcının metni +
   bağlayıcı kendi cümlelerimiz, tek kahraman (52xxx serisi kadın) ile bütünlüklü hikâye,
   profesyonel kurgu: kesmeler cümle başında (efekt geçiş yok), ortak renk + vinyet + gren,
-  yüze doğru yavaş push-in, sade altyazı, DSÖ alt bandı, kapanış başlığı, müzik
-  (Mixkit "Deep Urban", `public/music/623.mp3`; bas girişi dönüm cümlesine denk).
+  yüze doğru yavaş push-in, sade altyazı, kapanış başlığı, müzik
+  (Mixkit "Deep Urban", `public/music/623.mp3`; bas girişi kapanış sorusuna denk).
 - **HerKafadan15** — 15 sn deneme; kullanıcı "ilk video daha iyiydi, bütünlük ve geçişler amatör" dedi.
   ~15 sn, sade. Metin
   `icerik/her-kafadan-15sn.txt` (kullanıcının metni). 6 çekim, sadece altyazı + sonda tek
@@ -137,6 +138,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **Yüzler yarım kalmasın**: dikey kadrajda yüz tam görünmeli. Yüz konumunu ölç
   (`pip install "opencv-python-headless<5"`, Haar cascade) ve kadrajı yüze göre ayarla;
   yüzü kadraj genişliğinden büyük (kaynak yüksekliğinin ~%50'sinden büyük) klipleri kullanma.
+- Kullanıcı istemedikçe kurum/istatistik detayı (ör. DSÖ önerisi) ekleme; mesaj odaklı kal.
 - Bilgi/iddia gerekiyorsa uluslararası kaynaklı ve doğrulanmış olsun (ör. DSÖ/WHO 2020:
   yetişkinler haftada 150–300 dk orta tempo aerobik + haftada ≥2 gün kas güçlendirme);
   kaynağı kartta küçük yaz.

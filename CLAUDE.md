@@ -144,6 +144,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   - Kaşlar ve yeni saç modelleri (uzun / at kuyruğu / topuz) baş kemiğine bağlı tüplerle eklenir.
   - Adaylar (`GIRLS`): Ada (uzun kahve saç, mercan üst), Mina (siyah at kuyruğu, lila), Zeynep (kızıl topuz, mint).
     Seçim bekleniyor.
+  - Kullanıcı sonra **orijinal kızın aynısını, beyaz tenli ve düz saçlı** istedi → `KizBeyaz`
+    (kıyafet orijinal renklerde; `style: "straight"`; A: gözlük+kulaklık var `accessories: true`, B: sade).
 
 ## 3D karakter (src/three/Character.tsx)
 

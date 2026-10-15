@@ -39,11 +39,14 @@ const HIDE = [2, 4, 5, 7];
 export type GirlLook = {
   skin?: string;
   hair: string;
-  top: string;
-  bottom: string;
-  shoe: string;
+  /** verilmezse orijinal renk kalır */
+  top?: string;
+  bottom?: string;
+  shoe?: string;
   accent?: string;
-  style: "puffs" | "ponytail" | "bun" | "long";
+  style: "puffs" | "ponytail" | "bun" | "long" | "straight";
+  /** gözlük ve kulaklık kalsın (fotoğraftaki gibi) */
+  accessories?: boolean;
 };
 
 export const useImage = (file: string) => {
@@ -89,10 +92,10 @@ const recolor = (src: HTMLImageElement | ImageBitmap, uvl: HTMLImageElement, loo
   void col;
   const skin = look.skin ? cs(look.skin) : SKIN_REF;
   const hair = cs(look.hair);
-  const top = cs(look.top);
-  const bottom = cs(look.bottom);
-  const shoe = cs(look.shoe);
-  const accent = cs(look.accent ?? "#ffffff");
+  const top = look.top ? cs(look.top) : null;
+  const bottom = look.bottom ? cs(look.bottom) : null;
+  const shoe = look.shoe ? cs(look.shoe) : null;
+  const accent = look.accent ? cs(look.accent) : null;
   const d = img.data;
   for (let i = 0; i < d.length; i += 4) {
     const L = lab[i];
@@ -123,13 +126,13 @@ const recolor = (src: HTMLImageElement | ImageBitmap, uvl: HTMLImageElement, loo
         }
       } else if (h >= 0.11 && h < 0.2 && s > 0.3) {
         const k = v / 0.92;
-        out = bottom.map((x) => x * k);
+        if (bottom) out = bottom.map((x) => x * k);
       } else if (h > 0.42 && h < 0.6 && s > 0.3) {
         const k = v / 0.8;
-        out = accent.map((x) => x * k);
+        if (accent) out = accent.map((x) => x * k);
       } else if (s < 0.22 && v > 0.28) {
         const k = v / 0.55;
-        out = top.map((x) => x * k);
+        if (top) out = top.map((x) => x * k);
       }
     } else if (L === 10) {
       // yüz: boyalı gölgeleri düzleştir (eski gözlük izi), kirpik/göz çizgisi koyu kalsın
@@ -148,8 +151,8 @@ const recolor = (src: HTMLImageElement | ImageBitmap, uvl: HTMLImageElement, loo
     } else if (L === 8) {
       if (v < 0.35) {
         const k = 0.4 + v * 1.8;
-        out = shoe.map((x) => x * k);
-      } else if (h > 0.42 && h < 0.6 && s > 0.3) out = accent.map((x) => x * v);
+        if (shoe) out = shoe.map((x) => x * k);
+      } else if (h > 0.42 && h < 0.6 && s > 0.3 && accent) out = accent.map((x) => x * v);
     }
     if (out) {
       d[i] = Math.min(255, out[0]);
@@ -249,6 +252,33 @@ const buildHair = (style: GirlLook["style"], mat: THREE.Material) => {
     const top = new THREE.Mesh(new THREE.SphereGeometry(0.04, 24, 16));
     top.position.set(0, 1.618, -0.1);
     fixed.add(top);
+  } else if (style === "straight") {
+    // düz, uzun saç: sırta dökülen yumuşak kabuk + yüzü çerçeveleyen düz perdeler
+    pivot.set(0, 1.52, -0.06);
+    const backGeo = new THREE.CylinderGeometry(0.112, 0.125, 0.34, 40, 8, true, Math.PI * 0.4, Math.PI * 1.2);
+    const back = new THREE.Mesh(backGeo);
+    back.position.set(0, 1.36, -0.035);
+    back.scale.set(1, 1, 0.95);
+    swing.add(back);
+    // kabuğun kalınlığı (içten bakınca boş görünmesin)
+    const inner = new THREE.Mesh(backGeo.clone().scale(0.93, 1, 0.93));
+    inner.position.copy(back.position);
+    inner.scale.copy(back.scale);
+    swing.add(inner);
+    for (const s of [1, -1]) {
+      const curtain = tube(
+        [
+          [s * 0.097, 1.52, -0.02],
+          [s * 0.106, 1.42, -0.02],
+          [s * 0.11, 1.32, -0.015],
+          [s * 0.112, 1.21, -0.01],
+        ],
+        0.02,
+        0.012,
+      );
+      curtain.scale.set(1, 1, 0.75);
+      swing.add(curtain);
+    }
   } else if (style === "long") {
     pivot.set(0, 1.5, -0.1);
     const back = new THREE.Mesh(new THREE.CapsuleGeometry(0.095, 0.2, 12, 24));
@@ -314,7 +344,10 @@ export const Girl: React.FC<{
 }> = ({ gltf, anim, labels, clips, position = [0, 0, 0], rotationY = 0, inPlace = true, look, uvLabels }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const hideSet = useMemo(() => new Set([...HIDE, ...(look && look.style !== "puffs" ? [9] : [])]), [look]);
+  const hideSet = useMemo(
+    () => new Set([...(look?.accessories ? [] : HIDE), ...(look && look.style !== "puffs" ? [9] : [])]),
+    [look],
+  );
 
   // hedef model: parçalara ayrılmış, gizlenecekler görünmez malzemede
   const dst = useMemo(() => {
@@ -370,6 +403,7 @@ export const Girl: React.FC<{
     const mat = new THREE.MeshPhysicalMaterial({
       color: look.hair,
       roughness: 0.42,
+      side: THREE.DoubleSide,
       sheen: 0.4,
       sheenColor: new THREE.Color("#ffe0c0"),
       sheenRoughness: 0.4,

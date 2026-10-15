@@ -24,6 +24,7 @@ import { TAS_TL, OrnekTasUstasi } from "./compositions/OrnekTasUstasi";
 import { DY_TL, OrnekDogruYanlis } from "./compositions/OrnekDogruYanlis";
 import { KarakterSecim } from "./compositions/KarakterSecim";
 import { KizDeneme } from "./compositions/KizDeneme";
+import { KizBeyaz } from "./compositions/KizBeyaz";
 import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
 
 const FPS = 30;
@@ -162,7 +163,8 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAnimasyonProps}
       calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
-        <Composition id="KizDeneme" component={KizDeneme} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 8} />
+        <Composition id="KizBeyaz" component={KizBeyaz} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 9} />
+    <Composition id="KizDeneme" component={KizDeneme} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 8} />
     <Composition id="KarakterSecim" component={KarakterSecim} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 13} />
     {/* Sessiz örnekler (seslendirme yok) */}
     <Composition id="Ornek1KasAgrisi" component={OrnekKasAgrisi} width={1080} height={1920} fps={FPS} durationInFrames={KAS_TL.frames} />

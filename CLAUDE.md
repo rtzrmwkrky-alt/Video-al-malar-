@@ -146,7 +146,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     Seçim bekleniyor.
   - Kullanıcı sonra **orijinal kızın aynısını, beyaz tenli ve düz saçlı** istedi → `KizBeyaz`
     (kıyafet orijinal renklerde; `style: "straight"`).
-  - Son istek: **gözlük/kulaklık yok, takı olsun, gözler ve kirpikler belirgin, yüzde hata olmasın** →
+  - Saç **kumral** (`#7f5a3e`). Son istek: **gözlük/kulaklık yok, takı olsun, gözler ve kirpikler belirgin, yüzde hata olmasın** →
     `eyes` (yeni dokulu göz küreleri + göz kapağı açma `openLids` + kirpik/eyeliner), `lips` (3B dudak,
     boyalı dudak tene çevrilir), `jewelry` (altın halka küpe, gerdanlık + kolye ucu, sol bilekte bileklik).
 

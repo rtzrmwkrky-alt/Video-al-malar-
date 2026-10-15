@@ -12,7 +12,7 @@ import { Backdrop, Floor, lerp3, type Cam } from "../three/scene";
 
 loadFonts();
 
-const BASE: GirlLook = { skin: "#f3cdb2", hair: "#2a1c16", style: "straight", eyes: "#6b4423", jewelry: true };
+const BASE: GirlLook = { skin: "#f3cdb2", hair: "#7f5a3e", style: "straight", eyes: "#6b4423", jewelry: true };
 const VARIANTS: GirlLook[] = [BASE];
 const X = [0];
 

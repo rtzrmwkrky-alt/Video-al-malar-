@@ -134,13 +134,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   1 KasAgrisi (koyu teknik çizim), 2 Pazartesi (3D manken hikâye), 3 TasUstasi (kâğıt üstü
   karakalem masal), 4 DogruYanlis (4 soruluk efsane testi, sarı zemin).
 
-- **KarakterSecim** — kullanıcı Xbot mankenini **istemiyor** ("bu adamı istemiyorum"). Yerine kendi
-  çizdiğimiz animasyon karakteri: `src/three/ToonPerson.tsx` (iri baş, büyük gözler, kaş/gülümseme/
-  göz kırpma mimikleri, saç tipleri; pozlar açılarla: idle/walk/run/wave, `mix` ile karıştırılır).
-  Kullanıcı ilk adayları (Deniz/Can/Elif) beğenmedi, **kız olsun** dedi → yeniden tasarlandı: yumurta
-  biçimli baş, dokulu parlak gözler + kirpik, ince kaş, dudak, ince belli gövde, pürüzsüz saç tutamları.
-  Adaylar: Ada (uzun kahve saç), Mina (siyah at kuyruğu), Zeynep (kızıl topuz) — seçim bekleniyor.
-  Hazır ücretsiz modeller (three.js Michelle, ReadyPlayerMe) denendi, beğenilecek kalitede değildi.
+- **KarakterSecim** — kullanıcı Xbot mankenini **istemiyor**. Kendi çizdiğimiz `ToonPerson` (src/three/ToonPerson.tsx)
+  da beğenilmedi. Kullanıcı **Michelle** modelinin (three.js örneği, `public/models/Michelle.glb`) tarzını beğendi:
+  "kollarını düzelt, yüzünü saçını değiştir, aynısı olmasın" → `src/three/Girl.tsx`:
+  - Xbot klipleri model-uzayında yeniden hedeflenir (kollar düzgün).
+  - Üçgen etiketleri `michelle-labels.txt` (0 gövde, 2 kulaklık, 3 saç, 4-5-7 gözlük, 6 göz, 8 ayakkabı,
+    9 yan topuzlar) ve UV haritası `michelle-uvlabels.png` (10 = yüz) ile kulaklık/gözlük/topuz gizlenir,
+    doku yeniden boyanır (ten, saç, üst, alt, ayakkabı; yüzdeki gözlük gölgesi düzleştirilir).
+  - Kaşlar ve yeni saç modelleri (uzun / at kuyruğu / topuz) baş kemiğine bağlı tüplerle eklenir.
+  - Adaylar (`GIRLS`): Ada (uzun kahve saç, mercan üst), Mina (siyah at kuyruğu, lila), Zeynep (kızıl topuz, mint).
+    Seçim bekleniyor.
 
 ## 3D karakter (src/three/Character.tsx)
 

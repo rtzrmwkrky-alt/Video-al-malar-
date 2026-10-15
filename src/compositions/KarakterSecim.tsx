@@ -1,5 +1,5 @@
 /**
- * Yeni animasyon karakteri seçimi: üç aday (Deniz, Can, Elif) yan yana, sonra tek tek yakın plan.
+ * Yeni animasyon karakteri seçimi: üç aday (Ada, Mina, Zeynep) yan yana, sonra tek tek yakın plan.
  */
 import { ThreeCanvas } from "@remotion/three";
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
@@ -11,16 +11,16 @@ import { LOOKS, ToonPerson, autoBlink, idlePose, mix, walkPose, wavePose } from 
 
 loadFonts();
 
-const NAMES = ["deniz", "can", "elif"] as const;
-const LABEL: Record<string, string> = { deniz: "1 · Deniz", can: "2 · Can", elif: "3 · Elif" };
+const NAMES = ["ada", "mina", "zeynep"] as const;
+const LABEL: Record<string, string> = { ada: "1 · Ada", mina: "2 · Mina", zeynep: "3 · Zeynep" };
 const X = [-0.95, 0, 0.95];
 
 // zaman çizelgesi: 0-3 hepsi, 3-5.5 Deniz, 5.5-8 Can, 8-10.5 Elif, 10.5-13 hepsi yürür
 const SHOTS: { at: number; cam: Cam }[] = [
   { at: 0, cam: { pos: [0, 1.3, 5.6], target: [0, 0.95, 0], fov: 40 } },
-  { at: 3, cam: { pos: [X[0] + 0.15, 1.5, 1.35], target: [X[0], 1.42, 0], fov: 36 } },
-  { at: 5.5, cam: { pos: [X[1] + 0.15, 1.5, 1.35], target: [X[1], 1.42, 0], fov: 36 } },
-  { at: 8, cam: { pos: [X[2] + 0.15, 1.5, 1.35], target: [X[2], 1.42, 0], fov: 36 } },
+  { at: 3, cam: { pos: [X[0] + 0.12, 1.66, 1.25], target: [X[0], 1.6, 0], fov: 36 } },
+  { at: 5.5, cam: { pos: [X[1] + 0.12, 1.66, 1.25], target: [X[1], 1.6, 0], fov: 36 } },
+  { at: 8, cam: { pos: [X[2] + 0.12, 1.66, 1.25], target: [X[2], 1.6, 0], fov: 36 } },
   { at: 10.5, cam: { pos: [2.6, 1.3, 3.6], target: [0, 0.95, 0.3], fov: 40 } },
 ];
 

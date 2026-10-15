@@ -137,7 +137,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **KarakterSecim** — kullanıcı Xbot mankenini **istemiyor** ("bu adamı istemiyorum"). Yerine kendi
   çizdiğimiz animasyon karakteri: `src/three/ToonPerson.tsx` (iri baş, büyük gözler, kaş/gülümseme/
   göz kırpma mimikleri, saç tipleri; pozlar açılarla: idle/walk/run/wave, `mix` ile karıştırılır).
-  Üç aday: Deniz (kıvırcık saçlı kadın), Can (sakallı erkek), Elif (at kuyruklu genç kadın) — seçim bekleniyor.
+  Kullanıcı ilk adayları (Deniz/Can/Elif) beğenmedi, **kız olsun** dedi → yeniden tasarlandı: yumurta
+  biçimli baş, dokulu parlak gözler + kirpik, ince kaş, dudak, ince belli gövde, pürüzsüz saç tutamları.
+  Adaylar: Ada (uzun kahve saç), Mina (siyah at kuyruğu), Zeynep (kızıl topuz) — seçim bekleniyor.
   Hazır ücretsiz modeller (three.js Michelle, ReadyPlayerMe) denendi, beğenilecek kalitede değildi.
 
 ## 3D karakter (src/three/Character.tsx)

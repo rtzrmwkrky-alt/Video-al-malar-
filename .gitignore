@@ -4,3 +4,6 @@ out/
 .env.local
 *.log
 .DS_Store
+
+# İndirilen stok videolar (büyük; tekrar indirilebilir: icerik/stok-kaynaklar.md)
+public/stock/

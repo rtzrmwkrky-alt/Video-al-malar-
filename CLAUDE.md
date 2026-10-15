@@ -89,7 +89,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (siyah + limon yeşili #D4F24A). Render:
   `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
-- **HerkesBaskaDiyor** — bilgilendirici Reels (~50 sn), "Zack D. Films" tarzı: 3D manken
+- **HerkesBaskaDiyorGercek** — aynı metin, **gerçek insan** stok videolarıyla (Mixkit).
+  Kullanıcı bunu tercih etti (3D mankeni "yüzü yok" diye beğenmedi). Çekim listesi
+  dosyadaki `SHOTS` tablosu (klip id, başlangıç, yatay odak `x`, zoom, görünüm).
+  Klipler `public/stock/` (git'e eklenmez), kaynak listesi `icerik/stok-kaynaklar.md`.
+  Ortak balon/etiket/altyazı parçaları `src/ui/overlays.tsx`.
+- **HerkesBaskaDiyor** — (eski deneme) aynı metnin 3D manken versiyonu (~50 sn), "Zack D. Films" tarzı: 3D manken
   karakter, kas bölgesi renklendirme (bacak/kol/karın), konuşma balonları, bilgi etiketleri.
   Metin `icerik/herkes-baska-diyor.txt`. Sahne zamanları dosyadaki `T` tablosunda.
   Tek 3D sahne tüm video boyunca açık; kamera `cameraAt(t)` ile, etiketler aynı kamerayla
@@ -107,6 +112,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `remotion.config.ts` içinde yazılım WebGL (`swangle`) açık.
 
 ## Kurallar / kararlar
+
+- Kullanıcı **gerçek, yüzü görünen insan** görüntüsü istiyor; yüzsüz manken/3D figür kabul görmedi.
+  Gerçek insan için stok video (Mixkit, anahtar gerekmez) kullan.
 
 - Varsayılan format **dikey 9:16 (1080x1920), 30 fps**.
 - İçerik dili **Türkçe**. ElevenLabs modeli varsayılan `eleven_multilingual_v2`.

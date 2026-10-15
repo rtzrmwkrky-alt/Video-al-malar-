@@ -8,6 +8,10 @@ import {
   HerkesBaskaDiyor,
   type HerkesBaskaDiyorProps,
 } from "./compositions/HerkesBaskaDiyor";
+import {
+  HerkesBaskaDiyorGercek,
+  type HerkesBaskaDiyorGercekProps,
+} from "./compositions/HerkesBaskaDiyorGercek";
 import type { VoiceoverData } from "./types";
 
 const FPS = 30;
@@ -78,6 +82,16 @@ export const RemotionRoot: React.FC = () => {
       fps={FPS}
       durationInFrames={FPS * 50}
       defaultProps={{ audioName: "herkes-baska-diyor", data: null } satisfies HerkesBaskaDiyorProps}
+      calculateMetadata={withVoiceover}
+    />
+    <Composition
+      id="HerkesBaskaDiyorGercek"
+      component={HerkesBaskaDiyorGercek}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 50}
+      defaultProps={{ audioName: "herkes-baska-diyor", data: null } satisfies HerkesBaskaDiyorGercekProps}
       calculateMetadata={withVoiceover}
     />
     </>

@@ -75,6 +75,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - **VoiceoverVideo** — 1080x1920 (9:16), 30 fps. Arka plan gradyanı, başlık,
   ElevenLabs sesi ve kelime kelime vurgulanan büyük altyazılar (3 kelimelik sayfalar).
+- **VoomTanitim** — Voom uygulaması tanıtımı (~45 sn). Metin `icerik/voom-tanitim.txt`,
+  ekran görüntüleri `public/voom/`. Sahne zamanları dosyadaki `S` tablosunda; metin
+  değişirse yeni JSON'a göre güncellenmeli. Renkler uygulamanın kendi paletinden
+  (siyah + limon yeşili #D4F24A). Render:
+  `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
 ## Kurallar / kararlar
 
@@ -85,6 +90,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - `remotion` ve `@remotion/*` paketleri **aynı ve sabit sürümde** tutulmalı (`^` yok).
 - API anahtarları sadece `.env` içinde; asla commit edilmez.
 - `out/` (render çıktıları) commit edilmez.
+
+- Yazı tipleri `public/fonts/` içinde (Geist, Geist Mono, Instrument Serif), `src/fonts.ts`
+  ile yüklenir; render sırasında internet gerekmez.
+- ElevenLabs hesabı **ücretsiz** planda: kütüphanedeki (Türk) sesler API'den kullanılamıyor.
+  Şimdilik hazır ses "Sarah" (EXAVITQu4vr4xnSDxMaL). Ücretli plana geçilirse önerilen
+  Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).
 
 ## Geliştirme notları
 

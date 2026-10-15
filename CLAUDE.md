@@ -92,7 +92,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **VoomKisa** — Voom tanıtımının 15 sn'lik kısa sürümü (aynı dosyada, `K` tablosu). Metin
   `icerik/voom-kisa.txt`. Kullanıcı isteği: yapay zekayla yapıldığı belli olmasın ve uygulamanın
   "yapay zeka koç" tarafı (sohbet/öneri ekranları) gösterilmesin. Bu yüzden koç sohbeti sahneleri
-  yok, altyazı sade (`plain`, kelime kelime vurgu yok), ses daha canlı (`--stability 0.35 --speed 1.15`).
+  yok, altyazı sade (`plain`, kelime kelime vurgu yok), ses sakin ve az vurgulu (`--stability 0.6 --speed 1.1`).
 - **HerKafadanAkici** — **güncel örnek / referans kurgu** (~26 sn). Kullanıcı DSÖ detayını
   istemedi → metinden ve ekrandan çıkarıldı; kapanış "Asıl soru şu: Senin hedefin ne?". Kullanıcının metni +
   bağlayıcı kendi cümlelerimiz, tek kahraman (52xxx serisi kadın) ile bütünlüklü hikâye,
@@ -169,6 +169,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - Bilgilendirici içerikte iddialar genel kabul görmüş bilgiye dayanmalı (ör. kardiyo/ağırlık
   sırası hedefe bağlı; tükenişe yakın setlerde hafif ve ağır yük benzer kas gelişimi sağlar,
   güç için ağır yük gerekir; pilates karın/duruş için iyi, tek başına yeterli değil).
+- **Seslendirme metni doğal konuşma dili olsun**: cümleler hep "-yor" ile bitmesin ("biliyor,
+  giriyorsun, kaydediyor" gibi art arda gelince duyuru/robot gibi duruyor). Yumuşak, gündelik
+  ifadeler kullan ("yazman yeterli", "evde de olur", "kayıtta"); abartılı vurgu yok.
 - Okunuşu bozuk kelimeler seslendirme metninde okunduğu gibi yazılır
   (`icerik/<ad>.seslendirme.txt`, ör. "Voom" → "Vum"); ekranda doğru yazım için
   kompozisyondaki `DISPLAY` eşlemesi kullanılır.

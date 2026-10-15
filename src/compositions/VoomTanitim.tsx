@@ -1252,23 +1252,23 @@ export const VoomTanitim: React.FC<VoomTanitimProps> = ({ audioName, data }) => 
  */
 const K = {
   hook: 0,
-  logo: 2.3,
-  kurulum: 3.55,
-  hareket: 9.1,
-  kilo: 10.85,
-  final: 12.8,
+  logo: 2.45,
+  kurulum: 4.7,
+  hareket: 10.95,
+  kilo: 12.55,
+  final: 14.6,
 };
 
 const KURULUM_KISA: KurulumTiming = {
   rows: [
-    ["Yaş", "27", 0.1],
-    ["Kilo", "61 kg", 0.85],
+    ["Yaş", "27", 0.15],
+    ["Kilo", "61 kg", 0.9],
     ["Hedef", "Şekillenme", 1.5],
   ],
-  loadStart: 2.0,
-  loadDur: 0.75,
-  salon: 3.95,
-  ev: 4.85,
+  loadStart: 2.4,
+  loadDur: 0.8,
+  salon: 4.5,
+  ev: 5.45,
 };
 
 export const VoomKisa: React.FC<VoomTanitimProps> = ({ audioName, data }) => {
@@ -1279,7 +1279,7 @@ export const VoomKisa: React.FC<VoomTanitimProps> = ({ audioName, data }) => {
     ["kurulum", <KurulumScene tm={KURULUM_KISA} />],
     ["hareket", <HareketScene swap={false} />],
     ["kilo", <KiloScene pace={1.6} />],
-    ["final", <FinalScene logoAt={1.55} />],
+    ["final", <FinalScene logoAt={1.5} />],
   ];
 
   return (

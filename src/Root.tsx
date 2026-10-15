@@ -3,7 +3,7 @@ import {
   VoiceoverVideo,
   type VoiceoverVideoProps,
 } from "./compositions/VoiceoverVideo";
-import { VoomTanitim, type VoomTanitimProps } from "./compositions/VoomTanitim";
+import { VoomKisa, VoomTanitim, type VoomTanitimProps } from "./compositions/VoomTanitim";
 import {
   HerkesBaskaDiyor,
   type HerkesBaskaDiyorProps,
@@ -79,6 +79,16 @@ export const RemotionRoot: React.FC = () => {
       fps={FPS}
       durationInFrames={FPS * 45}
       defaultProps={{ audioName: "voom-tanitim", data: null } satisfies VoomTanitimProps}
+      calculateMetadata={withVoiceover}
+    />
+    <Composition
+      id="VoomKisa"
+      component={VoomKisa}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 15}
+      defaultProps={{ audioName: "voom-kisa", data: null } satisfies VoomTanitimProps}
       calculateMetadata={withVoiceover}
     />
     <Composition

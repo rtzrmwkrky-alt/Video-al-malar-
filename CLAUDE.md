@@ -89,6 +89,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (siyah + limon yeşili #D4F24A). Render:
   `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
+- **VoomKisa** — Voom tanıtımının 15 sn'lik kısa sürümü (aynı dosyada, `K` tablosu). Metin
+  `icerik/voom-kisa.txt`. Kullanıcı isteği: yapay zekayla yapıldığı belli olmasın ve uygulamanın
+  "yapay zeka koç" tarafı (sohbet/öneri ekranları) gösterilmesin. Bu yüzden koç sohbeti sahneleri
+  yok, altyazı sade (`plain`, kelime kelime vurgu yok), ses daha canlı (`--stability 0.35 --speed 1.15`).
 - **HerKafadan15** — **kullanıcının tercih ettiği format**: ~15 sn, sade. Metin
   `icerik/her-kafadan-15sn.txt` (kullanıcının metni). 6 çekim, sadece altyazı + sonda tek
   DSÖ bilgi kartı. Yüz konumları OpenCV ile ölçülüp `face` olarak yazıldı (yüz tam görünsün).

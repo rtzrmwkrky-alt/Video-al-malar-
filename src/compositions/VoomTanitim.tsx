@@ -320,13 +320,13 @@ const Pill: React.FC<{
 // ---------------------------------------------------------------- sahneler
 
 /** 0 — Hook: haftalık takvim, atlanan gün kırmızı; koç mesajı düşüyor. */
-const HookScene: React.FC = () => {
+const HookScene: React.FC<{ coach?: boolean }> = ({ coach = true }) => {
   const t = useSec();
   const days = ["PZT", "SAL", "ÇAR", "PER", "CUM", "CMT", "PAZ"];
   const miss = 3; // PER
   const missP = usePop(1.2, 9);
   const shake = t > 1.2 && t < 1.6 ? Math.sin(t * 90) * 10 * (1.6 - t) * 2.5 : 0;
-  const phoneP = usePop(2.35, 15);
+  const phoneP = usePop(coach ? 2.35 : 99, 15);
   const msgP = usePop(4.1, 12);
 
   return (
@@ -335,7 +335,7 @@ const HookScene: React.FC = () => {
         <div
           style={{
             position: "absolute",
-            top: 230,
+            top: coach ? 230 : 420,
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -418,6 +418,7 @@ const HookScene: React.FC = () => {
         </div>
 
         {/* koç bildirimi */}
+        {coach ? (
         <div
           style={{
             position: "absolute",
@@ -449,6 +450,7 @@ const HookScene: React.FC = () => {
             </div>
           </Card>
         </div>
+        ) : null}
       </Camera>
     </AbsoluteFill>
   );
@@ -498,19 +500,35 @@ const LogoScene: React.FC = () => {
 };
 
 /** 2 — Kurulum: yaş, boy, kilo, hedef → program hazırlanıyor → salon / ev. */
-const KurulumScene: React.FC = () => {
-  const t = useSec();
-  const rows: [string, string, number][] = [
+type KurulumTiming = {
+  rows: [string, string, number][];
+  loadStart: number;
+  loadDur: number;
+  salon: number;
+  ev: number;
+};
+
+const KURULUM_UZUN: KurulumTiming = {
+  rows: [
     ["Yaş", "27", 0.1],
     ["Boy", "168 cm", 0.82],
     ["Kilo", "61 kg", 1.5],
     ["Hedef", "Şekillenme", 2.18],
-  ];
-  const loadStart = 3.62;
-  const load = keyframes(t, [loadStart, loadStart + 1.3], [0, 1]);
+  ],
+  loadStart: 3.62,
+  loadDur: 1.3,
+  salon: 5.26,
+  ev: 6.1,
+};
+
+const KurulumScene: React.FC<{ tm?: KurulumTiming }> = ({ tm = KURULUM_UZUN }) => {
+  const t = useSec();
+  const rows = tm.rows;
+  const loadStart = tm.loadStart;
+  const load = keyframes(t, [loadStart, loadStart + tm.loadDur], [0, 1]);
   const loadP = usePop(loadStart, 16);
-  const salonP = usePop(5.26, 10);
-  const evP = usePop(6.1, 10);
+  const salonP = usePop(tm.salon, 10);
+  const evP = usePop(tm.ev, 10);
 
   return (
     <AbsoluteFill style={{ background: C.bg }}>
@@ -754,10 +772,10 @@ const YorgunScene: React.FC = () => {
 };
 
 /** 6 — Hareket kartı: video + ipucu → değiştir → alternatif. */
-const HareketScene: React.FC = () => {
+const HareketScene: React.FC<{ swap?: boolean }> = ({ swap = true }) => {
   const frame = useCurrentFrame();
   const t = useSec();
-  const swapAt = 3.1;
+  const swapAt = swap ? 3.1 : 99;
   const swapped = t >= swapAt;
   const flip = keyframes(t, [swapAt - 0.2, swapAt, swapAt + 0.2], [0, 90, 0]);
   const btnPress = usePop(1.95, 9);
@@ -841,7 +859,7 @@ const HareketScene: React.FC = () => {
             </Label>
             {swapped ? "Topuklarından it, tepede 1 sn bekle." : "Çeneni göğsüne yakın tut, belini kavisleme."}
           </div>
-          {!swapped ? (
+          {swap && !swapped ? (
             <div style={{ display: "flex", marginTop: 34 }}>
               <Pill active={btnPress} style={{ fontSize: 36, padding: "22px 36px" }}>
                 ⇄  Hareketi değiştir
@@ -855,16 +873,16 @@ const HareketScene: React.FC = () => {
 };
 
 /** 7 — Set kaydı + dinlenme sayacı + haftaya hedef. */
-const KiloScene: React.FC = () => {
-  const t = useSec();
+const KiloScene: React.FC<{ pace?: number }> = ({ pace = 1 }) => {
+  const t = useSec() * pace;
   const sets: [string, number][] = [
-    ["60 kg × 10", 0.15],
-    ["60 kg × 10", 0.75],
-    ["60 kg × 9", 1.35],
+    ["60 kg × 10", 0.15 / pace],
+    ["60 kg × 10", 0.75 / pace],
+    ["60 kg × 9", 1.35 / pace],
   ];
   const restLeft = Math.max(0, 90 - Math.floor(keyframes(t, [1.45, 1.95], [0, 18])));
   const restP = keyframes(t, [1.45, 1.95], [0, 0.2]);
-  const nextP = usePop(1.95, 11);
+  const nextP = usePop(1.95 / pace, 11);
   const fmt = (s: number) => `0${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   return (
@@ -1047,10 +1065,10 @@ const InstaScene: React.FC = () => {
 };
 
 /** 9 — Kapanış: "cebinde bir koç" → logo. */
-const FinalScene: React.FC = () => {
+const FinalScene: React.FC<{ logoAt?: number }> = ({ logoAt = 2.2 }) => {
   const t = useSec();
-  const logoP = usePop(2.2, 13);
-  const phoneOut = keyframes(t, [2.0, 2.7], [0, 1]);
+  const logoP = usePop(logoAt, 13);
+  const phoneOut = keyframes(t, [logoAt - 0.2, logoAt + 0.5], [0, 1]);
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Camera punch={0.04}>
@@ -1060,7 +1078,7 @@ const FinalScene: React.FC = () => {
             centerY={760}
             cams={[
               { t: 0, y: 0.3, s: 1.2 },
-              { t: 2.0, y: 0.42, s: 0.95 },
+              { t: logoAt - 0.2, y: 0.42, s: 0.95 },
             ]}
           />
         </div>
@@ -1118,7 +1136,7 @@ const clean = (s: string) => {
   return DISPLAY[w] ?? w;
 };
 
-const Captions: React.FC<{ words: Word[] }> = ({ words }) => {
+const Captions: React.FC<{ words: Word[]; plain?: boolean }> = ({ words, plain }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -1147,13 +1165,15 @@ const Captions: React.FC<{ words: Word[] }> = ({ words }) => {
         flexWrap: "wrap",
         justifyContent: "center",
         gap: "0 22px",
-        transform: `translateY(${interpolate(pop, [0, 1], [24, 0])}px) scale(${interpolate(pop, [0, 1], [0.92, 1])})`,
+        transform: plain
+          ? undefined
+          : `translateY(${interpolate(pop, [0, 1], [24, 0])}px) scale(${interpolate(pop, [0, 1], [0.92, 1])})`,
         opacity: interpolate(pop, [0, 0.3], [0, 1], { extrapolateRight: "clamp" }),
       }}
     >
       {page.map((w, i) => {
-        const spoken = t >= w.start - 0.03;
-        const key = /vum|voom|kaytar|saçmalık|koç|ektin/i.test(w.text);
+        const spoken = plain || t >= w.start - 0.03;
+        const key = !plain && /vum|voom|kaytar|saçmalık|koç|ektin/i.test(w.text);
         return (
           <span
             key={i}
@@ -1217,6 +1237,75 @@ export const VoomTanitim: React.FC<VoomTanitimProps> = ({ audioName, data }) => 
         <>
           <Audio src={staticFile(`audio/${audioName}.mp3`)} />
           <Captions words={data.words} />
+        </>
+      ) : null}
+      <Grain />
+    </AbsoluteFill>
+  );
+};
+
+// ---------------------------------------------------------------- kısa sürüm (15 sn)
+
+/**
+ * 15 saniyelik kısa sürüm. Metin `icerik/voom-kisa.txt`.
+ * Koçla sohbet / "yapay zeka" hissi veren sahneler yok; altyazı sade (kelime kelime vurgu yok).
+ */
+const K = {
+  hook: 0,
+  logo: 2.3,
+  kurulum: 3.55,
+  hareket: 9.1,
+  kilo: 10.85,
+  final: 12.8,
+};
+
+const KURULUM_KISA: KurulumTiming = {
+  rows: [
+    ["Yaş", "27", 0.1],
+    ["Kilo", "61 kg", 0.85],
+    ["Hedef", "Şekillenme", 1.5],
+  ],
+  loadStart: 2.0,
+  loadDur: 0.75,
+  salon: 3.95,
+  ev: 4.85,
+};
+
+export const VoomKisa: React.FC<VoomTanitimProps> = ({ audioName, data }) => {
+  const { fps, durationInFrames } = useVideoConfig();
+  const order: [keyof typeof K, React.ReactNode][] = [
+    ["hook", <HookScene coach={false} />],
+    ["logo", <LogoScene />],
+    ["kurulum", <KurulumScene tm={KURULUM_KISA} />],
+    ["hareket", <HareketScene swap={false} />],
+    ["kilo", <KiloScene pace={1.6} />],
+    ["final", <FinalScene logoAt={1.55} />],
+  ];
+
+  return (
+    <AbsoluteFill lang="tr" style={{ background: C.bg }}>
+      {order.map(([k, scene], i) => {
+        const from = Math.round(K[k] * fps);
+        const next = order[i + 1];
+        const to = next ? Math.round(K[next[0]] * fps) : durationInFrames;
+        return (
+          <Sequence key={k} from={from} durationInFrames={to - from} name={k}>
+            {scene}
+          </Sequence>
+        );
+      })}
+      <Vignette />
+      <AbsoluteFill
+        style={{
+          pointerEvents: "none",
+          background:
+            "linear-gradient(180deg, transparent 0%, transparent 66%, rgba(0,0,0,0.82) 76%, rgba(0,0,0,0.82) 88%, transparent 100%)",
+        }}
+      />
+      {data ? (
+        <>
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          <Captions words={data.words} plain />
         </>
       ) : null}
       <Grain />

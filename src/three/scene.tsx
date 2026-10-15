@@ -190,3 +190,179 @@ export const Backdrop: React.FC<{ t: number }> = ({ t }) => {
   );
 };
 
+
+// ------------------------------------------------------------ spor salonu eşyaları
+// Ölçüler metre. Basit şekillerden yapıldı; hepsi gölge düşürür.
+
+const M = {
+  metal: { color: "#2b2b2e", metalness: 0.6, roughness: 0.35 },
+  chrome: { color: "#b9bcc2", metalness: 0.9, roughness: 0.25 },
+  pad: { color: "#18181b", roughness: 0.8 },
+  red: { color: "#d83a34", roughness: 0.6 },
+  rubber: { color: "#1f2023", roughness: 0.95 },
+};
+
+const Box: React.FC<{ p: V3; s: V3; m: object; r?: V3 }> = ({ p, s, m, r }) => (
+  <mesh position={p} rotation={r} castShadow receiveShadow>
+    <boxGeometry args={s} />
+    <meshStandardMaterial {...m} />
+  </mesh>
+);
+const Cyl: React.FC<{ p: V3; r: number; h: number; m: object; rot?: V3; seg?: number }> = ({ p, r, h, m, rot, seg = 24 }) => (
+  <mesh position={p} rotation={rot} castShadow receiveShadow>
+    <cylinderGeometry args={[r, r, h, seg]} />
+    <meshStandardMaterial {...m} />
+  </mesh>
+);
+
+/** Yerde duran dambıl (yatay) */
+const FloorDumbbell: React.FC<{ p: V3; size?: number; rotY?: number }> = ({ p, size = 1, rotY = 0 }) => (
+  <group position={p} rotation={[0, rotY, 0]} scale={size}>
+    <Cyl p={[0, 0, 0]} r={0.016} h={0.3} m={M.chrome} rot={[0, 0, Math.PI / 2]} />
+    <Cyl p={[-0.13, 0, 0]} r={0.06} h={0.07} m={M.metal} rot={[0, 0, Math.PI / 2]} seg={6} />
+    <Cyl p={[0.13, 0, 0]} r={0.06} h={0.07} m={M.metal} rot={[0, 0, Math.PI / 2]} seg={6} />
+  </group>
+);
+
+/** İki katlı dambıl rafı */
+export const DumbbellRack: React.FC<{ p: V3; rotY?: number }> = ({ p, rotY = 0 }) => (
+  <group position={p} rotation={[0, rotY, 0]}>
+    {[-0.85, 0.85].map((x) => (
+      <Box key={x} p={[x, 0.4, 0]} s={[0.06, 0.8, 0.5]} m={M.metal} />
+    ))}
+    <Box p={[0, 0.45, 0.08]} s={[1.8, 0.04, 0.22]} m={M.metal} r={[-0.25, 0, 0]} />
+    <Box p={[0, 0.8, -0.1]} s={[1.8, 0.04, 0.22]} m={M.metal} r={[-0.25, 0, 0]} />
+    {Array.from({ length: 6 }, (_, i) => (
+      <FloorDumbbell key={`a${i}`} p={[-0.7 + i * 0.28, 0.53, 0.08]} size={0.75 + i * 0.07} rotY={Math.PI / 2} />
+    ))}
+    {Array.from({ length: 6 }, (_, i) => (
+      <FloorDumbbell key={`b${i}`} p={[-0.7 + i * 0.28, 0.88, -0.1]} size={0.6 + i * 0.05} rotY={Math.PI / 2} />
+    ))}
+  </group>
+);
+
+/** Squat kafesi + barbell */
+export const SquatRack: React.FC<{ p: V3; rotY?: number }> = ({ p, rotY = 0 }) => (
+  <group position={p} rotation={[0, rotY, 0]}>
+    {[-0.6, 0.6].flatMap((x) =>
+      [-0.6, 0.6].map((z) => <Box key={`${x}${z}`} p={[x, 1.1, z]} s={[0.07, 2.2, 0.07]} m={M.metal} />),
+    )}
+    {[-0.6, 0.6].map((z) => (
+      <Box key={`t${z}`} p={[0, 2.2, z]} s={[1.27, 0.07, 0.07]} m={M.metal} />
+    ))}
+    {[-0.6, 0.6].map((x) => (
+      <Box key={`s${x}`} p={[x, 2.2, 0]} s={[0.07, 0.07, 1.27]} m={M.metal} />
+    ))}
+    <Box p={[0, 0.02, 0]} s={[1.6, 0.04, 1.6]} m={M.rubber} />
+    {/* barbell */}
+    <Cyl p={[0, 1.35, 0.62]} r={0.016} h={2.1} m={M.chrome} rot={[0, 0, Math.PI / 2]} />
+    {[-1, 1].map((s) => (
+      <group key={s}>
+        <Cyl p={[s * 0.82, 1.35, 0.62]} r={0.225} h={0.06} m={M.red} rot={[0, 0, Math.PI / 2]} seg={32} />
+        <Cyl p={[s * 0.89, 1.35, 0.62]} r={0.17} h={0.05} m={M.metal} rot={[0, 0, Math.PI / 2]} seg={32} />
+      </group>
+    ))}
+  </group>
+);
+
+/** Düz bench */
+export const Bench: React.FC<{ p: V3; rotY?: number }> = ({ p, rotY = 0 }) => (
+  <group position={p} rotation={[0, rotY, 0]}>
+    <Box p={[0, 0.45, 0]} s={[0.3, 0.09, 1.15]} m={M.pad} />
+    <Box p={[0, 0.22, -0.42]} s={[0.36, 0.44, 0.06]} m={M.metal} />
+    <Box p={[0, 0.22, 0.42]} s={[0.36, 0.44, 0.06]} m={M.metal} />
+    <Box p={[0, 0.03, 0]} s={[0.12, 0.05, 1.0]} m={M.metal} />
+  </group>
+);
+
+/** Koşu bandı */
+export const Treadmill: React.FC<{ p: V3; rotY?: number }> = ({ p, rotY = 0 }) => (
+  <group position={p} rotation={[0, rotY, 0]}>
+    <Box p={[0, 0.12, 0]} s={[0.8, 0.22, 1.9]} m={M.metal} />
+    <Box p={[0, 0.235, 0.05]} s={[0.56, 0.02, 1.6]} m={M.rubber} />
+    {[-0.36, 0.36].map((x) => (
+      <Box key={x} p={[x, 0.75, -0.8]} s={[0.06, 1.1, 0.06]} m={M.metal} r={[-0.2, 0, 0]} />
+    ))}
+    <Box p={[0, 1.3, -0.92]} s={[0.78, 0.3, 0.12]} m={M.pad} r={[0.5, 0, 0]} />
+    <Box p={[0, 1.31, -0.85]} s={[0.5, 0.18, 0.02]} m={{ color: "#2f8fe4", emissive: "#2f8fe4", emissiveIntensity: 0.6 }} r={[0.5, 0, 0]} />
+  </group>
+);
+
+/** Kettlebell */
+export const Kettlebell: React.FC<{ p: V3; size?: number; color?: string }> = ({ p, size = 1, color = "#2b2b2e" }) => (
+  <group position={p} scale={size}>
+    <mesh position={[0, 0.11, 0]} castShadow>
+      <sphereGeometry args={[0.11, 24, 16]} />
+      <meshStandardMaterial color={color} metalness={0.4} roughness={0.5} />
+    </mesh>
+    <mesh position={[0, 0.25, 0]} castShadow>
+      <torusGeometry args={[0.065, 0.016, 10, 24, Math.PI]} />
+      <meshStandardMaterial color={color} metalness={0.4} roughness={0.5} />
+    </mesh>
+  </group>
+);
+
+/** Plaka ağacı */
+export const PlateTree: React.FC<{ p: V3 }> = ({ p }) => (
+  <group position={p}>
+    <Box p={[0, 0.03, 0]} s={[0.5, 0.06, 0.5]} m={M.metal} />
+    <Cyl p={[0, 0.55, 0]} r={0.03} h={1.1} m={M.metal} />
+    {[0.25, 0.55, 0.85].map((y, i) =>
+      [-1, 1].map((s) => (
+        <group key={`${y}${s}`}>
+          <Cyl p={[s * 0.12, y, 0]} r={0.015} h={0.2} m={M.chrome} rot={[0, 0, Math.PI / 2]} />
+          <Cyl p={[s * 0.2, y, 0]} r={0.2 - i * 0.04} h={0.05} m={i === 0 ? M.red : M.metal} rot={[0, 0, Math.PI / 2]} seg={32} />
+        </group>
+      )),
+    )}
+  </group>
+);
+
+/** Pilates/denge topu */
+export const GymBall: React.FC<{ p: V3; color?: string; r?: number }> = ({ p, color = "#e8573d", r = 0.32 }) => (
+  <mesh position={[p[0], r, p[2]]} castShadow receiveShadow>
+    <sphereGeometry args={[r, 32, 24]} />
+    <meshStandardMaterial color={color} roughness={0.45} />
+  </mesh>
+);
+
+/** Yerde plaka yığını */
+export const PlateStack: React.FC<{ p: V3 }> = ({ p }) => (
+  <group position={p}>
+    {[0, 1, 2, 3].map((i) => (
+      <Cyl key={i} p={[0, 0.03 + i * 0.06, 0]} r={0.22 - i * 0.025} h={0.05} m={i % 2 ? M.metal : M.red} seg={32} />
+    ))}
+  </group>
+);
+
+/**
+ * Salon düzeni: ana karakter (0,0,0) etrafındaki boşluğu ve kamera yollarını kapatmadan
+ * her çekimin arka planını doldurur.
+ */
+export const GymProps: React.FC = () => (
+  <group>
+    {/* ana karakterin arkası (ön çekimlerin arka planı) */}
+    <SquatRack p={[0.8, 0, -3.6]} rotY={-0.15} />
+    <DumbbellRack p={[-2.7, 0, -2.6]} rotY={0.55} />
+    <Treadmill p={[2.8, 0, -2.6]} rotY={-0.5} />
+    <Treadmill p={[3.9, 0, -1.4]} rotY={-0.9} />
+    <Bench p={[-1.5, 0, -4.4]} rotY={0.3} />
+    <Kettlebell p={[1.3, 0, -2.1]} size={1.1} />
+    <Kettlebell p={[1.6, 0, -2.0]} size={0.9} color="#d83a34" />
+    <Kettlebell p={[1.45, 0, -2.35]} size={0.8} />
+    {/* turuncunun arkası */}
+    <Bench p={[-4.1, 0, 2.3]} rotY={1.1} />
+    <PlateTree p={[-4.4, 0, 1.0]} />
+    <GymBall p={[-3.5, 0, 3.7]} color="#2f8fe4" />
+    <FloorDumbbell p={[-3.3, 0.06, 2.0]} rotY={0.4} />
+    {/* morun arkası */}
+    <DumbbellRack p={[4.2, 0, 2.2]} rotY={-1.35} />
+    <Kettlebell p={[3.4, 0, 3.7]} size={1.2} color="#d83a34" />
+    <Kettlebell p={[3.7, 0, 3.9]} size={0.9} />
+    <GymBall p={[4.3, 0, 0.6]} color="#e8573d" />
+    {/* geniş planın uzak tarafı */}
+    <PlateStack p={[2.7, 0, 6.2]} />
+    <GymBall p={[-2.4, 0, 5.8]} color="#36d27e" r={0.28} />
+    <Bench p={[-3.2, 0, 6.6]} rotY={-0.4} />
+  </group>
+);

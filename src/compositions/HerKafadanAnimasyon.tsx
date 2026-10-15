@@ -25,6 +25,7 @@ import { CameraRig, Character, useGltf, type Clip } from "../three/Character";
 import {
   Backdrop,
   Floor,
+  GymProps,
   Mat,
   PLANK,
   curl,
@@ -73,14 +74,15 @@ const orbit = (k: number): Cam => {
   return { pos: [Math.sin(a) * 2.2, 1.25, Math.cos(a) * 2.2], target: [0, 0.98, 0], fov: 40 };
 };
 
-const SETUPS: { word: number; setup: Setup; move?: number }[] = [
+/** arc: geçişte kamera düz çizgi yerine ana karakterin etrafından dolaşır (içinden geçmez) */
+const SETUPS: { word: number; setup: Setup; move?: number; arc?: boolean }[] = [
   { word: 0, setup: { from: { pos: [0.6, 1.45, 3.4], target: [0, 1.15, 0], fov: 38 }, to: { pos: [0.3, 1.5, 2.6], target: [0, 1.3, 0], fov: 38 } } },
   { word: WD.biri, setup: { from: { pos: [1.3, 1.4, 0.7], target: [-1.6, 1.15, 1.5], fov: 40 }, to: { pos: [1.0, 1.42, 0.8], target: [-1.6, 1.2, 1.5], fov: 38 } } },
   { word: WD.oburu, setup: { from: { pos: [-1.3, 1.4, 0.7], target: [1.6, 1.1, 1.5], fov: 40 }, to: { pos: [-1.0, 1.42, 0.8], target: [1.6, 1.15, 1.5], fov: 38 } } },
   { word: WD.baskasi, setup: { from: { pos: [1.3, 1.6, 5.6], target: [0, 0.45, 2.4], fov: 40 }, to: { pos: [0.9, 1.4, 5.1], target: [0, 0.45, 2.4], fov: 40 } } },
   { word: WD.sen, setup: { from: { pos: [0, 1.4, 3.3], target: [0, 1.05, 0], fov: 40 }, to: { pos: [0, 1.38, 2.6], target: [0, 1.1, 0], fov: 40 } } },
-  { word: WD.durust, setup: { from: { pos: [0.3, 3.9, -4.6], target: [0, 0.7, 1.4], fov: 52 }, to: { pos: [0.1, 3.4, -4.0], target: [0, 0.75, 1.4], fov: 52 } } },
-  { word: WD.senin, setup: orbit },
+  { word: WD.durust, setup: { from: { pos: [-1.1, 4.6, -4.9], target: [0, 0.6, 1.4], fov: 52 }, to: { pos: [-0.9, 4.1, -4.3], target: [0, 0.65, 1.4], fov: 52 } } },
+  { word: WD.senin, setup: orbit, move: 1.0, arc: true },
   { word: WD.asil, setup: { from: { pos: [0, 1.45, 2.4], target: [0, 1.3, 0], fov: 38 }, to: { pos: [0, 1.5, 1.85], target: [0, 1.4, 0], fov: 38 } } },
   { word: WD.final, move: 0.35, setup: { from: { pos: [0, 1.58, 1.05], target: [0, 1.53, 0], fov: 38 }, to: { pos: [0, 1.6, 0.82], target: [0, 1.56, 0], fov: 38 } } },
 ];
@@ -110,7 +112,22 @@ const cameraAt = (t: number, words: Word[], end: number): Cam => {
   // önceki kurulumdan bu kuruluma geçiş (önceki çekim donmuş gibi değil, kaymaya devam ederken)
   const prev = poseOf(SETUPS[i - 1].setup, 1);
   const k = sm(t, starts[i] - 0.05, starts[i] + move);
-  return { pos: lerp3(prev.pos, cur.pos, k), target: lerp3(prev.target, cur.target, k), fov: prev.fov + (cur.fov - prev.fov) * k };
+  const target = lerp3(prev.target, cur.target, k);
+  const fov = prev.fov + (cur.fov - prev.fov) * k;
+  if (SETUPS[i].arc) {
+    // açı + yarıçap + yükseklik ile: karakterin etrafından, yüksekte kalarak in
+    const a0 = Math.atan2(prev.pos[0], prev.pos[2]);
+    let a1 = Math.atan2(cur.pos[0], cur.pos[2]);
+    if (a1 - a0 > Math.PI) a1 -= 2 * Math.PI;
+    if (a0 - a1 > Math.PI) a1 += 2 * Math.PI;
+    const r0 = Math.hypot(prev.pos[0], prev.pos[2]);
+    const r1 = Math.hypot(cur.pos[0], cur.pos[2]);
+    const a = a0 + (a1 - a0) * k;
+    const r = r0 + (r1 - r0) * k;
+    const h = prev.pos[1] + (cur.pos[1] - prev.pos[1]) * Math.pow(k, 2.2);
+    return { pos: [Math.sin(a) * r, h, Math.cos(a) * r], target, fov };
+  }
+  return { pos: lerp3(prev.pos, cur.pos, k), target, fov };
 };
 
 // ------------------------------------------------------------ 3D dünya
@@ -144,14 +161,15 @@ const World: React.FC<{ t: number; bot: GLTF; cam: Cam; W: (i: number) => number
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-left={-5}
-        shadow-camera-right={5}
-        shadow-camera-top={5}
-        shadow-camera-bottom={-5}
+        shadow-camera-left={-7}
+        shadow-camera-right={7}
+        shadow-camera-top={7}
+        shadow-camera-bottom={-7}
         shadow-bias={-0.0004}
       />
       <directionalLight position={[-3, 2.5, -4]} intensity={1.4} color="#9fd2ff" />
       <Floor />
+      <GymProps />
 
       <Character
         gltf={bot}

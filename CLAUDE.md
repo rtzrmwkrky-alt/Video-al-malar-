@@ -101,6 +101,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "Yol alamıyorsun"da ana karakter yerinde koşar, balonlar başı etrafında döner; "vücudunun neye
   ihtiyacı"nda bacak/kol/karın sırayla yanar; kapanış yüze yaklaşma + "Senin hedefin ne?".
   Ortak 3D parçalar `src/three/scene.tsx` (zemin, mat, dambıl, pozlar, arka plan, project).
+  Kullanıcı "etraf boş" dedi → `GymProps`: squat kafesi, dambıl rafları, koşu bantları, bench,
+  kettlebell, plaka ağacı/yığını, pilates topları; her çekimin arka planını dolduracak ve kamera
+  yollarını kapatmayacak şekilde yerleştirildi. Geniş plandan yakına geçişte kamera `arc` ile
+  karakterin etrafından dolaşır (düz çizgide içinden geçiyordu).
 - **HerKafadanAkici** — (gerçek insan sürümü) referans kurgu (~26 sn). Kullanıcı DSÖ detayını
   istemedi → metinden ve ekrandan çıkarıldı; kapanış "Asıl soru şu: Senin hedefin ne?". Kullanıcının metni +
   bağlayıcı kendi cümlelerimiz, tek kahraman (52xxx serisi kadın) ile bütünlüklü hikâye,

@@ -89,6 +89,23 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (siyah + limon yeşili #D4F24A). Render:
   `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
+- **HerkesBaskaDiyor** — bilgilendirici Reels (~50 sn), "Zack D. Films" tarzı: 3D manken
+  karakter, kas bölgesi renklendirme (bacak/kol/karın), konuşma balonları, bilgi etiketleri.
+  Metin `icerik/herkes-baska-diyor.txt`. Sahne zamanları dosyadaki `T` tablosunda.
+  Tek 3D sahne tüm video boyunca açık; kamera `cameraAt(t)` ile, etiketler aynı kamerayla
+  3D noktalara bağlanır (`project`).
+
+## 3D karakter (src/three/Character.tsx)
+
+- Model: `public/models/Xbot.glb` (three.js örneklerinden, Mixamo iskeleti). Klipler:
+  idle, walk, run, agree, headShake, sad_pose, sneak_pose.
+- Model **+z'ye bakar**, karakterin solu **+x**. `aims` ile kemik bir yöne çevrilir
+  (karakterin kendi yönlerine göre) — squat/curl/plank pozları böyle yazıldı.
+- `glow` ile kas bölgeleri renklenir (legs/arms/core), `attach` ile ele dambıl takılır.
+- Modeller canvas dışında `useGltf` ile yüklenmeli (yoksa render boş çıkar).
+- 3D render yavaş ve bellek yiyor: `--concurrency=3` kullan; aynı anda çok `still` çalıştırma.
+  `remotion.config.ts` içinde yazılım WebGL (`swangle`) açık.
+
 ## Kurallar / kararlar
 
 - Varsayılan format **dikey 9:16 (1080x1920), 30 fps**.
@@ -105,6 +122,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
   (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).
   Ücretli plana geçilirse önerilen Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).
+- Bilgilendirici içerikte iddialar genel kabul görmüş bilgiye dayanmalı (ör. kardiyo/ağırlık
+  sırası hedefe bağlı; tükenişe yakın setlerde hafif ve ağır yük benzer kas gelişimi sağlar,
+  güç için ağır yük gerekir; pilates karın/duruş için iyi, tek başına yeterli değil).
 - Okunuşu bozuk kelimeler seslendirme metninde okunduğu gibi yazılır
   (`icerik/<ad>.seslendirme.txt`, ör. "Voom" → "Vum"); ekranda doğru yazım için
   kompozisyondaki `DISPLAY` eşlemesi kullanılır.

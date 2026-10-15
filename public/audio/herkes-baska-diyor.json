@@ -1,0 +1,526 @@
+{
+  "text": "Her kafadan bir ses çıkıyor, değil mi?\nBiri diyor ki: önce kardiyo yap.\nÖbürü: hayır, hafif ağırlık, çok tekrar.\nBir başkası: pilates her şeyi çözer.\nPeki hangisi doğru? Aslında hepsi... ve hiçbiri.\nÖnce koşarsan, bacakların ağırlığa yorgun girer. Hedefin güçlenmekse, önce ağırlık. Hedefin koşmaksa, önce kardiyo.\nHafif ağırlık, çok tekrar mı? Son tekrarlar seni gerçekten zorluyorsa, hafif de ağır da kası büyütür. Ama güç istiyorsan, ağır yük şart.\nPilates mi? Karın ve duruş için harika. Ama kalbin için kardiyo, kasların için daha fazla yük de lazım.\nYani dürüst olalım: başkasının ne yaptığı, senin vücudunun neye ihtiyacı olduğunu söylemez.\nÖnce kendine sor: benim hedefim ne?",
+  "durationInSeconds": 49.68,
+  "words": [
+    {
+      "text": "Her",
+      "start": 0,
+      "end": 0.16
+    },
+    {
+      "text": "kafadan",
+      "start": 0.24,
+      "end": 0.64
+    },
+    {
+      "text": "bir",
+      "start": 0.68,
+      "end": 0.72
+    },
+    {
+      "text": "ses",
+      "start": 0.8,
+      "end": 1.04
+    },
+    {
+      "text": "çıkıyor,",
+      "start": 1.08,
+      "end": 1.4
+    },
+    {
+      "text": "değil",
+      "start": 1.44,
+      "end": 1.573
+    },
+    {
+      "text": "mi?",
+      "start": 1.6,
+      "end": 1.84
+    },
+    {
+      "text": "Biri",
+      "start": 2.24,
+      "end": 2.4
+    },
+    {
+      "text": "diyor",
+      "start": 2.48,
+      "end": 2.64
+    },
+    {
+      "text": "ki:",
+      "start": 2.72,
+      "end": 3.2
+    },
+    {
+      "text": "önce",
+      "start": 3.24,
+      "end": 3.44
+    },
+    {
+      "text": "kardiyo",
+      "start": 3.52,
+      "end": 4
+    },
+    {
+      "text": "yap.",
+      "start": 4.04,
+      "end": 4.56
+    },
+    {
+      "text": "Öbürü:",
+      "start": 4.6,
+      "end": 5.12
+    },
+    {
+      "text": "hayır,",
+      "start": 5.28,
+      "end": 5.76
+    },
+    {
+      "text": "hafif",
+      "start": 5.84,
+      "end": 6.08
+    },
+    {
+      "text": "ağırlık,",
+      "start": 6.16,
+      "end": 6.64
+    },
+    {
+      "text": "çok",
+      "start": 6.72,
+      "end": 6.88
+    },
+    {
+      "text": "tekrar.",
+      "start": 6.96,
+      "end": 7.6
+    },
+    {
+      "text": "Bir",
+      "start": 7.76,
+      "end": 7.84
+    },
+    {
+      "text": "başkası:",
+      "start": 7.92,
+      "end": 8.48
+    },
+    {
+      "text": "pilates",
+      "start": 8.8,
+      "end": 9.28
+    },
+    {
+      "text": "her",
+      "start": 9.4,
+      "end": 9.52
+    },
+    {
+      "text": "şeyi",
+      "start": 9.6,
+      "end": 9.76
+    },
+    {
+      "text": "çözer.",
+      "start": 9.84,
+      "end": 10.52
+    },
+    {
+      "text": "Peki",
+      "start": 10.72,
+      "end": 10.96
+    },
+    {
+      "text": "hangisi",
+      "start": 11.08,
+      "end": 11.36
+    },
+    {
+      "text": "doğru?",
+      "start": 11.44,
+      "end": 12.04
+    },
+    {
+      "text": "Aslında",
+      "start": 12.24,
+      "end": 12.8
+    },
+    {
+      "text": "hepsi...",
+      "start": 12.88,
+      "end": 13.76
+    },
+    {
+      "text": "ve",
+      "start": 13.84,
+      "end": 13.92
+    },
+    {
+      "text": "hiçbiri.",
+      "start": 14,
+      "end": 14.8
+    },
+    {
+      "text": "Önce",
+      "start": 15.04,
+      "end": 15.2
+    },
+    {
+      "text": "koşarsan,",
+      "start": 15.28,
+      "end": 16
+    },
+    {
+      "text": "bacakların",
+      "start": 16.08,
+      "end": 16.64
+    },
+    {
+      "text": "ağırlığa",
+      "start": 16.72,
+      "end": 17.2
+    },
+    {
+      "text": "yorgun",
+      "start": 17.24,
+      "end": 17.6
+    },
+    {
+      "text": "girer.",
+      "start": 17.68,
+      "end": 18.4
+    },
+    {
+      "text": "Hedefin",
+      "start": 18.44,
+      "end": 18.8
+    },
+    {
+      "text": "güçlenmekse,",
+      "start": 18.88,
+      "end": 19.84
+    },
+    {
+      "text": "önce",
+      "start": 19.92,
+      "end": 20.24
+    },
+    {
+      "text": "ağırlık.",
+      "start": 20.32,
+      "end": 20.96
+    },
+    {
+      "text": "Hedefin",
+      "start": 21.12,
+      "end": 21.52
+    },
+    {
+      "text": "koşmaksa,",
+      "start": 21.6,
+      "end": 22.48
+    },
+    {
+      "text": "önce",
+      "start": 22.56,
+      "end": 22.8
+    },
+    {
+      "text": "kardiyo.",
+      "start": 22.88,
+      "end": 23.56
+    },
+    {
+      "text": "Hafif",
+      "start": 23.76,
+      "end": 24.08
+    },
+    {
+      "text": "ağırlık,",
+      "start": 24.16,
+      "end": 24.56
+    },
+    {
+      "text": "çok",
+      "start": 24.6,
+      "end": 24.72
+    },
+    {
+      "text": "tekrar",
+      "start": 24.8,
+      "end": 25.2
+    },
+    {
+      "text": "mı?",
+      "start": 25.28,
+      "end": 25.44
+    },
+    {
+      "text": "Son",
+      "start": 25.84,
+      "end": 26
+    },
+    {
+      "text": "tekrarlar",
+      "start": 26.08,
+      "end": 26.56
+    },
+    {
+      "text": "seni",
+      "start": 26.64,
+      "end": 26.88
+    },
+    {
+      "text": "gerçekten",
+      "start": 27,
+      "end": 27.52
+    },
+    {
+      "text": "zorluyorsa,",
+      "start": 27.6,
+      "end": 28.56
+    },
+    {
+      "text": "hafif",
+      "start": 28.6,
+      "end": 28.96
+    },
+    {
+      "text": "de",
+      "start": 29.04,
+      "end": 29.12
+    },
+    {
+      "text": "ağır",
+      "start": 29.28,
+      "end": 29.6
+    },
+    {
+      "text": "da",
+      "start": 29.68,
+      "end": 29.76
+    },
+    {
+      "text": "kası",
+      "start": 29.84,
+      "end": 30.12
+    },
+    {
+      "text": "büyütür.",
+      "start": 30.16,
+      "end": 30.96
+    },
+    {
+      "text": "Ama",
+      "start": 31,
+      "end": 31.12
+    },
+    {
+      "text": "güç",
+      "start": 31.28,
+      "end": 31.44
+    },
+    {
+      "text": "istiyorsan,",
+      "start": 31.52,
+      "end": 32.32
+    },
+    {
+      "text": "ağır",
+      "start": 32.4,
+      "end": 32.72
+    },
+    {
+      "text": "yük",
+      "start": 32.84,
+      "end": 32.96
+    },
+    {
+      "text": "şart.",
+      "start": 33,
+      "end": 33.56
+    },
+    {
+      "text": "Pilates",
+      "start": 33.76,
+      "end": 34.24
+    },
+    {
+      "text": "mi?",
+      "start": 34.32,
+      "end": 34.48
+    },
+    {
+      "text": "Karın",
+      "start": 34.8,
+      "end": 35.12
+    },
+    {
+      "text": "ve",
+      "start": 35.16,
+      "end": 35.2
+    },
+    {
+      "text": "duruş",
+      "start": 35.28,
+      "end": 35.6
+    },
+    {
+      "text": "için",
+      "start": 35.64,
+      "end": 35.84
+    },
+    {
+      "text": "harika.",
+      "start": 35.92,
+      "end": 36.48
+    },
+    {
+      "text": "Ama",
+      "start": 36.8,
+      "end": 36.96
+    },
+    {
+      "text": "kalbin",
+      "start": 37.04,
+      "end": 37.36
+    },
+    {
+      "text": "için",
+      "start": 37.44,
+      "end": 37.68
+    },
+    {
+      "text": "kardiyo,",
+      "start": 37.76,
+      "end": 38.32
+    },
+    {
+      "text": "kasların",
+      "start": 38.56,
+      "end": 39.04
+    },
+    {
+      "text": "için",
+      "start": 39.08,
+      "end": 39.28
+    },
+    {
+      "text": "daha",
+      "start": 39.36,
+      "end": 39.52
+    },
+    {
+      "text": "fazla",
+      "start": 39.6,
+      "end": 39.92
+    },
+    {
+      "text": "yük",
+      "start": 40,
+      "end": 40.08
+    },
+    {
+      "text": "de",
+      "start": 40.16,
+      "end": 40.24
+    },
+    {
+      "text": "lazım.",
+      "start": 40.28,
+      "end": 41.12
+    },
+    {
+      "text": "Yani",
+      "start": 41.16,
+      "end": 41.44
+    },
+    {
+      "text": "dürüst",
+      "start": 41.48,
+      "end": 41.76
+    },
+    {
+      "text": "olalım:",
+      "start": 41.84,
+      "end": 42.48
+    },
+    {
+      "text": "başkasının",
+      "start": 42.52,
+      "end": 43.04
+    },
+    {
+      "text": "ne",
+      "start": 43.12,
+      "end": 43.2
+    },
+    {
+      "text": "yaptığı,",
+      "start": 43.24,
+      "end": 43.84
+    },
+    {
+      "text": "senin",
+      "start": 43.92,
+      "end": 44.16
+    },
+    {
+      "text": "vücudunun",
+      "start": 44.24,
+      "end": 44.72
+    },
+    {
+      "text": "neye",
+      "start": 44.8,
+      "end": 45.04
+    },
+    {
+      "text": "ihtiyacı",
+      "start": 45.08,
+      "end": 45.6
+    },
+    {
+      "text": "olduğunu",
+      "start": 45.68,
+      "end": 46
+    },
+    {
+      "text": "söylemez.",
+      "start": 46.04,
+      "end": 46.96
+    },
+    {
+      "text": "Önce",
+      "start": 47,
+      "end": 47.2
+    },
+    {
+      "text": "kendine",
+      "start": 47.28,
+      "end": 47.68
+    },
+    {
+      "text": "sor:",
+      "start": 47.76,
+      "end": 48.4
+    },
+    {
+      "text": "benim",
+      "start": 48.48,
+      "end": 48.72
+    },
+    {
+      "text": "hedefim",
+      "start": 48.827,
+      "end": 49.2
+    },
+    {
+      "text": "ne?",
+      "start": 49.32,
+      "end": 49.68
+    }
+  ]
+}

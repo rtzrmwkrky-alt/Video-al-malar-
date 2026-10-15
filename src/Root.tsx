@@ -12,6 +12,7 @@ import {
   HerkesBaskaDiyorGercek,
   type HerkesBaskaDiyorGercekProps,
 } from "./compositions/HerkesBaskaDiyorGercek";
+import { HerKafadan15, type HerKafadan15Props } from "./compositions/HerKafadan15";
 import type { VoiceoverData } from "./types";
 
 const FPS = 30;
@@ -21,14 +22,20 @@ const withVoiceover = async <P extends { audioName: string; data: VoiceoverData 
   props,
 }: {
   props: P;
-}) => {
+}) => withVoiceoverTail(0.8, props);
+
+/** Seslendirme bittikten sonra `tail` saniye daha (ör. kapanış kartı için). */
+const withVoiceoverTail = async <P extends { audioName: string; data: VoiceoverData | null }>(
+  tail: number,
+  props: P,
+) => {
   const res = await fetch(staticFile(`audio/${props.audioName}.json`));
   if (!res.ok) {
     return { props: { ...props, data: null } };
   }
   const data = (await res.json()) as VoiceoverData;
   return {
-    durationInFrames: Math.ceil((data.durationInSeconds + 0.8) * FPS),
+    durationInFrames: Math.ceil((data.durationInSeconds + tail) * FPS),
     props: { ...props, data },
   };
 };
@@ -93,6 +100,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={FPS * 50}
       defaultProps={{ audioName: "herkes-baska-diyor", data: null } satisfies HerkesBaskaDiyorGercekProps}
       calculateMetadata={withVoiceover}
+    />
+    <Composition
+      id="HerKafadan15"
+      component={HerKafadan15}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 16}
+      defaultProps={{ audioName: "her-kafadan-15sn", data: null } satisfies HerKafadan15Props}
+      calculateMetadata={({ props }) => withVoiceoverTail(2.0, props)}
     />
     </>
   );

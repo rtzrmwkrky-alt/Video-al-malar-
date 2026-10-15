@@ -89,7 +89,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (siyah + limon yeşili #D4F24A). Render:
   `npx remotion render VoomTanitim out/voom-tanitim.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
 
-- **HerkesBaskaDiyorGercek** — aynı metin, **gerçek insan** stok videolarıyla (Mixkit).
+- **HerKafadan15** — **kullanıcının tercih ettiği format**: ~15 sn, sade. Metin
+  `icerik/her-kafadan-15sn.txt` (kullanıcının metni). 6 çekim, sadece altyazı + sonda tek
+  DSÖ bilgi kartı. Yüz konumları OpenCV ile ölçülüp `face` olarak yazıldı (yüz tam görünsün).
+- **HerkesBaskaDiyorGercek** — (uzun, 50 sn; kullanıcı "çok uzun ve karmaşık" buldu) aynı metin, **gerçek insan** stok videolarıyla (Mixkit).
   Kullanıcı bunu tercih etti (3D mankeni "yüzü yok" diye beğenmedi). Çekim listesi
   dosyadaki `SHOTS` tablosu (klip id, başlangıç, yatay odak `x`, zoom, görünüm).
   Klipler `public/stock/` (git'e eklenmez), kaynak listesi `icerik/stok-kaynaklar.md`.
@@ -115,6 +118,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - Kullanıcı **gerçek, yüzü görünen insan** görüntüsü istiyor; yüzsüz manken/3D figür kabul görmedi.
   Gerçek insan için stok video (Mixkit, anahtar gerekmez) kullan.
+- **Kısa ve sade**: ~15 sn yeterli. Ekranı kalabalıklaştırma (balon yağmuru, ölçer, çok etiket yok);
+  altyazı + gerekirse tek bir bilgi kartı.
+- **Yüzler yarım kalmasın**: dikey kadrajda yüz tam görünmeli. Yüz konumunu ölç
+  (`pip install "opencv-python-headless<5"`, Haar cascade) ve kadrajı yüze göre ayarla;
+  yüzü kadraj genişliğinden büyük (kaynak yüksekliğinin ~%50'sinden büyük) klipleri kullanma.
+- Bilgi/iddia gerekiyorsa uluslararası kaynaklı ve doğrulanmış olsun (ör. DSÖ/WHO 2020:
+  yetişkinler haftada 150–300 dk orta tempo aerobik + haftada ≥2 gün kas güçlendirme);
+  kaynağı kartta küçük yaz.
 
 - Varsayılan format **dikey 9:16 (1080x1920), 30 fps**.
 - İçerik dili **Türkçe**. ElevenLabs modeli varsayılan `eleven_multilingual_v2`.

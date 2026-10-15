@@ -126,12 +126,15 @@ export const Meter: React.FC<{ label: string; value: number; color: string }> = 
   </div>
 );
 
+/** Tırnak işaretleri altyazıda görünmez; sayfa cümle sonunda veya 3 kelimede biter. */
+const stripQuotes = (s: string) => s.replace(/["“”«»]/g, "");
+
 const toPages = (words: Word[]): Word[][] => {
   const pages: Word[][] = [];
   let cur: Word[] = [];
   for (const w of words) {
     cur.push(w);
-    if (cur.length === 3 || /[.?!:…,]$/.test(w.text)) {
+    if (cur.length === 3 || /[.?!:…,]$/.test(stripQuotes(w.text))) {
       pages.push(cur);
       cur = [];
     }
@@ -140,7 +143,7 @@ const toPages = (words: Word[]): Word[][] => {
   return pages;
 };
 
-const clean = (s: string) => s.replace(/\.\.\.$/, "").replace(/[.,:]$/, "");
+const clean = (s: string) => stripQuotes(s).replace(/\.\.\.$/, "").replace(/[.,:]$/, "");
 
 export const Captions: React.FC<{ words: Word[]; t: number }> = ({ words, t }) => {
   const { fps } = useVideoConfig();

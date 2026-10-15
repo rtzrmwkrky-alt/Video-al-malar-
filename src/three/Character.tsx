@@ -15,10 +15,26 @@ import * as THREE from "three";
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 
+/**
+ * Farklı kaynaklardan gelen insan modellerini tek isim düzenine çevirir
+ * ("mixamorig:Hips" / "Hips" → "mixamorigHips"); böylece Xbot klipleri her modelde çalışır.
+ */
+const normalizeBones = (g: GLTF) => {
+  g.scene.traverse((o) => {
+    if (!(o as THREE.Bone).isBone) return;
+    if (o.name.startsWith("mixamorig:")) o.name = "mixamorig" + o.name.slice(10);
+    else if (!o.name.startsWith("mixamorig")) o.name = "mixamorig" + o.name;
+  });
+  for (const a of g.animations) {
+    for (const tr of a.tracks) tr.name = tr.name.replace(/^mixamorig:/, "mixamorig");
+  }
+  return g;
+};
+
 const cache = new Map<string, Promise<GLTF>>();
 const loadGltf = (file: string) => {
   if (!cache.has(file)) {
-    cache.set(file, new GLTFLoader().loadAsync(staticFile(file)));
+    cache.set(file, new GLTFLoader().loadAsync(staticFile(file)).then(normalizeBones));
   }
   return cache.get(file)!;
 };

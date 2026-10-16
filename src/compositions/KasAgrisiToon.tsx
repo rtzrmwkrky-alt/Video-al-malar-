@@ -670,7 +670,9 @@ export const KasAgrisiToon: React.FC<KasAgrisiToonProps> = ({ audioName, data })
             </g>
           ) : null}
           {showGirl && t < L(10) ? (
+            <g opacity={t > L(9) - 0.1 ? sm(t, L(9), L(9) + 0.35) : 1}>
             <ToonGirl2D x={t >= L(2) && t < L(7) ? 540 : gx} y={gy} scale={gScale} pose={pose} expr={expr} blink={blink} shake={shake} t={t} />
+            </g>
           ) : null}
           {t > L(2) - 0.05 && t < L(2) + 0.8 ? (
             <g opacity={sm(t, L(2), L(2) + 0.2)} transform={`translate(${interpolate(sm(t, L(2), L(2) + 0.5), [0, 1], [820, 500])},${interpolate(sm(t, L(2), L(2) + 0.5), [0, 1], [700, 1100])})`}>
@@ -684,8 +686,8 @@ export const KasAgrisiToon: React.FC<KasAgrisiToonProps> = ({ audioName, data })
         {t > L(7) - 0.2 && t < L(8) + 0.2 ? <g opacity={win(t, L(7) - 0.2, L(8) + 0.2, 0.4)}><DayCards t={t} s={L(7)} /></g> : null}
 
         {/* uydu hücreler (8): lif üzerinde yırtıkları kapatır */}
-        {t > L(8) - 0.2 && t < L(9) + 0.2 ? (
-          <g opacity={win(t, L(8) - 0.2, L(9) + 0.2, 0.4)}>
+        {t > L(8) - 0.2 && t < L(9) ? (
+          <g opacity={win(t, L(8) - 0.2, L(9), 0.35)}>
             <CFiber thick={1 + 0.15 * sm(t, L(8) + 2.0, L(8) + 2.8)} glow={sm(t, L(8) + 2.0, L(8) + 2.6)} />
             {[330, 620, 820].map((x, k) => (
               <Tear key={k} x={x} y={930} p={1 - sm(t, L(8) + 1.4 + k * 0.15, L(8) + 1.8 + k * 0.15)} />
@@ -724,7 +726,7 @@ export const KasAgrisiToon: React.FC<KasAgrisiToonProps> = ({ audioName, data })
         {/* öneriler (10) */}
         {t >= L(10) && t < L(11) ? (
           <g>
-            <ToonGirl2D x={540} y={gy} scale={gScale} pose={pose} expr="smile" blink={blink} t={t} />
+            <g opacity={sm(t, L(10), L(10) + 0.35)}><ToonGirl2D x={540} y={gy} scale={gScale} pose={pose} expr="smile" blink={blink} t={t} /></g>
             {[
               [250, 640],
               [830, 640],

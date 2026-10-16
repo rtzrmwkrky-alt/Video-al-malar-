@@ -156,9 +156,19 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   tutan hızlı kurgu; altyazı 3 kelimelik parçalar. Kullanıcı isteği: **teslimden önce videoyu kendin izle,
   bozuk yeri düzelt, fazlayı çıkar, eksiği ekle.**
 
+- **WilmaRudolph** — belgesel tarzı motivasyon reels'i (~67 sn), Wilma Rudolph hikâyesi. Kanca: "Doktorlar:
+  bir daha asla yürüyemeyecek" → 16 yıl sonra Roma. Metin `icerik/wilma.seslendirme.txt` (okunuş "Vilma Rudolf";
+  ekranda doğru yazım ve rakamlar `DISPLAY` ile). Ses `public/audio/wilma` (Sarah, eleven_v4, tr, stability 0.35,
+  style 0.4, speed 1.0). Görseller `public/wilma/` (kullanıcının fotoğrafları, telefon ekranından kırpıldı).
+  Kürsü fotoğrafı aslında 1948 Londra (Alice Coachman) → sadece yüzsüz kürsü kısmı kullanılıyor; bacak desteği
+  fotoğrafı temsilî (ekranda yazıyor). Müzik + efektler hazır dosya değil, `scripts/wilma-audio.py` ile sentezlenir
+  (kelime zamanlarına bağlı; ses değişirse yeniden çalıştır). Görünüm: Playfair Display italik altyazı,
+  Dancing Script el yazısı, sepya ton, gren, çizik/toz, vinyet, ışık titremesi. Sahneler kelime sırasına (`W(i)`) bağlı.
+
 ## Son durum (yeni oturumda buradan devam)
 
-- Aktif iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
+- Son iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
+- Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:
   `npx remotion render KasAgrisiToon out/kas-agrisi-sesli.mp4 --concurrency=4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
   ardından -14 LUFS paylaşım kopyası (İş akışı 4. adım). Müzik `public/music/623.mp3` git'te yok:

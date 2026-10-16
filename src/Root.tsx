@@ -28,6 +28,7 @@ import { KizBeyaz } from "./compositions/KizBeyaz";
 import { KAS2_TL, KasAgrisiKiz } from "./compositions/KasAgrisiKiz";
 import { KasAgrisiToon, TOON_TL, VOICE_TAIL, type KasAgrisiToonProps } from "./compositions/KasAgrisiToon";
 import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
+import { WILMA_TAIL, WilmaRudolph, type WilmaProps } from "./compositions/WilmaRudolph";
 
 const FPS = 30;
 
@@ -174,6 +175,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={TOON_TL.frames}
       defaultProps={{ audioName: "kas-agrisi", data: null } satisfies KasAgrisiToonProps}
       calculateMetadata={({ props }) => withVoiceoverTail(VOICE_TAIL, props)}
+    />
+    <Composition
+      id="WilmaRudolph"
+      component={WilmaRudolph}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={FPS * 60}
+      defaultProps={{ audioName: "wilma", data: null } satisfies WilmaProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(WILMA_TAIL, props)}
     />
     <Composition id="KasAgrisiKiz" component={KasAgrisiKiz} width={1080} height={1920} fps={FPS} durationInFrames={KAS2_TL.frames} />
     <Composition id="KizBeyaz" component={KizBeyaz} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 9} />

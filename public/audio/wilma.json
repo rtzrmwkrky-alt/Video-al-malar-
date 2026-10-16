@@ -1,0 +1,651 @@
+{
+  "text": "Doktorlar ona, bir daha asla yürüyemeyeceğini söyledi... On altı yıl sonra, dünyanın en hızlı kadını oldu. Adı, Vilma Rudolf. Bin dokuz yüz kırkta, yirmi iki kardeşin yirmincisi olarak doğdu. Erken doğdu, iki kilo bile değildi. Önce zatürre, sonra kızıl... ve dört yaşında, çocuk felci. Sol bacağı tutmaz oldu. Yıllarca, bu demir desteği taktı. Ama annesi pes etmedi. Her hafta onu, seksen kilometre uzaktaki hastaneye götürdü. Kardeşleri, bacağına günde dört kez masaj yaptı. On iki yaşında desteği çıkardı... ve koşmaya başladı. On altısında, ilk olimpiyat madalyası geldi. Sonra, bin dokuz yüz altmış, Roma. Yüz metre... iki yüz metre... ve bayrak yarışı. Üç altın madalya. Bunu başaran ilk Amerikalı kadın oldu. Vilma şöyle diyordu: Doktor, yürüyemezsin dedi. Annem, yürüyeceksin dedi. Ben, anneme inandım. Sana imkânsız diyenlere değil... sana inananlara kulak ver.",
+  "durationInSeconds": 64.16,
+  "words": [
+    {
+      "text": "Doktorlar",
+      "start": 0,
+      "end": 0.64
+    },
+    {
+      "text": "ona,",
+      "start": 0.72,
+      "end": 1.12
+    },
+    {
+      "text": "bir",
+      "start": 1.28,
+      "end": 1.36
+    },
+    {
+      "text": "daha",
+      "start": 1.44,
+      "end": 1.68
+    },
+    {
+      "text": "asla",
+      "start": 1.76,
+      "end": 2.24
+    },
+    {
+      "text": "yürüyemeyeceğini",
+      "start": 2.28,
+      "end": 3.04
+    },
+    {
+      "text": "söyledi...",
+      "start": 3.12,
+      "end": 4.08
+    },
+    {
+      "text": "On",
+      "start": 4.16,
+      "end": 4.24
+    },
+    {
+      "text": "altı",
+      "start": 4.32,
+      "end": 4.48
+    },
+    {
+      "text": "yıl",
+      "start": 4.56,
+      "end": 4.72
+    },
+    {
+      "text": "sonra,",
+      "start": 4.8,
+      "end": 5.36
+    },
+    {
+      "text": "dünyanın",
+      "start": 5.4,
+      "end": 6.08
+    },
+    {
+      "text": "en",
+      "start": 6.2,
+      "end": 6.32
+    },
+    {
+      "text": "hızlı",
+      "start": 6.36,
+      "end": 6.64
+    },
+    {
+      "text": "kadını",
+      "start": 6.72,
+      "end": 7.04
+    },
+    {
+      "text": "oldu.",
+      "start": 7.12,
+      "end": 7.44
+    },
+    {
+      "text": "Adı,",
+      "start": 7.84,
+      "end": 8.32
+    },
+    {
+      "text": "Vilma",
+      "start": 8.48,
+      "end": 8.8
+    },
+    {
+      "text": "Rudolf.",
+      "start": 8.88,
+      "end": 9.44
+    },
+    {
+      "text": "Bin",
+      "start": 9.76,
+      "end": 9.84
+    },
+    {
+      "text": "dokuz",
+      "start": 9.92,
+      "end": 10.16
+    },
+    {
+      "text": "yüz",
+      "start": 10.24,
+      "end": 10.32
+    },
+    {
+      "text": "kırkta,",
+      "start": 10.4,
+      "end": 11.04
+    },
+    {
+      "text": "yirmi",
+      "start": 11.08,
+      "end": 11.32
+    },
+    {
+      "text": "iki",
+      "start": 11.36,
+      "end": 11.44
+    },
+    {
+      "text": "kardeşin",
+      "start": 11.52,
+      "end": 12.16
+    },
+    {
+      "text": "yirmincisi",
+      "start": 12.213,
+      "end": 12.72
+    },
+    {
+      "text": "olarak",
+      "start": 12.84,
+      "end": 13.12
+    },
+    {
+      "text": "doğdu.",
+      "start": 13.24,
+      "end": 13.6
+    },
+    {
+      "text": "Erken",
+      "start": 14,
+      "end": 14.4
+    },
+    {
+      "text": "doğdu,",
+      "start": 14.48,
+      "end": 15.04
+    },
+    {
+      "text": "iki",
+      "start": 15.12,
+      "end": 15.2
+    },
+    {
+      "text": "kilo",
+      "start": 15.28,
+      "end": 15.52
+    },
+    {
+      "text": "bile",
+      "start": 15.6,
+      "end": 15.76
+    },
+    {
+      "text": "değildi.",
+      "start": 15.8,
+      "end": 16.64
+    },
+    {
+      "text": "Önce",
+      "start": 16.68,
+      "end": 16.96
+    },
+    {
+      "text": "zatürre,",
+      "start": 17,
+      "end": 17.84
+    },
+    {
+      "text": "sonra",
+      "start": 17.96,
+      "end": 18.16
+    },
+    {
+      "text": "kızıl...",
+      "start": 18.24,
+      "end": 19.12
+    },
+    {
+      "text": "ve",
+      "start": 19.16,
+      "end": 19.2
+    },
+    {
+      "text": "dört",
+      "start": 19.28,
+      "end": 19.44
+    },
+    {
+      "text": "yaşında,",
+      "start": 19.52,
+      "end": 20
+    },
+    {
+      "text": "çocuk",
+      "start": 20.24,
+      "end": 20.48
+    },
+    {
+      "text": "felci.",
+      "start": 20.56,
+      "end": 21.04
+    },
+    {
+      "text": "Sol",
+      "start": 21.44,
+      "end": 21.6
+    },
+    {
+      "text": "bacağı",
+      "start": 21.68,
+      "end": 22
+    },
+    {
+      "text": "tutmaz",
+      "start": 22.04,
+      "end": 22.4
+    },
+    {
+      "text": "oldu.",
+      "start": 22.48,
+      "end": 23
+    },
+    {
+      "text": "Yıllarca,",
+      "start": 23.2,
+      "end": 23.92
+    },
+    {
+      "text": "bu",
+      "start": 24,
+      "end": 24.08
+    },
+    {
+      "text": "demir",
+      "start": 24.16,
+      "end": 24.4
+    },
+    {
+      "text": "desteği",
+      "start": 24.48,
+      "end": 24.88
+    },
+    {
+      "text": "taktı.",
+      "start": 24.92,
+      "end": 25.36
+    },
+    {
+      "text": "Ama",
+      "start": 25.68,
+      "end": 25.84
+    },
+    {
+      "text": "annesi",
+      "start": 25.92,
+      "end": 26.32
+    },
+    {
+      "text": "pes",
+      "start": 26.44,
+      "end": 26.56
+    },
+    {
+      "text": "etmedi.",
+      "start": 26.64,
+      "end": 27.36
+    },
+    {
+      "text": "Her",
+      "start": 27.44,
+      "end": 27.6
+    },
+    {
+      "text": "hafta",
+      "start": 27.72,
+      "end": 27.92
+    },
+    {
+      "text": "onu,",
+      "start": 28,
+      "end": 28.4
+    },
+    {
+      "text": "seksen",
+      "start": 28.48,
+      "end": 28.8
+    },
+    {
+      "text": "kilometre",
+      "start": 28.88,
+      "end": 29.28
+    },
+    {
+      "text": "uzaktaki",
+      "start": 29.36,
+      "end": 29.84
+    },
+    {
+      "text": "hastaneye",
+      "start": 29.92,
+      "end": 30.48
+    },
+    {
+      "text": "götürdü.",
+      "start": 30.52,
+      "end": 31.24
+    },
+    {
+      "text": "Kardeşleri,",
+      "start": 31.44,
+      "end": 32.24
+    },
+    {
+      "text": "bacağına",
+      "start": 32.28,
+      "end": 32.72
+    },
+    {
+      "text": "günde",
+      "start": 32.8,
+      "end": 33.04
+    },
+    {
+      "text": "dört",
+      "start": 33.12,
+      "end": 33.36
+    },
+    {
+      "text": "kez",
+      "start": 33.44,
+      "end": 33.6
+    },
+    {
+      "text": "masaj",
+      "start": 33.68,
+      "end": 34.08
+    },
+    {
+      "text": "yaptı.",
+      "start": 34.16,
+      "end": 34.88
+    },
+    {
+      "text": "On",
+      "start": 34.92,
+      "end": 34.96
+    },
+    {
+      "text": "iki",
+      "start": 35.04,
+      "end": 35.2
+    },
+    {
+      "text": "yaşında",
+      "start": 35.28,
+      "end": 35.6
+    },
+    {
+      "text": "desteği",
+      "start": 35.68,
+      "end": 36.08
+    },
+    {
+      "text": "çıkardı...",
+      "start": 36.12,
+      "end": 37.04
+    },
+    {
+      "text": "ve",
+      "start": 37.08,
+      "end": 37.12
+    },
+    {
+      "text": "koşmaya",
+      "start": 37.2,
+      "end": 37.68
+    },
+    {
+      "text": "başladı.",
+      "start": 37.76,
+      "end": 38.24
+    },
+    {
+      "text": "On",
+      "start": 38.64,
+      "end": 38.72
+    },
+    {
+      "text": "altısında,",
+      "start": 38.8,
+      "end": 39.6
+    },
+    {
+      "text": "ilk",
+      "start": 39.72,
+      "end": 39.84
+    },
+    {
+      "text": "olimpiyat",
+      "start": 39.92,
+      "end": 40.32
+    },
+    {
+      "text": "madalyası",
+      "start": 40.4,
+      "end": 40.88
+    },
+    {
+      "text": "geldi.",
+      "start": 40.92,
+      "end": 41.68
+    },
+    {
+      "text": "Sonra,",
+      "start": 41.8,
+      "end": 42.24
+    },
+    {
+      "text": "bin",
+      "start": 42.32,
+      "end": 42.4
+    },
+    {
+      "text": "dokuz",
+      "start": 42.48,
+      "end": 42.72
+    },
+    {
+      "text": "yüz",
+      "start": 42.8,
+      "end": 42.88
+    },
+    {
+      "text": "altmış,",
+      "start": 42.96,
+      "end": 43.6
+    },
+    {
+      "text": "Roma.",
+      "start": 43.68,
+      "end": 44.4
+    },
+    {
+      "text": "Yüz",
+      "start": 44.44,
+      "end": 44.56
+    },
+    {
+      "text": "metre...",
+      "start": 44.64,
+      "end": 45.44
+    },
+    {
+      "text": "iki",
+      "start": 45.52,
+      "end": 45.6
+    },
+    {
+      "text": "yüz",
+      "start": 45.68,
+      "end": 45.84
+    },
+    {
+      "text": "metre...",
+      "start": 45.92,
+      "end": 46.56
+    },
+    {
+      "text": "ve",
+      "start": 46.6,
+      "end": 46.64
+    },
+    {
+      "text": "bayrak",
+      "start": 46.72,
+      "end": 47.12
+    },
+    {
+      "text": "yarışı.",
+      "start": 47.2,
+      "end": 47.92
+    },
+    {
+      "text": "Üç",
+      "start": 48,
+      "end": 48.16
+    },
+    {
+      "text": "altın",
+      "start": 48.24,
+      "end": 48.56
+    },
+    {
+      "text": "madalya.",
+      "start": 48.64,
+      "end": 49.2
+    },
+    {
+      "text": "Bunu",
+      "start": 49.52,
+      "end": 49.68
+    },
+    {
+      "text": "başaran",
+      "start": 49.76,
+      "end": 50.24
+    },
+    {
+      "text": "ilk",
+      "start": 50.4,
+      "end": 50.64
+    },
+    {
+      "text": "Amerikalı",
+      "start": 50.72,
+      "end": 51.16
+    },
+    {
+      "text": "kadın",
+      "start": 51.2,
+      "end": 51.44
+    },
+    {
+      "text": "oldu.",
+      "start": 51.52,
+      "end": 51.84
+    },
+    {
+      "text": "Vilma",
+      "start": 52.24,
+      "end": 52.56
+    },
+    {
+      "text": "şöyle",
+      "start": 52.6,
+      "end": 52.88
+    },
+    {
+      "text": "diyordu:",
+      "start": 52.92,
+      "end": 53.44
+    },
+    {
+      "text": "Doktor,",
+      "start": 53.84,
+      "end": 54.4
+    },
+    {
+      "text": "yürüyemezsin",
+      "start": 54.48,
+      "end": 55.2
+    },
+    {
+      "text": "dedi.",
+      "start": 55.32,
+      "end": 55.6
+    },
+    {
+      "text": "Annem,",
+      "start": 56,
+      "end": 56.48
+    },
+    {
+      "text": "yürüyeceksin",
+      "start": 56.72,
+      "end": 57.36
+    },
+    {
+      "text": "dedi.",
+      "start": 57.44,
+      "end": 57.76
+    },
+    {
+      "text": "Ben,",
+      "start": 58.24,
+      "end": 58.6
+    },
+    {
+      "text": "anneme",
+      "start": 58.72,
+      "end": 59.12
+    },
+    {
+      "text": "inandım.",
+      "start": 59.28,
+      "end": 59.8
+    },
+    {
+      "text": "Sana",
+      "start": 60,
+      "end": 60.32
+    },
+    {
+      "text": "imkânsız",
+      "start": 60.4,
+      "end": 60.88
+    },
+    {
+      "text": "diyenlere",
+      "start": 60.96,
+      "end": 61.44
+    },
+    {
+      "text": "değil...",
+      "start": 61.52,
+      "end": 62.24
+    },
+    {
+      "text": "sana",
+      "start": 62.32,
+      "end": 62.56
+    },
+    {
+      "text": "inananlara",
+      "start": 62.64,
+      "end": 63.2
+    },
+    {
+      "text": "kulak",
+      "start": 63.28,
+      "end": 63.6
+    },
+    {
+      "text": "ver.",
+      "start": 63.76,
+      "end": 64.16
+    }
+  ]
+}

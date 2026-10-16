@@ -8,3 +8,8 @@ out/
 # İndirilen stok videolar (büyük; tekrar indirilebilir: icerik/stok-kaynaklar.md)
 public/stock/
 public/music/
+
+# scripts/wilma-audio.py ile yeniden üretilir
+public/wilma/*.wav
+public/wilma/grain-*.png
+public/wilma/kagit.jpg

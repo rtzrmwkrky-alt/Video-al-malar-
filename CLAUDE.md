@@ -156,6 +156,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   tutan hızlı kurgu; altyazı 3 kelimelik parçalar. Kullanıcı isteği: **teslimden önce videoyu kendin izle,
   bozuk yeri düzelt, fazlayı çıkar, eksiği ekle.**
 
+## Son durum (yeni oturumda buradan devam)
+
+- Aktif iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
+  yeniden seslendirme gerekmez, kredi harcama. Render:
+  `npx remotion render KasAgrisiToon out/kas-agrisi-sesli.mp4 --concurrency=4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
+  ardından -14 LUFS paylaşım kopyası (İş akışı 4. adım). Müzik `public/music/623.mp3` git'te yok:
+  `curl -o public/music/623.mp3 https://assets.mixkit.co/music/623/623.mp3`.
+- Render ~25-30 dk sürer (SVG gren filtresi yavaş); arka planda çalıştır.
+
 ## 3D karakter (src/three/Character.tsx)
 
 - Model: `public/models/Xbot.glb` (three.js örneklerinden, Mixamo iskeleti). Klipler:

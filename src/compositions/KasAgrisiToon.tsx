@@ -462,11 +462,11 @@ const MiniSquat: React.FC<{ t: number; o: number }> = ({ t, o }) => {
   const down = Math.sin(t * 3.2) > 0;
   return o > 0 ? (
     <g opacity={o}>
-      <rect x={760} y={420} width={240} height={330} rx={30} fill="#fff" stroke={down ? "#ff6b5b" : INK} strokeWidth={8} />
-      <g transform={`translate(880,${730 - k * 0}) scale(0.28)`}>
+      <rect x={760} y={300} width={240} height={330} rx={30} fill="#fff" stroke={down ? "#ff6b5b" : INK} strokeWidth={8} />
+      <g transform={`translate(880,610) scale(0.28)`}>
         <ToonGirl2D pose={{ armL: 80, armR: 80, legL: -25 * k, legR: 25 * k, bob: 160 * k, lean: 0 }} expr="grit" />
       </g>
-      <text x={880} y={470} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={30} fill={down ? "#ff6b5b" : INK}>
+      <text x={880} y={350} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={30} fill={down ? "#ff6b5b" : INK}>
         {down ? "İNERKEN ↓" : "ÇIKARKEN ↑"}
       </text>
     </g>
@@ -664,7 +664,7 @@ export const KasAgrisiToon: React.FC = () => {
             {[0.9, 0.35].map((v, k) => {
               const p = sm(t, L(9) + 1.4 + k * 0.5, L(9) + 2.0 + k * 0.5);
               return (
-                <g key={k} transform={`translate(600,${800 + k * 150})`} opacity={sm(t, L(9) + 1.2 + k * 0.5, L(9) + 1.5 + k * 0.5)}>
+                <g key={k} transform={`translate(590,${1020 + k * 150})`} opacity={sm(t, L(9) + 1.2 + k * 0.5, L(9) + 1.5 + k * 0.5)}>
                   <text x={0} y={-20} fontFamily={SANS} fontWeight={800} fontSize={40} fill={INK}>
                     {k === 0 ? "1. sefer ağrı" : "2. sefer ağrı"}
                   </text>

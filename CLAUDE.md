@@ -152,7 +152,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - **KasAgrisiToon** — kullanıcı 3D kızı da bıraktı: **düz çizgi karikatür** istedi (referans: bej kâğıt zemin,
   kalın kahverengi konturlu sade karakter, sarı vurgulu kalın altyazı). Karakter `src/cartoon/ToonGirl2D.tsx`
-  (SVG; pozlar açıyla, ifadeler smile/ouch/grit/wink/happy/think). Önce 30 sn istendi, sonra kullanıcı **kısaltma yapma, uzun videodaki detaylı bilgiler kalsın** dedi (~47 sn); izleyiciyi
+  (SVG; pozlar açıyla, ifadeler smile/ouch/grit/wink/happy/think). Önce 30 sn istendi, sonra kullanıcı **kısaltma yapma, uzun videodaki detaylı bilgiler kalsın** dedi (~47 sn). Seslendirildi: `icerik/kas-agrisi.seslendirme.txt` → `public/audio/kas-agrisi` (Sarah, eleven_v4, tr, stability 0.3, style 0.45, speed 1.05; ~52 sn). Satır ve altyazı zamanları kelime zamanlarından (`voiceTimeline`); seslendirme metni ekrandaki satırlarla kelime kelime aynı sayıda olmalı. Kısık müzik 623. Geçişler yumuşak (kullanıcı "göz yoruyor" dedi: büyük zoom, zıplayan yazı, titreme yok); izleyiciyi
   tutan hızlı kurgu; altyazı 3 kelimelik parçalar. Kullanıcı isteği: **teslimden önce videoyu kendin izle,
   bozuk yeri düzelt, fazlayı çıkar, eksiği ekle.**
 

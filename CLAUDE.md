@@ -152,7 +152,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - **KasAgrisiToon** — kullanıcı 3D kızı da bıraktı: **düz çizgi karikatür** istedi (referans: bej kâğıt zemin,
   kalın kahverengi konturlu sade karakter, sarı vurgulu kalın altyazı). Karakter `src/cartoon/ToonGirl2D.tsx`
-  (SVG; pozlar açıyla, ifadeler smile/ouch/grit/wink/happy/think). Reels için **en fazla 30 sn**, izleyiciyi
+  (SVG; pozlar açıyla, ifadeler smile/ouch/grit/wink/happy/think). Önce 30 sn istendi, sonra kullanıcı **kısaltma yapma, uzun videodaki detaylı bilgiler kalsın** dedi (~47 sn); izleyiciyi
   tutan hızlı kurgu; altyazı 3 kelimelik parçalar. Kullanıcı isteği: **teslimden önce videoyu kendin izle,
   bozuk yeri düzelt, fazlayı çıkar, eksiği ekle.**
 

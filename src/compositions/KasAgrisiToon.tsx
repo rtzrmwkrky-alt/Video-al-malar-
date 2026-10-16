@@ -5,10 +5,13 @@
  */
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { SANS, loadFonts } from "../fonts";
-import { type Line, pop, sm, timeline, win } from "../ornek/common";
+import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
 import { INK, ToonGirl2D, blinkAt, type Expr, type ToonPose } from "../cartoon/ToonGirl2D";
 
 loadFonts();
+
+/** yumuşak beliriş: zıplamasız, göz yormayan yay */
+const pop = (t: number, at: number, fps = 30, damping = 20) => rawPop(t, at, fps, Math.max(20, damping));
 
 const Y = "#FF6B5B"; // vurgu (mercan)
 const PAPER = "#cfe6f2";
@@ -81,7 +84,7 @@ const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: num
   return (
     <div style={{ position: "absolute", left: 40, right: 40, top, textAlign: "center" }}>
       {chunks[c].map((w, k) => {
-        const p = pop(t, cs + k * 0.07, 30, 10);
+        const p = sm(t, cs + k * 0.05, cs + k * 0.05 + 0.2);
         const isHl = hl.includes(norm(w));
         return (
           <span
@@ -97,8 +100,8 @@ const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: num
               WebkitTextStroke: `14px ${INK}`,
               paintOrder: "stroke",
               textShadow: "0 8px 0 rgba(31,42,68,0.3)",
-              transform: `scale(${0.6 + 0.4 * p}) translateY(${(1 - p) * 20}px)`,
-              opacity: Math.min(1, p * 3),
+              transform: `translateY(${(1 - p) * 14}px)`,
+              opacity: p,
             }}
           >
             {w.replace(/[“”]/g, "")}
@@ -213,7 +216,7 @@ const Star: React.FC<{ x: number; y: number; s: number; color?: string }> = ({ x
 
 /** sevimli tamir hücresi: kask + anahtar */
 const Fixer: React.FC<{ x: number; y: number; t: number; k: number }> = ({ x, y, t, k }) => {
-  const hop = Math.abs(Math.sin(t * 9 + k)) * -18;
+  const hop = Math.abs(Math.sin(t * 5 + k)) * -12;
   return (
     <g transform={`translate(${x},${y + hop})`}>
       <circle r={46} fill="#fffaf0" stroke={INK} strokeWidth={7} />
@@ -245,7 +248,7 @@ const Brain: React.FC<{ x: number; y: number; t: number; p: number }> = ({ x, y,
     <path d="M-50,-40 Q-20,-20 -40,10 M10,-70 Q0,-30 30,-20 M40,10 Q20,30 50,45" stroke="#c97a8f" strokeWidth={6} fill="none" strokeLinecap="round" />
     <circle cx={-25} cy={-5} r={7} fill={INK} />
     <circle cx={25} cy={-5} r={7} fill={INK} />
-    <ellipse cx={0} cy={25} rx={12} ry={14} fill="#7a2a2a" stroke={INK} strokeWidth={4} transform={`scale(1,${0.8 + 0.2 * Math.sin(t * 12)})`} />
+    <ellipse cx={0} cy={25} rx={12} ry={14} fill="#7a2a2a" stroke={INK} strokeWidth={4} transform={`scale(1,${0.85 + 0.15 * Math.sin(t * 6)})`} />
   </g>
 );
 
@@ -433,7 +436,7 @@ const CSarcomere: React.FC<{ t: number; stretch: number; torn: number }> = ({ t,
       els.push(<rect key={`m${r}${k}`} x={mc - 115} y={y - 14 + wob} width={230} height={26} rx={13} fill="#a78bfa" stroke={INK} strokeWidth={4} />);
       for (let h = 0; h < 8; h++) {
         const hx = mc - 98 + h * 28;
-        const a = Math.sin(t * 9 + h + r) * 0.5 + (h < 4 ? -0.5 : 0.5);
+        const a = Math.sin(t * 5 + h + r) * 0.5 + (h < 4 ? -0.5 : 0.5);
         els.push(<circle key={`h${r}${k}${h}`} cx={hx + Math.sin(a) * 10} cy={y - 26 + wob} r={7} fill="#d6c7ff" stroke={INK} strokeWidth={3} />);
       }
     });
@@ -475,7 +478,7 @@ const MiniSquat: React.FC<{ t: number; o: number }> = ({ t, o }) => {
 
 /** bağışıklık hücreleri: nötrofil (beyaz, mor loblu), makrofaj (turuncu, koca ağız) */
 const Neutro: React.FC<{ x: number; y: number; t: number; k: number }> = ({ x, y, t, k }) => (
-  <g transform={`translate(${x},${y + Math.abs(Math.sin(t * 9 + k)) * -14})`}>
+  <g transform={`translate(${x},${y + Math.abs(Math.sin(t * 5 + k)) * -10})`}>
     <circle r={44} fill="#fff" stroke={INK} strokeWidth={7} />
     {[
       [-14, -16],
@@ -495,7 +498,7 @@ const Macro: React.FC<{ x: number; y: number; t: number }> = ({ x, y, t }) => {
     const r = 62 + 10 * Math.sin(a * 3 + t * 3);
     return `${Math.cos(a) * r},${Math.sin(a) * r}`;
   }).join(" ");
-  const chomp = (Math.sin(t * 8) + 1) / 2;
+  const chomp = (Math.sin(t * 5) + 1) / 2;
   return (
     <g transform={`translate(${x},${y})`}>
       <polygon points={pts} fill="#ffb454" stroke={INK} strokeWidth={7} strokeLinejoin="round" />
@@ -508,7 +511,7 @@ const Macro: React.FC<{ x: number; y: number; t: number }> = ({ x, y, t }) => {
 
 /** uydu hücre: yeşil, sevimli */
 const Sat: React.FC<{ x: number; y: number; t: number; k: number; s?: number }> = ({ x, y, t, k, s = 1 }) => (
-  <g transform={`translate(${x},${y + Math.abs(Math.sin(t * 8 + k)) * -12}) scale(${s})`}>
+  <g transform={`translate(${x},${y + Math.abs(Math.sin(t * 5 + k)) * -10}) scale(${s})`}>
     <circle r={40} fill="#7ee08a" stroke={INK} strokeWidth={7} />
     <circle cx={-12} cy={-6} r={5} fill={INK} />
     <circle cx={12} cy={-6} r={5} fill={INK} />
@@ -520,10 +523,10 @@ const Sat: React.FC<{ x: number; y: number; t: number; k: number; s?: number }> 
 
 /** yakınlaşma geçişi */
 const Zoom: React.FC<{ t: number; a: number; b: number; fx: number; fy: number; first?: boolean; children: React.ReactNode }> = ({ t, a, b, fx, fy, first, children }) => {
-  const inK = first ? 1 : sm(t, a - 0.1, a + 0.45);
-  const outK = sm(t, b - 0.3, b + 0.2);
+  const inK = first ? 1 : sm(t, a - 0.25, a + 0.35);
+  const outK = sm(t, b - 0.3, b + 0.3);
   if (inK <= 0 || outK >= 1) return null;
-  const s = (0.4 + 0.6 * inK) * (1 + outK * 3);
+  const s = (0.94 + 0.06 * inK) * (1 + outK * 0.12);
   return (
     <g opacity={inK * (1 - outK)} transform={`translate(${fx},${fy}) scale(${s}) translate(${-fx},${-fy})`}>
       {children}
@@ -555,10 +558,10 @@ export const KasAgrisiToon: React.FC = () => {
   const L = tl.at;
   const blink = blinkAt(t);
 
-  const zoomIn = sm(t, L(2) + 0.5, L(2) + 1.1);
-  const inside = t > L(2) + 0.7 && t < L(7) + 0.3;
-  const insideIn = sm(t, L(2) + 0.7, L(2) + 1.2);
-  const insideOut = sm(t, L(7) - 0.25, L(7) + 0.2);
+  const zoomIn = sm(t, L(2) + 0.3, L(2) + 1.3);
+  const inside = t > L(2) + 0.6 && t < L(7) + 0.3;
+  const insideIn = sm(t, L(2) + 0.6, L(2) + 1.3);
+  const insideOut = sm(t, L(7) - 0.4, L(7) + 0.3);
   // yakınlaşma zinciri zamanları (satır 2 içinde)
   const zA = L(2) + 1.0;
   const zB = L(2) + 2.0;
@@ -575,7 +578,7 @@ export const KasAgrisiToon: React.FC = () => {
     const step = sm(t, 0.9, 1.5);
     gx = 360 + step * 170;
     gy = 1030 + step * 95 - Math.sin(step * Math.PI) * 40;
-    pose = { armL: 35 + Math.sin(t * 9) * 8, armR: 35, elbowL: 20, elbowR: 20, legL: -8 + step * 14, legR: 8 - step * 10, lean: -4 };
+    pose = { armL: 35 + Math.sin(t * 5) * 5, armR: 35, elbowL: 20, elbowR: 20, legL: -8 + step * 14, legR: 8 - step * 10, lean: -4 };
     expr = "ouch";
     shake = 1;
     gScale = 0.82;
@@ -598,11 +601,11 @@ export const KasAgrisiToon: React.FC = () => {
     gScale = 0.62;
     gy = 1180;
   } else {
-    pose = { armL: 10, armR: 120, elbowR: 40 + Math.sin(t * 10) * 15 };
+    pose = { armL: 10, armR: 120, elbowR: 40 + Math.sin(t * 6) * 12 };
     expr = "wink";
   }
   const showGirl = t < L(2) + 1.2 || t > L(9);
-  const zoomTf = `translate(540,1100) scale(${1 + zoomIn * 5}) translate(-540,-1100)`;
+  const zoomTf = `translate(540,1100) scale(${1 + zoomIn * 0.35}) translate(-540,-1100)`;
 
   return (
     <AbsoluteFill lang="tr" style={{ background: PAPER, overflow: "hidden" }}>
@@ -610,8 +613,8 @@ export const KasAgrisiToon: React.FC = () => {
 
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={t > L(2) && t < L(7) ? zoomTf : undefined} opacity={t > L(2) && t < L(7) ? 1 - insideIn : 1}>
-          {t < L(1) + 0.2 ? (
-            <g opacity={1 - sm(t, L(1) - 0.15, L(1) + 0.15)}>
+          {t < L(1) + 0.3 ? (
+            <g opacity={1 - sm(t, L(1) - 0.3, L(1) + 0.3)}>
               <Stairs />
               <Burst x={760} y={560} text="AH!" p={pop(t, 0.35, 30, 9)} />
               <Sweat x={gx + 100} y={gy - 760} t={t} />
@@ -619,7 +622,7 @@ export const KasAgrisiToon: React.FC = () => {
             </g>
           ) : null}
           {t >= L(1) - 0.1 && t < L(2) + 0.3 ? (
-            <g opacity={win(t, L(1) - 0.1, L(2) + 0.3, 0.2)}>
+            <g opacity={win(t, L(1) - 0.2, L(2) + 0.4, 0.4)}>
               <Bottle x={760} y={900} p={pop(t, L(1), 30, 11)} cross={sm(t, L(1) + 0.6, L(1) + 0.9)} />
               <Clock x={760} y={1180} p={pop(t, L(1) + 1.4, 30, 10)} t={t} />
             </g>
@@ -636,11 +639,11 @@ export const KasAgrisiToon: React.FC = () => {
         </g>
 
         {/* 24–72 saat (7) */}
-        {t > L(7) - 0.1 && t < L(8) + 0.1 ? <g opacity={win(t, L(7) - 0.1, L(8) + 0.1, 0.2)}><DayCards t={t} s={L(7)} /></g> : null}
+        {t > L(7) - 0.2 && t < L(8) + 0.2 ? <g opacity={win(t, L(7) - 0.2, L(8) + 0.2, 0.4)}><DayCards t={t} s={L(7)} /></g> : null}
 
         {/* uydu hücreler (8): lif üzerinde yırtıkları kapatır */}
-        {t > L(8) - 0.1 && t < L(9) + 0.1 ? (
-          <g opacity={win(t, L(8) - 0.1, L(9) + 0.1, 0.25)}>
+        {t > L(8) - 0.2 && t < L(9) + 0.2 ? (
+          <g opacity={win(t, L(8) - 0.2, L(9) + 0.2, 0.4)}>
             <CFiber thick={1 + 0.15 * sm(t, L(8) + 2.0, L(8) + 2.8)} glow={sm(t, L(8) + 2.0, L(8) + 2.6)} />
             {[330, 620, 820].map((x, k) => (
               <Tear key={k} x={x} y={930} p={1 - sm(t, L(8) + 1.4 + k * 0.15, L(8) + 1.8 + k * 0.15)} />
@@ -658,7 +661,7 @@ export const KasAgrisiToon: React.FC = () => {
         {t > L(9) && t < L(10) ? (
           <g>
             {[0, 1, 2].map((k) => (
-              <Star key={k} x={560 + k * 60} y={620 - k * 70} s={pop(t, L(9) + 0.4 + k * 0.15) * (0.9 + 0.2 * Math.sin(t * 8 + k))} />
+              <Star key={k} x={560 + k * 60} y={620 - k * 70} s={pop(t, L(9) + 0.4 + k * 0.15) * (0.95 + 0.08 * Math.sin(t * 4 + k))} />
             ))}
             <Burst x={780} y={430} text="GÜÇLÜ!" p={pop(t, L(9) + 0.5, 30, 9)} color="#3ccf6e" rot={6} size={0.8} />
             {[0.9, 0.35].map((v, k) => {
@@ -714,7 +717,7 @@ export const KasAgrisiToon: React.FC = () => {
           <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
             <defs>
               <clipPath id="dive">
-                <circle cx={540} cy={1000} r={80 + 1400 * insideIn} />
+                <circle cx={540} cy={960} r={2000} />
               </clipPath>
             </defs>
             <g clipPath="url(#dive)">
@@ -734,7 +737,7 @@ export const KasAgrisiToon: React.FC = () => {
 
               {/* sarkomer: uzama (3), yırtık (4) */}
               {t > zD - 0.15 && t < L(5) + 0.3 ? (
-                <g opacity={sm(t, zD - 0.1, zD + 0.35) * (1 - sm(t, L(5) - 0.2, L(5) + 0.2))}>
+                <g opacity={sm(t, zD - 0.25, zD + 0.35) * (1 - sm(t, L(5) - 0.35, L(5) + 0.3))}>
                   <CSarcomere t={t} stretch={t > L(3) ? (1 - Math.cos((t - L(3)) * 3.2)) / 2 : 0} torn={sm(t, L(4) + 0.2, L(4) + 0.9)} />
                   <Tag x={540 - 370} y={700} tx={230} ty={560} text="Z çizgisi" o={win(t, zD + 0.3, L(5), 0.2)} />
                   <Tag x={540 - 190} y={746} tx={520} ty={560} text="miyozin" o={win(t, zD + 0.5, L(4), 0.2)} color="#e4dbff" />
@@ -747,7 +750,7 @@ export const KasAgrisiToon: React.FC = () => {
 
               {/* lif: bağışıklık (5), sıvı + sinir (6) */}
               {t > L(5) - 0.2 && t < L(7) + 0.2 ? (
-                <g opacity={sm(t, L(5) - 0.15, L(5) + 0.3)}>
+                <g opacity={sm(t, L(5) - 0.3, L(5) + 0.35)}>
                   {/* kılcal damar */}
                   <rect x={70} y={1170} width={940} height={80} rx={40} fill="#d8323f" stroke={INK} strokeWidth={8} />
                   {Array.from({ length: 9 }).map((_, k) => (

@@ -147,7 +147,7 @@ export const ToonGirl2D: React.FC<{
   shake?: number;
   t?: number;
 }> = ({ pose = {}, expr = "smile", blink = 0, x = 0, y = 0, scale = 1, shake = 0, t = 0 }) => {
-  const j = (k: number) => shake * Math.sin(t * 55 + k) * 5;
+  const j = (k: number) => shake * Math.sin(t * 18 + k) * 3;
   const lean = pose.lean ?? 0;
   return (
     <g transform={`translate(${x},${y + (pose.bob ?? 0)}) scale(${scale})`}>

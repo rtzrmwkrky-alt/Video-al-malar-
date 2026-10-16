@@ -530,8 +530,10 @@ export const WilmaRudolph: React.FC<WilmaProps> = ({ audioName, data }) => {
                   <path d="M0 760 C 200 700, 380 840, 560 780 S 900 860, 1080 820" fill="none" stroke="#6b8aa0" strokeOpacity="0.45" strokeWidth="6" />
                   <path d="M60 420 L 1020 420 L 1020 1200 L 60 1200 Z" fill="none" stroke={INK} strokeOpacity="0.25" strokeWidth="3" strokeDasharray="14 10" />
                   <text x="540" y="1250" textAnchor="middle" fontFamily={MONO} fontSize="30" letterSpacing="14" fill={INK} opacity="0.5">TENNESSEE</text>
-                  <path d={`M${P[0][0]} ${P[0][1]} C ${P[1][0]} ${P[1][1]}, ${P[2][0]} ${P[2][1]}, ${P[3][0]} ${P[3][1]}`} fill="none" stroke={RED} strokeWidth="7" strokeDasharray="18 12" strokeLinecap="round" />
-                  <path d={`M${P[0][0]} ${P[0][1]} C ${P[1][0]} ${P[1][1]}, ${P[2][0]} ${P[2][1]}, ${P[3][0]} ${P[3][1]}`} fill="none" stroke="#efe4c8" strokeWidth="11" pathLength={1} strokeDasharray="1" strokeDashoffset={-road} />
+                  <mask id="road">
+                    <path d={`M${P[0][0]} ${P[0][1]} C ${P[1][0]} ${P[1][1]}, ${P[2][0]} ${P[2][1]}, ${P[3][0]} ${P[3][1]}`} fill="none" stroke="#fff" strokeWidth="14" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - road} />
+                  </mask>
+                  <path mask="url(#road)" d={`M${P[0][0]} ${P[0][1]} C ${P[1][0]} ${P[1][1]}, ${P[2][0]} ${P[2][1]}, ${P[3][0]} ${P[3][1]}`} fill="none" stroke={RED} strokeWidth="7" strokeDasharray="18 12" strokeLinecap="round" />
                   {[P[0], P[3]].map(([x, y], k) => (
                     <g key={k}>
                       <circle cx={x} cy={y} r="18" fill={INK} />

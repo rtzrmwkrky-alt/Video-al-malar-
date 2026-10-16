@@ -10,8 +10,8 @@ import { INK, ToonGirl2D, blinkAt, type Expr, type ToonPose } from "../cartoon/T
 
 loadFonts();
 
-const Y = "#FFD43B"; // vurgu sarısı
-const PAPER = "#eadcc0";
+const Y = "#FF6B5B"; // vurgu (mercan)
+const PAPER = "#cfe6f2";
 const MUSCLE = "#e8707a";
 const MUSCLE_D = "#c94e5a";
 
@@ -37,21 +37,21 @@ const Paper: React.FC<{ t: number; tint?: string }> = ({ t, tint }) => (
   <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
     <defs>
       <radialGradient id="pp" cx="50%" cy="45%" r="75%">
-        <stop offset="0" stopColor={tint ?? "#f3e8d0"} />
+        <stop offset="0" stopColor={tint ?? "#e9f5fb"} />
         <stop offset="0.65" stopColor={tint ? tint : PAPER} />
-        <stop offset="1" stopColor="#b9a47f" />
+        <stop offset="1" stopColor={tint ? "#e7b3a8" : "#9cc3d8"} />
       </radialGradient>
       <filter id="grain">
         <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves={2} seed={3} />
-        <feColorMatrix values="0 0 0 0 0.35  0 0 0 0 0.27  0 0 0 0 0.15  0 0 0 0.18 0" />
+        <feColorMatrix values="0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0 0.27  0 0 0 0.08 0" />
       </filter>
     </defs>
     <rect width={1080} height={1920} fill="url(#pp)" />
     <rect width={1080} height={1920} filter="url(#grain)" />
-    {Array.from({ length: 22 }).map((_, i) => {
-      const x = (i * 197 + 30) % 1080;
-      const y = (i * 331 + 100 - t * (12 + (i % 5) * 4)) % 1920;
-      return <circle key={i} cx={x} cy={(y + 1920) % 1920} r={2 + (i % 3)} fill="#fff" opacity={0.55} />;
+    {Array.from({ length: 9 }).map((_, i) => {
+      const x = (i * 271 + 90) % 1080;
+      const y = ((i * 431 + 200 - t * (8 + (i % 3) * 3)) % 1920 + 1920) % 1920;
+      return <circle key={i} cx={x} cy={y} r={30 + (i % 4) * 22} fill="#fff" opacity={0.18} />;
     })}
   </svg>
 );
@@ -92,10 +92,10 @@ const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: num
               fontWeight: 800,
               fontSize: 92,
               letterSpacing: -1.5,
-              color: isHl ? Y : "#fffaf0",
+              color: isHl ? Y : "#ffffff",
               WebkitTextStroke: `14px ${INK}`,
               paintOrder: "stroke",
-              textShadow: "0 8px 0 rgba(43,29,20,0.35)",
+              textShadow: "0 8px 0 rgba(31,42,68,0.3)",
               transform: `scale(${0.6 + 0.4 * p}) translateY(${(1 - p) * 20}px)`,
               opacity: Math.min(1, p * 3),
             }}
@@ -113,10 +113,10 @@ const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: num
 const Stairs: React.FC = () => (
   <g>
     {[0, 1, 2, 3, 4].map((k) => (
-      <rect key={k} x={140 + k * 170} y={1030 + k * 95} width={1000} height={95} fill={k % 2 ? "#d9c39b" : "#cfb68b"} stroke={INK} strokeWidth={7} />
+      <rect key={k} x={140 + k * 170} y={1030 + k * 95} width={1000} height={95} fill={k % 2 ? "#f4f0e8" : "#e6dfd2"} stroke={INK} strokeWidth={7} />
     ))}
     <line x1={60} y1={1030} x2={140} y2={1030} stroke={INK} strokeWidth={7} />
-    <rect x={-20} y={1030} width={160} height={600} fill="#cfb68b" stroke={INK} strokeWidth={7} />
+    <rect x={-20} y={1030} width={160} height={600} fill="#e6dfd2" stroke={INK} strokeWidth={7} />
   </g>
 );
 
@@ -294,7 +294,7 @@ const Tip: React.FC<{ x: number; y: number; p: number; kind: number; t: number }
     <circle r={105} fill="#fffaf0" stroke={INK} strokeWidth={8} />
     {kind === 0 ? (
       <g>
-        <path d="M-60,20 Q-62,-30 -30,-30 L10,-28 Q30,-10 55,-2 Q75,4 70,30 L-60,30 Z" fill="#5fa89a" stroke={INK} strokeWidth={7} strokeLinejoin="round" />
+        <path d="M-60,20 Q-62,-30 -30,-30 L10,-28 Q30,-10 55,-2 Q75,4 70,30 L-60,30 Z" fill="#ff7a6b" stroke={INK} strokeWidth={7} strokeLinejoin="round" />
         <rect x={-64} y={28} width={138} height={16} rx={8} fill="#fff" stroke={INK} strokeWidth={6} />
       </g>
     ) : null}

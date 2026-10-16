@@ -3,7 +3,7 @@
  * pembe yanaklar. Referans: kullanıcının gösterdiği sade karikatür tarzı.
  * Koordinatlar: (0,0) ayakların ortası, yukarı negatif y. Boy ~900 birim.
  */
-export const INK = "#2b1d14";
+export const INK = "#1f2a44";
 
 export type Expr = "smile" | "ouch" | "grit" | "wink" | "happy" | "think";
 
@@ -26,14 +26,18 @@ export type ToonPose = {
 };
 
 export const COLORS = {
-  skin: "#f6c9a4",
-  hair: "#8a5a3a",
-  hairD: "#6e4529",
-  shirt: "#5fa89a",
-  shirtD: "#4c8f82",
-  pants: "#4c3d7a",
-  shoe: "#2b1d14",
-  cheek: "#f08a8a",
+  skin: "#fbd5b8",
+  hair: "#9a6a44",
+  hairD: "#7a4f30",
+  shirt: "#ff7a6b",
+  shirtD: "#ffffff",
+  pants: "#2f4a7a",
+  stripe: "#9fd8ff",
+  shoe: "#ffffff",
+  sole: "#ff7a6b",
+  band: "#9fd8ff",
+  iris: "#5b3a22",
+  cheek: "#ff8fa0",
 };
 
 const W = 7; // kontur kalınlığı
@@ -56,7 +60,13 @@ const Limb: React.FC<{ x: number; y: number; angle: number; len: number; w: numb
       <>
         <rect x={-w / 2} y={-w / 2} width={w} height={len + w / 2} rx={w / 2} fill={fill} stroke={INK} strokeWidth={W} />
         {hand ? <circle cx={0} cy={len + 4} r={w * 0.62} fill={COLORS.skin} stroke={INK} strokeWidth={W} /> : null}
-        {shoe ? <ellipse cx={8} cy={len + 6} rx={w * 0.95} ry={w * 0.5} fill={COLORS.shoe} stroke={INK} strokeWidth={W} /> : null}
+        {shoe ? (
+          <g>
+            <rect x={-w * 0.72} y={len - 6} width={w * 1.7} height={w * 0.62} rx={w * 0.3} fill={COLORS.shoe} stroke={INK} strokeWidth={W} />
+            <rect x={-w * 0.72} y={len + w * 0.4} width={w * 1.7} height={w * 0.24} rx={w * 0.12} fill={COLORS.sole} stroke={INK} strokeWidth={W - 2} />
+          </g>
+        ) : null}
+        {shoe ? <line x1={w * 0.18} y1={0} x2={w * 0.18} y2={len - 10} stroke={COLORS.stripe} strokeWidth={8} /> : null}
       </>
     ) : (
       <>
@@ -77,8 +87,11 @@ const Face: React.FC<{ expr: Expr; blink: number }> = ({ expr, blink }) => {
       <path d={`M${x - 13},-688 Q${x},-678 ${x + 13},-688`} stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" />
     ) : (
       <g>
-        <ellipse cx={x} cy={-690} rx={11} ry={eyeH} fill={INK} />
-        <circle cx={x + 4} cy={-695} r={3.5} fill="#fff" />
+        <ellipse cx={x} cy={-690} rx={19} ry={eyeH * 1.45} fill="#fff" stroke={INK} strokeWidth={5} />
+        <ellipse cx={x + 2} cy={-688} rx={11} ry={Math.max(1, eyeH * 0.95)} fill={COLORS.iris} />
+        <circle cx={x + 2} cy={-688} r={Math.min(6, eyeH * 0.5)} fill={INK} />
+        <circle cx={x + 7} cy={-695} r={4} fill="#fff" />
+        <path d={`M${x - 20},${-699} l-8,-6 M${x - 12},${-707} l-4,-8`} stroke={INK} strokeWidth={4} strokeLinecap="round" />
       </g>
     );
   const brow = expr === "ouch" || expr === "grit" ? 10 : expr === "think" ? -6 : 0;
@@ -100,6 +113,10 @@ const Face: React.FC<{ expr: Expr; blink: number }> = ({ expr, blink }) => {
       )}
       {/* burun */}
       <path d="M-2,-672 Q8,-662 -2,-654" stroke={INK} strokeWidth={5} fill="none" strokeLinecap="round" />
+      {/* çiller */}
+      {[-78, -64, -71, 64, 78, 71].map((fx, k) => (
+        <circle key={k} cx={fx} cy={-664 + (k % 3 === 2 ? 10 : 0)} r={3} fill="#c98a5e" />
+      ))}
       {/* yanaklar */}
       <ellipse cx={-70} cy={-655} rx={20} ry={13} fill={COLORS.cheek} opacity={0.55} />
       <ellipse cx={70} cy={-655} rx={20} ry={13} fill={COLORS.cheek} opacity={0.55} />
@@ -140,13 +157,15 @@ export const ToonGirl2D: React.FC<{
       <Limb x={-48} y={-330} angle={(pose.legL ?? 0) + j(1)} len={318} w={72} fill={COLORS.pants} shoe />
       <Limb x={48} y={-330} angle={(pose.legR ?? 0) + j(2)} len={318} w={72} fill={COLORS.pants} shoe />
       <g transform={`rotate(${lean},0,-330)`}>
-        {/* arka saç (at kuyruğu) */}
-        <path d="M70,-760 C160,-760 175,-640 140,-560 C120,-520 95,-540 105,-590 C115,-640 100,-700 60,-720 Z" fill={COLORS.hair} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+        {/* topuz */}
+        <circle cx={0} cy={-830} r={58} fill={COLORS.hair} stroke={INK} strokeWidth={W} />
+        <path d="M-30,-850 Q0,-870 30,-850" stroke={COLORS.hairD} strokeWidth={6} fill="none" strokeLinecap="round" />
         {/* arka kol */}
         <Limb x={118} y={-540} angle={-(pose.armR ?? 8)} len={130} len2={120} elbow={-(pose.elbowR ?? 0)} w={50} fill={COLORS.shirt} fill2={COLORS.skin} hand />
         {/* gövde */}
         <path d="M-118,-560 Q-128,-440 -112,-318 L112,-318 Q128,-440 118,-560 Q0,-590 -118,-560 Z" fill={COLORS.shirt} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
-        <path d="M-112,-345 L112,-345" stroke={COLORS.shirtD} strokeWidth={10} />
+        <path d="M-118,-470 L118,-470" stroke="#fff" strokeWidth={14} />
+        <path d="M-116,-450 L116,-450" stroke={COLORS.stripe} strokeWidth={8} />
         {/* boyun */}
         <rect x={-24} y={-600} width={48} height={50} fill={COLORS.skin} stroke={INK} strokeWidth={W} />
         <path d="M-40,-566 Q0,-540 40,-566" stroke={INK} strokeWidth={W} fill="none" />
@@ -165,8 +184,9 @@ export const ToonGirl2D: React.FC<{
             strokeWidth={W}
             strokeLinejoin="round"
           />
-          {/* saç tokası */}
-          <circle cx={92} cy={-760} r={14} fill="#f2c94c" stroke={INK} strokeWidth={5} />
+          {/* saç bandı */}
+          <path d="M-112,-735 Q0,-800 112,-735" stroke={COLORS.band} strokeWidth={22} fill="none" strokeLinecap="round" />
+          <path d="M-112,-735 Q0,-800 112,-735" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.0} />
           <Face expr={expr} blink={blink} />
         </g>
       </g>

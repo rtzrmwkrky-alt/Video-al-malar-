@@ -1,9 +1,11 @@
 /**
  * Kas ağrısı — düz çizgi karikatür sürümü (≤30 sn, Reels). Bej kâğıt zemin, kalın konturlu kız,
  * kasın içinde sevimli "tamir hücreleri". Altyazı 3 kelimelik parçalar, vurgu sarı.
- * Sessiz örnek: zaman satırlardan hesaplanır.
+ * Seslendirme varsa (public/audio/<ad>.json) satır ve altyazı zamanları kelime zamanlarından gelir;
+ * yoksa okuma hızından hesaplanır (sessiz önizleme).
  */
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
 import { INK, ToonGirl2D, blinkAt, type Expr, type ToonPose } from "../cartoon/ToonGirl2D";
@@ -35,6 +37,35 @@ export const TOON_LINES: Line[] = [
 
 export const TOON_TL = timeline(TOON_LINES, 0.2);
 
+type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
+
+/** seslendirmeden zaman çizelgesi: her satır ilk kelimesinin başladığı anda başlar */
+export const VOICE_TAIL = 1.8;
+const voiceTimeline = (data: VoiceoverData): TL => {
+  const offs: number[] = [];
+  let o = 0;
+  for (const l of TOON_LINES) {
+    offs.push(o);
+    o += l.text.split(/\s+/).length;
+  }
+  const w = data.words;
+  const ws = (i: number) => w[Math.min(w.length - 1, i)]?.start ?? 0;
+  const starts = offs.map((off, i) => (i === 0 ? 0 : ws(off) - 0.06));
+  const total = data.durationInSeconds + VOICE_TAIL;
+  return {
+    starts,
+    total,
+    frames: Math.ceil(total * 30),
+    at: (i: number) => (i >= starts.length ? total : starts[i]),
+    idx: (t: number) => {
+      let i = -1;
+      while (i + 1 < starts.length && t >= starts[i + 1]) i++;
+      return i;
+    },
+    wordAt: (line: number, k: number) => ws(offs[line] + k),
+  };
+};
+
 // ------------------------------------------------------------ zemin
 
 const Paper: React.FC<{ t: number; tint?: string }> = ({ t, tint }) => (
@@ -64,7 +95,7 @@ const Paper: React.FC<{ t: number; tint?: string }> = ({ t, tint }) => (
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: number }> = ({ t, tl, top = 1440 }) => {
+const Captions: React.FC<{ t: number; tl: TL; top?: number }> = ({ t, tl, top = 1440 }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
   const line = TOON_LINES[i];
@@ -78,13 +109,19 @@ const Captions: React.FC<{ t: number; tl: ReturnType<typeof timeline>; top?: num
   const s = tl.at(i);
   const e = tl.at(i + 1) - (line.hold ?? 0);
   const per = (e - s) / chunks.length;
-  const c = Math.min(chunks.length - 1, Math.floor((t - s) / per));
+  const firstIdx = chunks.map((_, n) => chunks.slice(0, n).reduce((a, ch) => a + ch.length, 0));
+  let c = Math.min(chunks.length - 1, Math.floor((t - s) / per));
+  if (tl.wordAt) {
+    c = 0;
+    while (c + 1 < chunks.length && t >= tl.wordAt(i, firstIdx[c + 1]) - 0.04) c++;
+  }
   const cs = s + c * per;
+  const wordT = (k: number) => (tl.wordAt ? tl.wordAt(i, firstIdx[c] + k) - 0.06 : cs + k * 0.05);
   const hl = (line.hl ?? []).map(norm);
   return (
     <div style={{ position: "absolute", left: 40, right: 40, top, textAlign: "center" }}>
       {chunks[c].map((w, k) => {
-        const p = sm(t, cs + k * 0.05, cs + k * 0.05 + 0.2);
+        const p = sm(t, wordT(k), wordT(k) + 0.16);
         const isHl = hl.includes(norm(w));
         return (
           <span
@@ -523,8 +560,9 @@ const Sat: React.FC<{ x: number; y: number; t: number; k: number; s?: number }> 
 
 /** yakınlaşma geçişi */
 const Zoom: React.FC<{ t: number; a: number; b: number; fx: number; fy: number; first?: boolean; children: React.ReactNode }> = ({ t, a, b, fx, fy, first, children }) => {
-  const inK = first ? 1 : sm(t, a - 0.25, a + 0.35);
-  const outK = sm(t, b - 0.3, b + 0.3);
+  // önce eski kaybolur, sonra yeni gelir (üst üste binmez)
+  const inK = first ? 1 : sm(t, a, a + 0.35);
+  const outK = sm(t, b - 0.35, b);
   if (inK <= 0 || outK >= 1) return null;
   const s = (0.94 + 0.06 * inK) * (1 + outK * 0.12);
   return (
@@ -550,11 +588,13 @@ const Clock: React.FC<{ x: number; y: number; p: number; t: number }> = ({ x, y,
 
 // ------------------------------------------------------------ ana video
 
-export const KasAgrisiToon: React.FC = () => {
+export type KasAgrisiToonProps = { audioName: string; data: VoiceoverData | null };
+
+export const KasAgrisiToon: React.FC<KasAgrisiToonProps> = ({ audioName, data }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const tl = TOON_TL;
+  const tl: TL = data ? voiceTimeline(data) : TOON_TL;
   const L = tl.at;
   const blink = blinkAt(t);
 
@@ -563,10 +603,12 @@ export const KasAgrisiToon: React.FC = () => {
   const insideIn = sm(t, L(2) + 0.6, L(2) + 1.3);
   const insideOut = sm(t, L(7) - 0.4, L(7) + 0.3);
   // yakınlaşma zinciri zamanları (satır 2 içinde)
-  const zA = L(2) + 1.0;
-  const zB = L(2) + 2.0;
-  const zC = L(2) + 3.0;
-  const zD = L(2) + 4.0;
+  // yakınlaşma zinciri satır 2'nin süresine yayılır
+  const d2 = L(3) - L(2);
+  const zA = L(2) + d2 * 0.22;
+  const zB = L(2) + d2 * 0.42;
+  const zC = L(2) + d2 * 0.62;
+  const zD = L(2) + d2 * 0.82;
 
   let pose: ToonPose = { armL: 10, armR: 10 };
   let expr: Expr = "smile";
@@ -806,6 +848,23 @@ export const KasAgrisiToon: React.FC = () => {
       ) : null}
 
       <Captions t={t} tl={tl} />
+      {data ? (
+        <>
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {/* konuşmanın altında kısık müzik; kapanışta biraz yükselir */}
+          <Sequence name="müzik">
+            <Audio
+              src={staticFile("music/623.mp3")}
+              volume={(f) => {
+                const mt = f / fps;
+                const end = data.durationInSeconds;
+                const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.07, 0.07, 0.16], { extrapolateRight: "clamp" });
+                return base * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+              }}
+            />
+          </Sequence>
+        </>
+      ) : null}
       <AbsoluteFill
         style={{
           background: "#000",

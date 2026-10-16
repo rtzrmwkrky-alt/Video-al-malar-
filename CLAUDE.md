@@ -150,6 +150,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     `eyes` (yeni dokulu göz küreleri + göz kapağı açma `openLids` + kirpik/eyeliner), `lips` (3B dudak,
     boyalı dudak tene çevrilir), `jewelry` (altın halka küpe, gerdanlık + kolye ucu, sol bilekte bileklik).
 
+- **KasAgrisiToon** — kullanıcı 3D kızı da bıraktı: **düz çizgi karikatür** istedi (referans: bej kâğıt zemin,
+  kalın kahverengi konturlu sade karakter, sarı vurgulu kalın altyazı). Karakter `src/cartoon/ToonGirl2D.tsx`
+  (SVG; pozlar açıyla, ifadeler smile/ouch/grit/wink/happy/think). Reels için **en fazla 30 sn**, izleyiciyi
+  tutan hızlı kurgu; altyazı 3 kelimelik parçalar. Kullanıcı isteği: **teslimden önce videoyu kendin izle,
+  bozuk yeri düzelt, fazlayı çıkar, eksiği ekle.**
+
 ## 3D karakter (src/three/Character.tsx)
 
 - Model: `public/models/Xbot.glb` (three.js örneklerinden, Mixamo iskeleti). Klipler:

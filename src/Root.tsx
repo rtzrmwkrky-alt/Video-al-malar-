@@ -26,6 +26,7 @@ import { KarakterSecim } from "./compositions/KarakterSecim";
 import { KizDeneme } from "./compositions/KizDeneme";
 import { KizBeyaz } from "./compositions/KizBeyaz";
 import { KAS2_TL, KasAgrisiKiz } from "./compositions/KasAgrisiKiz";
+import { KasAgrisiToon, TOON_TL } from "./compositions/KasAgrisiToon";
 import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
 
 const FPS = 30;
@@ -164,7 +165,8 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "her-kafadan-akici", data: null } satisfies HerKafadanAnimasyonProps}
       calculateMetadata={({ props }) => withVoiceoverTail(2.6, props)}
     />
-        <Composition id="KasAgrisiKiz" component={KasAgrisiKiz} width={1080} height={1920} fps={FPS} durationInFrames={KAS2_TL.frames} />
+        <Composition id="KasAgrisiToon" component={KasAgrisiToon} width={1080} height={1920} fps={FPS} durationInFrames={TOON_TL.frames} />
+    <Composition id="KasAgrisiKiz" component={KasAgrisiKiz} width={1080} height={1920} fps={FPS} durationInFrames={KAS2_TL.frames} />
     <Composition id="KizBeyaz" component={KizBeyaz} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 9} />
     <Composition id="KizDeneme" component={KizDeneme} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 8} />
     <Composition id="KarakterSecim" component={KarakterSecim} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 13} />

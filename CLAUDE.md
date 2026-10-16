@@ -165,9 +165,19 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (kelime zamanlarına bağlı; ses değişirse yeniden çalıştır). Görünüm: Playfair Display italik altyazı,
   Dancing Script el yazısı, sepya ton, gren, çizik/toz, vinyet, ışık titremesi. Sahneler kelime sırasına (`W(i)`) bağlı.
 
+- **IsinmaKas** — "Isınmadan başlama!" (~35 sn, **sessiz taslak**, onay bekliyor). Kullanıcının örneği: konuşan
+  kas karakteri sahibine laf yetiştiriyor (yapay zekâ ile üretilmiş Pixar tarzı video) → benzeri ama aynısı değil.
+  Parlak, yuvarlak hatlı çizgi film; karakterler `src/cartoon/IsinmaChars.tsx` (ters şapkalı sporcu `ToonGuy`,
+  gece şapkalı + battaniyeli uykucu bacak kası `KasKarakter`, `w` ile soğuk mor → sıcak kırmızı; uzuvlar `ik` ile).
+  Hikâye: kas sporcuyu halterden önce durdurur → buz gibi lastik "ÇAT!" → 3 ısınma hareketi (sayaç + ısı çubuğu)
+  → kas ısınır, battaniyeyi atar → kaldırış → "Isınma 5 dakika. Sakatlık aylarca." → "Tamam tamam!".
+  **Döngü (loop) kullanıcı isteği:** son 0.63 sn sporcu halterlere koşar, video aynı koşunun devamıyla başlar
+  (`LOOP_END`/`LOOP_START`). Konuşmalar balonlarda (altyazı yerine). Onaylanırsa ses/efekt konuşulacak.
+
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
+- Son iş: **IsinmaKas** sessiz taslak (render: `npx remotion render IsinmaKas out/isinma-taslak.mp4 --concurrency=4 --browser-executable=...`, ~10 dk). Kullanıcı izleyip onay verecek; sonra seslendirme (kas + sporcu iki ayrı hazır ses) ve efektler.
+- Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:
   `npx remotion render KasAgrisiToon out/kas-agrisi-sesli.mp4 --concurrency=4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`

@@ -1,7 +1,7 @@
 /**
  * "Isınma" videosu karakterleri (parlak, yuvarlak hatlı çizgi film):
  * - ToonGuy: arkaya dönük şapkalı sporcu
- * - KasKarakter: uykucu, üşüyen bacak kası (gece şapkası + battaniye); `w` ile soğuk→sıcak renk
+ * - KasKarakter: iğ biçimli, lif demetli, iki ucu parlak tendonlu kas; üşürken atkı + bere; `w` ile soğuk→sıcak renk
  * Koordinatlar: (0,0) ayakların ortası, yukarı negatif y. Uzuvlar iki parçalı ve
  * hedef noktaya `ik` ile uzanır (eller/ayaklar istenen yere gider).
  */
@@ -88,7 +88,8 @@ export const guyStand = (): GuyPose => ({
   footR: { x: 55, y: 0 },
 });
 
-const GuyFace: React.FC<{ e: GuyExpr; blink: number; look: number }> = ({ e, blink, look }) => {
+const GuyFace: React.FC<{ e: GuyExpr; blink: number; look: number; talk: number }> = ({ e, blink, look, talk }) => {
+  const talking = talk > 0.12 && (e === "focus" || e === "smirk" || e === "sheepish");
   const open = (e === "shock" ? 1.25 : e === "happy" ? 0.15 : 1) * (1 - blink);
   const eye = (x: number) =>
     open < 0.25 ? (
@@ -110,11 +111,12 @@ const GuyFace: React.FC<{ e: GuyExpr; blink: number; look: number }> = ({ e, bli
       <path d="M-4,-668 Q10,-654 -4,-646" stroke={G.skinD} strokeWidth={6} fill="none" strokeLinecap="round" />
       <ellipse cx={-66} cy={-650} rx={17} ry={10} fill="#ff7d7d" opacity={0.35} />
       <ellipse cx={66} cy={-650} rx={17} ry={10} fill="#ff7d7d" opacity={0.35} />
-      {e === "focus" ? <path d="M-20,-626 Q0,-614 20,-626" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
-      {e === "smirk" ? <path d="M-22,-622 Q8,-614 26,-634" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+      {!talking && e === "focus" ? <path d="M-20,-626 Q0,-614 20,-626" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+      {!talking && e === "smirk" ? <path d="M-22,-622 Q8,-614 26,-634" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
       {e === "shock" ? <ellipse cx={0} cy={-618} rx={16} ry={21} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
       {e === "happy" ? <path d="M-30,-634 Q0,-590 30,-634 Z" fill="#6b1f2a" stroke={INK} strokeWidth={5} strokeLinejoin="round" /> : null}
-      {e === "sheepish" ? <path d="M-22,-626 Q-8,-618 4,-626 Q14,-632 22,-624" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+      {!talking && e === "sheepish" ? <path d="M-22,-626 Q-8,-618 4,-626 Q14,-632 22,-624" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
+      {talking ? <ellipse cx={0} cy={-624} rx={17 + talk * 4} ry={4 + talk * 15} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
       {e === "grit" ? (
         <g>
           <rect x={-28} y={-638} width={56} height={22} rx={8} fill="#fff" stroke={INK} strokeWidth={5} />
@@ -131,9 +133,10 @@ export const ToonGuy: React.FC<{
   expr?: GuyExpr;
   blink?: number;
   look?: number;
+  talk?: number;
   /** ellerde tutulan şey (karakter koordinatında çizilir, kollardan önce) */
   held?: React.ReactNode;
-}> = ({ pose, expr = "focus", blink = 0, look = 0, held }) => {
+}> = ({ pose, expr = "focus", blink = 0, look = 0, talk = 0, held }) => {
   const d = pose.drop ?? 0;
   const hipY = -330 + d;
   const shY = -540 + d;
@@ -182,7 +185,7 @@ export const ToonGuy: React.FC<{
           <path d="M-18,-724 q6,-22 14,-4 q8,-20 16,2" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
           <path d="M-104,-716 Q0,-736 104,-716" stroke={G.capD} strokeWidth={8} fill="none" />
           <circle cx={0} cy={-796} r={9} fill={G.capD} stroke={INK} strokeWidth={4} />
-          <GuyFace e={expr} blink={blink} look={look} />
+          <GuyFace e={expr} blink={blink} look={look} talk={talk} />
         </g>
       </g>
     </g>
@@ -191,35 +194,42 @@ export const ToonGuy: React.FC<{
 
 // ============================================================ kas karakteri
 
-export type KasExpr = "shout" | "sleepy" | "annoyed" | "strain" | "shock" | "shiver" | "smile" | "happy" | "stern" | "wink";
+export type KasExpr = "shout" | "sleepy" | "annoyed" | "strain" | "shock" | "shiver" | "smile" | "happy" | "stern" | "wink" | "worried";
 
 export type KasPose = { handL: Pt; handR: Pt; footL?: Pt; footR?: Pt; tilt?: number };
 
 const K = {
-  warm: "#ff5f6d",
-  warmD: "#d9364f",
-  cold: "#c7a9cf",
-  coldD: "#9c7fae",
-  fiber: "#ffd0d4",
-  tendon: "#fff4ea",
+  warm: "#e8404f",
+  warmL: "#ff7a80",
+  warmD: "#a81e33",
+  cold: "#e3909c",
+  coldL: "#f7c8cf",
+  coldD: "#a85a6e",
+  tendon: "#f6f2ea",
+  tendonD: "#cfc6d6",
 };
 
-export const kasStand = (): KasPose => ({ handL: { x: -170, y: -250 }, handR: { x: 170, y: -250 } });
+export const kasStand = (): KasPose => ({ handL: { x: -205, y: -250 }, handR: { x: 205, y: -250 } });
 
-const KasFace: React.FC<{ e: KasExpr; blink: number; look: number; t: number; lidColor: string }> = ({ e, blink, look, t, lidColor }) => {
+/** kas karnı (iğ biçimi) */
+const BELLY = "M-44,-690 C-120,-640 -168,-540 -166,-430 C-164,-310 -110,-226 -40,-186 L40,-186 C110,-226 164,-310 166,-430 C168,-540 120,-640 44,-690 Z";
+/** lif demetleri arasındaki çizgiler (k = -6..6) */
+const meridian = (k: number) => `M${k * 7.3},-692 Q${k * 30},-430 ${k * 6.6},-184`;
+
+const KasFace: React.FC<{ e: KasExpr; blink: number; look: number; t: number; lidColor: string; talk: number }> = ({ e, blink, look, t, lidColor, talk }) => {
   const lid = e === "sleepy" ? 0.55 : e === "annoyed" ? 0.35 : 0;
   const big = e === "shock" || e === "shout" ? 1.12 : 1;
   const eye = (x: number, wink = false) => {
     if (wink || blink > 0.6 || e === "happy")
-      return <path d={`M${x - 26},-452 Q${x},${e === "happy" ? -480 : -440} ${x + 26},-452`} stroke={INK} strokeWidth={7} fill="none" strokeLinecap="round" />;
+      return <path d={`M${x - 26},-472 Q${x},${e === "happy" ? -500 : -460} ${x + 26},-472`} stroke={INK} strokeWidth={7} fill="none" strokeLinecap="round" />;
     return (
       <g>
-        <ellipse cx={x} cy={-455} rx={38 * big} ry={44 * big} fill="#fff" stroke={INK} strokeWidth={6} />
-        <circle cx={x + look * 10} cy={-448} r={e === "shock" ? 12 : 19} fill={INK} />
-        <circle cx={x + look * 10 + 7} cy={-456} r={6} fill="#fff" />
+        <ellipse cx={x} cy={-475} rx={36 * big} ry={42 * big} fill="#fff" stroke={INK} strokeWidth={6} />
+        <circle cx={x + look * 10} cy={-468} r={e === "shock" ? 12 : 18} fill={INK} />
+        <circle cx={x + look * 10 + 7} cy={-476} r={6} fill="#fff" />
         {lid > 0 ? (
           <path
-            d={`M${x - 40},-455 A40,46 0 0 1 ${x + 40},-455 L${x + 40},${-499 + 88 * lid} L${x - 40},${-499 + 88 * lid} Z`}
+            d={`M${x - 38},-475 A38,44 0 0 1 ${x + 38},-475 L${x + 38},${-517 + 84 * lid} L${x - 38},${-517 + 84 * lid} Z`}
             fill={lidColor}
             stroke={INK}
             strokeWidth={5}
@@ -228,33 +238,58 @@ const KasFace: React.FC<{ e: KasExpr; blink: number; look: number; t: number; li
       </g>
     );
   };
-  const br = e === "shout" || e === "stern" || e === "strain" ? 14 : e === "shock" ? -18 : e === "shiver" || e === "sleepy" ? -6 : 0;
   const ang = e === "shout" || e === "stern" || e === "strain";
+  const br = ang ? 14 : e === "shock" ? -18 : e === "shiver" || e === "sleepy" || e === "worried" ? -8 : 0;
+  const worried = e === "worried" || e === "shiver";
   const chat = Math.sin(t * 40) > 0 ? 3 : -3;
+  const closed = e === "smile" || e === "wink" || e === "stern" || e === "annoyed" || e === "worried";
+  const talking = talk > 0.12 && (closed || e === "sleepy");
   return (
     <g>
-      <path d={`M-90,${-512 - (ang ? 0 : br * 0.4)} Q-60,${-530 - br * 0.3} -26,${-512 + (ang ? br : -br * 0.2)}`} stroke={INK} strokeWidth={10} fill="none" strokeLinecap="round" />
-      <path d={`M26,${-512 + (ang ? br : -br * 0.2)} Q60,${-530 - br * 0.3} 90,${-512 - (ang ? 0 : br * 0.4)}`} stroke={INK} strokeWidth={10} fill="none" strokeLinecap="round" />
-      {eye(-56)}
-      {eye(56, e === "wink")}
-      <ellipse cx={-100} cy={-392} rx={22} ry={12} fill="#ff9fb0" opacity={0.6} />
-      <ellipse cx={100} cy={-392} rx={22} ry={12} fill="#ff9fb0" opacity={0.6} />
-      {e === "shout" ? <path d="M-46,-384 Q0,-406 46,-384 Q30,-318 0,-316 Q-30,-318 -46,-384 Z" fill="#5c1626" stroke={INK} strokeWidth={6} strokeLinejoin="round" /> : null}
-      {e === "shout" ? <path d="M-20,-334 Q0,-346 20,-334 Q10,-320 0,-320 Q-10,-320 -20,-334 Z" fill="#ff8a9a" /> : null}
-      {e === "sleepy" ? <ellipse cx={0} cy={-366} rx={22} ry={26} fill="#5c1626" stroke={INK} strokeWidth={6} /> : null}
-      {e === "annoyed" ? <path d="M-26,-370 L26,-376" stroke={INK} strokeWidth={7} strokeLinecap="round" /> : null}
-      {e === "shock" ? <ellipse cx={0} cy={-360} rx={20} ry={28} fill="#5c1626" stroke={INK} strokeWidth={6} /> : null}
-      {e === "smile" || e === "wink" || e === "stern" ? <path d="M-34,-382 Q0,-352 34,-382" stroke={INK} strokeWidth={7} fill="none" strokeLinecap="round" /> : null}
-      {e === "happy" ? <path d="M-44,-390 Q0,-326 44,-390 Z" fill="#5c1626" stroke={INK} strokeWidth={6} strokeLinejoin="round" /> : null}
-      {e === "strain" || e === "shiver" ? (
-        <g transform={`translate(${e === "shiver" ? chat : 0},0)`}>
-          <rect x={-40} y={-390} width={80} height={30} rx={10} fill="#fff" stroke={INK} strokeWidth={6} />
-          {[-20, 0, 20].map((x) => (
-            <line key={x} x1={x} y1={-390} x2={x} y2={-360} stroke={INK} strokeWidth={3} />
-          ))}
-          <line x1={-40} y1={-375} x2={40} y2={-375} stroke={INK} strokeWidth={3} />
+      <path
+        d={`M-86,${-530 - (ang ? 0 : br * 0.4) + (worried ? 10 : 0)} Q-58,${-548 - br * 0.3} -24,${-530 + (ang ? br : -br * 0.2) - (worried ? 8 : 0)}`}
+        stroke={INK}
+        strokeWidth={10}
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d={`M24,${-530 + (ang ? br : -br * 0.2) - (worried ? 8 : 0)} Q58,${-548 - br * 0.3} 86,${-530 - (ang ? 0 : br * 0.4) + (worried ? 10 : 0)}`}
+        stroke={INK}
+        strokeWidth={10}
+        fill="none"
+        strokeLinecap="round"
+      />
+      {eye(-54)}
+      {eye(54, e === "wink")}
+      <ellipse cx={-98} cy={-412} rx={22} ry={12} fill="#ffb3c0" opacity={0.7} />
+      <ellipse cx={98} cy={-412} rx={22} ry={12} fill="#ffb3c0" opacity={0.7} />
+      {talking ? (
+        <g>
+          <ellipse cx={0} cy={-392} rx={20 + talk * 6} ry={5 + talk * 20} fill="#5c1626" stroke={INK} strokeWidth={6} />
+          {talk > 0.5 ? <ellipse cx={0} cy={-384 + talk * 8} rx={10} ry={5} fill="#ff8a9a" /> : null}
         </g>
-      ) : null}
+      ) : (
+        <>
+          {e === "shout" ? <path d="M-46,-404 Q0,-426 46,-404 Q30,-338 0,-336 Q-30,-338 -46,-404 Z" fill="#5c1626" stroke={INK} strokeWidth={6} strokeLinejoin="round" /> : null}
+          {e === "shout" ? <path d="M-20,-354 Q0,-366 20,-354 Q10,-340 0,-340 Q-10,-340 -20,-354 Z" fill="#ff8a9a" /> : null}
+          {e === "sleepy" ? <ellipse cx={0} cy={-386} rx={22} ry={26} fill="#5c1626" stroke={INK} strokeWidth={6} /> : null}
+          {e === "annoyed" ? <path d="M-26,-390 L26,-396" stroke={INK} strokeWidth={7} strokeLinecap="round" /> : null}
+          {e === "worried" ? <path d="M-30,-384 Q0,-404 30,-384" stroke={INK} strokeWidth={7} fill="none" strokeLinecap="round" /> : null}
+          {e === "shock" ? <ellipse cx={0} cy={-380} rx={20} ry={28} fill="#5c1626" stroke={INK} strokeWidth={6} /> : null}
+          {e === "smile" || e === "wink" || e === "stern" ? <path d="M-34,-402 Q0,-372 34,-402" stroke={INK} strokeWidth={7} fill="none" strokeLinecap="round" /> : null}
+          {e === "happy" ? <path d="M-44,-410 Q0,-346 44,-410 Z" fill="#5c1626" stroke={INK} strokeWidth={6} strokeLinejoin="round" /> : null}
+          {e === "strain" || e === "shiver" ? (
+            <g transform={`translate(${e === "shiver" ? chat : 0},0)`}>
+              <rect x={-40} y={-410} width={80} height={30} rx={10} fill="#fff" stroke={INK} strokeWidth={6} />
+              {[-20, 0, 20].map((x) => (
+                <line key={x} x1={x} y1={-410} x2={x} y2={-380} stroke={INK} strokeWidth={3} />
+              ))}
+              <line x1={-40} y1={-395} x2={40} y2={-395} stroke={INK} strokeWidth={3} />
+            </g>
+          ) : null}
+        </>
+      )}
     </g>
   );
 };
@@ -269,89 +304,109 @@ export const KasKarakter: React.FC<{
   t?: number;
   /** titreme 0-1 */
   shiver?: number;
-  /** battaniye/şapka: 0 = üstünde, 1 = uçup gitti */
+  /** atkı + bere: 0 = üstünde, 1 = uçup gitti */
   blanketOff?: number;
+  /** konuşma (ağız açıklığı 0-1) */
+  talk?: number;
   /** ellerin önünde çizilecek şey (karakter koordinatında) */
   front?: React.ReactNode;
-}> = ({ pose, expr = "smile", w = 1, blink = 0, look = 0, t = 0, shiver = 0, blanketOff = 0, front }) => {
+}> = ({ pose, expr = "smile", w = 1, blink = 0, look = 0, t = 0, shiver = 0, blanketOff = 0, talk = 0, front }) => {
   const body = mix(K.cold, K.warm, w);
+  const bodyL = mix(K.coldL, K.warmL, w);
   const bodyD = mix(K.coldD, K.warmD, w);
   const jx = shiver * Math.sin(t * 55) * 5;
-  const fL = pose.footL ?? { x: -60, y: 0 };
-  const fR = pose.footR ?? { x: 60, y: 0 };
-  const legL = ik(fL.x + 55, fL.y + 150, 78, 78, 1);
-  const legR = ik(fR.x - 55, fR.y + 150, 78, 78, -1);
-  const armL = ik(pose.handL.x + 150, pose.handL.y + 400, 100, 95, 1);
-  const armR = ik(pose.handR.x - 150, pose.handR.y + 400, 100, 95, -1);
+  const fL = pose.footL ?? { x: -62, y: 0 };
+  const fR = pose.footR ?? { x: 62, y: 0 };
+  const legL = ik(fL.x + 52, fL.y + 206, 104, 104, 1);
+  const legR = ik(fR.x - 52, fR.y + 206, 104, 104, -1);
+  const armL = ik(pose.handL.x + 166, pose.handL.y + 430, 104, 98, 1);
+  const armR = ik(pose.handR.x - 166, pose.handR.y + 430, 104, 98, -1);
   const shoe = (
     <g>
-      <ellipse cx={0} cy={8} rx={36} ry={22} fill="#4aa8ff" stroke={INK} strokeWidth={SW} />
-      <path d="M-30,14 Q0,28 30,14" stroke="#fff" strokeWidth={7} fill="none" strokeLinecap="round" />
+      <ellipse cx={0} cy={8} rx={38} ry={22} fill="#ffb627" stroke={INK} strokeWidth={SW} />
+      <path d="M-32,14 Q0,28 32,14" stroke="#fff" strokeWidth={7} fill="none" strokeLinecap="round" />
     </g>
   );
-  const hand = <circle cx={0} cy={6} r={25} fill={mix("#e3cde6", "#ff8f99", w)} stroke={INK} strokeWidth={SW} />;
+  const hand = <circle cx={0} cy={6} r={26} fill={bodyL} stroke={INK} strokeWidth={SW} />;
   const bo = blanketOff;
   return (
     <g transform={`translate(${jx},0)`}>
+      <defs>
+        <clipPath id="kasBelly">
+          <path d={BELLY} />
+        </clipPath>
+        <linearGradient id="tendonG" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor={K.tendonD} />
+          <stop offset="0.45" stopColor="#ffffff" />
+          <stop offset="1" stopColor={K.tendonD} />
+        </linearGradient>
+      </defs>
       <ellipse cx={0} cy={14} rx={130} ry={18} fill={INK} opacity={0.14} />
-      <Limb x={-55} y={-150} s={legL} L1={78} L2={78} w1={30} w2={28} f1={body} f2={body} end={shoe} />
-      <Limb x={55} y={-150} s={legR} L1={78} L2={78} w1={30} w2={28} f1={body} f2={body} end={shoe} />
-      <g transform={`rotate(${pose.tilt ?? 0},0,-150)`}>
+      <Limb x={-52} y={-206} s={legL} L1={104} L2={104} w1={34} w2={30} f1={body} f2={body} end={shoe} />
+      <Limb x={52} y={-206} s={legR} L1={104} L2={104} w1={34} w2={30} f1={body} f2={body} end={shoe} />
+      <g transform={`rotate(${pose.tilt ?? 0},0,-206)`}>
         {/* alt tendon */}
-        <path d="M-40,-170 Q0,-118 40,-170 Z" fill={K.tendon} stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
-        {/* gövde */}
-        <path
-          d="M0,-650 C130,-650 185,-510 178,-390 C172,-250 105,-158 0,-150 C-105,-158 -172,-250 -178,-390 C-185,-510 -130,-650 0,-650 Z"
-          fill={body}
-          stroke={INK}
-          strokeWidth={SW}
-        />
-        {/* lifler */}
-        {[-3, -2, -1, 0, 1, 2, 3].map((k) => (
-          <path key={k} d={`M${k * 22},-632 Q${k * 58},-400 ${k * 20},-170`} stroke={mix("#efe4f4", K.fiber, w)} strokeWidth={7} fill="none" opacity={0.45} strokeLinecap="round" />
-        ))}
-        <path d={`M-150,-300 Q-120,-190 -40,-162`} stroke={bodyD} strokeWidth={14} fill="none" opacity={0.5} strokeLinecap="round" />
-        <ellipse cx={-90} cy={-570} rx={40} ry={22} fill="#fff" opacity={0.35} transform="rotate(-30,-90,-570)" />
-        {/* üst tendon (şapka gidince görünen perçem) */}
-        <path d="M-10,-648 C-20,-700 30,-716 34,-690 C38,-670 12,-668 14,-684" stroke={INK} strokeWidth={14} fill="none" strokeLinecap="round" />
-        <path d="M-10,-648 C-20,-700 30,-716 34,-690 C38,-670 12,-668 14,-684" stroke={K.tendon} strokeWidth={7} fill="none" strokeLinecap="round" />
+        <path d="M-32,-196 C-26,-182 -22,-168 -22,-158 A22,18 0 0 0 22,-158 C22,-168 26,-182 32,-196 Z" fill="url(#tendonG)" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
+        {/* üst tendon */}
+        <path d="M-44,-680 C-34,-712 -30,-740 -30,-760 A30,26 0 0 1 30,-760 C30,-740 34,-712 44,-680 Z" fill="url(#tendonG)" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
+        <path d="M-8,-690 L-8,-772 M10,-690 L10,-770" stroke={K.tendonD} strokeWidth={3} opacity={0.8} />
+        {/* kas karnı: lif demetleri */}
+        <path d={BELLY} fill={body} />
+        <g clipPath="url(#kasBelly)">
+          {[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map((k) => (
+            <path
+              key={k}
+              d={`${meridian(k)} L${(k + 1) * 6.6},-184 Q${(k + 1) * 30},-430 ${(k + 1) * 7.3},-692 Z`}
+              fill={k % 2 ? body : mix(body, bodyD, 0.18)}
+            />
+          ))}
+          {[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map((k) => (
+            <path key={k} d={meridian(k)} stroke={bodyD} strokeWidth={4} fill="none" opacity={0.55} />
+          ))}
+          {[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map((k) => (
+            <path key={k} d={meridian(k + 0.5)} stroke={bodyL} strokeWidth={6} fill="none" opacity={0.45} strokeLinecap="round" />
+          ))}
+          {/* gölge + parlaklık */}
+          <path d="M140,-600 Q200,-430 110,-220" stroke={bodyD} strokeWidth={56} fill="none" opacity={0.35} />
+          <ellipse cx={-96} cy={-560} rx={30} ry={80} fill="#fff" opacity={0.3} transform="rotate(20,-96,-560)" />
+          <ellipse cx={-130} cy={-460} rx={10} ry={26} fill="#fff" opacity={0.4} transform="rotate(10,-130,-460)" />
+        </g>
+        <path d={BELLY} fill="none" stroke={INK} strokeWidth={SW} />
         {/* buz (soğukken) */}
         {w < 0.7 ? (
           <g opacity={1 - w / 0.7}>
-            {[-120, -70, 60, 110].map((x, i) => (
-              <path key={x} d={`M${x - 12},${-250 + Math.abs(x) * 0.4} l12,${30 + (i % 2) * 18} l12,${-30 - (i % 2) * 18} Z`} fill="#dff4ff" stroke={INK} strokeWidth={4} strokeLinejoin="round" />
+            {[-150, -110, 100, 145].map((x, i) => (
+              <path
+                key={x}
+                d={`M${x - 11},${-300 + Math.abs(x) * 0.25 + (i % 2) * 30} l11,${28 + (i % 2) * 16} l11,${-28 - (i % 2) * 16} Z`}
+                fill="#e6f7ff"
+                stroke={INK}
+                strokeWidth={4}
+                strokeLinejoin="round"
+              />
             ))}
+            <path d="M-120,-600 q20,-14 40,-4 q20,-14 40,-2" stroke="#fff" strokeWidth={10} fill="none" strokeLinecap="round" opacity={0.85} />
           </g>
         ) : null}
-        <KasFace e={expr} blink={blink} look={look} t={t} lidColor={body} />
-        {/* battaniye + gece şapkası */}
+        <KasFace e={expr} blink={blink} look={look} t={t} lidColor={body} talk={talk} />
+        {/* atkı + bere (soğukken) */}
         {bo < 1 ? (
-          <g transform={`translate(${bo * 520},${-bo * 900}) rotate(${bo * 160},0,-450)`} opacity={1 - bo * 0.4}>
-            <defs>
-              <pattern id="plaid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <rect width="60" height="60" fill="#5b8def" />
-                <rect width="60" height="16" y="22" fill="#3f6fd1" />
-                <rect width="16" height="60" x="22" fill="#3f6fd1" opacity="0.8" />
-                <rect width="60" height="4" y="28" fill="#ffd166" />
-                <rect width="4" height="60" x="28" fill="#ffd166" />
-              </pattern>
-            </defs>
-            <path
-              d="M-196,-230 C-214,-470 -160,-640 0,-650 C160,-640 214,-470 196,-230 L150,-214 C150,-400 118,-520 104,-560 C70,-596 -70,-596 -104,-560 C-118,-520 -150,-400 -150,-214 Z"
-              fill="url(#plaid)"
-              stroke={INK}
-              strokeWidth={SW}
-              strokeLinejoin="round"
-            />
-            <path d="M-150,-214 L-196,-230 M150,-214 L196,-230" stroke="#fff" strokeWidth={10} strokeDasharray="4 10" />
-            <path d="M-112,-626 C-60,-760 90,-800 190,-720 C150,-700 120,-690 112,-626 Q0,-648 -112,-626 Z" fill="#7b5cff" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
-            <path d="M-118,-628 Q0,-656 118,-628" stroke="#fff" strokeWidth={22} fill="none" strokeLinecap="round" />
-            <circle cx={196} cy={-716} r={26} fill="#fff" stroke={INK} strokeWidth={SW} />
+          <g transform={`translate(${bo * 560},${-bo * 900}) rotate(${bo * 200},0,-560)`} opacity={1 - bo * 0.3}>
+            <path d="M-110,-616 Q0,-576 110,-616 L122,-576 Q0,-534 -122,-576 Z" fill="#18b5a4" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
+            {[-80, -40, 0, 40, 80].map((x) => (
+              <line key={x} x1={x} y1={-598 + Math.abs(x) * 0.15} x2={x} y2={-558 + Math.abs(x) * 0.15} stroke="#ffd166" strokeWidth={7} />
+            ))}
+            <path d="M66,-572 L90,-440 L126,-446 L102,-578 Z" fill="#18b5a4" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
+            <path d="M90,-440 l-4,22 M102,-442 l0,22 M114,-444 l4,22" stroke={INK} strokeWidth={5} strokeLinecap="round" />
+            {/* bere tendonun ucunda */}
+            <path d="M-46,-740 C-46,-810 46,-810 46,-740 Z" fill="#ffd166" stroke={INK} strokeWidth={SW} strokeLinejoin="round" />
+            <rect x={-52} y={-752} width={104} height={24} rx={12} fill="#ff9f43" stroke={INK} strokeWidth={SW} />
+            <circle cx={0} cy={-812} r={18} fill="#fff" stroke={INK} strokeWidth={SW} />
           </g>
         ) : null}
         {front}
-        <Limb x={-150} y={-400} s={armL} L1={100} L2={95} w1={30} w2={28} f1={body} f2={body} end={hand} />
-        <Limb x={150} y={-400} s={armR} L1={100} L2={95} w1={30} w2={28} f1={body} f2={body} end={hand} />
+        <Limb x={-166} y={-430} s={armL} L1={104} L2={98} w1={32} w2={30} f1={body} f2={body} end={hand} />
+        <Limb x={166} y={-430} s={armR} L1={104} L2={98} w1={32} w2={30} f1={body} f2={body} end={hand} />
       </g>
     </g>
   );

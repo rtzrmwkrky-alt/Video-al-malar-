@@ -1,11 +1,13 @@
 /**
  * "Isınmadan başlama!" — konuşan kas karakteri ile komik, her yaşa uygun Reels (≤40 sn, sessiz taslak).
- * Uykucu, üşüyen bacak kası sporcuyu halterden önce durdurur; buz gibi lastik çekilince "ÇAT!";
- * 5-10 dk ısınma ile kas soğuk morumsu renkten canlı kırmızıya döner.
- * Döngü (loop): video, sporcunun halterlere koşmasıyla biter ve aynı koşuyla başlar —
- * Instagram başa sardığında kesintisiz devam eder.
- * Zamanlama satırlardan (`timeline`); sahneler satır sırasına (`at(i)`) bağlı, ses gelince sadece zamanlar değişir.
+ * Hikâye: sabah sporcu doğruca halterlere koşar; üşüyen, uykulu bacak kası onu durdurur ve
+ * buz gibi lastikle ("ÇAT!") soğuk kasın neden incindiğini gösterir; 5-10 dk ısınmayla kas
+ * soluk pembeden canlı kırmızıya döner, kaldırış rahat olur. Sonunda sporcu "Söz!" der ve ertesi sabah
+ * yine halterlere koşar → video başa sarınca kesintisiz devam eder (loop).
+ * Pozlar satır başına tanımlı (`guyAt`/`kasAt`); satır geçişlerinde yumuşak harmanlanır (`BLEND`).
+ * Zamanlama satırlardan (`timeline`); ses gelince sadece zamanlar değişir.
  */
+import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
@@ -20,6 +22,7 @@ import {
   type GuyPose,
   type KasExpr,
   type KasPose,
+  type Pt,
 } from "../cartoon/IsinmaChars";
 
 loadFonts();
@@ -30,22 +33,24 @@ type Who = "kas" | "adam" | "fx" | "chip" | "card";
 type ILine = Line & { who: Who };
 
 export const ISINMA_LINES: ILine[] = [
-  { who: "kas", text: "DUR! DUR! DUR!" },
-  { who: "kas", text: "Ben daha uyanmadım!", hl: ["uyanmadım!"], hold: 0.2 },
-  { who: "adam", text: "Ne olacak? İki dakikalık iş.", hl: ["iki", "dakikalık"] },
-  { who: "kas", text: "Şu lastiğe bak. Buz gibi.", hl: ["buz"] },
-  { who: "kas", text: "Soğukken çekersen…", hl: ["soğukken"], hold: 0.3 },
-  { who: "fx", text: "ÇAT!" },
-  { who: "kas", text: "İşte ben şu an o lastiğim.", hl: ["o", "lastiğim."] },
-  { who: "kas", text: "Önce beni ısıt. Sadece 5-10 dakika.", hl: ["ısıt.", "5-10", "dakika."], hold: 0.2 },
-  { who: "chip", text: "Hafif koşu", hold: 0.6 },
-  { who: "chip", text: "Kol çevirme", hold: 0.6 },
-  { who: "chip", text: "Bacak sallama", hold: 0.6 },
-  { who: "kas", text: "Kan geldi… ısındım… esnedim!", hl: ["ısındım…"], hold: 0.3 },
-  { who: "kas", text: "Şimdi kaldır bakalım!", hl: ["kaldır"], hold: 0.8 },
-  { who: "card", text: "Isınma 5 dakika. Sakatlık aylarca.", hold: 0.6 },
-  { who: "kas", text: "Yarın da ısınıyoruz, tamam mı?", hl: ["yarın"] },
-  { who: "adam", text: "Tamam tamam!", hold: 0.3 },
+  { who: "kas", text: "Hop hop! Nereye böyle?", hl: ["nereye"] },
+  { who: "adam", text: "Halter kaldıracağım. Ne var?", hl: ["halter"] },
+  { who: "kas", text: "Ama ben daha uyanmadım… Buz gibiyim!", hl: ["buz"] },
+  { who: "adam", text: "Abartma, iki dakikalık iş.", hl: ["iki", "dakikalık"] },
+  { who: "kas", text: "Gel, sana bir şey göstereyim." },
+  { who: "kas", text: "Bu lastik soğukken çekilirse…", hl: ["soğukken"], hold: 0.3 },
+  { who: "fx", text: "ÇAT!", hold: -0.4 },
+  { who: "kas", text: "Isınmadan yüklenirsen ben de böyle incinebilirim.", hl: ["incinebilirim."], hold: 0.2 },
+  { who: "adam", text: "Peki ne yapayım?" },
+  { who: "kas", text: "Beni sadece 5-10 dakika ısıt.", hl: ["5-10", "dakika", "ısıt."] },
+  { who: "chip", text: "Hafif koşu", hold: 0.3 },
+  { who: "chip", text: "Kol çevirme", hold: 0.3 },
+  { who: "chip", text: "Bacak sallama", hold: 0.3 },
+  { who: "kas", text: "Oh be! Kan geldi, ısındım!", hl: ["ısındım!"] },
+  { who: "kas", text: "Şimdi hazırım. Kaldır bakalım!", hl: ["kaldır"], hold: 0.8 },
+  { who: "card", text: "Isınma 5 dakika. Sakatlık aylarca.", hold: 0.3 },
+  { who: "kas", text: "Yarın sabah da ısınıyoruz, tamam mı?", hl: ["yarın", "sabah"] },
+  { who: "adam", text: "Söz!" },
 ];
 
 /** döngü kesiti: sonda koşu başlar, başta devam eder */
@@ -63,7 +68,9 @@ const FLOOR = 1560;
 const GUY_X = 280;
 const GUY_S = 0.95;
 const KAS_X = 800;
-const KAS_S = 1.02;
+const KAS_S = 0.92;
+/** satır geçişinde poz harmanlama süresi (sn) */
+const BLEND = 0.4;
 
 // ------------------------------------------------------------ arka plan
 
@@ -371,10 +378,10 @@ const Bubble: React.FC<{
         }}
       >
         {words.map((w, i) => (
-          <span key={i} style={{ color: hl.includes(norm(w)) ? color : INK, opacity: i < shown ? 1 : 0 }}>
-            {w}
+          <React.Fragment key={i}>
+            <span style={{ color: hl.includes(norm(w)) ? color : INK, opacity: i < shown ? 1 : 0, whiteSpace: "nowrap" }}>{w}</span>
             {i < words.length - 1 ? " " : ""}
-          </span>
+          </React.Fragment>
         ))}
         <div
           style={{
@@ -405,294 +412,380 @@ const Bubble: React.FC<{
   );
 };
 
+// ------------------------------------------------------------ pozlar
+
+type GuyState = { x: number; pose: GuyPose; expr: GuyExpr; look: number; bar: number | null };
+type KasState = { x: number; y: number; pose: KasPose; expr: KasExpr; shiver: number; look: number };
+
+const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
+const lp = (a: Pt | undefined, b: Pt | undefined, k: number, d: Pt): Pt => {
+  const A = a ?? d;
+  const B = b ?? d;
+  return { x: lerp(A.x, B.x, k), y: lerp(A.y, B.y, k) };
+};
+const P = (x: number, y: number): Pt => ({ x, y });
+
+const lerpGuy = (a: GuyState, b: GuyState, k: number): GuyState => ({
+  x: lerp(a.x, b.x, k),
+  pose: {
+    handL: lp(a.pose.handL, b.pose.handL, k, P(-150, -290)),
+    handR: lp(a.pose.handR, b.pose.handR, k, P(150, -290)),
+    footL: lp(a.pose.footL, b.pose.footL, k, P(-55, 0)),
+    footR: lp(a.pose.footR, b.pose.footR, k, P(55, 0)),
+    drop: lerp(a.pose.drop ?? 0, b.pose.drop ?? 0, k),
+    lean: lerp(a.pose.lean ?? 0, b.pose.lean ?? 0, k),
+    head: lerp(a.pose.head ?? 0, b.pose.head ?? 0, k),
+  },
+  expr: k < 0.35 ? a.expr : b.expr,
+  look: lerp(a.look, b.look, k),
+  bar: b.bar,
+});
+
+const lerpKas = (a: KasState, b: KasState, k: number): KasState => ({
+  x: lerp(a.x, b.x, k),
+  y: lerp(a.y, b.y, k),
+  pose: {
+    handL: lp(a.pose.handL, b.pose.handL, k, P(-205, -250)),
+    handR: lp(a.pose.handR, b.pose.handR, k, P(205, -250)),
+    footL: lp(a.pose.footL, b.pose.footL, k, P(-62, 0)),
+    footR: lp(a.pose.footR, b.pose.footR, k, P(62, 0)),
+    tilt: lerp(a.pose.tilt ?? 0, b.pose.tilt ?? 0, k),
+  },
+  expr: k < 0.35 ? a.expr : b.expr,
+  shiver: lerp(a.shiver, b.shiver, k),
+  look: lerp(a.look, b.look, k),
+});
+
+/** nefes alma: hafif sürekli hareket (donuk durmasın) */
+const breathe = (t: number, seed: number) => Math.sin(t * 2.1 + seed) * 7;
+
+const TL = ISINMA_TL;
+const at = TL.at;
+
+/** sporcunun salona koşusu; p: 0 → 1 (sondan başa kesintisiz) */
+const walkGuy = (p: number): GuyState => {
+  const x = interpolate(p, [0, 0.8, 1], [-170, GUY_X - 30, GUY_X], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const ph = p * Math.PI * 5;
+  const amp = 1 - sm(p, 0.75, 1);
+  return {
+    x,
+    pose: {
+      footL: P(-55 + Math.sin(ph) * 50 * amp, -Math.max(0, Math.sin(ph)) * 55 * amp),
+      footR: P(55 - Math.sin(ph) * 50 * amp, -Math.max(0, -Math.sin(ph)) * 55 * amp),
+      handL: P(-150 - Math.sin(ph) * 45 * amp, -300 - Math.max(0, -Math.sin(ph)) * 40 * amp),
+      handR: P(150 - Math.sin(ph) * 45 * amp, -300 - Math.max(0, Math.sin(ph)) * 40 * amp),
+      drop: Math.abs(Math.cos(ph)) * 14 * amp,
+      lean: 6 * amp,
+    },
+    expr: "focus",
+    look: 1,
+    bar: null,
+  };
+};
+
+/** halter: çömel-kavra → kalçaya → baş üstü; L16'da yavaşça indir */
+const liftGuy = (t: number): GuyState => {
+  const s = at(14);
+  const down = sm(t, s, s + 0.45);
+  const up1 = sm(t, s + 0.5, s + 1.0);
+  const up2 = sm(t, s + 1.1, s + 1.7);
+  const lower = sm(t, at(16), at(16) + 1.1);
+  const stand2 = sm(t, at(16) + 1.1, at(16) + 1.5);
+  let by = lerp(-92, -300, up1);
+  by = lerp(by, -810, up2);
+  by = lerp(by, -92, lower);
+  const drop = (down * (1 - up1) + lower * (1 - stand2)) * 200;
+  const stance = lerp(55, 95, Math.min(1, down + up1) * (1 - stand2));
+  const gripped = (down > 0.85 || up1 > 0) && stand2 <= 0;
+  const grip = (sx: number) => P(sx * 175, by);
+  const free = (sx: number) => {
+    const g = P(sx * 175, -92);
+    const st = P(sx * 150, -290);
+    const k = stand2 > 0 ? 1 - stand2 : down;
+    return P(lerp(st.x, g.x, k), lerp(st.y, g.y, k));
+  };
+  const expr: GuyExpr = stand2 > 0 || lower > 0 ? "sheepish" : up2 >= 1 ? "happy" : "grit";
+  return {
+    x: GUY_X,
+    pose: {
+      handL: gripped ? grip(-1) : free(-1),
+      handR: gripped ? grip(1) : free(1),
+      footL: P(-stance, 0),
+      footR: P(stance, 0),
+      drop,
+    },
+    expr,
+    look: 1,
+    bar: gripped ? by : null,
+  };
+};
+
+const guyAt = (li: number, t: number): GuyState => {
+  const lt = t - at(Math.max(0, li));
+  const b = breathe(t, 0);
+  const rest: GuyState = { x: GUY_X, pose: { ...guyStand(), handL: P(-150, -290 + b), handR: P(150, -290 - b) }, expr: "focus", look: 1, bar: null };
+  const pose = (o: Partial<GuyPose>, expr: GuyExpr = "focus", look = 1): GuyState => ({ ...rest, pose: { ...rest.pose, ...o }, expr, look });
+  switch (li) {
+    case -1:
+    case 0: {
+      const wk = t < LOOP_START ? walkGuy(0.45 + (t / LOOP_START) * 0.55) : walkGuy(1);
+      const shock = pose({ handL: P(-210, -470 + b), handR: P(210, -470 - b), lean: -4 }, "shock");
+      return lerpGuy(wk, shock, sm(t, 0.45, 0.85));
+    }
+    case 1: // "Halter kaldıracağım. Ne var?" — bir el belde, diğeriyle kasa
+      return pose({ handL: P(-215, -330), handR: P(250 + Math.sin(lt * 5) * 16, -470 + Math.sin(lt * 7) * 14) }, "focus");
+    case 2: // dinliyor: kollar kavuşmuş
+      return pose({ handL: P(70, -400 + b * 0.5), handR: P(-70, -380 - b * 0.5), head: 4 }, "smirk");
+    case 3: {
+      // "Abartma…" — omuz silkme
+      const sh = Math.sin(lt * 6) * 10;
+      return pose({ handL: P(-265, -440 + sh), handR: P(265, -440 + sh), head: 8 }, "smirk");
+    }
+    case 4:
+    case 5:
+      return pose({}, "focus");
+    case 6:
+    case 7: // eller yanaklarda: şaşkın
+      return pose({ handL: P(-125, -650), handR: P(125, -650) }, "shock");
+    case 8: // "Peki ne yapayım?" — başını kaşır
+      return pose({ handR: P(90, -790 + Math.sin(lt * 14) * 10), handL: P(-150, -290 + b) }, "sheepish");
+    case 9: // dinliyor, başını sallar
+      return pose({ head: Math.sin(lt * 7) * 5 }, "focus");
+    case 10: {
+      // yerinde hafif koşu
+      const ph = lt * Math.PI * 4.4;
+      return pose(
+        {
+          footL: P(-55, -Math.max(0, Math.sin(ph)) * 110),
+          footR: P(55, -Math.max(0, -Math.sin(ph)) * 110),
+          handL: P(-140, -420 + Math.sin(ph) * 60),
+          handR: P(140, -420 - Math.sin(ph) * 60),
+          drop: Math.abs(Math.sin(ph)) * 18,
+        },
+        "happy",
+        0,
+      );
+    }
+    case 11: {
+      // kol çevirme
+      const a = lt * Math.PI * 2 * 1.2 - Math.PI / 2;
+      return pose({ handL: P(-112 - Math.cos(a) * 220, -540 + Math.sin(a) * 220), handR: P(112 + Math.cos(a) * 220, -540 + Math.sin(a) * 220) }, "focus", 0);
+    }
+    case 12: {
+      // bacak sallama (yana)
+      const ph = Math.sin(lt * Math.PI * 2.4);
+      return pose({ footL: P(-55 - 130 * Math.max(0, ph), -110 * Math.max(0, ph)), handL: P(-300, -560), handR: P(260, -600) }, "happy", 0);
+    }
+    case 13: // ısındık: yumruklar havada
+      return pose({ handL: P(-230, -560 + b), handR: P(230, -560 - b) }, "happy");
+    case 14:
+    case 15:
+    case 16:
+      return liftGuy(t);
+    default: {
+      // "Söz!" — sağ el yemin eder gibi yukarıda, sol el göğüste
+      return pose({ handR: P(230, -760), handL: P(-20, -470) }, "happy");
+    }
+  }
+};
+
+const kasAt = (li: number, t: number): KasState => {
+  const lt = t - at(Math.max(0, li));
+  const b = breathe(t, 1.3);
+  const rest: KasState = { x: KAS_X, y: FLOOR, pose: { ...kasStand(), handL: P(-205, -250 + b), handR: P(205, -250 - b) }, expr: "smile", shiver: 0, look: -0.7 };
+  const pose = (o: Partial<KasPose>, expr: KasExpr, shiver = 0, look = -0.7): KasState => ({ ...rest, pose: { ...rest.pose, ...o }, expr, shiver, look });
+  switch (li) {
+    case -1:
+    case 0: {
+      // sağdan zıplayarak girer, "dur" der gibi eller havada
+      const inK = sm(t, 0.22, 0.62);
+      const st = pose({ handL: P(-270, -620 + b), handR: P(290, -600 - b) }, t < 1.2 ? "shout" : "stern", 0.3);
+      return { ...st, x: lerp(1320, KAS_X, inK), y: FLOOR - Math.sin(inK * Math.PI) * 180 };
+    }
+    case 1: // esner: el ağızda
+      return pose({ handL: P(-120, -330), handR: P(40, -410 + Math.sin(lt * 3) * 8) }, "sleepy", 0.6);
+    case 2: // kendine sarılmış, titriyor
+      return pose({ handL: P(80, -330), handR: P(-80, -340) }, "shiver", 1);
+    case 3: // eller belde, bıkkın
+      return pose({ handL: P(-225, -300), handR: P(225, -300) }, "annoyed", 0.4);
+    case 4: {
+      // "Gel…" el sallar, sonra lastiği önüne getirir
+      const k = sm(lt, 1.0, 1.4);
+      const wave = P(240 + Math.sin(lt * 9) * 30, -560);
+      return pose(
+        { handL: P(lerp(-205, -70, k), lerp(-250, -330, k)), handR: P(lerp(wave.x, 70, k), lerp(wave.y, -330, k)) },
+        "smile",
+        0.3,
+        0,
+      );
+    }
+    case 5: {
+      // lastiği gerer
+      const hx = 70 + 150 * sm(t, at(5), at(6) - 0.05);
+      return pose({ handL: P(-hx, -330), handR: P(hx, -330) }, "strain", 0.4, 0);
+    }
+    case 6: {
+      // ÇAT! eller iki yana savrulur
+      const k = sm(t, at(6), at(6) + 0.25);
+      return pose({ handL: P(-220 - 80 * k, -330 - 80 * k), handR: P(220 + 80 * k, -330 - 80 * k), tilt: -4 * k }, "shock", 0, 0);
+    }
+    case 7: // "ben de böyle incinebilirim" — kendini tutar, endişeli
+      return pose({ handL: P(-70, -300), handR: P(70, -310) }, "worried", 0.5, 0);
+    case 8:
+      return pose({}, "smile", 0.3);
+    case 9: // parmak havada: "5-10 dakika"
+      return pose({ handR: P(230, -720 + Math.sin(lt * 6) * 10) }, "smile", 0.3);
+    case 10: {
+      const ph = lt * Math.PI * 4.4;
+      const st = pose(
+        {
+          handL: P(-190, -330 + Math.sin(ph) * 40),
+          handR: P(190, -330 - Math.sin(ph) * 40),
+          footL: P(-62, -Math.max(0, Math.sin(ph)) * 70),
+          footR: P(62, -Math.max(0, -Math.sin(ph)) * 70),
+        },
+        "strain",
+        0.2,
+        0,
+      );
+      return { ...st, y: FLOOR - Math.abs(Math.sin(ph)) * 14 };
+    }
+    case 11: {
+      const a = lt * Math.PI * 2 * 1.2 - Math.PI / 2;
+      return pose({ handL: P(-166 - Math.cos(a) * 150, -430 + Math.sin(a) * 150), handR: P(166 + Math.cos(a) * 150, -430 + Math.sin(a) * 150) }, "smile", 0.1, 0);
+    }
+    case 12: {
+      const ph = Math.sin(lt * Math.PI * 2.4);
+      return pose({ handL: P(-225, -300), handR: P(225, -300), footR: P(62 + 110 * Math.max(0, ph), -90 * Math.max(0, ph)) }, "happy", 0, 0);
+    }
+    case 13: {
+      // atkı uçar, gerinir
+      const k = sm(lt, 0, 0.45);
+      const st = pose({ handL: P(lerp(-205, -300, k), lerp(-250, -720, k)), handR: P(lerp(205, 300, k), lerp(-250, -720, k)) }, "happy", 0);
+      return { ...st, y: FLOOR - pop(t, at(13)) * 30 * (1 - sm(lt, 0.6, 1)) };
+    }
+    case 14:
+    case 15: {
+      // tezahürat
+      const wg = Math.sin(t * 8) * 30;
+      const st = pose({ handL: P(-290, -660 + wg), handR: P(290, -660 - wg) }, "happy", 0);
+      return { ...st, y: FLOOR - Math.abs(Math.sin(t * 5)) * 22 };
+    }
+    case 16: // parmak sallar
+      return pose({ handR: P(210 + Math.sin(t * 11) * 30, -640) }, "stern", 0);
+    default:
+      return pose({ handR: P(260, -580) }, "wink", 0);
+  }
+};
+
+/** satır geçişlerinde yumuşak harmanlama */
+const blended = <S,>(fn: (li: number, t: number) => S, mixFn: (a: S, b: S, k: number) => S, t: number): S => {
+  const li = TL.idx(t);
+  const cur = fn(li, t);
+  if (li <= 0) return cur;
+  const d = li === 6 ? 0.12 : BLEND;
+  const k = sm(t, at(li), at(li) + d);
+  return k >= 1 ? cur : mixFn(fn(li - 1, t), cur, k);
+};
+
 // ------------------------------------------------------------ ana kompozisyon
 
 export const IsinmaKas: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const tl = ISINMA_TL;
-  const at = tl.at;
-  const li = tl.idx(t);
-  const END = tl.total;
+  const li = TL.idx(t);
+  const END = TL.total;
   const loopEnd = t >= END - LOOP_END;
-  const inLoopStart = t < LOOP_START;
 
   // ---------- sıcaklık (ısınma ile 0→1)
-  const warm = interpolate(t, [at(8), at(11)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const warm = interpolate(t, [at(10), at(13)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const w = loopEnd ? 0 : warm;
-  const blanketOff = loopEnd ? 0 : sm(t, at(11) - 0.15, at(11) + 0.7);
-  const clockSpin = sm(t, at(8), at(11)) * 8;
+  const blanketOff = loopEnd ? 0 : sm(t, at(13) - 0.1, at(13) + 0.8);
+  const clockSpin = loopEnd ? 0 : sm(t, at(10), at(13)) * 8;
 
-  // ---------- kamera: L3-L6 kasa yaklaş, ısınmada hafif geniş
-  const zoomIn = sm(t, at(3) - 0.05, at(3) + 0.55) * (1 - sm(t, at(7) - 0.1, at(7) + 0.5));
+  // ---------- kamera: lastik sahnesinde kasa yaklaş
+  const zoomIn = sm(t, at(4) + 0.2, at(4) + 1.0) * (1 - sm(t, at(8) - 0.1, at(8) + 0.6));
   const cs = 1 + 0.25 * zoomIn;
-  const fx = 540 + (KAS_X + 70 - 540) * zoomIn;
+  const fx = 540 + (KAS_X + 60 - 540) * zoomIn;
   const fy = 960 + (1180 - 960) * zoomIn;
   const cam = (x: number, y: number) => ({ x: (x - fx) * cs + 540, y: (y - fy) * cs + 960 });
 
-  // ---------- sporcu
-  const gp: GuyPose = guyStand();
-  let gx = GUY_X;
-  let gExpr: GuyExpr = "focus";
-  let look = 1;
-  let bar = { x: 0, y: -92, inHands: false }; // karakter koordinatında
-  const walk = (p: number) => {
-    // p: 0 → 1 (sondan başa kesintisiz)
-    gx = interpolate(p, [0, 0.8, 1], [-170, GUY_X - 30, GUY_X], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-    const ph = p * Math.PI * 5;
-    const amp = 1 - sm(p, 0.75, 1);
-    gp.footL = { x: -55 + Math.sin(ph) * 60 * amp, y: -Math.max(0, Math.sin(ph)) * 40 * amp };
-    gp.footR = { x: 55 - Math.sin(ph) * 60 * amp, y: -Math.max(0, -Math.sin(ph)) * 40 * amp };
-    gp.handL = { x: -150 - Math.sin(ph) * 50 * amp, y: -300 + Math.abs(Math.sin(ph)) * 0 };
-    gp.handR = { x: 150 - Math.sin(ph) * 50 * amp, y: -300 };
-    gp.drop = Math.abs(Math.cos(ph)) * 12 * amp;
-    gp.lean = 6 * amp;
-    gExpr = "focus";
-  };
-  if (loopEnd) walk(((t - (END - LOOP_END)) / LOOP_END) * 0.45);
-  else if (inLoopStart) walk(0.45 + (t / LOOP_START) * 0.55);
-  if (!loopEnd) {
-    if (li <= 1 && t > 0.45) {
-      // donakaldı
-      const k = sm(t, 0.45, 0.75);
-      gp.handL = { x: -150 - 60 * k, y: -300 - 200 * k };
-      gp.handR = { x: 150 + 60 * k, y: -300 - 200 * k };
-      gp.lean = -4 * k;
-      gExpr = "shock";
-    }
-    if (li === 2) {
-      // omuz silkme
-      const k = sm(t, at(2), at(2) + 0.3);
-      const sh = Math.sin((t - at(2)) * 6) * 8;
-      gp.handL = { x: -150 - 110 * k, y: -300 - 120 * k + sh };
-      gp.handR = { x: 150 + 110 * k, y: -300 - 120 * k + sh };
-      gp.head = 8 * k;
-      gExpr = "smirk";
-    }
-    if (li >= 3 && li <= 7) {
-      gExpr = li === 5 ? "shock" : "focus";
-      look = 1;
-    }
-    if (li === 8) {
-      // yerinde koşu
-      const ph = (t - at(8)) * Math.PI * 4.4;
-      gp.footL = { x: -55, y: -Math.max(0, Math.sin(ph)) * 110 };
-      gp.footR = { x: 55, y: -Math.max(0, -Math.sin(ph)) * 110 };
-      gp.handL = { x: -140, y: -420 + Math.sin(ph) * 60 };
-      gp.handR = { x: 140, y: -420 - Math.sin(ph) * 60 };
-      gp.drop = Math.abs(Math.sin(ph)) * 18;
-      gExpr = "happy";
-    }
-    if (li === 9) {
-      // kol çevirme
-      const a = (t - at(9)) * Math.PI * 2 * 1.3;
-      gp.handL = { x: -112 - Math.cos(a) * 220, y: -540 + Math.sin(a) * 220 };
-      gp.handR = { x: 112 + Math.cos(a) * 220, y: -540 + Math.sin(a) * 220 };
-      gExpr = "focus";
-    }
-    if (li === 10) {
-      // bacak sallama (yana)
-      const ph = Math.sin((t - at(10)) * Math.PI * 2.4);
-      gp.footL = { x: -55 - 130 * Math.max(0, ph), y: -110 * Math.max(0, ph) };
-      gp.footR = { x: 55, y: 0 };
-      gp.handL = { x: -300, y: -560 };
-      gp.handR = { x: 260, y: -600 };
-      gExpr = "happy";
-    }
-    if (li === 11) gExpr = "happy";
-    if (li >= 12 && li <= 14) {
-      // halter: çömel-kavra (0-0.25), kalçaya (0.25-0.55), baş üstü (0.55-0.85); L14'te yavaşça indir
-      const s = at(12);
-      const down = sm(t, s, s + 0.45);
-      const up1 = sm(t, s + 0.5, s + 1.0);
-      const up2 = sm(t, s + 1.1, s + 1.7);
-      const lower = sm(t, at(14), at(14) + 1.2);
-      const by0 = -92;
-      let by = interpolate(up1, [0, 1], [by0, -300]);
-      by = interpolate(up2, [0, 1], [by, -810]);
-      by = interpolate(lower, [0, 1], [by, by0]);
-      const drop = (down * (1 - up1) + lower * (1 - sm(t, at(14) + 1.2, at(14) + 1.6))) * 200;
-      gp.drop = drop;
-      gp.footL = { x: -95, y: 0 };
-      gp.footR = { x: 95, y: 0 };
-      const gripped = down > 0.9 || up1 > 0;
-      if (gripped && !(lower > 0.98)) {
-        bar = { x: 0, y: by, inHands: true };
-        gp.handL = { x: -175, y: by };
-        gp.handR = { x: 175, y: by };
-      } else if (down > 0) {
-        gp.handL = { x: -150 - 25 * down, y: -300 + down * 120 };
-        gp.handR = { x: 150 + 25 * down, y: -300 + down * 120 };
-      }
-      gExpr = up2 > 0 && up2 < 1 ? "grit" : up2 >= 1 && lower <= 0 ? "happy" : down < 1 || up1 < 1 ? "grit" : "sheepish";
-      if (li === 14) gExpr = "sheepish";
-    }
-    if (li === 15) {
-      // "Tamam tamam!" — başparmak yukarı, baş sallama
-      const k = sm(t, at(15), at(15) + 0.3);
-      gp.handR = { x: 150 + 40 * k, y: -300 - 330 * k };
-      gp.head = Math.sin((t - at(15)) * 14) * 6 * k;
-      gExpr = "happy";
-    }
-  }
+  const guy = loopEnd ? walkGuy(((t - (END - LOOP_END)) / LOOP_END) * 0.45) : blended(guyAt, lerpGuy, t);
+  const kas = blended(kasAt, lerpKas, t);
+  const showKas = !loopEnd && t > 0.22;
 
-  // ---------- kas karakteri
-  let kx = KAS_X;
-  let ky = FLOOR;
-  let kp: KasPose = kasStand();
-  let kExpr: KasExpr = "smile";
-  let shiver = 0;
-  let band: React.ReactNode = null;
-  let showKas = !loopEnd;
-  let burst = 0;
-  if (!loopEnd) {
-    // giriş: sağdan zıplayarak
-    const inK = sm(t, 0.22, 0.62);
-    kx = interpolate(inK, [0, 1], [1320, KAS_X]);
-    ky = FLOOR - Math.sin(inK * Math.PI) * 180;
-    if (inK <= 0) showKas = false;
-    if (li <= 0) {
-      kExpr = "shout";
-      kp = { handL: { x: -260, y: -580 }, handR: { x: 280, y: -580 } };
-      shiver = 0.3;
-    }
-    if (li === 1) {
-      kExpr = "sleepy";
-      kp = { handL: { x: -110, y: -300 }, handR: { x: 120, y: -320 + Math.sin(t * 3) * 10 } };
-      shiver = 0.6;
-    }
-    if (li === 2) {
-      kExpr = "annoyed";
-      kp = { handL: { x: -120, y: -300 }, handR: { x: 120, y: -300 } };
-      shiver = 0.5;
-    }
-    if (li >= 3 && li <= 5) {
-      // buz lastik: L3 tut, L4 ger, L5 kop
-      const st = sm(t, at(4), at(5) - 0.05);
-      const snap = t >= at(5) ? Math.min(1, (t - at(5)) / 0.9) : 0;
-      const hx = snap > 0 ? 120 + 160 * sm(t, at(5), at(5) + 0.25) : 70 + 150 * st;
-      const hy = -330 + (snap > 0 ? -60 * sm(t, at(5), at(5) + 0.25) : 0);
-      kp = { handL: { x: -hx, y: hy }, handR: { x: hx, y: hy }, tilt: snap > 0 ? -4 : 0 };
-      kExpr = li === 3 ? "shiver" : li === 4 ? "strain" : "shock";
-      shiver = li === 3 ? 0.8 : li === 4 ? 0.4 : 0;
-      if (snap < 1) band = <FrozenBand a={{ x: -hx, y: hy + 6 }} b={{ x: hx, y: hy + 6 }} stretch={st} snap={snap} />;
-      burst = snap > 0 ? pop(t, at(5)) * (1 - sm(t, at(6) - 0.2, at(6))) : 0;
-    }
-    if (li === 6) {
-      kExpr = "shiver";
-      shiver = 1;
-      kp = { handL: { x: -60, y: -300 }, handR: { x: 170, y: -260 } };
-    }
-    if (li === 7) {
-      kExpr = "smile";
-      shiver = 0.4;
-      kp = { handL: { x: -170, y: -250 }, handR: { x: 220, y: -640 } };
-    }
-    if (li >= 8 && li <= 10) {
-      kExpr = li === 8 ? "strain" : "smile";
-      shiver = 0.25 * (1 - w);
-      if (li === 8) {
-        const ph = (t - at(8)) * Math.PI * 4.4;
-        kp = {
-          handL: { x: -160, y: -300 + Math.sin(ph) * 40 },
-          handR: { x: 160, y: -300 - Math.sin(ph) * 40 },
-          footL: { x: -60, y: -Math.max(0, Math.sin(ph)) * 70 },
-          footR: { x: 60, y: -Math.max(0, -Math.sin(ph)) * 70 },
-        };
-        ky = FLOOR - Math.abs(Math.sin(ph)) * 14;
-      }
-      if (li === 9) {
-        const a = (t - at(9)) * Math.PI * 2 * 1.3;
-        kp = {
-          handL: { x: -150 - Math.cos(a) * 150, y: -400 + Math.sin(a) * 150 },
-          handR: { x: 150 + Math.cos(a) * 150, y: -400 + Math.sin(a) * 150 },
-        };
-      }
-      if (li === 10) {
-        const ph = Math.sin((t - at(10)) * Math.PI * 2.4);
-        kp = {
-          handL: { x: -190, y: -240 },
-          handR: { x: 190, y: -240 },
-          footR: { x: 60 + 110 * Math.max(0, ph), y: -90 * Math.max(0, ph) },
-        };
-        kExpr = "happy";
-      }
-    }
-    if (li === 11) {
-      kExpr = "happy";
-      const k = sm(t, at(11), at(11) + 0.4);
-      kp = { handL: { x: -170 - 120 * k, y: -250 - 420 * k }, handR: { x: 170 + 120 * k, y: -250 - 420 * k } };
-      ky = FLOOR - pop(t, at(11)) * 30 * (1 - sm(t, at(11) + 0.6, at(11) + 1));
-    }
-    if (li === 12 || li === 13) {
-      kExpr = "happy";
-      const wg = Math.sin(t * 9) * 30;
-      kp = { handL: { x: -280, y: -620 + wg }, handR: { x: 280, y: -620 - wg } };
-      ky = FLOOR - Math.abs(Math.sin(t * 6)) * 24;
-    }
-    if (li === 14) {
-      kExpr = "stern";
-      const wag = Math.sin(t * 12) * 30;
-      kp = { handL: { x: -150, y: -300 }, handR: { x: 200 + wag, y: -620 } };
-    }
-    if (li >= 15) {
-      kExpr = "wink";
-      kp = { handL: { x: -150, y: -300 }, handR: { x: 260, y: -560 } };
-    }
-  }
-
-  const kasBlink = blinkAt(t, 1);
-  const guyBlink = blinkAt(t, 2);
-
-  // ---------- balon konumları (ekran)
-  const kasHead = cam(kx, ky - 640 * KAS_S);
-  const guyHead = cam(gx, FLOOR - 800 * GUY_S);
+  // ---------- konuşma: konuşanın ağzı oynar
   const line = li >= 0 ? ISINMA_LINES[li] : null;
   const s0 = li >= 0 ? at(li) : 0;
   const e0 = li >= 0 ? at(li + 1) : 0;
+  const lt = t - s0;
+  const talkAmt = line && lt < (e0 - s0) * 0.75 ? Math.abs(Math.sin(lt * 13)) : 0;
+  const kasTalk = line?.who === "kas" ? talkAmt : 0;
+  const guyTalk = line?.who === "adam" ? talkAmt : 0;
 
-  const coldTint = 0.16 * (1 - w);
-  const barWorld = bar.inHands ? null : { x: GUY_X, y: FLOOR + bar.y * GUY_S };
+  // ---------- buz lastik (ellerin arasında)
+  let band: React.ReactNode = null;
+  let burst = 0;
+  if (!loopEnd && t > at(4) + 1.0 && t < at(6) + 0.9) {
+    const st = sm(t, at(5), at(6) - 0.05);
+    const snap = t >= at(6) ? Math.min(1, (t - at(6)) / 0.9) : 0;
+    const appear = pop(t, at(4) + 1.0);
+    const a = kas.pose.handL;
+    const bb = kas.pose.handR;
+    band = (
+      <g opacity={Math.min(1, appear * 1.5)}>
+        <FrozenBand a={{ x: a.x, y: a.y + 6 }} b={{ x: bb.x, y: bb.y + 6 }} stretch={st} snap={snap} />
+      </g>
+    );
+  }
+  if (!loopEnd && t >= at(6)) burst = pop(t, at(6)) * (1 - sm(t, at(7) - 0.2, at(7)));
+
+  const kasHead = cam(kas.x, kas.y - 760 * KAS_S);
+  const guyHead = cam(guy.x, FLOOR - 800 * GUY_S);
+  const coldTint = 0.14 * (1 - w);
+  const zoomLine = li >= 4 && li <= 7;
 
   return (
     <AbsoluteFill lang="tr" style={{ background: "#ffe8d4", overflow: "hidden" }}>
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={`translate(540,960) scale(${cs}) translate(${-fx},${-fy})`}>
           <Gym t={t} warm={w} clockSpin={clockSpin} />
-          <g transform={`translate(${gx},${FLOOR}) scale(${GUY_S})`}>
+          <g transform={`translate(${guy.x},${FLOOR}) scale(${GUY_S})`}>
             <ToonGuy
-              pose={gp}
-              expr={gExpr}
-              blink={guyBlink}
-              look={look}
-              held={bar.inHands ? <Barbell x={0} y={bar.y} /> : null}
+              pose={guy.pose}
+              expr={guy.expr}
+              blink={blinkAt(t, 2)}
+              look={guy.look}
+              talk={guyTalk}
+              held={guy.bar !== null ? <Barbell x={0} y={guy.bar} /> : null}
             />
           </g>
-          {barWorld ? (
-            <g transform={`translate(${barWorld.x},${barWorld.y}) scale(${GUY_S})`}>
+          {guy.bar === null ? (
+            <g transform={`translate(${GUY_X},${FLOOR - 92 * GUY_S}) scale(${GUY_S})`}>
               <Barbell x={0} y={0} />
             </g>
           ) : null}
           {showKas ? (
-            <g transform={`translate(${kx},${ky}) scale(${KAS_S})`}>
-              <Snow t={t} o={(1 - w) * (li >= 1 ? 1 : 0.5)} cx={0} cy={0} />
-              <BloodFlow t={t} o={win(t, at(8) + 0.3, at(11) + 1.2, 0.4)} cx={0} cy={-380} />
+            <g transform={`translate(${kas.x},${kas.y}) scale(${KAS_S})`}>
+              <Snow t={t} o={(1 - w) * (li >= 1 ? 1 : 0.5)} cx={0} cy={-60} />
+              <BloodFlow t={t} o={win(t, at(10) + 0.3, at(13) + 1.2, 0.4)} cx={0} cy={-420} />
               <KasKarakter
-                pose={kp}
-                expr={kExpr}
+                pose={kas.pose}
+                expr={kas.expr}
                 w={w}
-                blink={kasBlink}
-                look={-0.6}
+                blink={blinkAt(t, 1)}
+                look={kas.look}
                 t={t}
-                shiver={shiver}
+                shiver={kas.shiver * (1 - w)}
                 blanketOff={blanketOff}
+                talk={kasTalk}
                 front={band}
               />
-              <Sparkles t={t} o={win(t, at(11), at(14), 0.3)} cx={0} cy={-400} />
+              <Sparkles t={t} o={win(t, at(13), at(16), 0.3)} cx={0} cy={-440} />
               {burst > 0 ? (
-                <g transform="translate(0,-560)">
-                  <Burst x={0} y={0} s={burst * 0.9} />
+                <g transform="translate(0,-340)">
+                  <Burst x={0} y={0} s={burst * 0.8} />
                 </g>
               ) : null}
             </g>
@@ -709,7 +802,7 @@ export const IsinmaKas: React.FC = () => {
             position: "absolute",
             left: 0,
             right: 0,
-            top: cam(kx, ky - 560 * KAS_S).y - 110,
+            top: cam(kas.x, kas.y - 340 * KAS_S).y - 105,
             textAlign: "center",
             fontFamily: SANS,
             fontWeight: 900,
@@ -733,14 +826,13 @@ export const IsinmaKas: React.FC = () => {
           s={s0}
           e={e0}
           tailX={line.who === "kas" ? kasHead.x : guyHead.x}
-          top={line.who === "kas" && li >= 3 && li <= 6 ? 170 : 430}
+          top={zoomLine ? 170 : 430}
           color={line.who === "kas" ? CORAL : BLUE}
-          shout={li === 0}
         />
       ) : null}
 
       {/* ısınma çipi: hareket adı + ısı çubuğu */}
-      {li >= 8 && li <= 10 && line ? (
+      {li >= 10 && li <= 12 && line ? (
         <div
           style={{
             position: "absolute",
@@ -751,11 +843,10 @@ export const IsinmaKas: React.FC = () => {
             flexDirection: "column",
             alignItems: "center",
             gap: 22,
-            opacity: win(t, at(8), at(11), 0.2),
+            opacity: win(t, at(10), at(13), 0.2),
           }}
         >
           <div
-            key={li}
             style={{
               fontFamily: SANS,
               fontWeight: 900,
@@ -766,10 +857,10 @@ export const IsinmaKas: React.FC = () => {
               borderRadius: 999,
               padding: "14px 56px",
               boxShadow: `0 12px 0 ${CORAL}`,
-              transform: `scale(${0.8 + 0.2 * pop(t, s0)})`,
+              transform: `scale(${0.85 + 0.15 * pop(t, s0)})`,
             }}
           >
-            <span style={{ color: CORAL }}>{li - 7}.</span> {line.text}
+            <span style={{ color: CORAL }}>{li - 9}.</span> {line.text}
           </div>
           <div style={{ width: 640, height: 44, borderRadius: 22, border: `8px solid ${INK}`, background: "#fff", overflow: "hidden", position: "relative" }}>
             <div
@@ -797,7 +888,7 @@ export const IsinmaKas: React.FC = () => {
             right: 70,
             top: 300,
             opacity: win(t, s0, e0, 0.2),
-            transform: `scale(${0.9 + 0.1 * pop(t, s0)})`,
+            transform: `scale(${0.92 + 0.08 * pop(t, s0)})`,
             background: "#fff",
             border: `10px solid ${INK}`,
             borderRadius: 48,

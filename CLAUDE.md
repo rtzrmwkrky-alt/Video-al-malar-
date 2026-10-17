@@ -255,8 +255,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `AnimeKarakter` (bulutlu gökyüzü). Gazete karikatürü tarzı (`KarikaturGenc`) da denendi; kullanıcı figür
   üzerinde ilerlemek istedi. Figür onaylanınca hareketler + videonun bu figürle yeniden kurulması.
 
+- **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). **Kullanıcının
+  onayladığı kadro: anime tarzı genç / anne / koç** (`AnimeTeen` + `src/anime/looks.ts` MOM, COACH) — yeni videolarda bunları kullan.
+  Arka fon düz renk, `bg` prop'u (kullanıcı rengi bildirecek; şimdilik mavi). Metin `icerik/gece-yemek.txt`.
+  Sahneler: gece mutfak (anne "Gece gece yeme!") → koç "saati yok, matematiği var" → terazi (alınan/harcanan, saat döner
+  00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → üçlü kapanış.
+  Seslendirme yok (kredi harcanmadı); onaylanınca Chris önerilecek.
+
 ## Son durum (yeni oturumda buradan devam)
 
+- Son iş: **GeceYemek** sessiz taslak; arka fon rengi ve seslendirme onayı bekleniyor.
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —
   yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
   --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.

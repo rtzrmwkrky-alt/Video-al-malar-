@@ -38,6 +38,7 @@ import { ANIME_FRAMES, AnimeKarakter } from "./compositions/AnimeKarakter";
 import { SILUET_FRAMES, SiluetRontgen } from "./compositions/SiluetRontgen";
 import { STIL_FRAMES, StilOrnekleri } from "./compositions/StilOrnekleri";
 import { BOY_TAIL, BOY_TL, BoyUzama, type BoyUzamaProps } from "./compositions/BoyUzama";
+import { GECE_TAIL, GECE_TL, GeceYemek, type GeceYemekProps } from "./compositions/GeceYemek";
 
 const FPS = 30;
 
@@ -253,6 +254,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={BOY_TL.frames}
       defaultProps={{ audioName: "boy-uzama", data: null, look: "comic" } satisfies BoyUzamaProps}
       calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
+    />
+    <Composition
+      id="GeceYemek"
+      component={GeceYemek}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={GECE_TL.frames}
+      defaultProps={{ audioName: "gece-yemek", data: null } satisfies GeceYemekProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
     />
     <Composition id="Karakterler" component={Karakterler} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="FigurPozlar" component={FigurPozlar} width={1080} height={1920} fps={FPS} durationInFrames={30} />

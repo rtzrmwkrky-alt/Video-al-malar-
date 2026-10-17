@@ -93,24 +93,18 @@ const Eye: React.FC<{ x: number; y: number; flip?: boolean }> = ({ x, y, flip })
   </g>
 );
 
-/** kıvırcık saç bukleleri [x, y, r]: kafanın üstünü ve yanlarını saran yay */
+/** kısa kıvırcık saç bukleleri [x, y, r]: kafaya yakın, kenar boyunca küçük bukleler */
 const CURLS: [number, number, number][] = (() => {
   const out: [number, number, number][] = [];
-  // dış halka
-  for (let i = 0; i <= 12; i++) {
-    const a = Math.PI * (1.02 + (i / 12) * 0.96);
-    out.push([540 + Math.cos(a) * 112, 430 + Math.sin(a) * 128, 36 + (i % 3) * 5]);
+  for (let i = 0; i <= 14; i++) {
+    const a = Math.PI * (1.0 + (i / 14) * 1.0);
+    out.push([540 + Math.cos(a) * 96, 424 + Math.sin(a) * 92, 21 + (i % 2) * 4]);
   }
-  // iç dolgu
-  for (let i = 0; i <= 8; i++) {
-    const a = Math.PI * (1.08 + (i / 8) * 0.84);
-    out.push([540 + Math.cos(a) * 64, 418 + Math.sin(a) * 78, 34 + (i % 2) * 6]);
-  }
-  out.push([540, 360, 44]);
-  // yanlarda kulak üstüne inen bukleler
-  out.push([440, 448, 30], [640, 448, 30]);
   return out;
 })();
+
+/** kafayı saran saç tabanı (bukleler bunun kenarına oturur) */
+const HAIR_CAP = "M446,440 Q440,350 540,334 Q640,350 634,440 L620,420 Q540,380 460,420 Z";
 
 const FRINGE: [number, number, number][] = [
   [476, 424, 17],
@@ -256,32 +250,30 @@ export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
       <path d="M486,548 Q490,544 496,550 M592,546 Q588,542 582,548" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
 
       {/* ---------------- saç + kafa bandı ---------------- */}
-      {/* kıvırcık saç: önce konturlar, sonra dolgu (iç çizgiler görünmesin), en üstte bukle kıvrımları */}
-      {(() => {
-        const curls = CURLS;
-        return (
-          <g>
-            {curls.map(([x, y, r], i) => (
-              <circle key={`o${i}`} cx={x} cy={y} r={r + W / 2} fill={INK} />
-            ))}
-            {curls.map(([x, y, r], i) => (
-              <circle key={`f${i}`} cx={x} cy={y} r={r - W / 2} fill={i % 3 === 0 ? C.hairS : C.hair} />
-            ))}
-            {curls.map(([x, y, r], i) =>
-              i % 2 === 0 ? (
-                <path
-                  key={`c${i}`}
-                  d={`M${x - r * 0.45},${y + r * 0.1} a${r * 0.42},${r * 0.42} 0 1 1 ${r * 0.5},${r * 0.35}`}
-                  stroke={i % 4 === 0 ? C.hairH : C.hairS}
-                  strokeWidth={5}
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              ) : null,
-            )}
-          </g>
-        );
-      })()}
+      {/* kısa kıvırcık saç: taban + kenarda küçük bukleler (önce konturlar, sonra dolgular) */}
+      <g>
+        <path d={HAIR_CAP} fill={INK} stroke={INK} strokeWidth={W * 2} strokeLinejoin="round" />
+        {CURLS.map(([x, y, r], i) => (
+          <circle key={`o${i}`} cx={x} cy={y} r={r + W / 2} fill={INK} />
+        ))}
+        <path d={HAIR_CAP} fill={C.hair} />
+        {CURLS.map(([x, y, r], i) => (
+          <circle key={`f${i}`} cx={x} cy={y} r={r - W / 2} fill={C.hair} />
+        ))}
+        {/* bukle kıvrımları */}
+        {CURLS.map(([x, y, r], i) =>
+          i % 2 === 0 ? (
+            <path key={`c${i}`} d={`M${x - r * 0.4},${y + r * 0.1} a${r * 0.38},${r * 0.38} 0 1 1 ${r * 0.45},${r * 0.3}`} stroke={C.hairS} strokeWidth={4} fill="none" strokeLinecap="round" />
+          ) : null,
+        )}
+        {[
+          [500, 372],
+          [548, 360],
+          [590, 378],
+        ].map(([x, y], i) => (
+          <path key={`i${i}`} d={`M${x - 10},${y + 4} a12,12 0 1 1 14,9`} stroke={i === 1 ? C.hairH : C.hairS} strokeWidth={4} fill="none" strokeLinecap="round" />
+        ))}
+      </g>
       {/* kafa bandı */}
       <path d="M448,396 Q540,360 632,396 L630,426 Q540,392 450,426 Z" fill={C.band} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
       <path d="M590,382 Q616,388 632,396 L630,426 Q612,416 588,408 Z" fill={C.bandS} />

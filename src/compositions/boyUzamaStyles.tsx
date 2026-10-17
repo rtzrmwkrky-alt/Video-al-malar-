@@ -4,7 +4,7 @@
  */
 import { ROUND, SANS } from "../fonts";
 
-export type BoyStyle = "kagit" | "tebesir" | "neon" | "pastel" | "comic" | "gok" | "nane" | "gece" | "toprak";
+export type BoyStyle = "kagit" | "tebesir" | "neon" | "pastel" | "comic" | "gok" | "nane" | "gece" | "toprak" | "turkuaz" | "lavanta" | "beton" | "orman" | "mor";
 
 const INK = "#1f2a44";
 
@@ -151,6 +151,36 @@ ${o.fleshLine ? `.th-${k} .scene [stroke="#eebcaf"] { stroke: ${o.fleshLine}; }`
 const CAP_DEFAULT: CapTheme = { font: SANS, weight: 800, color: "#ffffff", hl: "#FFC83D", stroke: { w: 14, c: INK }, shadow: "0 8px 0 rgba(31,42,68,0.3)" };
 
 export const THEMES: Record<BoyStyle, Theme> = {
+  turkuaz: {
+    bg: "#7fdcd8",
+    Back: Plain("#3cc6c4", "#b6eeea", "#ffffff", 0.4),
+    css: roomCss("turkuaz", { stripe: "#6ad3cf", floor: "#178b8f", door: "#0d5b5e" }),
+    cap: CAP_DEFAULT,
+  },
+  lavanta: {
+    bg: "#d9cdfb",
+    Back: Plain("#b9a6f5", "#ece6ff", "#ffffff", 0.45),
+    css: roomCss("lavanta", { stripe: "#cbbdf8", floor: "#7a62c9", door: "#4a3a8a" }),
+    cap: CAP_DEFAULT,
+  },
+  beton: {
+    bg: "#e4e6ea",
+    Back: Plain("#cfd3da", "#f2f3f5", "#ffffff", 0.5),
+    css: roomCss("beton", { stripe: "#d9dce2", floor: "#8a919c", door: "#4c525c" }),
+    cap: CAP_DEFAULT,
+  },
+  orman: {
+    bg: "#2f6b4f",
+    Back: Plain("#1f5a40", "#4f9a72", "#fff6c8", 0.25),
+    css: roomCss("orman", { stripe: "#2a644a", floor: "#173d2c", door: "#0f2a1e", frame: "#f1ead8" }),
+    cap: CAP_DEFAULT,
+  },
+  mor: {
+    bg: "#3b1f6b",
+    Back: Plain("#2a1452", "#7b3fb8", "#ff9ad5", 0.25),
+    css: roomCss("mor", { stripe: "#351c62", floor: "#1d0d38", door: "#12082a", frame: "#efe6ff", flesh: "#4a2a6a", fleshLine: "#5a3480" }),
+    cap: CAP_DEFAULT,
+  },
   gok: {
     bg: "#bfe6ff",
     Back: Plain("#7cc8ff", "#d4efff", "#ffffff", 0.45),

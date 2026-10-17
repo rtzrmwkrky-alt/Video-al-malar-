@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 /**
  * Anime / TV çizgi film tarzı genç karakter (One Piece, Avatar havası; özgün tasarım).
  * Gerçekçi oranlar (~7 baş boy), kalın mürekkep konturu, iki tonlu gölge (ışık sol üstten).
@@ -30,6 +31,11 @@ export const C = {
   metal: "#8b93a6",
   plate: "#3b3f58",
 };
+
+export type AnimeColors = typeof C;
+/** karakter renkleri alt bileşenlere bağlamla geçer (aynı SVG'de farklı karakterler olabilsin) */
+const LookCtx = createContext<AnimeColors>(C);
+const BASE_C = C;
 
 /** uzuv: a→b arası, uçlarda yuvarlak, ortada isteğe bağlı kas şişkinliği */
 const limbPath = (a: P, b: P, wa: number, wb: number, bulge = 0) => {
@@ -76,7 +82,9 @@ const Limb: React.FC<{ a: P; b: P; wa: number; wb: number; bulge?: number; fill:
 
 /** kararlı / gülen göz */
 type EyeMode = "open" | "closed" | "squeeze";
-const Eye: React.FC<{ x: number; y: number; flip?: boolean; mode?: EyeMode; lx?: number; ly?: number }> = ({ x, y, flip, mode = "open", lx = 0, ly = 0 }) => (
+const Eye: React.FC<{ x: number; y: number; flip?: boolean; mode?: EyeMode; lx?: number; ly?: number }> = ({ x, y, flip, mode = "open", lx = 0, ly = 0 }) => {
+  const C = useContext(LookCtx);
+  return (
   <g transform={`translate(${x},${y}) scale(${flip ? -1 : 1},1)`}>
     {mode === "closed" ? (
       /* mutlu kapalı göz: yukarı kavis */
@@ -104,7 +112,8 @@ const Eye: React.FC<{ x: number; y: number; flip?: boolean; mode?: EyeMode; lx?:
       </>
     )}
   </g>
-);
+  );
+};
 
 /** kısa kıvırcık saç bukleleri [x, y, r]: kafaya yakın, kenar boyunca küçük bukleler */
 const CURLS: [number, number, number][] = (() => {
@@ -125,14 +134,16 @@ const FRINGE: [number, number, number][] = [
   [604, 420, 16],
 ];
 
-export type HairStyle = "curly" | "wavy" | "side" | "quiff" | "messy";
+export type HairStyle = "curly" | "wavy" | "side" | "quiff" | "messy" | "bun" | "short" | "cap";
 
 /** kontur + dolgu saç parçası */
-const HairPart: React.FC<{ d: string; fill?: string }> = ({ d, fill = C.hair }) => (
-  <path d={d} fill={fill} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
-);
+const HairPart: React.FC<{ d: string; fill?: string }> = ({ d, fill }) => {
+  const C = useContext(LookCtx);
+  return <path d={d} fill={fill ?? C.hair} stroke={INK} strokeWidth={W} strokeLinejoin="round" />;
+};
 
 const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
+  const C = useContext(LookCtx);
   if (style === "wavy")
     return (
       <g>
@@ -163,6 +174,36 @@ const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
         <path d="M486,342 C516,310 566,302 604,318 M480,372 C514,346 566,340 610,352" stroke={C.hairH} strokeWidth={6} fill="none" strokeLinecap="round" />
       </g>
     );
+  if (style === "bun")
+    return (
+      <g>
+        <circle cx={540} cy={318} r={48} fill={C.hair} stroke={INK} strokeWidth={W} />
+        <path d="M512,300 Q540,286 568,300" stroke={C.hairH} strokeWidth={5} fill="none" strokeLinecap="round" />
+        <HairPart d="M444,486 C430,400 470,342 540,340 C610,342 650,400 636,486 C630,452 624,430 612,418 C590,404 560,396 540,398 C510,396 478,408 466,420 C456,436 450,458 448,486 Z" />
+        <path d="M600,350 C636,372 650,420 636,486 C630,452 624,430 612,418 Z" fill={C.hairS} />
+        <path d="M540,346 Q536,372 540,398" stroke={INK} strokeWidth={4} fill="none" />
+        <path d="M500,364 Q520,356 532,370 M548,370 Q566,356 590,368" stroke={C.hairH} strokeWidth={5} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  if (style === "short")
+    return (
+      <g>
+        <HairPart d="M446,462 C440,388 476,342 540,340 C604,342 640,388 634,462 C628,438 622,420 612,410 C580,402 500,402 468,410 C458,420 452,438 446,462 Z" />
+        <path d="M602,352 C632,372 642,410 634,462 C628,438 622,420 612,410 Z" fill={C.hairS} />
+        <path d="M486,370 Q540,350 600,372" stroke={C.hairH} strokeWidth={5} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  if (style === "cap")
+    return (
+      <g>
+        <HairPart d="M448,460 C444,420 452,404 466,398 L614,398 C628,404 636,420 632,460 C628,440 622,426 612,420 L468,420 C458,426 452,440 448,460 Z" />
+        {/* şapka */}
+        <path d="M444,410 C440,350 480,318 540,316 C600,318 640,350 636,410 Z" fill={C.band} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+        <path d="M600,330 C626,350 640,378 636,410 L596,410 Z" fill={C.bandS} />
+        <path d="M430,408 Q520,388 600,404 Q560,436 470,432 Q430,428 430,408 Z" fill={C.bandS} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+        <circle cx={540} cy={318} r={9} fill={C.bandS} stroke={INK} strokeWidth={4} />
+      </g>
+    );
   if (style === "messy")
     return (
       <g>
@@ -174,7 +215,26 @@ const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
   return null;
 };
 
-export type AnimeExpr = "grin" | "happy" | "wink" | "think" | "ouch";
+export type AnimeExpr = "grin" | "happy" | "wink" | "think" | "ouch" | "shout" | "smile";
+
+/** karakter görünümü (anne, koç, halterci, basketbolcu…) */
+export type AnimeLook = {
+  c?: Partial<AnimeColors>;
+  hair?: HairStyle;
+  band?: boolean;
+  /** "tank" atlet, "tee" kısa kollu tişört */
+  top?: "tank" | "tee";
+  /** "shorts" şort, "pants" uzun pantolon */
+  bottom?: "shorts" | "pants";
+  /** göğüs yazısı (null: yok) */
+  number?: string | null;
+  /** kirpik (kadın karakter) */
+  lashes?: boolean;
+  /** bileklik */
+  wrist?: boolean;
+  /** ten rengi tonu üzerindeki çiller vb. yok; vücut genişliği çarpanı */
+  wide?: number;
+};
 export type AnimeItem = "dumbbell" | "phone" | null;
 export type AnimePose = {
   /** dirsek / bilek konumları (karakterin sağı = ekranda sol) */
@@ -196,7 +256,9 @@ export type AnimePose = {
 };
 
 /** yumruk + elde tutulan nesne */
-const Fist: React.FC<{ at: P; item?: AnimeItem }> = ({ at, item }) => (
+const Fist: React.FC<{ at: P; item?: AnimeItem }> = ({ at, item }) => {
+  const C = useContext(LookCtx);
+  return (
   <g transform={`translate(${at[0]},${at[1] + 24})`}>
     {item === "dumbbell" ? (
       <g>
@@ -220,10 +282,13 @@ const Fist: React.FC<{ at: P; item?: AnimeItem }> = ({ at, item }) => (
     <path d="M8,-38 Q30,-34 30,-10 Q30,14 20,22 Q8,0 8,-38 Z" fill={C.skinS} />
     <path d="M-26,-8 L24,-8 M-24,8 L22,8" stroke={INK} strokeWidth={3} />
   </g>
-);
+  );
+};
 
 /** yukarıyı gösteren el (bilekte) */
-const PointHand: React.FC<{ at: P }> = ({ at }) => (
+const PointHand: React.FC<{ at: P }> = ({ at }) => {
+  const C = useContext(LookCtx);
+  return (
   <g transform={`translate(${at[0]},${at[1]})`}>
     <path d="M-30,-6 Q-38,-48 -14,-60 L22,-60 Q40,-50 34,-14 Q30,6 0,8 Q-26,8 -30,-6 Z" fill={C.skin} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
     <path d="M10,-58 L28,-58 Q38,-44 32,-16 Q24,0 8,4 Z" fill={C.skinS} />
@@ -233,7 +298,8 @@ const PointHand: React.FC<{ at: P }> = ({ at }) => (
     <path d="M-30,-30 Q-50,-44 -44,-64 Q-36,-74 -24,-58" fill={C.skin} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
     <path d="M-20,-30 L18,-32 M-20,-14 L20,-16" stroke={INK} strokeWidth={3} />
   </g>
-);
+  );
+};
 
 const at = (a: P, b: P, k: number): P => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
 
@@ -241,14 +307,22 @@ const at = (a: P, b: P, k: number): P => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1]
  * Anime tarzı genç. Ayak tabanı (540, 1586) noktasındadır; sahnede yerleştirmek için
  * `translate(x,y) scale(s) translate(-540,-1586)` kullan. Aynı SVG'de birden fazla kopya varsa `uid` ver.
  */
-export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean; pose?: AnimePose; expr?: AnimeExpr; uid?: string }> = ({
+export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean; pose?: AnimePose; expr?: AnimeExpr; uid?: string; look?: AnimeLook }> = ({
   t = 0,
-  hair = "messy",
-  band = true,
+  hair: hairProp,
+  band: bandProp,
   pose = {},
   expr = "grin",
   uid = "a",
+  look = {},
 }) => {
+  const C: AnimeColors = { ...BASE_C, ...look.c };
+  const hair = hairProp ?? look.hair ?? "messy";
+  const band = bandProp ?? look.band ?? true;
+  const top = look.top ?? "tank";
+  const pants = look.bottom === "pants";
+  const number = look.number === undefined ? "16" : look.number;
+  const wide = look.wide ?? 1;
   const sq = pose.squat ?? 0;
   const drop = 150 * sq;
   // eklemler (üst gövde çömelmeyle aşağı iner)
@@ -275,13 +349,16 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
   const lx = pose.lx ?? (expr === "think" ? -7 : 0);
   const ly = pose.ly ?? (expr === "think" ? -7 : 0);
 
+  const legC = pants ? C.shorts : C.skin;
+  const legS = pants ? C.shortsS : C.skinS;
   return (
-    <g transform={`translate(0,${breathe})`}>
+    <LookCtx.Provider value={C}>
+    <g transform={`translate(0,${breathe}) translate(540,0) scale(${wide},1) translate(-540,0)`}>
       {/* ---------------- bacaklar ---------------- */}
-      <Limb id={id("lgR2")} a={knR} b={anR} wa={84} wb={52} bulge={14} fill={C.skin} shade={C.skinS} />
-      <Limb id={id("lgL2")} a={knL} b={anL} wa={84} wb={52} bulge={14} fill={C.skin} shade={C.skinS} />
-      <Limb id={id("lgR1")} a={hipR} b={knR} wa={100} wb={84} bulge={10} fill={C.skin} shade={C.skinS} />
-      <Limb id={id("lgL1")} a={hipL} b={knL} wa={100} wb={84} bulge={10} fill={C.skin} shade={C.skinS} />
+      <Limb id={id("lgR2")} a={knR} b={anR} wa={84} wb={52} bulge={14} fill={legC} shade={legS} />
+      <Limb id={id("lgL2")} a={knL} b={anL} wa={84} wb={52} bulge={14} fill={legC} shade={legS} />
+      <Limb id={id("lgR1")} a={hipR} b={knR} wa={100} wb={84} bulge={10} fill={legC} shade={legS} />
+      <Limb id={id("lgL1")} a={hipL} b={knL} wa={100} wb={84} bulge={10} fill={legC} shade={legS} />
       {/* çoraplar + ayakkabılar */}
       {[anR, anL].map((a, k) => {
         const dir = k === 0 ? -1 : 1;
@@ -306,20 +383,25 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
         <path d="M462,930 L618,930 L668,1210 Q612,1230 556,1212 L540,1080 L524,1212 Q468,1230 412,1210 Z" fill={C.shorts} stroke={INK} strokeWidth={W} strokeLinejoin="round" transform={sq > 0 ? `translate(540,930) scale(${1 + 0.25 * sq},${1 - 0.35 * sq}) translate(-540,-930)` : undefined} />
         <path d="M566,940 L618,940 L664,1200 Q620,1214 586,1208 Z" fill={C.shortsS} transform={sq > 0 ? `translate(540,930) scale(${1 + 0.25 * sq},${1 - 0.35 * sq}) translate(-540,-930)` : undefined} />
         <g transform={sq > 0 ? `translate(540,930) scale(${1 + 0.25 * sq},${1 - 0.35 * sq}) translate(-540,-930)` : undefined}>
-          <path d="M418,1196 Q468,1212 518,1200" stroke="#ffffff" strokeWidth={9} fill="none" />
-          <path d="M562,1200 Q612,1212 662,1196" stroke="#ffffff" strokeWidth={9} fill="none" />
+          {!pants ? (
+            <>
+              <path d="M418,1196 Q468,1212 518,1200" stroke="#ffffff" strokeWidth={9} fill="none" />
+              <path d="M562,1200 Q612,1212 662,1196" stroke="#ffffff" strokeWidth={9} fill="none" />
+            </>
+          ) : null}
         </g>
       </g>
 
       {/* ---------------- sol kol (gövdenin arkasında) ---------------- */}
       <Limb id={id("arL2")} a={elL} b={wrL} wa={62} wb={44} bulge={8} fill={C.skin} shade={C.skinS} />
       <Limb id={id("arL1")} a={shL} b={elL} wa={84} wb={58} bulge={14} fill={C.skin} shade={C.skinS} />
+      {top === "tee" ? <path d={limbPath(shL, at(shL, elL, 0.36), 86, 70)} fill={C.top} stroke={INK} strokeWidth={W} strokeLinejoin="round" /> : null}
       <Fist at={wrL} item={itemL} />
 
       <g transform={`translate(0,${drop})`}>
         {/* omuz kasları */}
-        <circle cx={652 - 4} cy={668 + 6} r={46} fill={C.skin} stroke={INK} strokeWidth={W} />
-        <path d="M662,634 A46,46 0 0 1 678,712 Q662,678 662,634 Z" fill={C.skinS} />
+        <circle cx={652 - 4} cy={668 + 6} r={top === "tee" ? 40 : 46} fill={top === "tee" ? C.top : C.skin} stroke={INK} strokeWidth={W} />
+        <path d="M662,634 A46,46 0 0 1 678,712 Q662,678 662,634 Z" fill={top === "tee" ? C.topS : C.skinS} />
         {/* ---------------- gövde (atlet) ---------------- */}
         <path d="M512,610 L568,610 L572,660 L508,660 Z" fill={C.skin} stroke={INK} strokeWidth={W} />
         <path d="M548,612 L568,612 L571,656 L552,650 Z" fill={C.skinS} />
@@ -333,18 +415,19 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
         <path d="M590,690 Q612,670 636,684 L626,800 Q620,880 614,944 Q590,952 566,956 Q600,880 594,780 Z" fill={C.topS} />
         <path d="M500,652 Q540,700 580,652" stroke={C.trim} strokeWidth={10} fill="none" strokeLinecap="round" />
         <path d="M500,652 Q540,700 580,652" stroke={INK} strokeWidth={3} fill="none" opacity={0.5} />
-        <text x={522} y={850} textAnchor="middle" fontFamily="Geist, sans-serif" fontWeight={800} fontSize={92} fill={C.trim} stroke={INK} strokeWidth={5} paintOrder="stroke" transform="rotate(-3,522,830)">
-          16
-        </text>
+        {number ? <text x={522} y={850} textAnchor="middle" fontFamily="Geist, sans-serif" fontWeight={800} fontSize={92} fill={C.trim} stroke={INK} strokeWidth={5} paintOrder="stroke" transform="rotate(-3,522,830)">
+          {number}
+        </text> : null}
         <path d="M466,946 Q540,964 614,946" stroke={INK} strokeWidth={4} fill="none" opacity={0.5} />
-        <circle cx={430 + 2} cy={668 - 4} r={46} fill={C.skin} stroke={INK} strokeWidth={W} />
+        <circle cx={430 + 2} cy={668 - 4} r={top === "tee" ? 40 : 46} fill={top === "tee" ? C.top : C.skin} stroke={INK} strokeWidth={W} />
       </g>
 
       {/* ---------------- sağ kol (önde) ---------------- */}
       <Limb id={id("arR1")} a={shR} b={elR} wa={84} wb={58} bulge={16} fill={C.skin} shade={C.skinS} />
       <Limb id={id("arR2")} a={elR} b={wrR} wa={62} wb={44} bulge={8} fill={C.skin} shade={C.skinS} />
+      {top === "tee" ? <path d={limbPath(shR, at(shR, elR, 0.36), 86, 70)} fill={C.top} stroke={INK} strokeWidth={W} strokeLinejoin="round" /> : null}
       {/* bileklik */}
-      <path d={limbPath(at(elR, wrR, 0.72), at(elR, wrR, 0.9), 50, 46)} fill={C.wrist} stroke={INK} strokeWidth={W - 1} />
+      {look.wrist ?? true ? <path d={limbPath(at(elR, wrR, 0.72), at(elR, wrR, 0.9), 50, 46)} fill={C.wrist} stroke={INK} strokeWidth={W - 1} /> : null}
       {handR === "point" ? <PointHand at={wrR} /> : <Fist at={wrR} item={itemR} />}
 
       {/* ---------------- baş ---------------- */}
@@ -354,7 +437,7 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
         <path d="M450,430 Q446,540 486,584 Q514,612 540,616 Q566,612 594,584 Q634,540 630,430 Q624,352 540,350 Q456,352 450,430 Z" fill={C.skin} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
         <path d="M600,420 Q634,430 628,470 Q622,544 592,584 Q570,604 548,612 Q596,560 606,500 Q610,456 600,420 Z" fill={C.skinS} />
         {/* kaşlar */}
-        {expr === "ouch" ? (
+        {expr === "ouch" || expr === "shout" ? (
           <>
             <path d="M474,428 Q500,440 528,446 L526,456 Q500,452 476,440 Z" fill={INK} />
             <path d="M606,428 Q580,440 552,446 L554,456 Q580,452 604,440 Z" fill={INK} />
@@ -371,11 +454,21 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
           </>
         )}
         <Eye x={501} y={474} mode={eyeMode[0]} lx={lx} ly={ly} />
+        {look.lashes && eyeMode[0] === "open" ? <path d="M470,470 l-14,-6 M474,462 l-12,-10 M480,456 l-8,-12" stroke={INK} strokeWidth={4} strokeLinecap="round" /> : null}
+        {look.lashes && eyeMode[1] === "open" ? <path d="M611,470 l14,-6 M607,462 l12,-10 M601,456 l8,-12" stroke={INK} strokeWidth={4} strokeLinecap="round" /> : null}
         <Eye x={580} y={474} flip mode={eyeMode[1]} lx={lx} ly={ly} />
         <path d="M546,500 L554,528 L540,532" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" strokeLinejoin="round" />
         {/* ağız */}
         {expr === "think" ? (
           <path d="M512,566 Q536,562 566,554" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" />
+        ) : expr === "shout" ? (
+          <g>
+            <path d="M506,548 Q540,538 574,548 Q578,600 540,606 Q502,600 506,548 Z" fill="#7a1f24" stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+            <path d="M512,552 Q540,546 568,552 L566,562 Q540,558 514,562 Z" fill="#ffffff" />
+            <path d="M520,590 Q540,580 560,590 Q552,602 540,602 Q528,602 520,590 Z" fill="#e2626a" />
+          </g>
+        ) : expr === "smile" ? (
+          <path d="M504,560 Q540,584 578,558" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" />
         ) : expr === "ouch" ? (
           <g>
             <path d="M494,548 Q540,540 586,548 L582,580 Q540,588 498,580 Z" fill="#ffffff" stroke={INK} strokeWidth={W} strokeLinejoin="round" />
@@ -406,5 +499,6 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
         ) : null}
       </g>
     </g>
+    </LookCtx.Provider>
   );
 };

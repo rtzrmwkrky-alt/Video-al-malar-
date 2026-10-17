@@ -4,7 +4,7 @@
  */
 import { ROUND, SANS } from "../fonts";
 
-export type BoyStyle = "kagit" | "tebesir" | "neon" | "pastel" | "comic";
+export type BoyStyle = "kagit" | "tebesir" | "neon" | "pastel" | "comic" | "gok" | "nane" | "gece" | "toprak";
 
 const INK = "#1f2a44";
 
@@ -117,7 +117,64 @@ const Halftone: React.FC = () => (
   </svg>
 );
 
+/** düz renkli zemin + yumuşak ışık lekesi */
+const Plain = (top: string, bottom: string, glow: string, glowO = 0.35): React.FC => {
+  const Comp: React.FC = () => (
+    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+      <defs>
+        <linearGradient id={`pl-${top}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={top} />
+          <stop offset="1" stopColor={bottom} />
+        </linearGradient>
+        <radialGradient id={`gl-${top}`} cx="50%" cy="40%" r="55%">
+          <stop offset="0" stopColor={glow} stopOpacity={glowO} />
+          <stop offset="1" stopColor={glow} stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <rect width={1080} height={1920} fill={`url(#pl-${top})`} />
+      <rect width={1080} height={1920} fill={`url(#gl-${top})`} />
+    </svg>
+  );
+  return Comp;
+};
+
+/** oda ve kemik zeminlerini palete göre yeniden boyar */
+const roomCss = (k: string, o: { stripe: string; floor: string; door: string; frame?: string; flesh?: string; fleshLine?: string }) => `
+.th-${k} .scene [fill="#ecd9b8"] { fill: ${o.stripe}; }
+.th-${k} .scene [fill="#d9b98a"] { fill: ${o.floor}; }
+.th-${k} .scene [fill="#8c6f52"] { fill: ${o.door}; }
+${o.frame ? `.th-${k} .scene [fill="#fff6e6"] { fill: ${o.frame}; }` : ""}
+${o.flesh ? `.th-${k} .scene [fill="#f7d7cc"] { fill: ${o.flesh}; }` : ""}
+${o.fleshLine ? `.th-${k} .scene [stroke="#eebcaf"] { stroke: ${o.fleshLine}; }` : ""}
+`;
+
+const CAP_DEFAULT: CapTheme = { font: SANS, weight: 800, color: "#ffffff", hl: "#FFC83D", stroke: { w: 14, c: INK }, shadow: "0 8px 0 rgba(31,42,68,0.3)" };
+
 export const THEMES: Record<BoyStyle, Theme> = {
+  gok: {
+    bg: "#bfe6ff",
+    Back: Plain("#7cc8ff", "#d4efff", "#ffffff", 0.45),
+    css: roomCss("gok", { stripe: "#a9dcfb", floor: "#4f9bd6", door: "#2f5f8f" }),
+    cap: CAP_DEFAULT,
+  },
+  nane: {
+    bg: "#c8f1e2",
+    Back: Plain("#8fe3c8", "#dcf8ee", "#ffffff", 0.45),
+    css: roomCss("nane", { stripe: "#b2ead6", floor: "#2fa98d", door: "#1f6f5e" }),
+    cap: CAP_DEFAULT,
+  },
+  gece: {
+    bg: "#151d36",
+    Back: Plain("#0f1630", "#25305a", "#ffd27a", 0.22),
+    css: roomCss("gece", { stripe: "#1d2748", floor: "#0b1124", door: "#070b18", frame: "#e9e2d4", flesh: "#3a2346", fleshLine: "#4a2d58" }),
+    cap: CAP_DEFAULT,
+  },
+  toprak: {
+    bg: "#f1c9a6",
+    Back: Plain("#e9b48a", "#f7dcc4", "#fff3e6", 0.4),
+    css: roomCss("toprak", { stripe: "#e2a87c", floor: "#a8552f", door: "#5e2f1a" }),
+    cap: CAP_DEFAULT,
+  },
   kagit: {
     bg: "#f3e6cf",
     css: "",

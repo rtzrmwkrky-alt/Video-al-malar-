@@ -8,7 +8,8 @@ import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideo
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
-import { AnimeTeen, type AnimeExpr, type AnimePose } from "../anime/AnimeTeen";
+import { AnimeTeen, type AnimeExpr, type AnimeLook, type AnimePose } from "../anime/AnimeTeen";
+import { BALLER as A_BALLER, COACH as A_COACH, LIFTER as A_LIFTER, MOM as A_MOM } from "../anime/looks";
 import { THEMES, type BoyStyle, type CapTheme } from "./boyUzamaStyles";
 import { INK, ToonGirl2D, blinkAt, type Expr, type ToonLook, type ToonPose } from "../cartoon/ToonGirl2D";
 
@@ -644,13 +645,16 @@ const HERO_K = 0.685;
 type P2 = [number, number];
 const mixP = (a: P2, b: P2, k: number): P2 => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
 
-const Hero: React.FC<{ x: number; y: number; scale: number; pose?: AnimePose; expr?: AnimeExpr; t: number; uid: string }> = ({ x, y, scale, pose, expr, t, uid }) => (
+const Hero: React.FC<{ x: number; y: number; scale: number; pose?: AnimePose; expr?: AnimeExpr; t: number; uid: string; look?: AnimeLook }> = ({ x, y, scale, pose, expr, t, uid, look }) => (
   <g transform={`translate(${x},${y}) scale(${scale * HERO_K}) translate(-540,-1586)`}>
-    <AnimeTeen uid={uid} pose={pose} expr={expr} t={t} />
+    <AnimeTeen uid={uid} pose={pose} expr={expr} t={t} look={look} />
   </g>
 );
 
 /** kollar aşağıda (sağ) + sol elde dambıl; c: 0 aşağı, 1 yukarı (curl) */
+/** kollar aşağıda, eller boş */
+const DOWN: AnimePose = { elR: [404, 840], wrR: [396, 1000], elL: [676, 846], wrL: [684, 1004], itemL: null };
+
 const curlPose = (c: number, both = false): AnimePose => ({
   elR: [404, 840],
   wrR: both ? mixP([396, 1000], [410, 720], c) : [396, 1000],
@@ -736,7 +740,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
             <Room marks={3} />
             {/* anne kapıda */}
             <g opacity={win(t, 0.05, L(1) - 0.1, 0.25)}>
-              <ToonGirl2D x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={{ armL: 10, armR: 75, elbowR: 30, head: 4 }} expr="ouch" blink={0} t={t} look={MOM} />
+              <Hero uid="anne" look={A_MOM} x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={{ ...DOWN, elL: [730, 650], wrL: [800, 540 + Math.sin(t * 9) * 12], head: 4 }} expr="shout" t={t} />
             </g>
             <DoorFrame marks={3} />
             <Hero uid="oda" x={680} y={FLOOR} scale={0.92} pose={tPose} expr={tExpr} t={t} />
@@ -858,15 +862,11 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
               ))}
             </g>
             {/* halterci (kısa, geniş) */}
-            <g transform={`translate(300,${FLOOR}) scale(1.18,1) translate(-300,${-FLOOR})`}>
-              <ToonGirl2D x={300} y={FLOOR} scale={0.7} pose={{ armL: 160, armR: 160, elbowL: 10, elbowR: 10, legL: -8, legR: 8 }} expr="grit" blink={blink} t={t} look={LIFTER} />
-            </g>
-            <Barbell x={300} y={FLOOR - 0.7 * 820} w={520} plate={150} bend={6} />
+            <Hero uid="halterci" look={A_LIFTER} x={300} y={FLOOR} scale={0.7} pose={{ elR: [372, 520], wrR: [384, 360], elL: [708, 520], wrL: [696, 360], itemL: null }} expr="ouch" t={t} />
+            <Barbell x={300} y={FLOOR - (1586 - 384) * 0.7 * HERO_K} w={520} plate={150} bend={6} />
             {/* basketbolcu (uzun) */}
-            <g transform={`translate(780,${FLOOR}) scale(0.9,1) translate(-780,${-FLOOR})`}>
-              <ToonGirl2D x={780} y={FLOOR} scale={1.12} pose={{ armL: 10, armR: 20, elbowR: 60 }} expr="smile" blink={blink} t={t} look={BALLER} />
-            </g>
-            <Ball x={700} y={FLOOR - 1.12 * 300} />
+            <Hero uid="basket" look={A_BALLER} x={780} y={FLOOR} scale={1.12} pose={{ ...DOWN, elR: [384, 860], wrR: [372, 1000] }} expr="grin" t={t} />
+            <Ball x={780 + (540 + (372 - 540) * 0.9 - 540) * 1.12 * HERO_K} y={FLOOR - (1586 - 1060) * 1.12 * HERO_K} />
             {/* etiketler */}
             <g opacity={sm(t, L(7) + 1.4, L(7) + 1.7)}>
               <rect x={110} y={330} width={380} height={96} rx={48} fill="#fff" stroke={INK} strokeWidth={7} />
@@ -937,7 +937,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
                 />
               );
             })()}
-            <ToonGirl2D x={840} y={FLOOR} scale={0.66} pose={{ armL: 10, armR: 120, elbowR: 40 + Math.sin(t * 6) * 10 }} expr="happy" blink={blink} t={t} look={COACH} itemL={<Whistle />} />
+            <Hero uid="koc" look={A_COACH} x={840} y={FLOOR} scale={0.7} pose={{ ...DOWN, elL: [720, 600], wrL: [770 + Math.sin(t * 6) * 14, 470] }} expr="smile" t={t} />
             <Card x={200} y={430} n={1} title={["ÖNCE", "TEKNİK"]} p={pop(t, L(10) + 0.5)} color="#d6efff" icon={<line x1={-80} y1={0} x2={80} y2={0} stroke="#b07a4a" strokeWidth={14} strokeLinecap="round" />} />
             <Card x={540} y={430} n={2} title={["HAFİFTEN", "BAŞLA"]} p={pop(t, L(10) + 1.1)} color="#fff3b0" icon={<Dumbbell s={0.7} />} />
             <Card x={880} y={430} n={3} title={["KOÇLA", "ÇALIŞ"]} p={pop(t, L(10) + 1.8)} color="#c9f5cf" icon={<g transform="scale(1.6)"><Whistle /></g>} />

@@ -30,6 +30,7 @@ import { KasAgrisiToon, TOON_TL, VOICE_TAIL, type KasAgrisiToonProps } from "./c
 import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
 import { ISINMA_TL, IsinmaKas, type IsinmaProps } from "./compositions/IsinmaKas";
 import { WILMA_TAIL, WilmaRudolph, type WilmaProps } from "./compositions/WilmaRudolph";
+import { Karakterler } from "./compositions/Karakterler";
 import { FigurPozlar } from "./compositions/FigurPozlar";
 import { SacSecenekleri } from "./compositions/SacSecenekleri";
 import { KARIKATUR_FRAMES, KarikaturGenc } from "./compositions/KarikaturGenc";
@@ -253,6 +254,7 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "boy-uzama", data: null, look: "comic" } satisfies BoyUzamaProps}
       calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
     />
+    <Composition id="Karakterler" component={Karakterler} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="FigurPozlar" component={FigurPozlar} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="SacSecenekleri" component={SacSecenekleri} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="KarikaturGenc" component={KarikaturGenc} width={1080} height={1920} fps={FPS} durationInFrames={KARIKATUR_FRAMES} />

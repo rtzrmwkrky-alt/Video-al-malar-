@@ -20,19 +20,19 @@ const PAPER = "#f3e6cf";
 const RED = "#ff5a4e";
 
 export const BOY_LINES: Line[] = [
-  { text: "“Ağırlık kaldırma, boyun kısa kalır!” Bunu sen de duydun, değil mi?", hl: ["kısa", "kalır!”"], hold: 0.3 },
-  { text: "Peki gerçekten öyle mi? Hadi kemiğin içine bakalım.", hl: ["kemiğin", "içine"], hold: 1.0 },
-  { text: "Boyun, kemiklerinin ucundaki büyüme bölgesinde uzar.", hl: ["büyüme", "bölgesinde"], hold: 0.4 },
-  { text: "Orada minik bir inşaat var. Her gün kemiğe yeni kat çıkılıyor.", hl: ["inşaat"], hold: 0.3 },
-  { text: "Sen ağırlık kaldırınca inşaat durmuyor. Tam tersi, kemik daha sağlam oluyor.", hl: ["durmuyor.", "sağlam"], hold: 0.3 },
-  { text: "Bu inşaat, ergenlik bitince kendiliğinden kapanıyor.", hl: ["ergenlik", "bitince"], hold: 0.4 },
-  { text: "Ne zaman biteceğine dambıl değil, genlerin ve hormonların karar veriyor.", hl: ["genlerin", "hormonların"], hold: 0.4 },
-  { text: "“İyi de halterciler hep kısa!” Doğru, ama halter onları kısaltmadı.", hl: ["kısaltmadı."], hold: 0.3 },
-  { text: "Kısa boylular bu sporda avantajlı, o yüzden seçiliyorlar. Basketbol da kimseyi uzatmıyor.", hl: ["avantajlı,", "uzatmıyor."], hold: 0.3 },
-  { text: "Asıl tehlike ağırlık değil; koçsuz, bozuk teknikle aşırı yüklenmek.", hl: ["koçsuz,", "bozuk", "aşırı"], hold: 0.3 },
-  { text: "Kural basit: önce teknik, hafiften başla, mümkünse bir koçla çalış.", hl: ["teknik,", "hafiften", "koçla"], hold: 0.4 },
-  { text: "Boyun için asıl önemli olanlar: iyi uyku ve iyi beslenme.", hl: ["uyku", "beslenme."], hold: 0.3 },
-  { text: "Bu videoyu, sana bunu söyleyene gönder!", hl: ["gönder!"], hold: 1.0 },
+  { text: "“Ağırlık kaldırma, boyun kısa kalır!” Tanıdık geldi mi?", hl: ["kısa", "kalır!”"], hold: 0.3 },
+  { text: "Bunu ben de çok duydum. Gel, bir de kemiğin içine bakalım.", hl: ["kemiğin", "içine"], hold: 1.0 },
+  { text: "Kemiklerinin uçlarında büyüme plağı denen yumuşak bir bölge var.", hl: ["büyüme", "plağı"], hold: 0.4 },
+  { text: "Buradaki hücreler bölünür, üst üste dizilir, sonra sertleşip kemiğe dönüşür. Boyun aslında böyle uzar.", hl: ["bölünür,", "dizilir,", "kemiğe"], hold: 0.3 },
+  { text: "Peki sen ağırlık kaldırınca ne olur? Hiçbir şey durmaz. Hatta kemiklerin daha da sağlamlaşır.", hl: ["durmaz.", "sağlamlaşır."], hold: 0.3 },
+  { text: "Ergenlik bitince bu plak kendiliğinden kapanır ve kemik artık uzamaz.", hl: ["ergenlik", "bitince"], hold: 0.4 },
+  { text: "Ne zaman kapanacağına dambıl değil, genlerin ve hormonların karar verir.", hl: ["genlerin", "hormonların"], hold: 0.4 },
+  { text: "“İyi de halterciler hep kısa!” dediğini duyar gibiyim. Haklısın, ama halter onları kısaltmadı.", hl: ["kısaltmadı."], hold: 0.3 },
+  { text: "Kısa boylular bu sporda avantajlı, o yüzden halterde hep onları görüyoruz. Basketbol da kimseyi uzatmadı, uzunlar seçildi.", hl: ["avantajlı,", "uzatmadı,"], hold: 0.3 },
+  { text: "Asıl tehlike ne, biliyor musun? Koçsuz, bozuk teknikle, kaldıramayacağın yükü zorlamak.", hl: ["koçsuz,", "bozuk", "kaldıramayacağın"], hold: 0.3 },
+  { text: "O yüzden önce tekniği öğren, hafiften başla, mümkünse bir koçla çalış.", hl: ["tekniği", "hafiften", "koçla"], hold: 0.4 },
+  { text: "Bir de boyun için asıl iş gece yapılır: iyi uyku ve iyi beslenme.", hl: ["uyku", "beslenme."], hold: 0.3 },
+  { text: "Hadi, şimdi bu videoyu sana bunu söyleyene gönder.", hl: ["gönder."], hold: 1.0 },
 ];
 
 export const BOY_TL = timeline(BOY_LINES, 0.3);
@@ -338,37 +338,54 @@ const PLATE_Y = 640; // büyüme bölgesinin (kapanmadan önce) üst kenarı
 const BONE_L = 360;
 const BONE_R = 720;
 
-/** minik inşaat işçisi (baretli) */
-const Worker: React.FC<{ x: number; y: number; t: number; k: number; brick?: boolean; thumb?: boolean; walk?: number }> = ({ x, y, t, k, brick, thumb, walk = 0 }) => {
-  const hop = Math.abs(Math.sin(t * 5 + k * 1.3)) * -10;
-  const leg = walk ? Math.sin(t * 12 + k) * 14 : 0;
+/** sevimli kıkırdak hücresi */
+const Cell: React.FC<{ x: number; y: number; r: number; t: number; k: number; sleepy?: number; bone?: number }> = ({ x, y, r, t, k, sleepy = 0, bone = 0 }) => {
+  const sq = 1 + Math.sin(t * 4 + k * 1.7) * 0.05;
+  const fill = bone > 0.5 ? "#f1dcb2" : "#bfe6ff";
+  const eyeY = y - r * 0.12;
   return (
-    <g transform={`translate(${x},${y + hop}) scale(1.3)`}>
-      <line x1={-12} y1={-30} x2={-14 - leg * 0.3} y2={0} stroke={INK} strokeWidth={9} strokeLinecap="round" />
-      <line x1={12} y1={-30} x2={14 + leg * 0.3} y2={0} stroke={INK} strokeWidth={9} strokeLinecap="round" />
-      <rect x={-26} y={-88} width={52} height={62} rx={18} fill="#ff9d3d" stroke={INK} strokeWidth={6} />
-      <rect x={-26} y={-66} width={52} height={10} fill="#fff36b" />
-      <circle cx={0} cy={-112} r={28} fill="#fbd5b8" stroke={INK} strokeWidth={6} />
-      <circle cx={-9} cy={-112} r={4} fill={INK} />
-      <circle cx={9} cy={-112} r={4} fill={INK} />
-      <path d="M-8,-100 Q0,-94 8,-100" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
-      <path d="M-34,-122 Q0,-170 34,-122 Z" fill="#ffd23f" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
-      <rect x={-38} y={-126} width={76} height={10} rx={5} fill="#ffd23f" stroke={INK} strokeWidth={5} />
-      {brick ? <rect x={-30} y={-92 - 26} width={60} height={28} rx={4} transform="translate(0,-40)" fill="#e2725b" stroke={INK} strokeWidth={5} /> : null}
-      {thumb ? (
-        <g transform="translate(36,-74)">
-          <line x1={-10} y1={10} x2={8} y2={-8} stroke={INK} strokeWidth={9} strokeLinecap="round" />
-          <circle cx={12} cy={-14} r={13} fill="#fbd5b8" stroke={INK} strokeWidth={5} />
-          <rect x={8} y={-44} width={10} height={24} rx={5} fill="#fbd5b8" stroke={INK} strokeWidth={4} />
+    <g transform={`translate(${x},${y}) scale(${sq},${2 - sq}) translate(${-x},${-y})`}>
+      <circle cx={x} cy={y} r={r} fill={fill} stroke={INK} strokeWidth={4} />
+      {bone < 0.8 ? (
+        <g opacity={1 - bone}>
+          <circle cx={x - r * 0.18} cy={y - r * 0.05} r={r * 0.3} fill="#7cc4f2" opacity={0.7} />
+          {sleepy > 0.5 ? (
+            <>
+              <path d={`M${x - r * 0.5},${eyeY} q${r * 0.15},${r * 0.12} ${r * 0.3},0`} stroke={INK} strokeWidth={3} fill="none" />
+              <path d={`M${x + r * 0.2},${eyeY} q${r * 0.15},${r * 0.12} ${r * 0.3},0`} stroke={INK} strokeWidth={3} fill="none" />
+            </>
+          ) : (
+            <>
+              <circle cx={x - r * 0.35} cy={eyeY} r={r * 0.13} fill={INK} />
+              <circle cx={x + r * 0.35} cy={eyeY} r={r * 0.13} fill={INK} />
+            </>
+          )}
+          <path d={`M${x - r * 0.25},${y + r * 0.3} Q${x},${y + r * 0.5} ${x + r * 0.25},${y + r * 0.3}`} stroke={INK} strokeWidth={3} fill="none" strokeLinecap="round" />
         </g>
       ) : null}
     </g>
   );
 };
 
+/** bölünen tek hücre (büyütülmüş yuvarlak pencere) */
+const Dividing: React.FC<{ x: number; y: number; t: number; o: number }> = ({ x, y, t, o }) => {
+  if (o <= 0) return null;
+  const u = (t * 0.55) % 1;
+  const d = sm(u, 0.15, 0.7) * 46; // iki yavru hücre arası
+  const pinch = 1 - sm(u, 0.4, 0.7);
+  return (
+    <g opacity={o}>
+      <circle cx={x} cy={y} r={150} fill="#e9f6ff" stroke={INK} strokeWidth={8} />
+      {pinch > 0.05 ? <ellipse cx={x} cy={y} rx={14 + d * 0.9} ry={54 * pinch + 6} fill="#bfe6ff" /> : null}
+      <Cell x={x} y={y - d} r={56} t={t} k={1} />
+      <Cell x={x} y={y + d} r={56} t={t} k={2} />
+    </g>
+  );
+};
+
 /** uzun kemik (üst uç + büyüme bölgesi + gövde). grow: kemik ucu yukarı kayar; open: bölge açıklığı (1 açık, 0 kapalı) */
-const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number; t: number }> = ({ grow, open, strong, glow, t }) => {
-  const plateH = 26 + 54 * open;
+const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number; t: number; flow: number; sleepy: number }> = ({ grow, open, strong, glow, t, flow, sleepy }) => {
+  const plateH = 26 + 124 * open;
   const top = PLATE_Y - grow; // bölgenin üst kenarı
   const capTop = top - 250;
   const cols = 9;
@@ -387,7 +404,7 @@ const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number;
           opacity={0.75}
         />
       ))}
-      {/* yeni yapılan katlar (tuğla sırası) */}
+      {/* yeni oluşan kemik katmanları */}
       {Array.from({ length: Math.floor(grow / 22) }).map((_, i) => (
         <g key={i}>
           {Array.from({ length: 5 }).map((__, j) => (
@@ -399,13 +416,26 @@ const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number;
       <g>
         <rect x={BONE_L + 6} y={top - 6} width={BONE_R - BONE_L - 12} height={plateH + 12} rx={12} fill={Y} opacity={0.5 * glow * (0.6 + 0.4 * Math.sin(t * 5))} />
         <rect x={BONE_L + 14} y={top} width={BONE_R - BONE_L - 28} height={plateH} rx={8} fill={open > 0.3 ? "#a8dcff" : "#c9ccd6"} stroke={INK} strokeWidth={7} />
-        {open > 0.2
-          ? Array.from({ length: cols }).map((_, c) =>
-              Array.from({ length: 3 }).map((__, r) => (
-                <circle key={`${c}-${r}`} cx={BONE_L + 46 + c * 34} cy={top + 16 + r * ((plateH - 30) / 2)} r={8 * Math.min(1, open * 1.2)} fill="#5aa9e6" opacity={0.8} />
-              )),
-            )
-          : null}
+        <clipPath id="plate">
+          <rect x={BONE_L + 14} y={top} width={BONE_R - BONE_L - 28} height={plateH} rx={8} />
+        </clipPath>
+        {open > 0.15 ? (
+          <g clipPath="url(#plate)">
+            {Array.from({ length: 5 }).map((_, row) =>
+              Array.from({ length: cols - 1 }).map((__, c) => {
+                // satırlar aşağı akar: üstte bölünerek doğar, altta sertleşip kemiğe dönüşür
+                const yy = top + 24 + (row - 1 + flow) * 42;
+                const born = row === 0 ? sm(flow, 0.1, 0.9) : 1;
+                const bone = row >= 3 ? sm(row - 1 + flow, 2.2, 3.0) : 0;
+                return born > 0.05 ? (
+                  <g key={`${row}-${c}`} transform={`translate(${BONE_L + 52 + c * 42},${yy}) scale(${born}) translate(${-(BONE_L + 52 + c * 42)},${-yy})`}>
+                    <Cell x={BONE_L + 52 + c * 42} y={yy} r={18} t={t} k={row * 7 + c} sleepy={sleepy} bone={bone} />
+                  </g>
+                ) : null;
+              }),
+            )}
+          </g>
+        ) : null}
       </g>
       {/* üst uç (eklem başı) */}
       <path
@@ -471,21 +501,6 @@ const Flask: React.FC<{ x: number; y: number; p: number; t: number }> = ({ x, y,
         return <circle key={k} cx={-20 + k * 20} cy={60 - u * 110} r={8 - u * 4} fill="#b48cff" stroke={INK} strokeWidth={3} opacity={1 - u} />;
       })}
       <rect x={-36} y={-96} width={72} height={18} rx={6} fill="#c9ccd6" stroke={INK} strokeWidth={5} />
-    </g>
-  );
-
-const Sign: React.FC<{ x: number; y: number; p: number }> = ({ x, y, p }) =>
-  p <= 0 ? null : (
-    <g transform={`translate(${x},${y}) rotate(${(1 - p) * -12 - 3}) scale(${1.1 * (0.7 + 0.3 * p)})`} opacity={Math.min(1, p * 2)}>
-      <line x1={-150} y1={-120} x2={-120} y2={-40} stroke={INK} strokeWidth={6} />
-      <line x1={150} y1={-120} x2={120} y2={-40} stroke={INK} strokeWidth={6} />
-      <rect x={-230} y={-50} width={460} height={130} rx={14} fill="#ffd23f" stroke={INK} strokeWidth={8} />
-      <Txt x={0} y={4} size={44} fill={INK} sw={0}>
-        İNŞAAT
-      </Txt>
-      <Txt x={0} y={56} size={44} fill={INK} sw={0}>
-        TAMAMLANDI
-      </Txt>
     </g>
   );
 
@@ -615,7 +630,14 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
   const open = 1 - sm(t, L(5) + 0.5, L(5) + 1.6);
   const strong = sm(t, L(4) + 1.2, L(4) + 2.2);
   const glow = win(t, L(2) + 0.2, L(3) + 0.4, 0.3);
-  const workersOut = sm(t, L(5) + 0.2, L(5) + 1.8);
+  // hücre akışı: satır 3'te başlar, plak kapanırken durur
+  const flow = t > L(3) ? ((t - L(3)) * 0.6) % 1 : 0;
+  const sleepy = t > L(5) + 0.3 ? 1 : 0;
+  // hücreler anlatılırken plağa yumuşak yaklaşma
+  const zk = 1 + 0.45 * sm(t, L(2) + 0.3, L(2) + 1.4) * (1 - sm(t, L(4) + 0.1, L(4) + 1.0));
+  const zcy = PLATE_Y - grow + 60;
+  const zx = (x: number) => 540 + (x - 540) * zk;
+  const zy = (y: number) => zcy + (y - zcy) * zk;
 
   // --- bitiş fade
   const fade = interpolate(t, [0, 0.12, tl.total - 0.3, tl.total], [0.6, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -668,27 +690,18 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
               <path key={i} d={`M${i * 110 - 40},-50 C${i * 110 + 30},600 ${i * 110 - 60},1200 ${i * 110 + 10},2000`} stroke="#eebcaf" strokeWidth={26} fill="none" opacity={0.6} />
             ))}
             <g opacity={1 - 0.6 * sm(t, L(6), L(6) + 0.4)}>
-              <Bone grow={grow} open={open} strong={strong} glow={glow} t={t} />
-              <Tag x={BONE_R - 30} y={PLATE_Y - grow + 40} tx={830} ty={300} text="büyüme bölgesi" o={win(t, L(2) + 0.5, L(4), 0.25)} color="#d6efff" />
+              <g transform={`translate(540,${zcy}) scale(${zk}) translate(-540,${-zcy})`}>
+                <Bone grow={grow} open={open} strong={strong} glow={glow} t={t} flow={open > 0.5 ? flow : 0} sleepy={sleepy} />
+              </g>
+              <Tag x={zx(BONE_R - 30)} y={zy(PLATE_Y - grow + 40)} tx={760} ty={160} text="büyüme plağı" o={win(t, L(2) + 0.5, L(3) + 0.2, 0.25)} color="#d6efff" />
               <Ruler x={950} y0={420} y1={1300} mark={PLATE_Y + 20 - grow} o={sm(t, L(3), L(3) + 0.4) * (1 - sm(t, L(6), L(6) + 0.3))} />
-              {/* işçiler */}
-              {t > L(3) - 0.1
-                ? [0, 1, 2, 3].map((k) => {
-                    const p = pop(t, L(3) + 0.2 + k * 0.18);
-                    const wx = 410 + k * 88 + workersOut * (700 + k * 60);
-                    return p > 0 ? (
-                      <g key={k} opacity={p}>
-                        <Worker x={wx} y={PLATE_Y - grow + 4} t={t} k={k} brick={k % 2 === 0 && t < L(4)} thumb={k === 1 && t > L(4) + 0.3 && t < L(5)} walk={workersOut} />
-                      </g>
-                    ) : null;
-                  })
-                : null}
-              {/* her gün yeni kat */}
-              {t > L(3) + 1.0 && t < L(4) + 0.2 ? (
-                <g opacity={win(t, L(3) + 1.0, L(4) + 0.2, 0.25)}>
-                  <Txt x={250} y={PLATE_Y - grow + 140} size={56} fill={Y}>
-                    +1 kat
-                  </Txt>
+              {/* bölünür → dizilir → kemiğe dönüşür */}
+              {t > L(3) - 0.1 && t < L(4) + 0.2 ? (
+                <g opacity={win(t, L(3) - 0.1, L(4) + 0.2, 0.3)}>
+                  <Dividing x={170} y={1080} t={t - L(3)} o={sm(t, L(3), L(3) + 0.4)} />
+                  <Tag x={zx(BONE_L + 60)} y={zy(PLATE_Y - grow + 24)} tx={260} ty={160} text="bölünür" o={sm(t, L(3) + 0.3, L(3) + 0.6)} color="#d6efff" />
+                  <Tag x={zx(BONE_R - 50)} y={zy(PLATE_Y - grow + 80)} tx={820} ty={160} text="dizilir" o={sm(t, L(3) + (L(4) - L(3)) * 0.25, L(3) + (L(4) - L(3)) * 0.25 + 0.3)} color="#d6efff" />
+                  <Tag x={zx(BONE_R - 80)} y={zy(PLATE_Y - grow + 165)} tx={700} ty={1200} text="kemiğe dönüşür" o={sm(t, L(3) + (L(4) - L(3)) * 0.45, L(3) + (L(4) - L(3)) * 0.45 + 0.3)} color="#fff3b0" />
                 </g>
               ) : null}
               {/* ağırlık kaldıran genç (küçük pencere) */}
@@ -701,7 +714,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
                   <g clipPath="url(#inset)">
                     <ToonGirl2D x={190} y={1290} scale={0.4} pose={{ armL: 18, elbowL: -150 * curl - 10, armR: 18, elbowR: -150 * curl - 10 }} expr="grit" blink={0} t={t} look={TEEN} itemL={<Dumbbell s={0.8} />} itemR={<Dumbbell s={0.8} />} />
                   </g>
-                  <Bubble x={560} y={250} w={420} h={130} tx={510} ty={PLATE_Y - grow - 140} p={pop(t, L(4) + 0.4)} lines={["Mesai devam!"]} size={50} />
+                  <Bubble x={600} y={170} w={380} h={130} tx={510} ty={PLATE_Y - grow + 30} p={pop(t, L(4) + 0.6)} lines={["Biz devam!"]} size={50} />
                   <Tag x={BONE_L + 60} y={PLATE_Y + 400} tx={250} ty={760} text="daha sağlam" o={sm(t, L(4) + 1.6, L(4) + 2.0)} color="#fff3b0" />
                 </g>
               ) : null}
@@ -714,7 +727,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
                       {`${Math.round(interpolate(t, [L(5) + 0.2, L(5) + 1.6], [12, 18], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))} yaş`}
                     </Txt>
                   </g>
-                  <Sign x={540} y={PLATE_Y - grow + 230} p={pop(t, L(5) + 1.5)} />
+                  <Tag x={BONE_R - 40} y={PLATE_Y - grow + 14} tx={850} ty={480} text="plak kapandı" o={sm(t, L(5) + 1.5, L(5) + 1.8)} color="#e8e9ef" />
                 </g>
               ) : null}
             </g>

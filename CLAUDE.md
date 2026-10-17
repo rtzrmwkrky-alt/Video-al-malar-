@@ -209,10 +209,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **BoyUzama** — gençlere yönelik karikatür (~49 sn sessiz), tek anlatıcı. Apify ile TikTok/YouTube/Instagram tarandı:
   en çok izlenenler komedi skeci ve "annene göster" tarzı cevap videoları; Türkçede animasyonlu anlatım yok.
   Kurgu: kapıda anne "Ağırlık kaldırma, boyun kısa kalır!" (kapı pervazında boy çizgileri) → kemiğin içi:
-  büyüme bölgesi = baretli işçilerin "minik inşaatı" → ergenlik sonu "İNŞAAT TAMAMLANDI" → kararı genler +
+  **büyüme plağı** (kullanıcı "inşaat" yerine bilimsel anlatım istedi) — sevimli kıkırdak hücreleri bölünür,
+  dizilir, sertleşip kemiğe dönüşür (plağa yumuşak yaklaşma) → ergenlik sonu "plak kapandı" → kararı genler +
   hormonlar verir → halterci/basketbolcu (seçilme, spor boyu değiştirmez) → asıl tehlike: koçsuz, bozuk teknik,
   aşırı yük → 3 kural kartı → uyku + beslenme (pervaza yeni çizgi "16") → "sana bunu söyleyene gönder".
-  Metin `icerik/boy-uzama.txt`. Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
+  Metin `icerik/boy-uzama.txt` — kullanıcı isteği: **robotik değil, izleyiciyle sohbet eder gibi hikâyeleşen** dil
+  ("Tanıdık geldi mi?", "dediğini duyar gibiyim"). "Hoca" değil **"koç"** kelimesi.
+  Ses isteği: **sıcak, samimi, yapay zekâ olduğu belli olmayan** ses.
+  Metin ~1100 harf; Kasım 2026 ortasına kadar ~388 harf kredi kaldı (13.11'de yenilenir). Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
   (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
 
 ## Son durum (yeni oturumda buradan devam)

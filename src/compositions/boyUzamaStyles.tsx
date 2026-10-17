@@ -134,7 +134,7 @@ export const THEMES: Record<BoyStyle, Theme> = {
 .th-tebesir .scene :is(rect, path, circle, ellipse, polygon):not([fill="${INK}"]) { fill-opacity: 0.58; }
 .th-tebesir .scene [fill="#d9b98a"] { fill: #1a2a20; }
 .th-tebesir .scene text[stroke="${INK}"] { stroke: #2c4436; }
-.th-tebesir .scene text[fill="${INK}"] { fill: #f4f1e6; }
+.th-tebesir .scene text[fill="${INK}"] { fill: #1d2f25; }
 .th-tebesir .scene { filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.35)); }
 `,
     cap: { font: ROUND, weight: 800, color: "#f4f1e6", hl: "#ffe066", stroke: { w: 12, c: "#1d2f25" } },

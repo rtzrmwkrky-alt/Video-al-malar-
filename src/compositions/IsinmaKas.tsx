@@ -730,30 +730,35 @@ const blended = <S,>(fn: (li: number, t: number) => S, mixFn: (a: S, b: S, k: nu
 
 // ------------------------------------------------------------ ses: seslendirme + müzik + efektler
 
-const FX: { at: number; src: string; v: number }[] = [
-  { at: 0.12, src: "woosh", v: 0.45 },
-  { at: 0.58, src: "boing", v: 0.35 },
-  { at: at(5) + 0.05, src: "buz", v: 0.55 },
-  { at: at(6), src: "cat", v: 0.9 },
-  { at: at(10), src: "bloop", v: 0.45 },
-  { at: at(11), src: "bloop", v: 0.45 },
-  { at: at(12), src: "bloop", v: 0.45 },
-  { at: at(13) - 0.05, src: "woosh", v: 0.35 },
-  { at: at(13), src: "isilti", v: 0.4 },
-  { at: at(14) + 0.42, src: "metal", v: 0.4 },
-  { at: at(15), src: "ding", v: 0.4 },
-  { at: at(16) + 1.05, src: "metal", v: 0.35 },
+/** efektler: Mixkit ücretsiz ses efektleri (public/isinma/sfx/<id>.mp3); lead = baştaki sessizlik (sn) */
+const FX: { at: number; id: number; v: number; lead?: number; dur?: number }[] = [
+  { at: 0.1, id: 1490, v: 0.45, lead: 0.2 }, // woosh: kas zıplar
+  { at: 0.58, id: 2894, v: 0.5 }, // boing: iner
+  { at: at(5) + 0.05, id: 1009, v: 0.45, lead: 0.08, dur: at(6) - at(5) - 0.05 }, // lastik gıcırtısı
+  { at: at(6) - 0.01, id: 2945, v: 1.0 }, // ÇAT
+  { at: at(6), id: 2364, v: 0.5 }, // pop
+  { at: at(10), id: 3005, v: 0.6 },
+  { at: at(11), id: 3005, v: 0.6 },
+  { at: at(12), id: 3005, v: 0.6 },
+  { at: at(13), id: 2350, v: 0.5 }, // ışıltı: kas ısındı
+  { at: at(14) + 0.42, id: 2102, v: 0.55, lead: 0.14 }, // halter kavranır
+  { at: at(15), id: 600, v: 0.4 }, // kart
+  { at: at(16) + 1.05, id: 2102, v: 0.45, lead: 0.14 }, // halter bırakılır
 ];
 
-const Sounds: React.FC = () => {
+/** arka plan müziği seçenekleri (Mixkit, public/music/<id>.mp3): başlangıç noktası (sn) */
+const MUSIC: Record<string, number> = { "51": 2, "33": 0, "47": 2 };
+
+const Sounds: React.FC<{ music: string | null }> = ({ music }) => {
   const { fps } = useVideoConfig();
-  const montage = (f: number) => {
+  const vol = (f: number) => {
     const t = f / fps;
-    return 0.09 + 0.1 * sm(t, at(10) - 0.2, at(10) + 0.3) * (1 - sm(t, at(13) - 0.3, at(13) + 0.2));
+    // konuşma yokken (ısınma bölümü) müzik öne çıkar
+    return 0.07 + 0.1 * sm(t, at(10) - 0.2, at(10) + 0.3) * (1 - sm(t, at(13) - 0.3, at(13) + 0.2));
   };
   return (
     <>
-      <Audio src={staticFile("isinma/muzik.wav")} loop volume={montage} />
+      {music ? <Audio src={staticFile(`music/${music}.mp3`)} startFrom={Math.round((MUSIC[music] ?? 0) * fps)} volume={vol} /> : null}
       {ISINMA_LINES.map((_, i) => {
         const l = sesOf(i);
         if (!l) return null;
@@ -764,17 +769,24 @@ const Sounds: React.FC = () => {
         );
       })}
       {FX.map((f, i) => (
-        <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} layout="none">
-          <Audio src={staticFile(`isinma/${f.src}.wav`)} volume={f.v} />
+        <Sequence
+          key={`fx${i}`}
+          from={Math.max(0, Math.round(f.at * fps))}
+          durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined}
+          layout="none"
+        >
+          <Audio src={staticFile(`isinma/sfx/${f.id}.mp3`)} startFrom={Math.round((f.lead ?? 0) * fps)} volume={f.v} />
         </Sequence>
       ))}
     </>
   );
 };
 
+export type IsinmaProps = { music: string | null };
+
 // ------------------------------------------------------------ ana kompozisyon
 
-export const IsinmaKas: React.FC = () => {
+export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -833,7 +845,7 @@ export const IsinmaKas: React.FC = () => {
 
   return (
     <AbsoluteFill lang="tr" style={{ background: "#ffe8d4", overflow: "hidden" }}>
-      <Sounds />
+      <Sounds music={music} />
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={`translate(540,960) scale(${cs}) translate(${-fx},${-fy})`}>
           <Gym t={t} warm={w} clockSpin={clockSpin} />

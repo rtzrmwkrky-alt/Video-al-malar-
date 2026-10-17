@@ -28,7 +28,7 @@ import { KizBeyaz } from "./compositions/KizBeyaz";
 import { KAS2_TL, KasAgrisiKiz } from "./compositions/KasAgrisiKiz";
 import { KasAgrisiToon, TOON_TL, VOICE_TAIL, type KasAgrisiToonProps } from "./compositions/KasAgrisiToon";
 import { KAS_TL, OrnekKasAgrisi } from "./compositions/OrnekKasAgrisi";
-import { ISINMA_TL, IsinmaKas } from "./compositions/IsinmaKas";
+import { ISINMA_TL, IsinmaKas, type IsinmaProps } from "./compositions/IsinmaKas";
 import { WILMA_TAIL, WilmaRudolph, type WilmaProps } from "./compositions/WilmaRudolph";
 
 const FPS = 30;
@@ -184,6 +184,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={ISINMA_TL.frames}
+      defaultProps={{ music: null } satisfies IsinmaProps}
     />
     <Composition
       id="WilmaRudolph"

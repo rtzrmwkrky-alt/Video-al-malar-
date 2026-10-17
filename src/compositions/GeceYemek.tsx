@@ -432,7 +432,7 @@ const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x,
 /** bg: [üst, alt] gradyan renkleri */
 export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string] };
 
-export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#3cc6c4", "#b6eeea"] }) => {
+export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1cb5ad", "#48d8cc"] }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -528,7 +528,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#3
               <Fig uid="anne0" look={MOM} x={900} y={FLOOR} s={0.7} pose={{ ...DOWN, elR: [380, 600], wrR: [330, 470 + Math.sin(t * 9) * 10] }} expr="shout" t={t} />
             </g>
             <Bubble x={470} y={210} w={570} h={200} tx={850} ty={600} o={sm(t, shoutAt, shoutAt + 0.3) * (1 - sm(t, W(0, 5) - 0.2, W(0, 5) + 0.1))} lines={["GECE GECE YEME,", "KİLO ALIRSIN!"]} size={48} />
-            <Pill x={720} y={110} text="EFSANE Mİ, GERÇEK Mİ?" o={caught} color={Y} size={52} />
+            <Pill x={680} y={110} text="EFSANE Mİ, GERÇEK Mİ?" o={caught} color={Y} size={50} />
             {caught > 0 ? (
               <g opacity={caught} transform={`translate(${teenX + 150},${560 + Math.sin(t * 3) * 10})`}>
                 <Txt x={0} y={0} size={200} fill={Y} sw={14}>

@@ -207,6 +207,46 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "boy-uzama", data: null } satisfies BoyUzamaProps}
       calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
     />
+    <Composition
+      id="BoyUzamaTebesir"
+      component={BoyUzama}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={BOY_TL.frames}
+      defaultProps={{ audioName: "boy-uzama", data: null, look: "tebesir" } satisfies BoyUzamaProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
+    />
+    <Composition
+      id="BoyUzamaNeon"
+      component={BoyUzama}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={BOY_TL.frames}
+      defaultProps={{ audioName: "boy-uzama", data: null, look: "neon" } satisfies BoyUzamaProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
+    />
+    <Composition
+      id="BoyUzamaPastel"
+      component={BoyUzama}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={BOY_TL.frames}
+      defaultProps={{ audioName: "boy-uzama", data: null, look: "pastel" } satisfies BoyUzamaProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
+    />
+    <Composition
+      id="BoyUzamaComic"
+      component={BoyUzama}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={BOY_TL.frames}
+      defaultProps={{ audioName: "boy-uzama", data: null, look: "comic" } satisfies BoyUzamaProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
+    />
     <Composition id="KasAgrisiKiz" component={KasAgrisiKiz} width={1080} height={1920} fps={FPS} durationInFrames={KAS2_TL.frames} />
     <Composition id="KizBeyaz" component={KizBeyaz} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 9} />
     <Composition id="KizDeneme" component={KizDeneme} width={1080} height={1920} fps={FPS} durationInFrames={FPS * 8} />

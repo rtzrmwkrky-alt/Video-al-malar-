@@ -1,5 +1,6 @@
 /**
- * "Geç saatte yemek yeme, kilo alırsın!" efsanesi — anime tarzı kadro (genç, anne, koç), tek anlatıcı.
+ * "Geç saatte yemek yeme, kilo alırsın!" efsanesi — anime tarzı genç (tek karakter; kullanıcı anne/koç istemedi), tek anlatıcı.
+ * Açılıştaki "Gece gece yeme!" sesi ekran dışından (aralık kapıdan) gelir.
  * Turkuaz arka fon (kullanıcı seçimi; `bg` prop'u ile değişir), sahne nesneleri fonun üstünde sade çizim.
  * Metin `icerik/gece-yemek.txt`. Seslendirme varsa (public/audio/<ad>.json) satır ve altyazı zamanları
  * kelime zamanlarından gelir; yoksa okuma hızından hesaplanır (sessiz taslak).
@@ -9,7 +10,6 @@ import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { AnimeTeen, INK, type AnimeExpr, type AnimeLook, type AnimePose } from "../anime/AnimeTeen";
-import { COACH, MOM } from "../anime/looks";
 
 loadFonts();
 
@@ -20,7 +20,7 @@ const FLOOR = 1400;
 
 export const GECE_LINES: Line[] = [
   { text: "“Gece gece yeme, kilo alırsın!” Bu cümleyi kaç kere duydun?", hl: ["kilo", "alırsın!”"], hold: 0.3 },
-  { text: "Koçumuza sorduk, cevabı çok net: kilonun saati yok, matematiği var.", hl: ["saati", "yok,", "matematiği"], hold: 0.5 },
+  { text: "Peki gerçekten öyle mi? Cevap çok net: kilonun saati yok, matematiği var.", hl: ["saati", "yok,", "matematiği"], hold: 0.5 },
   { text: "Gün boyu aldığın kaloriyle harcadığın kaloriyi bir teraziye koy.", hl: ["aldığın", "harcadığın"], hold: 0.3 },
   { text: "Alınan fazlaysa kilo alırsın, harcanan fazlaysa verirsin. Saat kaç olursa olsun.", hl: ["alırsın,", "verirsin."], hold: 0.3 },
   { text: "Yani gün içinde kalori açığındaysan, gece yarısı yesen bile kilo almazsın.", hl: ["açığındaysan,", "almazsın."], hold: 0.6 },
@@ -447,7 +447,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   const s0 = scene(0, 1);
   const shoutAt = 0.25;
   const caught = sm(t, W(0, 5) - 0.1, W(0, 5) + 0.3); // "Bu cümleyi…" → genç düşünür
-  const teenX = 560;
+  const teenX = 600;
   const teenS = 0.72;
   const bite = (1 - Math.cos(t * 4)) / 2 * (1 - caught);
   const teenPose: AnimePose = {
@@ -459,7 +459,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   };
   const sw = figPt(teenX, FLOOR, teenS, teenPose.wrL!);
 
-  // ===== 1: koç
+  // ===== 1: cevap
   const s1 = scene(1, 2);
 
   // ===== 2-4: terazi
@@ -524,10 +524,11 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             <Fridge x={110} t={t} />
             <Fig uid="genc0" x={teenX} y={FLOOR} s={teenS} pose={teenPose} expr={caught > 0.5 ? "think" : bite > 0.6 ? "happy" : "grin"} t={t} />
             <Sandwich x={sw[0]} y={sw[1] - 10} s={0.62} rot={-10 + 20 * caught} />
-            <g opacity={sm(t, 0.05, 0.4)}>
-              <Fig uid="anne0" look={MOM} x={900} y={FLOOR} s={0.7} pose={{ ...DOWN, elR: [380, 600], wrR: [330, 470 + Math.sin(t * 9) * 10] }} expr="shout" t={t} />
-            </g>
-            <Bubble x={470} y={210} w={570} h={200} tx={850} ty={600} o={sm(t, shoutAt, shoutAt + 0.3) * (1 - sm(t, W(0, 5) - 0.2, W(0, 5) + 0.1))} lines={["GECE GECE YEME,", "KİLO ALIRSIN!"]} size={48} />
+            {/* aralık kapı: ses buradan gelir */}
+            <rect x={930} y={420} width={170} height={FLOOR - 420} fill="#0d5b5e" opacity={0.55} />
+            <rect x={930} y={420} width={170} height={FLOOR - 420} fill="none" stroke={INK} strokeWidth={8} opacity={0.6} />
+            <path d={`M930,${FLOOR} L860,${FLOOR + 160} L1080,${FLOOR + 160} L1080,${FLOOR} Z`} fill="#fff4c2" opacity={0.18} />
+            <Bubble x={440} y={210} w={580} h={200} tx={985} ty={560} o={sm(t, shoutAt, shoutAt + 0.3) * (1 - sm(t, W(0, 5) - 0.2, W(0, 5) + 0.1))} lines={["GECE GECE YEME,", "KİLO ALIRSIN!"]} size={48} />
             <Pill x={680} y={110} text="EFSANE Mİ, GERÇEK Mİ?" o={caught} color={Y} size={50} />
             {caught > 0 ? (
               <g opacity={caught} transform={`translate(${teenX + 150},${560 + Math.sin(t * 3) * 10})`}>
@@ -539,7 +540,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
           </g>
         ) : null}
 
-        {/* ===== 1: koç ===== */}
+        {/* ===== 1: cevap ===== */}
         {s1 > 0 ? (
           <g opacity={s1}>
             {["+", "−", "=", "×"].map((c, k) => (
@@ -560,18 +561,18 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                 </g>
               ) : null;
             })()}
-            <Fig uid="koc1" look={COACH} x={760} y={FLOOR} s={0.76} pose={{ elL: [676, 846], wrL: [684, 1004], itemL: null }} expr="smile" t={t} />
-            <Bubble x={50} y={190} w={560} h={210} tx={690} ty={560} o={sm(t, W(1, 5) - 0.2, W(1, 5) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
-            <g opacity={sm(t, W(1, 6), W(1, 6) + 0.3)}>
-              <Clock x={230} y={700} r={95} h={11} m={58} />
-              <Cross x={230} y={700} s={70} p={sm(t, W(1, 7), W(1, 7) + 0.4)} />
-            </g>
+            <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
+            <Bubble x={50} y={190} w={560} h={210} tx={690} ty={560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
             <g opacity={sm(t, W(1, 8), W(1, 8) + 0.3)}>
+              <Clock x={230} y={700} r={95} h={11} m={58} />
+              <Cross x={230} y={700} s={70} p={sm(t, W(1, 9), W(1, 9) + 0.4)} />
+            </g>
+            <g opacity={sm(t, W(1, 10), W(1, 10) + 0.3)}>
               <rect x={110} y={880} width={240} height={140} rx={24} fill="#fff" stroke={INK} strokeWidth={7} />
               <Txt x={230} y={975} size={66} fill={INK} sw={0}>
                 + − =
               </Txt>
-              <Check x={360} y={870} s={44} p={sm(t, W(1, 8) + 0.3, W(1, 8) + 0.7)} />
+              <Check x={360} y={870} s={44} p={sm(t, W(1, 10) + 0.3, W(1, 10) + 0.7)} />
             </g>
           </g>
         ) : null}
@@ -724,16 +725,14 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               </Txt>
               <Check x={860} y={560} s={50} p={sm(t, W(8, 6), W(8, 6) + 0.4)} />
             </g>
-            <Fig uid="koc8" look={COACH} x={540} y={FLOOR} s={0.52} pose={DOWN} expr="smile" t={t} />
+            <Fig uid="genc8" x={540} y={FLOOR} s={0.52} pose={DOWN} expr="happy" t={t} />
           </g>
         ) : null}
 
         {/* ===== 9: kapanış ===== */}
         {s9 > 0 ? (
           <g opacity={s9}>
-            <Fig uid="anne9" look={MOM} x={190} y={FLOOR} s={0.5} pose={DOWN} expr="smile" t={t} />
-            <Fig uid="koc9" look={COACH} x={890} y={FLOOR} s={0.52} pose={{ ...DOWN }} expr="smile" t={t + 1} />
-            <Fig uid="genc9" x={540} y={FLOOR} s={0.6} pose={{ ...DOWN, elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t + 2} />
+            <Fig uid="genc9" x={540} y={FLOOR} s={0.66} pose={{ ...DOWN, elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t + 2} />
             <g opacity={sm(t, L(9) + 0.2, L(9) + 0.5)}>
               <Txt x={540} y={330} size={84} fill="#ffffff" sw={14}>
                 “GECE YEME”

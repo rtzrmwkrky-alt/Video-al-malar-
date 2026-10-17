@@ -260,11 +260,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   - Arka plan: 9 palet denendi, kullanıcı **turkuaz** seçti (BoyUzama varsayılanı `look: "turkuaz"`).
     Son video: `out/boy-uzama-turkuaz-paylas.mp4`.
 
-- **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). **Kullanıcının
-  onayladığı kadro: anime tarzı genç / anne / koç** (`AnimeTeen` + `src/anime/looks.ts` MOM, COACH) — yeni videolarda bunları kullan.
+- **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). Karakter: anime tarzı genç
+  (`AnimeTeen`). Kadroda anne/koç da var (`src/anime/looks.ts`) ama **bu videoda kullanıcı anne ve koçu istemedi** → sadece genç;
+  "Gece gece yeme!" sesi ekran dışından (aralık kapıdan) gelir, 2. satır "Peki gerçekten öyle mi? Cevap çok net: …".
   Arka fon **turkuaz** gradyan (kullanıcı seçimi, `bg` prop), kanca "EFSANE Mİ, GERÇEK Mİ?" + koç sahnesinde EFSANE damgası, müzik 623. Metin `icerik/gece-yemek.txt`.
-  Sahneler: gece mutfak (anne "Gece gece yeme!") → koç "saati yok, matematiği var" → terazi (alınan/harcanan, saat döner
-  00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → üçlü kapanış.
+  Sahneler: gece mutfak (kapıdan ses "Gece gece yeme!") → "saati yok, matematiği var" + EFSANE damgası → terazi (alınan/harcanan, saat döner
+  00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → telefonlu genç kapanış.
   Seslendirme yok (kredi harcanmadı); onaylanınca Chris önerilecek.
 
 ## Son durum (yeni oturumda buradan devam)

@@ -1,6 +1,6 @@
 {
   "text": "Yarın sabah da ısınıyoruz, tamam mı?",
-  "durationInSeconds": 2.4,
+  "durationInSeconds": 2.48,
   "words": [
     {
       "text": "Yarın",
@@ -10,27 +10,27 @@
     {
       "text": "sabah",
       "start": 0.4,
-      "end": 0.64
+      "end": 0.72
     },
     {
       "text": "da",
-      "start": 0.72,
+      "start": 0.76,
       "end": 0.8
     },
     {
       "text": "ısınıyoruz,",
       "start": 0.88,
-      "end": 1.6
+      "end": 1.68
     },
     {
       "text": "tamam",
-      "start": 1.68,
-      "end": 1.92
+      "start": 1.76,
+      "end": 2
     },
     {
       "text": "mı?",
-      "start": 2.04,
-      "end": 2.4
+      "start": 2.08,
+      "end": 2.48
     }
   ]
 }

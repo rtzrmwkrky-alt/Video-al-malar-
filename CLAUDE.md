@@ -213,8 +213,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     Ses tonu: daha yumuşak, akıcı, samimi (ör. stability ~0.5, style ~0.2, speed ~0.95; `RATE` 1.0).
     Seslendirince `isinma-ses.json` içine `version: "v2-yumusak"`, satır `text` ve kelime başlangıçları
     (`words`) yazılmalı; sürüm tutmazsa süreler tahmini ve ses çalınmaz (sessiz taslak böyle üretilir).
-  - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, 388 karakter kaldı; 13 Kasım 2026'da yenilenir): satırları yeniden
-    seslendirme; gerekirse sadece değişen satırı üret.
+  - **Sessiz taslak onaylandı → v2 seslendirme yapıldı** (hesap artık **Starter** plan, ~29 bin karakter; kütüphane
+    sesleri kullanılabiliyor). Kas = **Gökçe Deniz** (`oPC5I9GKjMReiaM29gjY`), sporcu = **Arman Yılmazkurt**
+    (`qUGjOGoUuQBTUqwY8n0e`, kütüphaneden eklendi); eleven_v4, tr, stability 0.5, style 0.2, speed 0.95.
+    Metin `icerik/isinma.seslendirme.txt`; özet `python3 scripts/isinma-ses.py` → `isinma-ses.json` (sürüm
+    `v2-yumusak`). Render: `--props='{"music":null}'` → ardından müzik ffmpeg ile (yukarıdaki komut) →
+    `out/isinma-v2-paylas.mp4`.
 
 - **BoyUzama** — gençlere yönelik karikatür (~49 sn sessiz), tek anlatıcı. Apify ile TikTok/YouTube/Instagram tarandı:
   en çok izlenenler komedi skeci ve "annene göster" tarzı cevap videoları; Türkçede animasyonlu anlatım yok.
@@ -295,7 +299,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   etiketler okunmaz, altyazıdan otomatik ayıklanır. Kompozisyon: HerKafadanAkiciDuygulu.
 - HerKafadanAkici'de kesmeler saniyeyle değil **kelime sırasıyla** (`word`) tanımlı: ses
   değişse de kesmeler cümle başında kalır.
-- ElevenLabs hesabı **ücretsiz** planda: kütüphanedeki (Türk) sesler API'den kullanılamıyor.
+- ElevenLabs hesabı Ekim 2026'dan beri **Starter** planda (eskiden ücretsiz): kütüphanedeki Türk sesler API'den kullanılabilir
+  (`POST /v1/voices/add/<public_owner_id>/<voice_id>` ile hesaba eklenir).
   Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
   (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).
   Ücretli plana geçilirse önerilen Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).

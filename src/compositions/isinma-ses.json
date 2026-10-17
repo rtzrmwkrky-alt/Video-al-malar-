@@ -1,74 +1,167 @@
 {
+ "version": "v2-yumusak",
  "lines": {
   "0": {
    "file": "isinma-00.mp3",
    "lead": 0.0,
-   "speech": 1.663
+   "speech": 1.86,
+   "text": "Hop hop! Nereye böyle?",
+   "words": [
+    0.0,
+    0.32,
+    0.96,
+    1.36
+   ]
   },
   "1": {
    "file": "isinma-01.mp3",
    "lead": 0.0,
-   "speech": 1.774
+   "speech": 1.702,
+   "text": "Halter kaldıracağım. Ne var?",
+   "words": [
+    0.0,
+    0.44,
+    1.28,
+    1.44
+   ]
   },
   "2": {
    "file": "isinma-02.mp3",
    "lead": 0.0,
-   "speech": 3.133
+   "speech": 2.609,
+   "text": "Daha uyanmadım... Buz gibiyim!",
+   "words": [
+    0.0,
+    0.4,
+    1.6,
+    1.92
+   ]
   },
   "3": {
    "file": "isinma-03.mp3",
-   "lead": 0.087,
-   "speech": 2.109
-  },
-  "4": {
-   "file": "isinma-04.mp3",
    "lead": 0.0,
-   "speech": 1.79
+   "speech": 2.215,
+   "text": "Abartma istersen, ne olacak ki?",
+   "words": [
+    0.0,
+    0.56,
+    1.44,
+    1.6,
+    2
+   ]
   },
   "5": {
    "file": "isinma-05.mp3",
    "lead": 0.0,
-   "speech": 2.054
+   "speech": 2.118,
+   "text": "Bu lastik soğukken çekilirse...",
+   "words": [
+    0.0,
+    0.32,
+    0.72,
+    1.28
+   ]
   },
   "7": {
    "file": "isinma-07.mp3",
    "lead": 0.0,
-   "speech": 3.194
+   "speech": 2.56,
+   "text": "Isınmadan yüklenirsen ben de incinirim.",
+   "words": [
+    0.0,
+    0.72,
+    1.68,
+    1.92,
+    2.12
+   ]
   },
   "8": {
    "file": "isinma-08.mp3",
    "lead": 0.0,
-   "speech": 0.866
+   "speech": 1.164,
+   "text": "Peki ne yapayım?",
+   "words": [
+    0.0,
+    0.56,
+    0.72
+   ]
   },
   "9": {
    "file": "isinma-09.mp3",
    "lead": 0.0,
-   "speech": 2.237
+   "speech": 2.383,
+   "text": "Beni sadece beş on dakika ısıt.",
+   "words": [
+    0.0,
+    0.32,
+    1.04,
+    1.28,
+    1.44,
+    1.92
+   ]
   },
   "13": {
    "file": "isinma-13.mp3",
    "lead": 0.0,
-   "speech": 2.8
+   "speech": 2.77,
+   "text": "Oh be! Kan geldi, ısındım!",
+   "words": [
+    0.0,
+    0.32,
+    1.04,
+    1.32,
+    2.2
+   ]
   },
   "14": {
    "file": "isinma-14.mp3",
    "lead": 0.0,
-   "speech": 1.99
+   "speech": 1.997,
+   "text": "Şimdi hazırım. Kaldır bakalım!",
+   "words": [
+    0.0,
+    0.453,
+    1.2,
+    1.6
+   ]
   },
   "15": {
    "file": "isinma-15.mp3",
    "lead": 0.0,
-   "speech": 3.29
+   "speech": 4.491,
+   "text": "Isınma beş dakika... ama sakatlanırsan aylarca sürebilir.",
+   "words": [
+    0.0,
+    0.72,
+    0.96,
+    1.96,
+    2.12,
+    3.2,
+    3.8
+   ]
   },
   "16": {
    "file": "isinma-16.mp3",
    "lead": 0.0,
-   "speech": 2.207
+   "speech": 2.279,
+   "text": "Yarın sabah da ısınıyoruz, tamam mı?",
+   "words": [
+    0.0,
+    0.4,
+    0.76,
+    0.88,
+    1.76,
+    2.08
+   ]
   },
   "17": {
    "file": "isinma-17.mp3",
    "lead": 0.0,
-   "speech": 0.674
+   "speech": 0.588,
+   "text": "Söz!",
+   "words": [
+    0.0
+   ]
   }
  }
 }

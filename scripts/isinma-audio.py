@@ -3,7 +3,7 @@ IsinmaKas videosu için neşeli müzik döngüsü + ses efektlerini sentezler (h
 
 Kullanım:  python3 scripts/isinma-audio.py
 Yazar:     public/isinma/muzik.wav (16 sn, kesintisiz döngü), public/isinma/<efekt>.wav
-Ayrıca:    src/compositions/isinma-ses.json (seslendirme satırlarının konuşma süreleri; sessizlik ölçülerek)
+(Eski sentez sürüm; artık Mixkit efekt/müzik kullanılıyor. Konuşma süreleri: scripts/isinma-ses.py)
 """
 import json
 import os
@@ -186,22 +186,4 @@ save("metal", x)
 tt = t_arr(1.4)
 save("ding", (np.sin(2 * np.pi * 1318 * tt) + 0.5 * np.sin(2 * np.pi * 2636 * tt) * np.exp(-tt * 3)) * np.exp(-tt * 3))
 
-# ------------------------------------------------------------------ konuşma süreleri
-
-lines = {}
-for fn in sorted(os.listdir(os.path.join(ROOT, "public", "audio"))):
-    m = re.match(r"isinma-(\d+)\.mp3$", fn)
-    if not m:
-        continue
-    path = os.path.join(ROOT, "public", "audio", fn)
-    log = subprocess.run(
-        ["ffmpeg", "-i", path, "-af", "silencedetect=n=-40dB:d=0.08", "-f", "null", "-"], capture_output=True, text=True
-    ).stderr
-    dur = float(re.search(r"Duration: (\d+):(\d+):([\d.]+)", log).group(3))
-    starts = [float(v) for v in re.findall(r"silence_start: ([\d.]+)", log)]
-    ends = [float(v) for v in re.findall(r"silence_end: ([\d.]+)", log)]
-    speech_end = starts[-1] if starts and (len(ends) < len(starts) or ends[-1] >= dur - 0.1) else dur
-    lead = ends[0] if starts and starts[0] < 0.01 else 0.0
-    lines[str(int(m.group(1)))] = {"file": fn, "lead": round(lead, 3), "speech": round(speech_end, 3)}
-json.dump({"lines": lines}, open(os.path.join(ROOT, "src", "compositions", "isinma-ses.json"), "w"), indent=1)
 print("Hazır:", ", ".join(sorted(f for f in os.listdir(OUT))), "|", len(lines), "satır")

@@ -1,31 +1,41 @@
 {
-  "text": "Isınma beş dakika... sakatlık aylarca.",
-  "durationInSeconds": 3.52,
+  "text": "Isınma beş dakika... ama sakatlanırsan aylarca sürebilir.",
+  "durationInSeconds": 4.72,
   "words": [
     {
       "text": "Isınma",
       "start": 0,
-      "end": 0.48
+      "end": 0.56
     },
     {
       "text": "beş",
-      "start": 0.56,
-      "end": 0.72
+      "start": 0.72,
+      "end": 0.88
     },
     {
       "text": "dakika...",
-      "start": 0.76,
-      "end": 1.76
+      "start": 0.96,
+      "end": 1.84
     },
     {
-      "text": "sakatlık",
-      "start": 1.84,
-      "end": 2.4
+      "text": "ama",
+      "start": 1.96,
+      "end": 2.08
     },
     {
-      "text": "aylarca.",
-      "start": 2.56,
-      "end": 3.52
+      "text": "sakatlanırsan",
+      "start": 2.12,
+      "end": 3.04
+    },
+    {
+      "text": "aylarca",
+      "start": 3.2,
+      "end": 3.76
+    },
+    {
+      "text": "sürebilir.",
+      "start": 3.8,
+      "end": 4.72
     }
   ]
 }

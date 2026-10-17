@@ -1,17 +1,17 @@
-# IsinmaKas seslendirmesi: satır numarası | konuşan | okunacak metin
-# kas = Jessica (cgSgspJ2msm6clMCkdW9), adam = Liam (TX3LPaxmHKxFdv7VOQHJ)
-# eleven_v4, tr, stability 0.3, style 0.45, speed 1.05
+# IsinmaKas seslendirmesi (v2-yumusak): satır numarası | konuşan | okunacak metin
+# Metin, kompozisyondaki satırın `say ?? text` hâliyle ("…" → "...") birebir aynı olmalı.
+# kas = Gökçe Deniz (oPC5I9GKjMReiaM29gjY), adam = Arman Yılmazkurt (qUGjOGoUuQBTUqwY8n0e)
+# eleven_v4, tr, stability 0.5, style 0.2, speed 0.95 (yumuşak, samimi)
 00|kas|Hop hop! Nereye böyle?
 01|adam|Halter kaldıracağım. Ne var?
-02|kas|Ama ben daha uyanmadım... Buz gibiyim!
-03|adam|Abartma, iki dakikalık iş.
-04|kas|Gel, sana bir şey göstereyim.
+02|kas|Daha uyanmadım... Buz gibiyim!
+03|adam|Abartma istersen, ne olacak ki?
 05|kas|Bu lastik soğukken çekilirse...
-07|kas|Isınmadan yüklenirsen, ben de böyle incinebilirim.
+07|kas|Isınmadan yüklenirsen ben de incinirim.
 08|adam|Peki ne yapayım?
 09|kas|Beni sadece beş on dakika ısıt.
 13|kas|Oh be! Kan geldi, ısındım!
 14|kas|Şimdi hazırım. Kaldır bakalım!
-15|kas|Isınma beş dakika... sakatlık aylarca.
+15|kas|Isınma beş dakika... ama sakatlanırsan aylarca sürebilir.
 16|kas|Yarın sabah da ısınıyoruz, tamam mı?
 17|adam|Söz!

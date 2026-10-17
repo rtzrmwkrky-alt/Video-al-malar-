@@ -1,31 +1,31 @@
 {
   "text": "Oh be! Kan geldi, ısındım!",
-  "durationInSeconds": 3.12,
+  "durationInSeconds": 2.96,
   "words": [
     {
       "text": "Oh",
       "start": 0,
-      "end": 0.32
+      "end": 0.24
     },
     {
       "text": "be!",
-      "start": 0.4,
+      "start": 0.32,
       "end": 0.8
     },
     {
       "text": "Kan",
-      "start": 1.12,
-      "end": 1.36
+      "start": 1.04,
+      "end": 1.28
     },
     {
       "text": "geldi,",
-      "start": 1.4,
+      "start": 1.32,
       "end": 2.08
     },
     {
       "text": "ısındım!",
       "start": 2.2,
-      "end": 3.12
+      "end": 2.96
     }
   ]
 }

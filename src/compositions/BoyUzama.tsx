@@ -8,6 +8,7 @@ import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideo
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
+import { AnimeTeen, type AnimeExpr, type AnimePose } from "../anime/AnimeTeen";
 import { THEMES, type BoyStyle, type CapTheme } from "./boyUzamaStyles";
 import { INK, ToonGirl2D, blinkAt, type Expr, type ToonLook, type ToonPose } from "../cartoon/ToonGirl2D";
 
@@ -636,6 +637,28 @@ const Plane: React.FC<{ x: number; y: number; r: number }> = ({ x, y, r }) => (
   </g>
 );
 
+// ------------------------------------------------------------ kahraman (anime figür)
+
+/** eski karikatür ölçeğini (ToonGirl2D ~890 birim boy) anime figüre (~1300 birim) çevirir */
+const HERO_K = 0.685;
+type P2 = [number, number];
+const mixP = (a: P2, b: P2, k: number): P2 => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+
+const Hero: React.FC<{ x: number; y: number; scale: number; pose?: AnimePose; expr?: AnimeExpr; t: number; uid: string }> = ({ x, y, scale, pose, expr, t, uid }) => (
+  <g transform={`translate(${x},${y}) scale(${scale * HERO_K}) translate(-540,-1586)`}>
+    <AnimeTeen uid={uid} pose={pose} expr={expr} t={t} />
+  </g>
+);
+
+/** kollar aşağıda (sağ) + sol elde dambıl; c: 0 aşağı, 1 yukarı (curl) */
+const curlPose = (c: number, both = false): AnimePose => ({
+  elR: [404, 840],
+  wrR: both ? mixP([396, 1000], [410, 720], c) : [396, 1000],
+  itemR: both ? "dumbbell" : null,
+  elL: [700, 840],
+  wrL: mixP([724, 1000], [690, 720], c),
+});
+
 // ------------------------------------------------------------ ana kompozisyon
 
 export type BoyUzamaProps = { audioName: string; data: VoiceoverData | null; look?: BoyStyle };
@@ -667,17 +690,17 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
 
   // --- oda: genç dambıl çalışıyor
   const curl = (1 - Math.cos(t * 3.6)) / 2;
-  let tPose: ToonPose = { armL: 18, armR: 10, elbowL: -150 * curl - 10, elbowR: 0 };
-  let tExpr: Expr = "smile";
-  if (t > L(0) + (L(1) - L(0)) * 0.45) {
-    const f = sm(t, L(0) + (L(1) - L(0)) * 0.45, L(0) + (L(1) - L(0)) * 0.45 + 0.4);
-    tPose = { armL: 18, armR: 10 + 30 * f, elbowL: -40 * f - 10, elbowR: 80 * f, head: -6 * f };
-    tExpr = "think";
-  }
-  if (t > L(1)) {
-    tPose = { armL: 18, armR: 40, elbowL: -50, elbowR: 80, head: -6 };
-    tExpr = "think";
-  }
+  // önce dambıl çalışır, annenin sözünden sonra eli çenesinde düşünür
+  const thinkK = sm(t, L(0) + (L(1) - L(0)) * 0.45, L(0) + (L(1) - L(0)) * 0.45 + 0.4);
+  const base = curlPose(curl * (1 - thinkK));
+  const tPose: AnimePose = {
+    ...base,
+    elR: mixP(base.elR!, [430, 860], thinkK),
+    wrR: mixP(base.wrR!, [500, 640], thinkK),
+    wrL: mixP(base.wrL!, [724, 1000], thinkK),
+    head: -5 * thinkK,
+  };
+  const tExpr: AnimeExpr = thinkK > 0.5 ? "think" : "grin";
 
   // --- kemik
   const grow = interpolate(t, [L(3), L(5)], [0, 88], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -716,7 +739,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
               <ToonGirl2D x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={{ armL: 10, armR: 75, elbowR: 30, head: 4 }} expr="ouch" blink={0} t={t} look={MOM} />
             </g>
             <DoorFrame marks={3} />
-            <ToonGirl2D x={680} y={FLOOR} scale={0.92} pose={tPose} expr={tExpr} blink={blink} t={t} look={TEEN} itemL={<Dumbbell s={0.8} />} />
+            <Hero uid="oda" x={680} y={FLOOR} scale={0.92} pose={tPose} expr={tExpr} t={t} />
             <Bubble x={420} y={250} w={600} h={230} tx={300} ty={600} p={pop(t, 0.25) * (1 - sm(t, L(0) + (L(1) - L(0)) * 0.5, L(0) + (L(1) - L(0)) * 0.5 + 0.3))} lines={["AĞIRLIK KALDIRMA,", "BOYUN KISA KALIR!"]} size={50} />
             {/* soru işareti */}
             {t > L(0) + (L(1) - L(0)) * 0.5 ? (
@@ -769,7 +792,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
                     <circle cx={190} cy={1000} r={146} />
                   </clipPath>
                   <g clipPath="url(#inset)">
-                    <ToonGirl2D x={190} y={1290} scale={0.4} pose={{ armL: 18, elbowL: -150 * curl - 10, armR: 18, elbowR: -150 * curl - 10 }} expr="grit" blink={0} t={t} look={TEEN} itemL={<Dumbbell s={0.8} />} itemR={<Dumbbell s={0.8} />} />
+                    <Hero uid="pencere" x={190} y={1290} scale={0.4} pose={curlPose(curl, true)} expr="grin" t={t} />
                   </g>
                   <Bubble x={600} y={170} w={380} h={130} tx={510} ty={PLATE_Y - grow + 30} p={pop(t, L(4) + 0.6)} lines={["Biz devam!"]} size={50} />
                   <Tag x={BONE_L + 60} y={PLATE_Y + 400} tx={250} ty={760} text="daha sağlam" o={sm(t, L(4) + 1.6, L(4) + 2.0)} color="#fff3b0" />
@@ -878,8 +901,8 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
               const wob = Math.sin(t * 7) * 4;
               return (
                 <g transform={`rotate(${8 + wob},540,${FLOOR})`}>
-                  <ToonGirl2D x={540} y={FLOOR} scale={0.86} pose={{ armL: 150, armR: 150, elbowL: 25, elbowR: 25, lean: 6, head: 10, legL: -14, legR: 4 }} expr="ouch" blink={0} shake={1} t={t} look={TEEN} />
-                  <Barbell x={540} y={FLOOR - 0.86 * 760} w={900} plate={300} bend={-40} />
+                  <Hero uid="tehlike" x={540} y={FLOOR} scale={0.86} pose={{ elR: [372, 520], wrR: [384, 360], elL: [708, 520], wrL: [696, 360], itemL: null, head: 6 }} expr="ouch" t={t} />
+                  <Barbell x={540} y={FLOOR - (1586 - 384) * 0.86 * HERO_K} w={900} plate={300} bend={-40} />
                 </g>
               );
             })()}
@@ -903,17 +926,14 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
             {(() => {
               const k = (1 - Math.cos(t * 3)) / 2;
               return (
-                <ToonGirl2D
+                <Hero
+                  uid="squat"
                   x={430}
                   y={FLOOR}
-                  scale={0.62}
-                  pose={{ armL: 70, armR: 70, elbowL: -60, elbowR: -60, legL: -24 * k, legR: 24 * k, bob: 150 * k, lean: 0 }}
-                  expr="smile"
-                  blink={blink}
+                  scale={0.66}
+                  pose={{ elR: [380, 900], wrR: [360, 1060], elL: [700, 900], wrL: [720, 1060], itemR: "dumbbell", squat: k }}
+                  expr="grin"
                   t={t}
-                  look={TEEN}
-                  itemL={<Dumbbell s={0.5} />}
-                  itemR={<Dumbbell s={0.5} />}
                 />
               );
             })()}
@@ -929,7 +949,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
           <g opacity={win(t, L(11) - 0.3, L(12) + 0.3, 0.4)}>
             <Room marks={3} />
             <DoorFrame marks={3} newMark={sm(t, L(11) + 0.4, L(11) + 0.9)} />
-            <ToonGirl2D x={DOOR_X + DOOR_W / 2 + 40} y={FLOOR} scale={0.92 * (1 + 0.04 * sm(t, L(11) + 0.2, L(11) + 0.7))} pose={{ armL: 6, armR: 6 }} expr="happy" blink={blink} t={t} look={TEEN} />
+            <Hero uid="kapi" x={DOOR_X + DOOR_W / 2 + 40} y={FLOOR} scale={0.92 * (1 + 0.04 * sm(t, L(11) + 0.2, L(11) + 0.7))} pose={{ elR: [404, 840], wrR: [396, 1000], elL: [676, 846], wrL: [684, 1004], itemL: null }} expr="happy" t={t} />
             <Moon x={760} y={620} p={pop(t, L(11) + 1.0)} />
             <Plate x={760} y={1010} p={pop(t, L(11) + 1.6)} />
             <g opacity={sm(t, L(11) + 1.1, L(11) + 1.4)}>
@@ -950,7 +970,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
           <g opacity={sm(t, L(12) - 0.3, L(12) + 0.1)}>
             <rect x={0} y={FLOOR} width={1080} height={600} fill="#d9b98a" />
             <line x1={0} y1={FLOOR} x2={1080} y2={FLOOR} stroke={INK} strokeWidth={8} />
-            <ToonGirl2D x={540} y={FLOOR} scale={0.92} pose={{ armL: 10, armR: 120, elbowR: 60 }} expr="wink" blink={0} t={t} look={TEEN} itemR={<Phone />} />
+            <Hero uid="son" x={540} y={FLOOR} scale={0.92} pose={{ elR: [404, 840], wrR: [396, 1000], elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t} />
             {(() => {
               const u = sm(t, L(12) + 0.5, L(12) + 1.8);
               return u > 0 && u < 1 ? <Plane x={700 + u * 420} y={560 - u * 420 + Math.sin(u * 6) * 30} r={-20} /> : null;

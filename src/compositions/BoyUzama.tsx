@@ -43,6 +43,27 @@ export const BOY_TL = timeline(BOY_LINES, 0.3);
 /** kısa sürüm (~38 sn): orijinal satır numaralarından kalanlar; 1. satırın başı kesildi (scripts/boy-uzama-kisa.py) */
 const KISA_KEEP = [0, 1, 2, 3, 4, 5, 9, 10, 12];
 const KISA_LINES: Line[] = KISA_KEEP.map((i) => (i === 1 ? { text: "Gel, bir de kemiğin içine bakalım.", hl: ["kemiğin", "içine"], hold: 0.6 } : BOY_LINES[i]));
+
+/** v2 (~42 sn): baştan kısa yazılıp normal hızda seslendirilen metin (icerik/boy-uzama-v2.txt) */
+const V2_KEEP = [0, 1, 2, 3, 4, 5, 6, 9, 10, 12];
+const V2_LINES: Line[] = [
+  { text: "“Ağırlık kaldırma, boyun kısa kalır!” Tanıdık geldi mi?", hl: ["kısa", "kalır!”"] },
+  { text: "Gel, bunun doğru olup olmadığına kemiğin içinden bakalım.", hl: ["kemiğin", "içinden"] },
+  { text: "Kemiklerinin uçlarında büyüme plağı denen yumuşak bir bölge var.", hl: ["büyüme", "plağı"] },
+  { text: "Buradaki hücreler bölünür, dizilir ve kemiğe dönüşür. Boyun böyle uzar.", hl: ["bölünür,", "dizilir", "kemiğe"] },
+  { text: "Ağırlık kaldırınca bu iş durmaz. Hatta kemiklerin daha da sağlamlaşır.", hl: ["durmaz.", "sağlamlaşır."] },
+  { text: "Ergenlik bitince plak kendiliğinden kapanır. Röntgende o çizgi kaybolur.", hl: ["ergenlik", "bitince", "kaybolur."] },
+  { text: "Yani boyuna dambıl değil, genlerin ve hormonların karar verir.", hl: ["genlerin", "hormonların"] },
+  { text: "Asıl tehlike, koçsuz ve bozuk teknikle aşırı yüklenmek.", hl: ["koçsuz", "bozuk", "aşırı"] },
+  { text: "O yüzden önce tekniği öğren, hafiften başla, bir koçla çalış.", hl: ["tekniği", "hafiften", "koçla"] },
+  { text: "Şimdi bu videoyu arkadaşına gönder.", hl: ["gönder."] },
+];
+
+/** sesin adına göre sürüm: hangi orijinal sahne satırları var, metin ve röntgenin başladığı kelime */
+const VARIANTS: Record<string, { keep: number[]; lines: Line[]; xrWord: number }> = {
+  "boy-uzama-kisa": { keep: KISA_KEEP, lines: KISA_LINES, xrWord: 6 },
+  "boy-uzama-v2": { keep: V2_KEEP, lines: V2_LINES, xrWord: 5 },
+};
 export const BOY_TAIL = 1.6;
 
 type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
@@ -678,16 +699,18 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const kisa = audioName.endsWith("-kisa");
-  const lines = kisa ? KISA_LINES : BOY_LINES;
+  const variant = VARIANTS[audioName];
+  const kisa = !!variant;
+  const KEEP = variant?.keep ?? [];
+  const lines = variant?.lines ?? BOY_LINES;
   const tl: TL = data ? voiceTimeline(data, lines) : BOY_TL;
   /** sahneler orijinal satır numaralarıyla yazıldı; kısa sürümde çıkarılan satır, sonraki kalan satırın başına düşer */
   const L = (i: number) => {
     if (!kisa || !data) return tl.at(i);
-    const j = KISA_KEEP.findIndex((k) => k >= i);
+    const j = KEEP.findIndex((k) => k >= i);
     return j < 0 ? tl.total : tl.at(j);
   };
-  const has = (i: number) => !kisa || !data || KISA_KEEP.includes(i);
+  const has = (i: number) => !kisa || !data || KEEP.includes(i);
   const blink = blinkAt(t);
 
   // sahne aralıkları
@@ -727,7 +750,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
   const flow = t > L(3) ? ((t - L(3)) * 0.9) % 1 : 0;
   const sleepy = t > L(5) + 0.3 ? 1 : 0;
   // satır 5'in ikinci cümlesi: röntgen
-  const xr = tl.wordAt ? tl.wordAt(5, 6) - 0.1 : L(5) + (L(6) - L(5)) * 0.5;
+  const xr = tl.wordAt ? tl.wordAt(5, variant?.xrWord ?? 6) - 0.1 : L(5) + (L(6) - L(5)) * 0.5;
   // hücreler anlatılırken plağa yumuşak yaklaşma
   const zk = 1 + 0.45 * sm(t, L(2) + 0.3, L(2) + 1.4) * (1 - sm(t, L(4) + 0.1, L(4) + 1.0));
   const zcy = PLATE_Y - grow + 60;

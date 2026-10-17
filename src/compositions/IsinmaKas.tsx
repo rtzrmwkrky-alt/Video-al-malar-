@@ -70,7 +70,7 @@ const LOOP_START = 0.77;
 
 /** seslendirme çalma hızı (1 = olduğu gibi; yumuşak, acele etmeyen konuşma) */
 const RATE = 1.0;
-const GAP = 0.2;
+const GAP = 0.15;
 /** seslendirme sürümü: isinma-ses.json bununla aynı değilse sesler eski kabul edilir → süreler tahmini, ses çalınmaz */
 const VOICE_VERSION = "v2-yumusak";
 type SesLine = { file: string; lead: number; speech: number; text?: string; words?: number[] };
@@ -95,7 +95,7 @@ const wordStart = (i: number, k: number, n: number) => {
   return (k / n) * speechOf(i) * 0.92;
 };
 const FIXED: Record<number, number> = { 4: 1.5, 6: 1.1, 10: 1.5, 11: 1.5, 12: 1.5 };
-const EXTRA: Record<number, number> = { 5: 0.15, 14: 0.3, 15: 0.4, 17: 0.2 };
+const EXTRA: Record<number, number> = { 5: 0.15, 14: 0.3, 15: 0.1 };
 
 const buildTimeline = () => {
   const starts: number[] = [];

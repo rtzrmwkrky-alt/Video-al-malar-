@@ -212,7 +212,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={BOY_TL.frames}
-      defaultProps={{ audioName: "boy-uzama", data: null } satisfies BoyUzamaProps}
+      defaultProps={{ audioName: "boy-uzama", data: null, look: "turkuaz" } satisfies BoyUzamaProps}
       calculateMetadata={({ props }) => withVoiceoverTail(BOY_TAIL, props)}
     />
     <Composition

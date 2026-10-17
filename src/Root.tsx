@@ -262,7 +262,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={GECE_TL.frames}
-      defaultProps={{ audioName: "gece-yemek", data: null } satisfies GeceYemekProps}
+      defaultProps={{ audioName: "gece-yemek-kisa", data: null } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
     />
     <Composition id="Karakterler" component={Karakterler} width={1080} height={1920} fps={FPS} durationInFrames={30} />

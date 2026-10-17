@@ -267,7 +267,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sahneler: gece mutfak (kapıdan ses "Gece gece yeme!") → "saati yok, matematiği var" + EFSANE damgası → terazi (alınan/harcanan, saat döner
   00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → telefonlu genç kapanış.
   **Seslendirildi:** `icerik/gece-yemek.seslendirme.txt` → `public/audio/gece-yemek` (Chris, eleven_v4, tr, 0.3/0.45/1.05; ~47 sn,
-  657 karakter). Kullanıcı isteği: sıcak, samimi, konuşma dili. Render → -14 LUFS kopya `out/gece-yemek-paylas.mp4`.
+  657 karakter). Kullanıcı isteği: sıcak, samimi, konuşma dili.
+  Kullanıcı **40-45 sn** istedi (uzun video istemiyor, akış bozulmasın) → kredi harcamadan kısaltıldı:
+  `python3 scripts/sikistir-ses.py gece-yemek gece-yemek-kisa --max-pause 0.28 --tempo 1.04` (uzun sessizlikler 0.28 sn'ye,
+  perde bozulmadan %4 hız; kelime zamanları da yeniden yazılır) → video `audioName: gece-yemek-kisa`, ~43 sn.
+  Son: `out/gece-yemek-43sn-paylas.mp4`. **Yeni videolarda hedef süre 40-45 sn.**
 
 ## Son durum (yeni oturumda buradan devam)
 

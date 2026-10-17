@@ -93,6 +93,31 @@ const Eye: React.FC<{ x: number; y: number; flip?: boolean }> = ({ x, y, flip })
   </g>
 );
 
+/** kıvırcık saç bukleleri [x, y, r]: kafanın üstünü ve yanlarını saran yay */
+const CURLS: [number, number, number][] = (() => {
+  const out: [number, number, number][] = [];
+  // dış halka
+  for (let i = 0; i <= 12; i++) {
+    const a = Math.PI * (1.02 + (i / 12) * 0.96);
+    out.push([540 + Math.cos(a) * 112, 430 + Math.sin(a) * 128, 36 + (i % 3) * 5]);
+  }
+  // iç dolgu
+  for (let i = 0; i <= 8; i++) {
+    const a = Math.PI * (1.08 + (i / 8) * 0.84);
+    out.push([540 + Math.cos(a) * 64, 418 + Math.sin(a) * 78, 34 + (i % 2) * 6]);
+  }
+  out.push([540, 360, 44]);
+  // yanlarda kulak üstüne inen bukleler
+  out.push([440, 448, 30], [640, 448, 30]);
+  return out;
+})();
+
+const FRINGE: [number, number, number][] = [
+  [476, 424, 17],
+  [508, 420, 15],
+  [604, 420, 16],
+];
+
 export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
   // eklemler
   const shR: P = [430, 668]; // karakterin sağ omzu (ekranda solda) — yukarıyı gösteren kol
@@ -231,29 +256,46 @@ export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
       <path d="M486,548 Q490,544 496,550 M592,546 Q588,542 582,548" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
 
       {/* ---------------- saç + kafa bandı ---------------- */}
-      {/* arka saç kütlesi */}
-      <path
-        d="M440,452 L420,420 L436,404 L412,370 L440,360 L428,318 L468,322 L470,280 L506,304 L526,252 L552,296 L586,256 L596,304 L632,286 L626,330 L664,334 L644,368 L668,392 L640,410 L650,446 L630,430 L628,392 L452,392 L452,430 Z"
-        fill={C.hair}
-        stroke={INK}
-        strokeWidth={W}
-        strokeLinejoin="round"
-      />
+      {/* kıvırcık saç: önce konturlar, sonra dolgu (iç çizgiler görünmesin), en üstte bukle kıvrımları */}
+      {(() => {
+        const curls = CURLS;
+        return (
+          <g>
+            {curls.map(([x, y, r], i) => (
+              <circle key={`o${i}`} cx={x} cy={y} r={r + W / 2} fill={INK} />
+            ))}
+            {curls.map(([x, y, r], i) => (
+              <circle key={`f${i}`} cx={x} cy={y} r={r - W / 2} fill={i % 3 === 0 ? C.hairS : C.hair} />
+            ))}
+            {curls.map(([x, y, r], i) =>
+              i % 2 === 0 ? (
+                <path
+                  key={`c${i}`}
+                  d={`M${x - r * 0.45},${y + r * 0.1} a${r * 0.42},${r * 0.42} 0 1 1 ${r * 0.5},${r * 0.35}`}
+                  stroke={i % 4 === 0 ? C.hairH : C.hairS}
+                  strokeWidth={5}
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              ) : null,
+            )}
+          </g>
+        );
+      })()}
       {/* kafa bandı */}
-      <path d="M448,392 Q540,356 632,392 L630,424 Q540,388 450,424 Z" fill={C.band} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
-      <path d="M590,378 Q616,384 632,392 L630,424 Q612,414 588,406 Z" fill={C.bandS} />
+      <path d="M448,396 Q540,360 632,396 L630,426 Q540,392 450,426 Z" fill={C.band} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+      <path d="M590,382 Q616,388 632,396 L630,426 Q612,416 588,408 Z" fill={C.bandS} />
       {/* bandın uçları (rüzgârda) */}
-      <path d="M636,404 Q690,392 724,420 Q700,424 690,440 Q672,420 640,422 Z" fill={C.band} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
-      <path d="M636,414 Q680,430 700,470 Q676,462 660,470 Q656,440 634,428 Z" fill={C.bandS} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
-      {/* perçem (bandın önünden alına düşen tutamlar) */}
-      <path
-        d="M456,410 L470,456 L486,414 L500,464 L516,410 L532,452 L546,404 L566,450 L576,408 L596,446 L606,404 L622,436 L626,398 Q540,370 456,398 Z"
-        fill={C.hair}
-        stroke={INK}
-        strokeWidth={W}
-        strokeLinejoin="round"
-      />
-      <path d="M484,330 Q500,312 520,316 M560,300 Q580,292 590,310" stroke={C.hairH} strokeWidth={8} fill="none" strokeLinecap="round" />
+      <path d="M636,408 Q690,396 724,424 Q700,428 690,444 Q672,424 640,426 Z" fill={C.band} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
+      <path d="M636,418 Q680,434 700,474 Q676,466 660,474 Q656,444 634,432 Z" fill={C.bandS} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
+      {/* bandın altından alına düşen birkaç bukle */}
+      {FRINGE.map(([x, y, r], i) => (
+        <g key={`fr${i}`}>
+          <circle cx={x} cy={y} r={r + W / 2} fill={INK} />
+          <circle cx={x} cy={y} r={r - W / 2} fill={C.hair} />
+          <path d={`M${x - r * 0.4},${y} a${r * 0.38},${r * 0.38} 0 1 1 ${r * 0.45},${r * 0.3}`} stroke={C.hairH} strokeWidth={4} fill="none" strokeLinecap="round" />
+        </g>
+      ))}
     </g>
   );
 };

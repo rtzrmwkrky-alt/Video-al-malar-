@@ -257,14 +257,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). **Kullanıcının
   onayladığı kadro: anime tarzı genç / anne / koç** (`AnimeTeen` + `src/anime/looks.ts` MOM, COACH) — yeni videolarda bunları kullan.
-  Arka fon düz renk, `bg` prop'u (kullanıcı rengi bildirecek; şimdilik mavi). Metin `icerik/gece-yemek.txt`.
+  Arka fon **turkuaz** gradyan (kullanıcı seçimi, `bg` prop), kanca "EFSANE Mİ, GERÇEK Mİ?" + koç sahnesinde EFSANE damgası, müzik 623. Metin `icerik/gece-yemek.txt`.
   Sahneler: gece mutfak (anne "Gece gece yeme!") → koç "saati yok, matematiği var" → terazi (alınan/harcanan, saat döner
   00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → üçlü kapanış.
   Seslendirme yok (kredi harcanmadı); onaylanınca Chris önerilecek.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **GeceYemek** sessiz taslak; arka fon rengi ve seslendirme onayı bekleniyor.
+- Son iş: **GeceYemek** (turkuaz) sessiz taslak gösterildi; seslendirme (Chris, ~700 karakter) kullanıcı onayı bekliyor.
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —
   yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
   --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.

@@ -1,6 +1,6 @@
 /**
  * "Geç saatte yemek yeme, kilo alırsın!" efsanesi — anime tarzı kadro (genç, anne, koç), tek anlatıcı.
- * Düz renk arka fon (`bg` prop'u; kullanıcı rengi sonra seçecek), sahne nesneleri fonun üstünde sade çizim.
+ * Turkuaz arka fon (kullanıcı seçimi; `bg` prop'u ile değişir), sahne nesneleri fonun üstünde sade çizim.
  * Metin `icerik/gece-yemek.txt`. Seslendirme varsa (public/audio/<ad>.json) satır ve altyazı zamanları
  * kelime zamanlarından gelir; yoksa okuma hızından hesaplanır (sessiz taslak).
  */
@@ -320,7 +320,7 @@ const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number }
 /** zemin: fon renginin koyu tonu (fon rengi değişse de uyar) */
 const Floor: React.FC = () => (
   <g>
-    <rect x={0} y={FLOOR} width={1080} height={1920 - FLOOR} fill="#000" opacity={0.14} />
+    <rect x={0} y={FLOOR} width={1080} height={1920 - FLOOR} fill="#0d5b5e" opacity={0.45} />
     <line x1={0} y1={FLOOR} x2={1080} y2={FLOOR} stroke={INK} strokeWidth={8} opacity={0.6} />
   </g>
 );
@@ -429,9 +429,10 @@ const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x,
 
 // ------------------------------------------------------------ ana kompozisyon
 
-export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: string };
+/** bg: [üst, alt] gradyan renkleri */
+export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string] };
 
-export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = "#3b8de0" }) => {
+export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#3cc6c4", "#b6eeea"] }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -496,14 +497,24 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = "#3b
   const fade = interpolate(t, [0, 0.12, tl.total - 0.3, tl.total], [0.6, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
-    <AbsoluteFill lang="tr" style={{ background: bg, overflow: "hidden" }}>
+    <AbsoluteFill lang="tr" style={{ background: bg[0], overflow: "hidden" }}>
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <defs>
+          <linearGradient id="gy-bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor={bg[0]} />
+            <stop offset="1" stopColor={bg[1]} />
+          </linearGradient>
+          <radialGradient id="gy-glow" cx="50%" cy="40%" r="55%">
+            <stop offset="0" stopColor="#ffffff" stopOpacity={0.4} />
+            <stop offset="1" stopColor="#ffffff" stopOpacity={0} />
+          </radialGradient>
           <radialGradient id="gy-vig" cx="50%" cy="45%" r="75%">
             <stop offset="0.6" stopColor="#000" stopOpacity={0} />
             <stop offset="1" stopColor="#000" stopOpacity={0.22} />
           </radialGradient>
         </defs>
+        <rect width={1080} height={1920} fill="url(#gy-bg)" />
+        <rect width={1080} height={1920} fill="url(#gy-glow)" />
         <Floor />
 
         {/* ===== 0: mutfak ===== */}
@@ -517,6 +528,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = "#3b
               <Fig uid="anne0" look={MOM} x={900} y={FLOOR} s={0.7} pose={{ ...DOWN, elR: [380, 600], wrR: [330, 470 + Math.sin(t * 9) * 10] }} expr="shout" t={t} />
             </g>
             <Bubble x={470} y={210} w={570} h={200} tx={850} ty={600} o={sm(t, shoutAt, shoutAt + 0.3) * (1 - sm(t, W(0, 5) - 0.2, W(0, 5) + 0.1))} lines={["GECE GECE YEME,", "KİLO ALIRSIN!"]} size={48} />
+            <Pill x={720} y={110} text="EFSANE Mİ, GERÇEK Mİ?" o={caught} color={Y} size={52} />
             {caught > 0 ? (
               <g opacity={caught} transform={`translate(${teenX + 150},${560 + Math.sin(t * 3) * 10})`}>
                 <Txt x={0} y={0} size={200} fill={Y} sw={14}>
@@ -530,13 +542,24 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = "#3b
         {/* ===== 1: koç ===== */}
         {s1 > 0 ? (
           <g opacity={s1}>
-            {["+", "−", "×", "="].map((c, k) => (
-              <g key={c} opacity={0.35} transform={`translate(${[120, 960, 180, 940][k]},${[900, 760, 1200, 1150][k] + Math.sin(t * 2 + k) * 14})`}>
+            {["+", "−", "=", "×"].map((c, k) => (
+              <g key={c} opacity={0.35} transform={`translate(${[120, 960, 930, 950][k]},${[900, 760, 1150, 560][k] + Math.sin(t * 2 + k) * 14})`}>
                 <Txt x={0} y={0} size={120} fill="#fff" sw={0}>
                   {c}
                 </Txt>
               </g>
             ))}
+            {(() => {
+              const p = sm(t, W(1, 4) - 0.1, W(1, 4) + 0.35);
+              return p > 0 ? (
+                <g opacity={p} transform={`translate(260,1200) rotate(-12) scale(${1.15 - 0.15 * p})`}>
+                  <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={RED} strokeWidth={14} />
+                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={88} fill={RED} letterSpacing={4}>
+                    EFSANE
+                  </text>
+                </g>
+              ) : null;
+            })()}
             <Fig uid="koc1" look={COACH} x={760} y={FLOOR} s={0.76} pose={{ elL: [676, 846], wrL: [684, 1004], itemL: null }} expr="smile" t={t} />
             <Bubble x={50} y={190} w={560} h={210} tx={690} ty={560} o={sm(t, W(1, 5) - 0.2, W(1, 5) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
             <g opacity={sm(t, W(1, 6), W(1, 6) + 0.3)}>
@@ -726,7 +749,21 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = "#3b
       </svg>
 
       <Captions t={t} tl={tl} />
-      {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} /> : null}
+      {data ? (
+        <>
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {/* konuşmanın altında kısık müzik; kapanışta biraz yükselir */}
+          <Audio
+            src={staticFile("music/623.mp3")}
+            volume={(f) => {
+              const mt = f / fps;
+              const end = data.durationInSeconds;
+              const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.06, 0.06, 0.14], { extrapolateRight: "clamp" });
+              return base * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            }}
+          />
+        </>
+      ) : null}
       <AbsoluteFill style={{ background: "#000", opacity: fade }} />
     </AbsoluteFill>
   );

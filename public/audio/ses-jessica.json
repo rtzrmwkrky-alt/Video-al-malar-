@@ -1,0 +1,46 @@
+{
+  "text": "“Ağırlık kaldırma, boyun kısa kalır!” Tanıdık geldi mi?",
+  "durationInSeconds": 4.08,
+  "words": [
+    {
+      "text": "“Ağırlık",
+      "start": 0,
+      "end": 0.48
+    },
+    {
+      "text": "kaldırma,",
+      "start": 0.56,
+      "end": 1.36
+    },
+    {
+      "text": "boyun",
+      "start": 1.44,
+      "end": 1.6
+    },
+    {
+      "text": "kısa",
+      "start": 1.68,
+      "end": 1.92
+    },
+    {
+      "text": "kalır!”",
+      "start": 2.04,
+      "end": 2.4
+    },
+    {
+      "text": "Tanıdık",
+      "start": 2.88,
+      "end": 3.28
+    },
+    {
+      "text": "geldi",
+      "start": 3.32,
+      "end": 3.6
+    },
+    {
+      "text": "mi?",
+      "start": 3.72,
+      "end": 4.08
+    }
+  ]
+}

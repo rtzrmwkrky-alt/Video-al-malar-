@@ -25,7 +25,7 @@ export const BOY_LINES: Line[] = [
   { text: "Kemiklerinin uçlarında büyüme plağı denen yumuşak bir bölge var.", hl: ["büyüme", "plağı"], hold: 0.4 },
   { text: "Buradaki hücreler bölünür, üst üste dizilir, sonra sertleşip kemiğe dönüşür. Boyun aslında böyle uzar.", hl: ["bölünür,", "dizilir,", "kemiğe"], hold: 0.3 },
   { text: "Peki sen ağırlık kaldırınca ne olur? Hiçbir şey durmaz. Hatta kemiklerin daha da sağlamlaşır.", hl: ["durmaz.", "sağlamlaşır."], hold: 0.3 },
-  { text: "Ergenlik bitince bu plak kendiliğinden kapanır ve kemik artık uzamaz.", hl: ["ergenlik", "bitince"], hold: 0.4 },
+  { text: "Ergenlik bitince bu plak kendiliğinden kapanır. Röntgende o çizgi kaybolur, gider.", hl: ["ergenlik", "bitince", "kaybolur,"], hold: 0.4 },
   { text: "Ne zaman kapanacağına dambıl değil, genlerin ve hormonların karar verir.", hl: ["genlerin", "hormonların"], hold: 0.4 },
   { text: "“İyi de halterciler hep kısa!” dediğini duyar gibiyim. Haklısın, ama halter onları kısaltmadı.", hl: ["kısaltmadı."], hold: 0.3 },
   { text: "Kısa boylular bu sporda avantajlı, o yüzden halterde hep onları görüyoruz. Basketbol da kimseyi uzatmadı, uzunlar seçildi.", hl: ["avantajlı,", "uzatmadı,"], hold: 0.3 },
@@ -337,6 +337,7 @@ const DoorFrame: React.FC<{ marks: number; newMark?: number }> = ({ marks, newMa
 const PLATE_Y = 640; // büyüme bölgesinin (kapanmadan önce) üst kenarı
 const BONE_L = 360;
 const BONE_R = 720;
+const CELL_COLS = 6;
 
 /** sevimli kıkırdak hücresi */
 const Cell: React.FC<{ x: number; y: number; r: number; t: number; k: number; sleepy?: number; bone?: number }> = ({ x, y, r, t, k, sleepy = 0, bone = 0 }) => {
@@ -385,10 +386,9 @@ const Dividing: React.FC<{ x: number; y: number; t: number; o: number }> = ({ x,
 
 /** uzun kemik (üst uç + büyüme bölgesi + gövde). grow: kemik ucu yukarı kayar; open: bölge açıklığı (1 açık, 0 kapalı) */
 const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number; t: number; flow: number; sleepy: number }> = ({ grow, open, strong, glow, t, flow, sleepy }) => {
-  const plateH = 26 + 124 * open;
+  const plateH = 26 + 150 * open;
   const top = PLATE_Y - grow; // bölgenin üst kenarı
   const capTop = top - 250;
-  const cols = 9;
   return (
     <g>
       {/* gövde */}
@@ -422,14 +422,15 @@ const Bone: React.FC<{ grow: number; open: number; strong: number; glow: number;
         {open > 0.15 ? (
           <g clipPath="url(#plate)">
             {Array.from({ length: 5 }).map((_, row) =>
-              Array.from({ length: cols - 1 }).map((__, c) => {
+              Array.from({ length: CELL_COLS }).map((__, c) => {
                 // satırlar aşağı akar: üstte bölünerek doğar, altta sertleşip kemiğe dönüşür
-                const yy = top + 24 + (row - 1 + flow) * 42;
+                const yy = top + 32 + (row - 1 + flow) * 56;
+                const cx = BONE_L + 52 + c * 51;
                 const born = row === 0 ? sm(flow, 0.1, 0.9) : 1;
-                const bone = row >= 3 ? sm(row - 1 + flow, 2.2, 3.0) : 0;
+                const bone = row >= 3 ? sm(row - 1 + flow, 2.0, 2.8) : 0;
                 return born > 0.05 ? (
-                  <g key={`${row}-${c}`} transform={`translate(${BONE_L + 52 + c * 42},${yy}) scale(${born}) translate(${-(BONE_L + 52 + c * 42)},${-yy})`}>
-                    <Cell x={BONE_L + 52 + c * 42} y={yy} r={18} t={t} k={row * 7 + c} sleepy={sleepy} bone={bone} />
+                  <g key={`${row}-${c}`} transform={`translate(${cx},${yy}) scale(${born}) translate(${-cx},${-yy})`}>
+                    <Cell x={cx} y={yy} r={24} t={t} k={row * 7 + c} sleepy={sleepy} bone={bone} />
                   </g>
                 ) : null;
               }),
@@ -501,6 +502,39 @@ const Flask: React.FC<{ x: number; y: number; p: number; t: number }> = ({ x, y,
         return <circle key={k} cx={-20 + k * 20} cy={60 - u * 110} r={8 - u * 4} fill="#b48cff" stroke={INK} strokeWidth={3} opacity={1 - u} />;
       })}
       <rect x={-36} y={-96} width={72} height={18} rx={6} fill="#c9ccd6" stroke={INK} strokeWidth={5} />
+    </g>
+  );
+
+/** stilize diz röntgeni: open=1 büyüme plağı koyu çizgi olarak görünür, 0 kapanmış */
+const Xray: React.FC<{ x: number; y: number; open: boolean; label: string; p: number }> = ({ x, y, open, label, p }) =>
+  p <= 0 ? null : (
+    <g transform={`translate(${x},${y}) scale(${p})`}>
+      <rect x={-170} y={-260} width={340} height={520} rx={22} fill="#141a2b" stroke={INK} strokeWidth={8} />
+      <g fill="#d9e1ee" opacity={0.92}>
+        {/* uyluk kemiği */}
+        <rect x={-62} y={-262} width={124} height={190} />
+        <path d="M-62,-80 C-70,-30 -120,-20 -112,20 Q-60,44 0,22 Q60,44 112,20 C120,-20 70,-30 62,-80 Z" />
+        {/* kaval kemiği */}
+        <path d="M-104,70 Q0,52 104,70 L96,118 C70,130 64,150 60,262 L-60,262 C-64,150 -70,130 -96,118 Z" />
+      </g>
+      <g fill="#ffffff" opacity={0.35}>
+        <rect x={-30} y={-262} width={26} height={180} />
+        <rect x={-30} y={130} width={24} height={132} />
+      </g>
+      {open ? (
+        <g fill="#141a2b">
+          <path d="M-100,-20 Q-50,-6 0,-16 Q50,-6 100,-20 L100,-6 Q50,8 0,-2 Q-50,8 -100,-6 Z" />
+          <path d="M-92,92 Q0,80 92,92 L92,104 Q0,92 -92,104 Z" />
+        </g>
+      ) : (
+        <g stroke="#ffffff" strokeWidth={3} opacity={0.5} fill="none">
+          <path d="M-100,-13 Q-50,1 0,-9 Q50,1 100,-13" />
+          <path d="M-92,98 Q0,86 92,98" />
+        </g>
+      )}
+      <Txt x={0} y={330} size={54}>
+        {label}
+      </Txt>
     </g>
   );
 
@@ -633,6 +667,8 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
   // hücre akışı: satır 3'te başlar, plak kapanırken durur
   const flow = t > L(3) ? ((t - L(3)) * 0.6) % 1 : 0;
   const sleepy = t > L(5) + 0.3 ? 1 : 0;
+  // satır 5'in ikinci cümlesi: röntgen
+  const xr = tl.wordAt ? tl.wordAt(5, 6) - 0.1 : L(5) + (L(6) - L(5)) * 0.5;
   // hücreler anlatılırken plağa yumuşak yaklaşma
   const zk = 1 + 0.45 * sm(t, L(2) + 0.3, L(2) + 1.4) * (1 - sm(t, L(4) + 0.1, L(4) + 1.0));
   const zcy = PLATE_Y - grow + 60;
@@ -689,7 +725,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
             {Array.from({ length: 11 }).map((_, i) => (
               <path key={i} d={`M${i * 110 - 40},-50 C${i * 110 + 30},600 ${i * 110 - 60},1200 ${i * 110 + 10},2000`} stroke="#eebcaf" strokeWidth={26} fill="none" opacity={0.6} />
             ))}
-            <g opacity={1 - 0.6 * sm(t, L(6), L(6) + 0.4)}>
+            <g opacity={1 - 0.75 * Math.max(sm(t, xr - 0.2, xr + 0.3), sm(t, L(6), L(6) + 0.4))}>
               <g transform={`translate(540,${zcy}) scale(${zk}) translate(-540,${-zcy})`}>
                 <Bone grow={grow} open={open} strong={strong} glow={glow} t={t} flow={open > 0.5 ? flow : 0} sleepy={sleepy} />
               </g>
@@ -720,7 +756,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
               ) : null}
               {/* ergenlik bitince kapanır */}
               {t > L(5) - 0.1 ? (
-                <g opacity={1 - sm(t, L(6) - 0.2, L(6) + 0.2)}>
+                <g opacity={1 - sm(t, xr - 0.3, xr)}>
                   <g opacity={sm(t, L(5), L(5) + 0.3)}>
                     <rect x={330} y={170} width={420} height={110} rx={55} fill="#fff" stroke={INK} strokeWidth={7} />
                     <Txt x={540} y={244} size={56} fill={INK} sw={0}>
@@ -731,6 +767,15 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
                 </g>
               ) : null}
             </g>
+            {/* röntgende çizgi kaybolur */}
+            {t > xr - 0.1 && t < L(6) + 0.3 ? (
+              <g opacity={1 - sm(t, L(6) - 0.2, L(6) + 0.3)}>
+                <Xray x={300} y={760} open label="12 YAŞ" p={pop(t, xr)} />
+                <Xray x={780} y={760} open={false} label="18 YAŞ" p={pop(t, xr + 0.35)} />
+                <Tag x={300 + 90} y={760 - 12} tx={300} ty={400} text="açık plak" o={sm(t, xr + 0.6, xr + 0.9)} color="#d6efff" />
+                <Tag x={780 + 90} y={760 - 8} tx={780} ty={400} text="çizgi yok" o={sm(t, xr + 1.0, xr + 1.3)} color="#fff3b0" />
+              </g>
+            ) : null}
             {/* kararı veren: genler + hormonlar */}
             {t > L(6) - 0.1 ? (
               <g>

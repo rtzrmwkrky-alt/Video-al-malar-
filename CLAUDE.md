@@ -193,9 +193,21 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, Ekim sonunda ~470 karakter kaldı): satırları yeniden
     seslendirme; gerekirse sadece değişen satırı üret.
 
+- **BoyUzama** — gençlere yönelik karikatür (~49 sn sessiz), tek anlatıcı. Apify ile TikTok/YouTube/Instagram tarandı:
+  en çok izlenenler komedi skeci ve "annene göster" tarzı cevap videoları; Türkçede animasyonlu anlatım yok.
+  Kurgu: kapıda anne "Ağırlık kaldırma, boyun kısa kalır!" (kapı pervazında boy çizgileri) → kemiğin içi:
+  büyüme bölgesi = baretli işçilerin "minik inşaatı" → ergenlik sonu "İNŞAAT TAMAMLANDI" → kararı genler +
+  hormonlar verir → halterci/basketbolcu (seçilme, spor boyu değiştirmez) → asıl tehlike: koçsuz, bozuk teknik,
+  aşırı yük → 3 kural kartı → uyku + beslenme (pervaza yeni çizgi "16") → "sana bunu söyleyene gönder".
+  Metin `icerik/boy-uzama.txt`. Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
+  (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
+
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **IsinmaKas** sesli sürüm (önce `python3 scripts/isinma-audio.py` (scipy gerekir), sonra render: `npx remotion render IsinmaKas out/isinma-sesli.mp4 --concurrency=4 --browser-executable=...`, ~12 dk, ardından -14 LUFS paylaşım kopyası).
+- Son iş: **BoyUzama** — "Erken yaşta ağırlık kaldırmak boy uzatmaz mı?" **sessiz taslak**, onay bekliyor
+  (render: `npx remotion render BoyUzama out/boy-uzama-taslak.mp4 --concurrency=4 --browser-executable=...`, ~5 dk).
+  Onaylanırsa seslendirme (tek anlatıcı) — **kredi harcamadan önce kullanıcıya sor**.
+- Önceki iş: **IsinmaKas** sesli sürüm (önce `python3 scripts/isinma-audio.py` (scipy gerekir), sonra render: `npx remotion render IsinmaKas out/isinma-sesli.mp4 --concurrency=4 --browser-executable=...`, ~12 dk, ardından -14 LUFS paylaşım kopyası).
 - Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:

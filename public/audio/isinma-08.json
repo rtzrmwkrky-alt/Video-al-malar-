@@ -1,6 +1,6 @@
 {
   "text": "Peki ne yapayım?",
-  "durationInSeconds": 1.44,
+  "durationInSeconds": 1.36,
   "words": [
     {
       "text": "Peki",
@@ -15,7 +15,7 @@
     {
       "text": "yapayım?",
       "start": 0.72,
-      "end": 1.44
+      "end": 1.36
     }
   ]
 }

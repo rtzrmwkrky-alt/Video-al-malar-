@@ -16,13 +16,13 @@
   "1": {
    "file": "isinma-01.mp3",
    "lead": 0.0,
-   "speech": 1.702,
+   "speech": 1.875,
    "text": "Halter kaldıracağım. Ne var?",
    "words": [
     0.0,
-    0.44,
-    1.28,
-    1.44
+    0.48,
+    1.52,
+    1.72
    ]
   },
   "2": {
@@ -39,15 +39,15 @@
   },
   "3": {
    "file": "isinma-03.mp3",
-   "lead": 0.0,
-   "speech": 2.215,
+   "lead": 0.114,
+   "speech": 2.25,
    "text": "Abartma istersen, ne olacak ki?",
    "words": [
-    0.0,
-    0.56,
-    1.44,
-    1.6,
-    2
+    0.114,
+    0.68,
+    1.52,
+    1.64,
+    2.12
    ]
   },
   "5": {
@@ -78,7 +78,7 @@
   "8": {
    "file": "isinma-08.mp3",
    "lead": 0.0,
-   "speech": 1.164,
+   "speech": 1.144,
    "text": "Peki ne yapayım?",
    "words": [
     0.0,
@@ -157,7 +157,7 @@
   "17": {
    "file": "isinma-17.mp3",
    "lead": 0.0,
-   "speech": 0.588,
+   "speech": 0.638,
    "text": "Söz!",
    "words": [
     0.0

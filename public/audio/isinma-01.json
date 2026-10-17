@@ -1,6 +1,6 @@
 {
   "text": "Halter kaldıracağım. Ne var?",
-  "durationInSeconds": 1.92,
+  "durationInSeconds": 2.08,
   "words": [
     {
       "text": "Halter",
@@ -9,18 +9,18 @@
     },
     {
       "text": "kaldıracağım.",
-      "start": 0.44,
-      "end": 1.16
+      "start": 0.48,
+      "end": 1.44
     },
     {
       "text": "Ne",
-      "start": 1.28,
-      "end": 1.36
+      "start": 1.52,
+      "end": 1.6
     },
     {
       "text": "var?",
-      "start": 1.44,
-      "end": 1.92
+      "start": 1.72,
+      "end": 2.08
     }
   ]
 }

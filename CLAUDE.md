@@ -167,7 +167,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (kelime zamanlarına bağlı; ses değişirse yeniden çalıştır). Görünüm: Playfair Display italik altyazı,
   Dancing Script el yazısı, sepya ton, gren, çizik/toz, vinyet, ışık titremesi. Sahneler kelime sırasına (`W(i)`) bağlı.
 
-- **IsinmaKas** — "Isınmadan başlama!" (~38 sn, **sessiz taslak**, onay bekliyor). Kullanıcının örneği: konuşan
+- **IsinmaKas** — "Isınmadan başlama!" (~38 sn). **Kullanıcı bu çalışmayı beğenmedi ve sonlandırdı (v4 sonrası); devam ettirme.**
+  Ders: 2B SVG konuşan kas karakteri + çizgi film sahnesi kullanıcının beklediği kaliteye ulaşmadı. Kullanıcının örneği: konuşan
   kas karakteri sahibine laf yetiştiriyor (yapay zekâ ile üretilmiş Pixar tarzı video) → **aynısı asla olmasın,
   sadece fikir**; kendimize özel. Parlak, yuvarlak hatlı çizgi film; karakterler `src/cartoon/IsinmaChars.tsx`.
   - 1. taslak geri bildirimi: "konuşma akıcı ve hikâye gibi olsun, **kas kasa benzemiyor**, hareketler akıcı olsun".
@@ -248,7 +249,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
   --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.
   Müzik `public/music/623.mp3` git'te yok (curl ile indir).
-- Önceki iş: **IsinmaKas** v4 (kas Arman, sporcu Chris, müzik Deep Urban): render `--props='{"music":null}'` → müzik ffmpeg ile karıştırılır (IsinmaKas notlarındaki komut, 1076 yerine 623).
+- Önceki iş (kullanıcı sonlandırdı, devam yok): **IsinmaKas** v4 (kas Arman, sporcu Chris, müzik Deep Urban): render `--props='{"music":null}'` → müzik ffmpeg ile karıştırılır (IsinmaKas notlarındaki komut, 1076 yerine 623).
 - Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:

@@ -781,14 +781,15 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
                 const talking = t < talkEnd;
                 const down = sm(t, talkEnd - 0.1, talkEnd + 0.35);
                 const mouth = talking ? 0.25 + 0.75 * Math.abs(Math.sin(t * 13)) : 0;
+                // anneler gibi iki eli belinde konuşur
                 const pose: AnimePose = {
-                  elR: mixP([404, 700], [404, 840], down),
-                  wrR: mixP([432, 540 + Math.sin(t * 6) * 6], [396, 1000], down),
-                  handR: down > 0.5 ? "fist" : "point",
+                  elR: [344, 800],
+                  wrR: [440, 922],
+                  handR: "fist",
                   elL: [736, 800],
                   wrL: [640, 922],
                   itemL: null,
-                  head: 4 - 6 * down,
+                  head: (4 + Math.sin(t * 4) * 2) * (1 - down) - 3 * down,
                   mouth,
                 };
                 return <Hero uid="anne" look={A_MOM} x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={pose} expr={talking ? "worry" : "smile"} t={t} />;

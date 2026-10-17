@@ -253,7 +253,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   kalın kontur + iki tonlu gölge). Turuncu atlet "16", lacivert şort, kırmızı kafa bandı, bileklik, dambıl.
   Saç: diken → kıvırcık (beğenilmedi, "çok gür") → 4 seçenekten **"Dağınık" (`messy`) seçildi**. Önizleme:
   `AnimeKarakter` (bulutlu gökyüzü). Gazete karikatürü tarzı (`KarikaturGenc`) da denendi; kullanıcı figür
-  üzerinde ilerlemek istedi. Figür onaylanınca hareketler + videonun bu figürle yeniden kurulması.
+  üzerinde ilerlemek istedi. **Kırmızı bantlı hâli onaylandı.**
+  - BoyUzama artık bu figürle: `AnimeTeen` pozlanabilir (`pose`: dirsek/bilek, `squat`, elde dambıl/telefon,
+    `head`; `expr`: grin/happy/wink/think/ouch/shout/smile; `look`: renkler, saç bun/short/cap, tişört, pantolon,
+    numara, kirpik, genişlik). Diğer karakterler de aynı tarzda (`src/anime/looks.ts`: MOM, COACH, LIFTER, BALLER).
+  - Arka plan: 9 palet denendi, kullanıcı **turkuaz** seçti (BoyUzama varsayılanı `look: "turkuaz"`).
+    Son video: `out/boy-uzama-turkuaz-paylas.mp4`.
 
 - **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). **Kullanıcının
   onayladığı kadro: anime tarzı genç / anne / koç** (`AnimeTeen` + `src/anime/looks.ts` MOM, COACH) — yeni videolarda bunları kullan.

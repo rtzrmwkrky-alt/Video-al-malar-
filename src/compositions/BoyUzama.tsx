@@ -30,7 +30,7 @@ export const BOY_LINES: Line[] = [
   { text: "“İyi de halterciler hep kısa!” Doğru, ama halter onları kısaltmadı.", hl: ["kısaltmadı."], hold: 0.3 },
   { text: "Kısa boylular bu sporda avantajlı, o yüzden seçiliyorlar. Basketbol da kimseyi uzatmıyor.", hl: ["avantajlı,", "uzatmıyor."], hold: 0.3 },
   { text: "Asıl tehlike ağırlık değil; hocasız, bozuk teknikle aşırı yüklenmek.", hl: ["hocasız,", "bozuk", "aşırı"], hold: 0.3 },
-  { text: "Kural basit: önce teknik, hafiften başla, mümkünse bir hocayla çalış.", hl: ["teknik,", "hafiften", "hocayla"], hold: 0.4 },
+  { text: "Kural basit: önce teknik, hafiften başla, mümkünse bir koçla çalış.", hl: ["teknik,", "hafiften", "koçla"], hold: 0.4 },
   { text: "Boyun için asıl önemli olanlar: iyi uyku ve iyi beslenme.", hl: ["uyku", "beslenme."], hold: 0.3 },
   { text: "Bu videoyu, sana bunu söyleyene gönder!", hl: ["gönder!"], hold: 1.0 },
 ];
@@ -841,7 +841,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
             <ToonGirl2D x={840} y={FLOOR} scale={0.66} pose={{ armL: 10, armR: 120, elbowR: 40 + Math.sin(t * 6) * 10 }} expr="happy" blink={blink} t={t} look={COACH} itemL={<Whistle />} />
             <Card x={200} y={430} n={1} title={["ÖNCE", "TEKNİK"]} p={pop(t, L(10) + 0.5)} color="#d6efff" icon={<line x1={-80} y1={0} x2={80} y2={0} stroke="#b07a4a" strokeWidth={14} strokeLinecap="round" />} />
             <Card x={540} y={430} n={2} title={["HAFİFTEN", "BAŞLA"]} p={pop(t, L(10) + 1.1)} color="#fff3b0" icon={<Dumbbell s={0.7} />} />
-            <Card x={880} y={430} n={3} title={["HOCAYLA", "ÇALIŞ"]} p={pop(t, L(10) + 1.8)} color="#c9f5cf" icon={<g transform="scale(1.6)"><Whistle /></g>} />
+            <Card x={880} y={430} n={3} title={["KOÇLA", "ÇALIŞ"]} p={pop(t, L(10) + 1.8)} color="#c9f5cf" icon={<g transform="scale(1.6)"><Whistle /></g>} />
           </g>
         ) : null}
 

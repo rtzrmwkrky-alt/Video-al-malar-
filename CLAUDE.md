@@ -259,6 +259,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     numara, kirpik, genişlik). Diğer karakterler de aynı tarzda (`src/anime/looks.ts`: MOM, COACH, LIFTER, BALLER).
   - Arka plan: 9 palet denendi, kullanıcı **turkuaz** seçti (BoyUzama varsayılanı `look: "turkuaz"`).
     Son video: `out/boy-uzama-turkuaz-paylas.mp4`.
+  - **v2 (son, ~42 sn):** kullanıcı "çok yavaş / max 30-40 sn" dedi; önce eski sesten kesip %15 hızlandırdık
+    (`boy-uzama-kisa`) → "çok hızlı, kekeliyor, anlatım bozuk" → **baştan kısa metin** (`icerik/boy-uzama-v2.txt`)
+    Chris ile normal hızda seslendirildi (`public/audio/boy-uzama-v2`, ~580 karakter). Son cümle kullanıcı isteği:
+    "Şimdi bu videoyu arkadaşına gönder." Sürüm seçimi `VARIANTS` (audioName → kalan sahne satırları). **Sesi
+    hızlandırma/kesip birleştirme yapma** — kısaltma gerekirse metni yeniden yaz ve onayla seslendir.
+  - Anne: bağırıp kaybolan hâli beğenilmedi; telefon bildirimi önerisi istenmedi → **iki eli belinde**, endişeli-sevecen
+    (`expr: "worry"`, konuşurken `mouth`), lafını bitirince gülümseyip sahnede kalır. Altyazı `top` 1300.
+    Müzik 623 normal hızda. Son: `out/boy-uzama-v2-paylas.mp4`.
 
 - **GeceYemek** — "Geç saatte yeme, kilo alırsın" efsanesi (~41 sn, sessiz taslak, tek anlatıcı). Karakter: anime tarzı genç
   (`AnimeTeen`). Kadroda anne/koç da var (`src/anime/looks.ts`) ama **bu videoda kullanıcı anne ve koçu istemedi** → sadece genç;

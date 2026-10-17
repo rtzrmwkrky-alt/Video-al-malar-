@@ -1,0 +1,506 @@
+{
+  "text": "\"Gece gece yeme, kilo alırsın!\" Bu cümleyi kaç kere duydun? Peki gerçekten öyle mi? Cevap çok net: kilonun saati yok… matematiği var. Gün boyu aldığın kaloriyle, harcadığın kaloriyi bir teraziye koy. Alınan fazlaysa kilo alırsın, harcanan fazlaysa verirsin. Saat kaç olursa olsun. Yani gün içinde kalori açığındaysan, gece yarısı yesen bile… kilo almazsın. Ama bir uyarı var: gece yenen ağır, yağlı yemekler midene yük olur. Sindirim zorlaşır, uykun bölünür, sabah yorgun uyanırsın. Gece acıktıysan hafif bir şey seç: yoğurt, meyve, ya da bir avuç kuruyemiş. Kısacası… önemli olan saat değil, günün toplamı. Hadi, bu videoyu sana \"gece yeme\" diyene gönder.",
+  "durationInSeconds": 47.04,
+  "words": [
+    {
+      "text": "\"Gece",
+      "start": 0,
+      "end": 0.32
+    },
+    {
+      "text": "gece",
+      "start": 0.4,
+      "end": 0.56
+    },
+    {
+      "text": "yeme,",
+      "start": 0.64,
+      "end": 1.12
+    },
+    {
+      "text": "kilo",
+      "start": 1.2,
+      "end": 1.36
+    },
+    {
+      "text": "alırsın!\"",
+      "start": 1.44,
+      "end": 1.92
+    },
+    {
+      "text": "Bu",
+      "start": 2.4,
+      "end": 2.48
+    },
+    {
+      "text": "cümleyi",
+      "start": 2.56,
+      "end": 2.88
+    },
+    {
+      "text": "kaç",
+      "start": 2.96,
+      "end": 3.12
+    },
+    {
+      "text": "kere",
+      "start": 3.16,
+      "end": 3.36
+    },
+    {
+      "text": "duydun?",
+      "start": 3.4,
+      "end": 3.76
+    },
+    {
+      "text": "Peki",
+      "start": 4.16,
+      "end": 4.48
+    },
+    {
+      "text": "gerçekten",
+      "start": 4.72,
+      "end": 5.28
+    },
+    {
+      "text": "öyle",
+      "start": 5.4,
+      "end": 5.52
+    },
+    {
+      "text": "mi?",
+      "start": 5.6,
+      "end": 5.92
+    },
+    {
+      "text": "Cevap",
+      "start": 6.16,
+      "end": 6.48
+    },
+    {
+      "text": "çok",
+      "start": 6.56,
+      "end": 6.72
+    },
+    {
+      "text": "net:",
+      "start": 6.8,
+      "end": 7.44
+    },
+    {
+      "text": "kilonun",
+      "start": 7.48,
+      "end": 7.84
+    },
+    {
+      "text": "saati",
+      "start": 7.92,
+      "end": 8.24
+    },
+    {
+      "text": "yok…",
+      "start": 8.32,
+      "end": 8.96
+    },
+    {
+      "text": "matematiği",
+      "start": 9.04,
+      "end": 9.6
+    },
+    {
+      "text": "var.",
+      "start": 9.68,
+      "end": 10.16
+    },
+    {
+      "text": "Gün",
+      "start": 10.4,
+      "end": 10.56
+    },
+    {
+      "text": "boyu",
+      "start": 10.64,
+      "end": 10.8
+    },
+    {
+      "text": "aldığın",
+      "start": 10.88,
+      "end": 11.2
+    },
+    {
+      "text": "kaloriyle,",
+      "start": 11.28,
+      "end": 11.96
+    },
+    {
+      "text": "harcadığın",
+      "start": 12.08,
+      "end": 12.56
+    },
+    {
+      "text": "kaloriyi",
+      "start": 12.64,
+      "end": 13.04
+    },
+    {
+      "text": "bir",
+      "start": 13.12,
+      "end": 13.2
+    },
+    {
+      "text": "teraziye",
+      "start": 13.28,
+      "end": 13.68
+    },
+    {
+      "text": "koy.",
+      "start": 13.76,
+      "end": 14.2
+    },
+    {
+      "text": "Alınan",
+      "start": 14.4,
+      "end": 14.8
+    },
+    {
+      "text": "fazlaysa",
+      "start": 14.84,
+      "end": 15.36
+    },
+    {
+      "text": "kilo",
+      "start": 15.44,
+      "end": 15.6
+    },
+    {
+      "text": "alırsın,",
+      "start": 15.68,
+      "end": 16.24
+    },
+    {
+      "text": "harcanan",
+      "start": 16.4,
+      "end": 16.88
+    },
+    {
+      "text": "fazlaysa",
+      "start": 16.96,
+      "end": 17.52
+    },
+    {
+      "text": "verirsin.",
+      "start": 17.68,
+      "end": 18.56
+    },
+    {
+      "text": "Saat",
+      "start": 18.6,
+      "end": 18.96
+    },
+    {
+      "text": "kaç",
+      "start": 19.04,
+      "end": 19.24
+    },
+    {
+      "text": "olursa",
+      "start": 19.28,
+      "end": 19.6
+    },
+    {
+      "text": "olsun.",
+      "start": 19.72,
+      "end": 20.2
+    },
+    {
+      "text": "Yani",
+      "start": 20.4,
+      "end": 20.72
+    },
+    {
+      "text": "gün",
+      "start": 20.96,
+      "end": 21.04
+    },
+    {
+      "text": "içinde",
+      "start": 21.12,
+      "end": 21.44
+    },
+    {
+      "text": "kalori",
+      "start": 21.52,
+      "end": 21.84
+    },
+    {
+      "text": "açığındaysan,",
+      "start": 21.88,
+      "end": 22.64
+    },
+    {
+      "text": "gece",
+      "start": 22.96,
+      "end": 23.2
+    },
+    {
+      "text": "yarısı",
+      "start": 23.28,
+      "end": 23.52
+    },
+    {
+      "text": "yesen",
+      "start": 23.6,
+      "end": 24
+    },
+    {
+      "text": "bile…",
+      "start": 24.04,
+      "end": 24.72
+    },
+    {
+      "text": "kilo",
+      "start": 24.76,
+      "end": 24.96
+    },
+    {
+      "text": "almazsın.",
+      "start": 25.04,
+      "end": 25.92
+    },
+    {
+      "text": "Ama",
+      "start": 26,
+      "end": 26.16
+    },
+    {
+      "text": "bir",
+      "start": 26.2,
+      "end": 26.24
+    },
+    {
+      "text": "uyarı",
+      "start": 26.32,
+      "end": 26.56
+    },
+    {
+      "text": "var:",
+      "start": 26.64,
+      "end": 27.2
+    },
+    {
+      "text": "gece",
+      "start": 27.28,
+      "end": 27.52
+    },
+    {
+      "text": "yenen",
+      "start": 27.56,
+      "end": 27.92
+    },
+    {
+      "text": "ağır,",
+      "start": 28,
+      "end": 28.48
+    },
+    {
+      "text": "yağlı",
+      "start": 28.56,
+      "end": 28.88
+    },
+    {
+      "text": "yemekler",
+      "start": 28.92,
+      "end": 29.44
+    },
+    {
+      "text": "midene",
+      "start": 29.6,
+      "end": 30
+    },
+    {
+      "text": "yük",
+      "start": 30.08,
+      "end": 30.16
+    },
+    {
+      "text": "olur.",
+      "start": 30.24,
+      "end": 30.68
+    },
+    {
+      "text": "Sindirim",
+      "start": 30.88,
+      "end": 31.28
+    },
+    {
+      "text": "zorlaşır,",
+      "start": 31.36,
+      "end": 32.08
+    },
+    {
+      "text": "uykun",
+      "start": 32.16,
+      "end": 32.48
+    },
+    {
+      "text": "bölünür,",
+      "start": 32.52,
+      "end": 33.2
+    },
+    {
+      "text": "sabah",
+      "start": 33.28,
+      "end": 33.6
+    },
+    {
+      "text": "yorgun",
+      "start": 33.64,
+      "end": 33.92
+    },
+    {
+      "text": "uyanırsın.",
+      "start": 34,
+      "end": 34.68
+    },
+    {
+      "text": "Gece",
+      "start": 34.88,
+      "end": 35.04
+    },
+    {
+      "text": "acıktıysan",
+      "start": 35.12,
+      "end": 35.76
+    },
+    {
+      "text": "hafif",
+      "start": 35.92,
+      "end": 36.24
+    },
+    {
+      "text": "bir",
+      "start": 36.28,
+      "end": 36.32
+    },
+    {
+      "text": "şey",
+      "start": 36.36,
+      "end": 36.48
+    },
+    {
+      "text": "seç:",
+      "start": 36.56,
+      "end": 37.2
+    },
+    {
+      "text": "yoğurt,",
+      "start": 37.28,
+      "end": 37.84
+    },
+    {
+      "text": "meyve,",
+      "start": 37.88,
+      "end": 38.48
+    },
+    {
+      "text": "ya",
+      "start": 38.52,
+      "end": 38.56
+    },
+    {
+      "text": "da",
+      "start": 38.64,
+      "end": 38.72
+    },
+    {
+      "text": "bir",
+      "start": 38.88,
+      "end": 38.96
+    },
+    {
+      "text": "avuç",
+      "start": 39.04,
+      "end": 39.2
+    },
+    {
+      "text": "kuruyemiş.",
+      "start": 39.28,
+      "end": 40
+    },
+    {
+      "text": "Kısacası…",
+      "start": 40.16,
+      "end": 41.04
+    },
+    {
+      "text": "önemli",
+      "start": 41.12,
+      "end": 41.44
+    },
+    {
+      "text": "olan",
+      "start": 41.56,
+      "end": 41.68
+    },
+    {
+      "text": "saat",
+      "start": 41.76,
+      "end": 42.08
+    },
+    {
+      "text": "değil,",
+      "start": 42.16,
+      "end": 42.64
+    },
+    {
+      "text": "günün",
+      "start": 42.72,
+      "end": 42.96
+    },
+    {
+      "text": "toplamı.",
+      "start": 43.04,
+      "end": 43.72
+    },
+    {
+      "text": "Hadi,",
+      "start": 43.92,
+      "end": 44.24
+    },
+    {
+      "text": "bu",
+      "start": 44.48,
+      "end": 44.56
+    },
+    {
+      "text": "videoyu",
+      "start": 44.64,
+      "end": 44.96
+    },
+    {
+      "text": "sana",
+      "start": 45.04,
+      "end": 45.28
+    },
+    {
+      "text": "\"gece",
+      "start": 45.52,
+      "end": 45.76
+    },
+    {
+      "text": "yeme\"",
+      "start": 45.84,
+      "end": 46.08
+    },
+    {
+      "text": "diyene",
+      "start": 46.12,
+      "end": 46.32
+    },
+    {
+      "text": "gönder.",
+      "start": 46.4,
+      "end": 47.04
+    }
+  ]
+}

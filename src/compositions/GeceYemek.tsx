@@ -612,8 +612,8 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             {/* 4: açık → gece yesen bile almazsın */}
             <Pill x={830} y={720} text="KALORİ AÇIĞI" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} color={GREEN} ink="#fff" size={44} />
             <g opacity={sm(t, W(4, 10) - 0.1, W(4, 10) + 0.2)}>
-              <Pill x={300} y={760} text="KİLO ALMAZSIN" o={1} color="#fff" size={44} />
-              <Check x={300} y={880} s={50} p={sm(t, W(4, 10), W(4, 10) + 0.4)} />
+              <Pill x={500} y={1395} text="KİLO ALMAZSIN" o={1} color="#fff" size={48} />
+              <Check x={790} y={1385} s={46} p={sm(t, W(4, 10), W(4, 10) + 0.4)} />
             </g>
           </g>
         ) : null}

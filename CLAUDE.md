@@ -266,11 +266,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Arka fon **turkuaz** gradyan (kullanıcı seçimi, `bg` prop), kanca "EFSANE Mİ, GERÇEK Mİ?" + koç sahnesinde EFSANE damgası, müzik 623. Metin `icerik/gece-yemek.txt`.
   Sahneler: gece mutfak (kapıdan ses "Gece gece yeme!") → "saati yok, matematiği var" + EFSANE damgası → terazi (alınan/harcanan, saat döner
   00:00, sandviç düşer ama açık sürer) → yatak odası (ağır yemek, uyku ölçer düşer) → hafif atıştırmalık → özet kartı → telefonlu genç kapanış.
-  Seslendirme yok (kredi harcanmadı); onaylanınca Chris önerilecek.
+  **Seslendirildi:** `icerik/gece-yemek.seslendirme.txt` → `public/audio/gece-yemek` (Chris, eleven_v4, tr, 0.3/0.45/1.05; ~47 sn,
+  657 karakter). Kullanıcı isteği: sıcak, samimi, konuşma dili. Render → -14 LUFS kopya `out/gece-yemek-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **GeceYemek** (turkuaz) sessiz taslak gösterildi; seslendirme (Chris, ~700 karakter) kullanıcı onayı bekliyor.
+- Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.
+  Render: `npx remotion render GeceYemek out/gece-yemek-sesli.mp4 --concurrency=4 --browser-executable=...` → -14 LUFS kopya.
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —
   yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
   --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.

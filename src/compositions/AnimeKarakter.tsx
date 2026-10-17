@@ -21,7 +21,7 @@ const Cloud: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
   </g>
 );
 
-export const AnimeKarakter: React.FC = () => {
+export const AnimeKarakter: React.FC<{ band?: boolean }> = ({ band = true }) => {
   const t = useCurrentFrame() / 30;
   return (
     <AbsoluteFill lang="tr" style={{ overflow: "hidden" }}>
@@ -39,7 +39,7 @@ export const AnimeKarakter: React.FC = () => {
         <Cloud x={120} y={1180} s={1.3} />
         <Cloud x={960} y={1420} s={1.2} />
         <Cloud x={540} y={1800} s={2.2} />
-        <AnimeTeen t={t} />
+        <AnimeTeen t={t} band={band} />
       </svg>
     </AbsoluteFill>
   );

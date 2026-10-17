@@ -248,6 +248,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   izometrik 3B, kil). Kullanıcı hepsini beğenmedi: **"daha farklı bir karakter oluşturmalıyız"**. Sıradaki adım:
   kullanıcıdan beğendiği karakter örneği (video/görsel) istemek; kodla çizilen basit karakterler yetersiz kalıyor.
 
+- **Yeni figür (BoyUzama için, geliştiriliyor):** `src/anime/AnimeTeen.tsx` — anime/TV çizgi film tarzı genç
+  (kullanıcı referansı: One Piece, Avatar; gerçek insan ve bebeksi karikatür değil, gerçekçi oranlı, ifadeli,
+  kalın kontur + iki tonlu gölge). Turuncu atlet "16", lacivert şort, kırmızı kafa bandı, bileklik, dambıl.
+  Saç: diken → kıvırcık (beğenilmedi, "çok gür") → 4 seçenekten **"Dağınık" (`messy`) seçildi**. Önizleme:
+  `AnimeKarakter` (bulutlu gökyüzü). Gazete karikatürü tarzı (`KarikaturGenc`) da denendi; kullanıcı figür
+  üzerinde ilerlemek istedi. Figür onaylanınca hareketler + videonun bu figürle yeniden kurulması.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —

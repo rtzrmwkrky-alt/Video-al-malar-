@@ -161,7 +161,7 @@ const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
   return null;
 };
 
-export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean }> = ({ t = 0, hair = "curly", band = true }) => {
+export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean }> = ({ t = 0, hair = "messy", band = true }) => {
   // eklemler
   const shR: P = [430, 668]; // karakterin sağ omzu (ekranda solda) — yukarıyı gösteren kol
   const elR: P = [368, 512];

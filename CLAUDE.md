@@ -10,6 +10,8 @@
   dosya adı, komut veya kod gösterme; gerekiyorsa ne işe yaradığını sade
   bir cümleyle söyle.
 - Kullanıcı bu kuralları her seferinde tekrar etmek zorunda kalmamalı.
+- **Kredi/para harcayan her işten önce sor** (Apify taraması, ElevenLabs seslendirmesi vb.):
+  ne yapılacağını ve yaklaşık maliyetini söyle, onay gelmeden çalıştırma.
 
 ## Projenin amacı
 

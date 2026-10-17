@@ -10,7 +10,7 @@
  */
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { SANS, loadFonts } from "../fonts";
+import { ROUND, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, win } from "../ornek/common";
 import SES from "./isinma-ses.json";
 import {
@@ -31,45 +31,70 @@ loadFonts();
 
 const pop = (t: number, at: number) => rawPop(t, at, 30, 16);
 
-type Who = "kas" | "adam" | "fx" | "chip" | "card";
-type ILine = Line & { who: Who };
+type Who = "kas" | "adam" | "fx" | "chip" | "card" | "act";
+/** say: seslendirmede okunan metin (ekrandakinden farklıysa) */
+type ILine = Line & { who: Who; say?: string };
 
 export const ISINMA_LINES: ILine[] = [
   { who: "kas", text: "Hop hop! Nereye böyle?", hl: ["nereye"] },
   { who: "adam", text: "Halter kaldıracağım. Ne var?", hl: ["halter"] },
-  { who: "kas", text: "Ama ben daha uyanmadım… Buz gibiyim!", hl: ["buz"] },
-  { who: "adam", text: "Abartma, iki dakikalık iş.", hl: ["iki", "dakikalık"] }, // yeni ses gelince: "Abartma istersen, ne olacak ki?"
-  { who: "kas", text: "Gel, sana bir şey göstereyim." },
+  { who: "kas", text: "Daha uyanmadım… Buz gibiyim!", hl: ["buz"] },
+  { who: "adam", text: "Abartma istersen, ne olacak ki?", hl: ["abartma"] },
+  { who: "act", text: "" }, // kas lastiği çıkarır (sessiz)
   { who: "kas", text: "Bu lastik soğukken çekilirse…", hl: ["soğukken"] },
   { who: "fx", text: "ÇAT!" },
-  { who: "kas", text: "Isınmadan yüklenirsen ben de böyle incinebilirim.", hl: ["incinebilirim."] },
+  { who: "kas", text: "Isınmadan yüklenirsen ben de incinirim.", hl: ["incinirim."] },
   { who: "adam", text: "Peki ne yapayım?" },
-  { who: "kas", text: "Beni sadece 5-10 dakika ısıt.", hl: ["5-10", "dakika", "ısıt."] },
+  { who: "kas", text: "Beni sadece 5-10 dakika ısıt.", say: "Beni sadece beş on dakika ısıt.", hl: ["5-10", "dakika", "ısıt."] },
   { who: "chip", text: "Hafif koşu" },
   { who: "chip", text: "Kol çevirme" },
   { who: "chip", text: "Bacak sallama" },
   { who: "kas", text: "Oh be! Kan geldi, ısındım!", hl: ["ısındım!"] },
   { who: "kas", text: "Şimdi hazırım. Kaldır bakalım!", hl: ["kaldır"] },
-  { who: "card", text: "Isınma 5 dakika. Ama sakatlanırsan aylarca sürebilir." },
+  {
+    who: "card",
+    text: "Isınma 5 dakika. Ama sakatlanırsan aylarca sürebilir.",
+    say: "Isınma beş dakika... ama sakatlanırsan aylarca sürebilir.",
+  },
   { who: "kas", text: "Yarın sabah da ısınıyoruz, tamam mı?", hl: ["yarın", "sabah"] },
   { who: "adam", text: "Söz!" },
 ];
+
+const speaks = (l: ILine) => l.who === "kas" || l.who === "adam" || l.who === "card";
+/** seslendirme metni ("…" → "...") */
+export const sayOf = (l: ILine) => (l.say ?? l.text).replace(/…/g, "...");
 
 /** döngü kesiti: sonda koşu başlar, başta devam eder */
 const LOOP_END = 0.63;
 const LOOP_START = 0.77;
 
-/** seslendirme hızı (sesler biraz hızlandırılır; perde korunur) */
-const RATE = 1.08;
-const GAP = 0.25;
-type SesLine = { file: string; lead: number; speech: number };
-const sesOf = (i: number) => (SES.lines as Record<string, SesLine>)[String(i)];
-/** satırın konuşma süresi (video saniyesi) */
-const speechOf = (i: number) => {
-  const l = sesOf(i);
-  return l ? (l.speech - l.lead) / RATE : 0;
+/** seslendirme çalma hızı (1 = olduğu gibi; yumuşak, acele etmeyen konuşma) */
+const RATE = 1.0;
+const GAP = 0.2;
+/** seslendirme sürümü: isinma-ses.json bununla aynı değilse sesler eski kabul edilir → süreler tahmini, ses çalınmaz */
+const VOICE_VERSION = "v2-yumusak";
+type SesLine = { file: string; lead: number; speech: number; text?: string; words?: number[] };
+const SES_T = SES as { version?: string; lines: Record<string, SesLine> };
+const VOICED = SES_T.version === VOICE_VERSION;
+const sesOf = (i: number): SesLine | undefined => {
+  const l = SES_T.lines[String(i)];
+  return VOICED && l && l.text === sayOf(ISINMA_LINES[i]) ? l : undefined;
 };
-const FIXED: Record<number, number> = { 6: 1.1, 10: 1.7, 11: 1.7, 12: 1.7 };
+/** satırın konuşma süresi (video saniyesi); ses yoksa okuma hızından tahmin */
+const speechOf = (i: number) => {
+  const line = ISINMA_LINES[i];
+  if (!line || !speaks(line)) return 0;
+  const l = sesOf(i);
+  return l ? (l.speech - l.lead) / RATE : sayOf(line).length * 0.072;
+};
+/** satırdaki k. kelimenin başlama anı (satır başına göre, sn) */
+const wordStart = (i: number, k: number, n: number) => {
+  const l = sesOf(i);
+  const w = l?.words;
+  if (w && w.length === n) return (w[k] - l.lead) / RATE;
+  return (k / n) * speechOf(i) * 0.92;
+};
+const FIXED: Record<number, number> = { 4: 1.5, 6: 1.1, 10: 1.5, 11: 1.5, 12: 1.5 };
 const EXTRA: Record<number, number> = { 5: 0.15, 14: 0.3, 15: 0.4, 17: 0.2 };
 
 const buildTimeline = () => {
@@ -360,94 +385,68 @@ const Burst: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => {
   );
 };
 
-// ------------------------------------------------------------ konuşma balonu
+// ------------------------------------------------------------ altyazı (animasyon tarzı)
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-const Bubble: React.FC<{
-  line: ILine;
-  t: number;
-  s: number;
-  e: number;
-  tailX: number;
-  top: number;
-  color: string;
-  speak: number;
-  shout?: boolean;
-}> = ({ line, t, s, e, tailX, top, color, speak, shout }) => {
-  const o = win(t, s, e, 0.14);
+/** kalın konturlu, yuvarlak harfli yazı (kutu yok) */
+const toonText = (size: number, stroke = 16): React.CSSProperties => ({
+  fontFamily: ROUND,
+  fontWeight: 800,
+  fontSize: size,
+  lineHeight: 1.02,
+  letterSpacing: 0.5,
+  color: "#fff",
+  WebkitTextStroke: `${stroke}px ${INK}`,
+  paintOrder: "stroke",
+  textShadow: `0 ${stroke * 0.55}px 0 ${INK}, 0 ${stroke}px 22px rgba(43,33,64,0.35)`,
+  textAlign: "center",
+  textWrap: "balance",
+});
+
+/** konuşma altyazısı: tüm cümle görünür, söylenen kelime konuşanın renginde (karaoke); yumuşak geçiş */
+const Caption: React.FC<{ i: number; line: ILine; t: number; s: number; e: number; top: number; color: string }> = ({
+  i,
+  line,
+  t,
+  s,
+  e,
+  top,
+  color,
+}) => {
+  const o = win(t, s, e, 0.18);
   if (o <= 0) return null;
-  const p = pop(t, s);
   const words = line.text.split(/\s+/);
-  const reveal = interpolate(t, [s, s + Math.max(0.3, speak * 0.8)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const shown = Math.ceil(words.length * reveal);
+  const lt = t - s;
   const hl = (line.hl ?? []).map(norm);
-  const half = Math.min(470, (shout ? 960 : Math.min(820, line.text.length * 40 + 110)) / 2);
-  const off = Math.max(-half + 60, Math.min(half - 60, tailX - 540));
+  let cur = -1;
+  words.forEach((_, k) => {
+    if (lt >= wordStart(i, k, words.length) - 0.03) cur = k;
+  });
+  const done = lt > speechOf(i) + 0.1;
   return (
     <div
       style={{
         position: "absolute",
-        left: 50,
-        right: 50,
+        left: 60,
+        right: 60,
         top,
-        display: "flex",
-        justifyContent: "center",
         opacity: o,
-        transform: `scale(${0.85 + 0.15 * p})`,
-        transformOrigin: `${540 + off - 50}px 100%`,
+        transform: `translateY(${(1 - sm(t, s, s + 0.25)) * 14}px)`,
+        ...toonText(96),
       }}
     >
-      <div
-        style={{
-          position: "relative",
-          maxWidth: shout ? 960 : 820,
-          background: shout ? "#ffe066" : "#fff",
-          border: `9px solid ${INK}`,
-          borderRadius: 56,
-          padding: shout ? "26px 40px" : "28px 46px",
-          boxShadow: `0 12px 0 ${color}`,
-          fontFamily: SANS,
-          fontWeight: 900,
-          fontSize: shout ? 128 : 76,
-          lineHeight: 1.08,
-          letterSpacing: shout ? 2 : -1,
-          color: INK,
-          textAlign: "center",
-          textWrap: "balance",
-        }}
-      >
-        {words.map((w, i) => (
-          <React.Fragment key={i}>
-            <span style={{ color: hl.includes(norm(w)) ? color : INK, opacity: i < shown ? 1 : 0, whiteSpace: "nowrap" }}>{w}</span>
-            {i < words.length - 1 ? " " : ""}
+      {words.map((w, k) => {
+        const active = !done && k === cur;
+        const said = done || k < cur;
+        const c = active ? color : said && hl.includes(norm(w)) ? color : "#fff";
+        return (
+          <React.Fragment key={k}>
+            <span style={{ color: c, whiteSpace: "nowrap", transition: "none" }}>{w}</span>
+            {k < words.length - 1 ? " " : ""}
           </React.Fragment>
-        ))}
-        <div
-          style={{
-            position: "absolute",
-            left: `calc(50% + ${off}px - 26px)`,
-            bottom: -46,
-            width: 0,
-            height: 0,
-            borderLeft: "26px solid transparent",
-            borderRight: "26px solid transparent",
-            borderTop: `46px solid ${INK}`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: `calc(50% + ${off}px - 15px)`,
-            bottom: -28,
-            width: 0,
-            height: 0,
-            borderLeft: "15px solid transparent",
-            borderRight: "15px solid transparent",
-            borderTop: `30px solid ${shout ? "#ffe066" : "#fff"}`,
-          }}
-        />
-      </div>
+        );
+      })}
     </div>
   );
 };
@@ -649,11 +648,10 @@ const kasAt = (li: number, t: number): KasState => {
     case 3: // eller belde, bıkkın
       return pose({ handL: P(-225, -300), handR: P(225, -300) }, "annoyed", 0.4);
     case 4: {
-      // "Gel…" el sallar, sonra lastiği önüne getirir
-      const k = sm(lt, 1.0, 1.4);
-      const wave = P(240 + Math.sin(lt * 9) * 30, -560);
+      // lastiği önüne getirir (sessiz an)
+      const k = sm(lt, 0.15, 0.6);
       return pose(
-        { handL: P(lerp(-205, -70, k), lerp(-250, -330, k)), handR: P(lerp(wave.x, 70, k), lerp(wave.y, -330, k)) },
+        { handL: P(lerp(-205, -70, k), lerp(-250, -330, k)), handR: P(lerp(205, 70, k), lerp(-250, -330, k)) },
         "smile",
         0.3,
         0,
@@ -732,22 +730,15 @@ const blended = <S,>(fn: (li: number, t: number) => S, mixFn: (a: S, b: S, k: nu
 
 /** efektler: Mixkit ücretsiz ses efektleri (public/isinma/sfx/<id>.mp3); lead = baştaki sessizlik (sn) */
 const FX: { at: number; id: number; v: number; lead?: number; dur?: number }[] = [
-  { at: 0.1, id: 1490, v: 0.45, lead: 0.2 }, // woosh: kas zıplar
-  { at: 0.58, id: 2894, v: 0.5 }, // boing: iner
-  { at: at(5) + 0.05, id: 1009, v: 0.45, lead: 0.08, dur: at(6) - at(5) - 0.05 }, // lastik gıcırtısı
-  { at: at(6) - 0.01, id: 2945, v: 1.0 }, // ÇAT
-  { at: at(6), id: 2364, v: 0.5 }, // pop
-  { at: at(10), id: 3005, v: 0.6 },
-  { at: at(11), id: 3005, v: 0.6 },
-  { at: at(12), id: 3005, v: 0.6 },
-  { at: at(13), id: 2350, v: 0.5 }, // ışıltı: kas ısındı
-  { at: at(14) + 0.42, id: 2102, v: 0.55, lead: 0.14 }, // halter kavranır
-  { at: at(15), id: 600, v: 0.4 }, // kart
-  { at: at(16) + 1.05, id: 2102, v: 0.45, lead: 0.14 }, // halter bırakılır
+  { at: at(5) + 0.05, id: 1009, v: 0.35, lead: 0.08, dur: at(6) - at(5) - 0.05 }, // lastik gıcırtısı
+  { at: at(6) - 0.01, id: 2945, v: 0.9 }, // ÇAT
+  { at: at(13), id: 2350, v: 0.3 }, // ışıltı: kas ısındı
+  { at: at(14) + 0.42, id: 2102, v: 0.45, lead: 0.14 }, // halter kavranır
+  { at: at(16) + 1.05, id: 2102, v: 0.35, lead: 0.14 }, // halter bırakılır
 ];
 
 /** arka plan müziği seçenekleri (Mixkit, public/music/<id>.mp3): başlangıç noktası (sn) */
-const MUSIC: Record<string, number> = { "51": 2, "33": 0, "47": 2 };
+const MUSIC: Record<string, number> = { "1076": 0 };
 
 const Sounds: React.FC<{ music: string | null; sicak: boolean }> = ({ music, sicak }) => {
   const { fps } = useVideoConfig();
@@ -802,7 +793,7 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
   const clockSpin = loopEnd ? 0 : sm(t, at(10), at(13)) * 8;
 
   // ---------- kamera: lastik sahnesinde kasa yaklaş
-  const zoomIn = sm(t, at(4) + 0.2, at(4) + 1.0) * (1 - sm(t, at(8) - 0.1, at(8) + 0.6));
+  const zoomIn = sm(t, at(4), at(4) + 0.9) * (1 - sm(t, at(8) - 0.1, at(8) + 0.6));
   const cs = lerp(BASE, 1.15, zoomIn);
   const fx = lerp(540, KAS_X + 60, zoomIn);
   const fy = lerp(BASE_FY, 1180, zoomIn);
@@ -825,10 +816,10 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
   // ---------- buz lastik (ellerin arasında)
   let band: React.ReactNode = null;
   let burst = 0;
-  if (!loopEnd && t > at(4) + 1.0 && t < at(6) + 0.9) {
+  if (!loopEnd && t > at(4) + 0.45 && t < at(6) + 0.9) {
     const st = sm(t, at(5), at(6) - 0.05);
     const snap = t >= at(6) ? Math.min(1, (t - at(6)) / 0.9) : 0;
-    const appear = pop(t, at(4) + 1.0);
+    const appear = sm(t, at(4) + 0.45, at(4) + 0.8);
     const a = kas.pose.handL;
     const bb = kas.pose.handR;
     band = (
@@ -837,10 +828,8 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
       </g>
     );
   }
-  if (!loopEnd && t >= at(6)) burst = pop(t, at(6)) * (1 - sm(t, at(7) - 0.2, at(7)));
+  if (!loopEnd && t >= at(6)) burst = sm(t, at(6), at(6) + 0.12) * (1 - sm(t, at(7) - 0.25, at(7)));
 
-  const kasHead = cam(kas.x, kas.y - 760 * KAS_S);
-  const guyHead = cam(guy.x, FLOOR - 800 * GUY_S);
   const coldTint = 0.14 * (1 - w);
   const zoomLine = li >= 4 && li <= 7;
 
@@ -901,37 +890,22 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
             position: "absolute",
             left: 0,
             right: 0,
-            top: cam(kas.x, kas.y - 340 * KAS_S).y - 105,
-            textAlign: "center",
-            fontFamily: SANS,
-            fontWeight: 900,
-            fontSize: 190,
-            color: "#fff",
-            WebkitTextStroke: `14px ${INK}`,
-            paintOrder: "stroke",
-            transform: `scale(${0.4 + 0.6 * pop(t, s0)}) rotate(-6deg)`,
+            top: cam(kas.x, kas.y - 340 * KAS_S).y - 120,
             opacity: win(t, s0, e0, 0.12),
+            transform: `rotate(-6deg) translateY(${(1 - sm(t, s0, s0 + 0.15)) * 20}px)`,
+            ...toonText(200, 22),
           }}
         >
           ÇAT!
         </div>
       ) : null}
 
-      {/* konuşma balonları */}
+      {/* konuşma altyazısı */}
       {line && (line.who === "kas" || line.who === "adam") ? (
-        <Bubble
-          line={line}
-          t={t}
-          s={s0}
-          e={e0}
-          tailX={line.who === "kas" ? kasHead.x : guyHead.x}
-          top={zoomLine ? 170 : 380}
-          speak={speak}
-          color={line.who === "kas" ? CORAL : BLUE}
-        />
+        <Caption i={li} line={line} t={t} s={s0} e={e0} top={zoomLine ? 200 : 360} color={line.who === "kas" ? "#ff6b7d" : "#5ad1ff"} />
       ) : null}
 
-      {/* ısınma çipi: hareket adı + ısı çubuğu */}
+      {/* ısınma: hareket adı + ısı çubuğu */}
       {li >= 10 && li <= 12 && line ? (
         <div
           style={{
@@ -942,69 +916,45 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 22,
-            opacity: win(t, at(10), at(13), 0.2),
+            gap: 18,
+            opacity: win(t, at(10), at(13), 0.25),
           }}
         >
-          <div
-            style={{
-              fontFamily: SANS,
-              fontWeight: 900,
-              fontSize: 92,
-              color: INK,
-              background: "#fff",
-              border: `9px solid ${INK}`,
-              borderRadius: 999,
-              padding: "14px 56px",
-              boxShadow: `0 12px 0 ${CORAL}`,
-              transform: `scale(${0.85 + 0.15 * pop(t, s0)})`,
-            }}
-          >
-            <span style={{ color: CORAL }}>{li - 9}.</span> {line.text}
+          <div style={{ ...toonText(52, 12), color: "#ffd166" }}>ISINMA {li - 9}/3</div>
+          <div key={li} style={{ ...toonText(118, 18), opacity: sm(t, s0, s0 + 0.2) }}>
+            {line.text}
           </div>
-          <div style={{ width: 640, height: 44, borderRadius: 22, border: `8px solid ${INK}`, background: "#fff", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: 600, height: 40, borderRadius: 20, border: `8px solid ${INK}`, background: "rgba(255,255,255,0.85)", overflow: "hidden", position: "relative", marginTop: 8 }}>
             <div
               style={{
                 position: "absolute",
                 inset: 0,
                 width: `${Math.round(warm * 100)}%`,
                 background: "linear-gradient(90deg, #6aa8ff, #ffb03a, #ff3b52)",
-                backgroundSize: "640px 100%",
+                backgroundSize: "600px 100%",
               }}
             />
-          </div>
-          <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 46, color: INK, background: "#fff", border: `6px solid ${INK}`, borderRadius: 999, padding: "6px 30px" }}>
-            {`${Math.round(1 + warm * 9)} dk`} · {warm > 0.95 ? "kas ısındı!" : "kas ısınıyor…"}
           </div>
         </div>
       ) : null}
 
-      {/* kapanış kartı */}
+      {/* kapanış */}
       {line?.who === "card" ? (
         <div
           style={{
             position: "absolute",
-            left: 70,
-            right: 70,
+            left: 50,
+            right: 50,
             top: 300,
-            opacity: win(t, s0, e0, 0.2),
-            transform: `scale(${0.92 + 0.08 * pop(t, s0)})`,
-            background: "#fff",
-            border: `10px solid ${INK}`,
-            borderRadius: 48,
-            boxShadow: `0 16px 0 ${CORAL}`,
-            padding: "40px 40px",
-            textAlign: "center",
-            fontFamily: SANS,
-            fontWeight: 900,
-            color: INK,
+            opacity: win(t, s0, e0, 0.3),
+            transform: `translateY(${(1 - sm(t, s0, s0 + 0.35)) * 18}px)`,
           }}
         >
-          <div style={{ fontSize: 96, lineHeight: 1.05 }}>
-            Isınma <span style={{ color: "#18a36a" }}>5 dakika.</span>
+          <div style={toonText(124, 20)}>
+            Isınma <span style={{ color: "#7be08f" }}>5 dakika.</span>
           </div>
-          <div style={{ fontSize: 70, lineHeight: 1.1, marginTop: 18, textWrap: "balance" }}>
-            Ama sakatlanırsan <span style={{ color: CORAL }}>aylarca</span> sürebilir.
+          <div style={{ ...toonText(82, 15), marginTop: 18 }}>
+            Ama sakatlanırsan <span style={{ color: "#ff6b7d" }}>aylarca</span> sürebilir.
           </div>
         </div>
       ) : null}

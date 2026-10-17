@@ -203,6 +203,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     olacak (şimdilik balon eski sesle aynı: "Abartma, iki dakikalık iş."). Kapanış kartı yazısı yeni
     ("Isınma 5 dakika. Ama sakatlanırsan aylarca sürebilir."), kasın sesi hâlâ eski cümle.
     Kullanıcı şimdilik **hak harcanmasını istemedi**.
+  - 4. geri bildirim: "sıp sıp geçişler" (pop/woosh efektleri, zıplayarak beliren balon/çipler) **sevilmedi** →
+    pop/woosh efektleri ve ölçekle zıplayan beliriş yok; her şey yumuşak solarak gelir. Konuşma balonları
+    "kitap gibi / çocuk eğitim videosu gibi" bulundu → kutusuz, kalın konturlu yuvarlak yazı (Baloo 2,
+    `ROUND`, `toonText`), söylenen kelime konuşanın renginde (karaoke, `Caption`). Yazı ile konuşma birebir
+    aynı olmalı (`say` alanı okunuş farkı için). Kullanıcı önce **sessiz hâli** görüp onaylayacak,
+    **seslendirme en son**. Yeni metin: "Daha uyanmadım… Buz gibiyim!", "Abartma istersen, ne olacak ki?",
+    "Gel, sana…" çıktı (sessiz an, `act`), "Isınmadan yüklenirsen ben de incinirim.", kapanışı kas okur.
+    Ses tonu: daha yumuşak, akıcı, samimi (ör. stability ~0.5, style ~0.2, speed ~0.95; `RATE` 1.0).
+    Seslendirince `isinma-ses.json` içine `version: "v2-yumusak"`, satır `text` ve kelime başlangıçları
+    (`words`) yazılmalı; sürüm tutmazsa süreler tahmini ve ses çalınmaz (sessiz taslak böyle üretilir).
   - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, 388 karakter kaldı; 13 Kasım 2026'da yenilenir): satırları yeniden
     seslendirme; gerekirse sadece değişen satırı üret.
 

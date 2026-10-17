@@ -1,6 +1,6 @@
 {
   "text": "Hop hop! Nereye böyle?",
-  "durationInSeconds": 2.08,
+  "durationInSeconds": 1.84,
   "words": [
     {
       "text": "Hop",
@@ -9,18 +9,18 @@
     },
     {
       "text": "hop!",
-      "start": 0.32,
-      "end": 0.88
+      "start": 0.4,
+      "end": 0.64
     },
     {
       "text": "Nereye",
-      "start": 0.96,
-      "end": 1.28
+      "start": 0.88,
+      "end": 1.2
     },
     {
       "text": "böyle?",
-      "start": 1.36,
-      "end": 2.08
+      "start": 1.24,
+      "end": 1.84
     }
   ]
 }

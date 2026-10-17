@@ -1,11 +1,11 @@
 {
   "text": "Beni sadece beş on dakika ısıt.",
-  "durationInSeconds": 2.56,
+  "durationInSeconds": 2.32,
   "words": [
     {
       "text": "Beni",
       "start": 0,
-      "end": 0.28
+      "end": 0.24
     },
     {
       "text": "sadece",
@@ -14,23 +14,23 @@
     },
     {
       "text": "beş",
-      "start": 1.04,
-      "end": 1.24
+      "start": 0.96,
+      "end": 1.12
     },
     {
       "text": "on",
-      "start": 1.28,
-      "end": 1.36
+      "start": 1.2,
+      "end": 1.24
     },
     {
       "text": "dakika",
-      "start": 1.44,
-      "end": 1.84
+      "start": 1.28,
+      "end": 1.68
     },
     {
       "text": "ısıt.",
-      "start": 1.92,
-      "end": 2.56
+      "start": 1.8,
+      "end": 2.32
     }
   ]
 }

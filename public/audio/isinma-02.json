@@ -1,26 +1,26 @@
 {
   "text": "Daha uyanmadım... Buz gibiyim!",
-  "durationInSeconds": 2.8,
+  "durationInSeconds": 2.56,
   "words": [
     {
       "text": "Daha",
       "start": 0,
-      "end": 0.32
+      "end": 0.24
     },
     {
       "text": "uyanmadım...",
-      "start": 0.4,
-      "end": 1.52
+      "start": 0.32,
+      "end": 1.44
     },
     {
       "text": "Buz",
-      "start": 1.6,
-      "end": 1.84
+      "start": 1.48,
+      "end": 1.68
     },
     {
       "text": "gibiyim!",
-      "start": 1.92,
-      "end": 2.8
+      "start": 1.76,
+      "end": 2.56
     }
   ]
 }

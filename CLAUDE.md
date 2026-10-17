@@ -219,6 +219,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     Metin `icerik/isinma.seslendirme.txt`; özet `python3 scripts/isinma-ses.py` → `isinma-ses.json` (sürüm
     `v2-yumusak`). Render: `--props='{"music":null}'` → ardından müzik ffmpeg ile (yukarıdaki komut) →
     `out/isinma-v2-paylas.mp4`.
+  - 5. geri bildirim: müzik "çok çocukça" → **Deep Urban (623)**; kasın sesi **erkek** olsun → 4 aday
+    (`public/audio/kas-aday-*`, `out/kas-ses-secimi.mp4`) arasından **Ses 3 = Arman Yılmazkurt** seçildi
+    (kas: 0.4/0.3/1.0); sporcu = **Chris** (0.3/0.45/1.05). Kasın ağzı konuşurken oynamıyordu → ağız artık
+    gerçek ses seviyesine bağlı (`isinma-ses.json` `env`, kare başına 0-1) ve her ifadede konuşurken açılır.
+    "Kas şeklini belli et, gerekirse kolundan konuşsun" → kasın uçlarında tendon yelpazesi + enine çizgiler;
+    sporcunun üst kollarında pazu kası (`Bicep`), kas konuşurken parlar. Son: `out/isinma-v4-paylas.mp4`
+    (müzik 623 ile ffmpeg karışımı).
 
 - **BoyUzama** — gençlere yönelik karikatür (~49 sn sessiz), tek anlatıcı. Apify ile TikTok/YouTube/Instagram tarandı:
   en çok izlenenler komedi skeci ve "annene göster" tarzı cevap videoları; Türkçede animasyonlu anlatım yok.
@@ -241,7 +248,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
   --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.
   Müzik `public/music/623.mp3` git'te yok (curl ile indir).
-- Önceki iş: **IsinmaKas** sesli sürüm (önce `python3 scripts/isinma-audio.py` (scipy gerekir), sonra render: `npx remotion render IsinmaKas out/isinma-sesli.mp4 --concurrency=4 --browser-executable=...`, ~12 dk, ardından -14 LUFS paylaşım kopyası).
+- Önceki iş: **IsinmaKas** v4 (kas Arman, sporcu Chris, müzik Deep Urban): render `--props='{"music":null}'` → müzik ffmpeg ile karıştırılır (IsinmaKas notlarındaki komut, 1076 yerine 623).
 - Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:

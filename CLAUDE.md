@@ -243,6 +243,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `public/audio/ses-*`). Kullanıcı **SES 4 = Chris** (`iP95p4xoKVk53GoZ742B`, eleven_v4, tr, 0.3/0.45/1.05) seçti. Seslendirme yapıldı. Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
   (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
 
+- **BoyUzama görünüm denemeleri (beğenilmedi):** 4 renk/stil teması (tebeşir, neon, pastel, çizgi roman;
+  `boyUzamaStyles.tsx`) ve 5 yeni stil denemesi (`StilOrnekleri`: piksel oyun, telefon mesajlaşma, anime,
+  izometrik 3B, kil). Kullanıcı hepsini beğenmedi: **"daha farklı bir karakter oluşturmalıyız"**. Sıradaki adım:
+  kullanıcıdan beğendiği karakter örneği (video/görsel) istemek; kodla çizilen basit karakterler yetersiz kalıyor.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —

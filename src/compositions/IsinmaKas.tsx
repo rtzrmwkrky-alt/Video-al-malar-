@@ -749,7 +749,7 @@ const FX: { at: number; id: number; v: number; lead?: number; dur?: number }[] =
 /** arka plan müziği seçenekleri (Mixkit, public/music/<id>.mp3): başlangıç noktası (sn) */
 const MUSIC: Record<string, number> = { "51": 2, "33": 0, "47": 2 };
 
-const Sounds: React.FC<{ music: string | null }> = ({ music }) => {
+const Sounds: React.FC<{ music: string | null; sicak: boolean }> = ({ music, sicak }) => {
   const { fps } = useVideoConfig();
   const vol = (f: number) => {
     const t = f / fps;
@@ -764,7 +764,7 @@ const Sounds: React.FC<{ music: string | null }> = ({ music }) => {
         if (!l) return null;
         return (
           <Sequence key={i} from={Math.round(at(i) * fps)} layout="none">
-            <Audio src={staticFile(`audio/${l.file}`)} startFrom={Math.round(l.lead * fps)} playbackRate={RATE} />
+            <Audio src={staticFile(`audio/${sicak ? l.file.replace(".mp3", "-sicak.mp3") : l.file}`)} startFrom={Math.round(l.lead * fps)} playbackRate={RATE} />
           </Sequence>
         );
       })}
@@ -782,11 +782,12 @@ const Sounds: React.FC<{ music: string | null }> = ({ music }) => {
   );
 };
 
-export type IsinmaProps = { music: string | null };
+/** sicak: seslerin ücretsiz "sıcak" işlenmiş hâli (biraz pes perde, sert tizler yumuşak, hafif oda sesi) */
+export type IsinmaProps = { music: string | null; sicak?: boolean };
 
 // ------------------------------------------------------------ ana kompozisyon
 
-export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
+export const IsinmaKas: React.FC<IsinmaProps> = ({ music, sicak = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -845,7 +846,7 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
 
   return (
     <AbsoluteFill lang="tr" style={{ background: "#ffe8d4", overflow: "hidden" }}>
-      <Sounds music={music} />
+      <Sounds music={music} sicak={sicak} />
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={`translate(540,960) scale(${cs}) translate(${-fx},${-fy})`}>
           <Gym t={t} warm={w} clockSpin={clockSpin} />

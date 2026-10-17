@@ -50,7 +50,7 @@ export const ISINMA_LINES: ILine[] = [
   { who: "chip", text: "Bacak sallama" },
   { who: "kas", text: "Oh be! Kan geldi, ısındım!", hl: ["ısındım!"] },
   { who: "kas", text: "Şimdi hazırım. Kaldır bakalım!", hl: ["kaldır"] },
-  { who: "card", text: "Isınma 5 dakika. Sakatlık aylarca." },
+  { who: "card", text: "Isınma 5 dakika. Ama sakatlanırsan aylarca sürebilir." },
   { who: "kas", text: "Yarın sabah da ısınıyoruz, tamam mı?", hl: ["yarın", "sabah"] },
   { who: "adam", text: "Söz!" },
 ];
@@ -1002,8 +1002,8 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
           <div style={{ fontSize: 96, lineHeight: 1.05 }}>
             Isınma <span style={{ color: "#18a36a" }}>5 dakika.</span>
           </div>
-          <div style={{ fontSize: 96, lineHeight: 1.05, marginTop: 14 }}>
-            Sakatlık <span style={{ color: CORAL }}>aylarca.</span>
+          <div style={{ fontSize: 70, lineHeight: 1.1, marginTop: 18, textWrap: "balance" }}>
+            Ama sakatlanırsan <span style={{ color: CORAL }}>aylarca</span> sürebilir.
           </div>
         </div>
       ) : null}

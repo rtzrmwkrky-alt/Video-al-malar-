@@ -228,7 +228,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ("Tanıdık geldi mi?", "dediğini duyar gibiyim"). "Hoca" değil **"koç"** kelimesi.
   Ses isteği: **sıcak, samimi, yapay zekâ olduğu belli olmayan** ses.
   Ses karşılaştırması yapıldı (`out/ses-karsilastirma.mp4`; SES 1 Sarah, 2 Jessica, 3 Will, 4 Chris; örnekler
-  `public/audio/ses-*`). Kullanıcının seçimi bekleniyor. Metin ~1150 harf; 168 harf kredi kaldı (13.11.2026'da yenilenir). Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
+  `public/audio/ses-*`). Kullanıcı **SES 4 = Chris** (`iP95p4xoKVk53GoZ742B`, eleven_v4, tr, 0.3/0.45/1.05) seçti. Metin ~1150 harf; 168 harf kredi kaldı (13.11.2026'da yenilenir). Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
   (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
 
 ## Son durum (yeni oturumda buradan devam)

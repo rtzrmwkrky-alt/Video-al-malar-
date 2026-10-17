@@ -1,0 +1,466 @@
+{
+ "text": "“Ağırlık kaldırma, boyun kısa kalır!” Tanıdık geldi mi?\nBunu ben de çok duydum. Gel, bir de kemiğin içine bakalım.\nKemiklerinin uçlarında büyüme plağı denen yumuşak bir bölge var.\nBuradaki hücreler bölünür, üst üste dizilir, sonra sertleşip kemiğe dönüşür. Boyun aslında böyle uzar.\nPeki sen ağırlık kaldırınca ne olur? Hiçbir şey durmaz. Hatta kemiklerin daha da sağlamlaşır.\nErgenlik bitince bu plak kendiliğinden kapanır. Röntgende o çizgi kaybolur, gider.\nNe zaman kapanacağına dambıl değil, genlerin ve hormonların karar verir.\n“İyi de halterciler hep kısa!” dediğini duyar gibiyim. Haklısın, ama halter onları kısaltmadı.\nKısa boylular bu sporda avantajlı, o yüzden halterde hep onları görüyoruz. Basketbol da kimseyi uzatmadı, uzunlar seçildi.\nAsıl tehlike ne, biliyor musun? Koçsuz, bozuk teknikle, kaldıramayacağın yükü zorlamak.\nO yüzden önce tekniği öğren, hafiften başla, mümkünse bir koçla çalış.\nBir de boyun için asıl iş gece yapılır: iyi uyku ve iyi beslenme.\nHadi, şimdi bu videoyu sana bunu söyleyene gönder.",
+ "words": [
+  {
+   "text": "“Ağırlık",
+   "start": 0.0,
+   "end": 0.3478260869565218
+  },
+  {
+   "text": "kaldırma,",
+   "start": 0.4173913043478261,
+   "end": 1.1130434782608696
+  },
+  {
+   "text": "boyun",
+   "start": 1.1826086956521742,
+   "end": 1.3217391304347827
+  },
+  {
+   "text": "kısa",
+   "start": 1.3913043478260871,
+   "end": 1.6
+  },
+  {
+   "text": "kalır!”",
+   "start": 1.6695652173913045,
+   "end": 2.1565217391304348
+  },
+  {
+   "text": "Tanıdık",
+   "start": 2.3652173913043484,
+   "end": 2.6434782608695655
+  },
+  {
+   "text": "geldi",
+   "start": 2.71304347826087,
+   "end": 2.9217391304347826
+  },
+  {
+   "text": "mi?",
+   "start": 2.991304347826087,
+   "end": 3.2695652173913046
+  },
+  {
+   "text": "Gel,",
+   "start": 3.4347826086956528,
+   "end": 3.852173913043479
+  },
+  {
+   "text": "bir",
+   "start": 3.8869565217391306,
+   "end": 3.9217391304347835
+  },
+  {
+   "text": "de",
+   "start": 3.991304347826088,
+   "end": 4.060869565217392
+  },
+  {
+   "text": "kemiğin",
+   "start": 4.095652173913043,
+   "end": 4.339130434782608
+  },
+  {
+   "text": "içine",
+   "start": 4.373913043478262,
+   "end": 4.547826086956522
+  },
+  {
+   "text": "bakalım.",
+   "start": 4.6173913043478265,
+   "end": 5.243478260869566
+  },
+  {
+   "text": "Kemiklerinin",
+   "start": 5.408695652173913,
+   "end": 5.860869565217392
+  },
+  {
+   "text": "uçlarında",
+   "start": 5.930434782608696,
+   "end": 6.417391304347827
+  },
+  {
+   "text": "büyüme",
+   "start": 6.626086956521739,
+   "end": 6.834782608695652
+  },
+  {
+   "text": "plağı",
+   "start": 6.904347826086957,
+   "end": 7.182608695652174
+  },
+  {
+   "text": "denen",
+   "start": 7.252173913043479,
+   "end": 7.4608695652173935
+  },
+  {
+   "text": "yumuşak",
+   "start": 7.530434782608697,
+   "end": 7.878260869565217
+  },
+  {
+   "text": "bir",
+   "start": 7.947826086956523,
+   "end": 8.017391304347829
+  },
+  {
+   "text": "bölge",
+   "start": 8.063478260869566,
+   "end": 8.22608695652174
+  },
+  {
+   "text": "var.",
+   "start": 8.295652173913046,
+   "end": 8.678260869565218
+  },
+  {
+   "text": "Buradaki",
+   "start": 8.843478260869565,
+   "end": 9.121739130434783
+  },
+  {
+   "text": "hücreler",
+   "start": 9.156521739130438,
+   "end": 9.539130434782614
+  },
+  {
+   "text": "bölünür,",
+   "start": 9.608695652173916,
+   "end": 10.234782608695655
+  },
+  {
+   "text": "üst",
+   "start": 10.33913043478261,
+   "end": 10.443478260869568
+  },
+  {
+   "text": "üste",
+   "start": 10.47826086956522,
+   "end": 10.65217391304348
+  },
+  {
+   "text": "dizilir,",
+   "start": 10.721739130434786,
+   "end": 11.347826086956525
+  },
+  {
+   "text": "sonra",
+   "start": 11.417391304347827,
+   "end": 11.626086956521743
+  },
+  {
+   "text": "sertleşip",
+   "start": 11.730434782608697,
+   "end": 12.113043478260872
+  },
+  {
+   "text": "kemiğe",
+   "start": 12.182608695652178,
+   "end": 12.460869565217395
+  },
+  {
+   "text": "dönüşür.",
+   "start": 12.495652173913047,
+   "end": 13.052173913043482
+  },
+  {
+   "text": "Boyun",
+   "start": 13.226086956521742,
+   "end": 13.50434782608696
+  },
+  {
+   "text": "aslında",
+   "start": 13.573913043478264,
+   "end": 13.852173913043481
+  },
+  {
+   "text": "böyle",
+   "start": 13.921739130434789,
+   "end": 14.130434782608697
+  },
+  {
+   "text": "uzar.",
+   "start": 14.200000000000006,
+   "end": 14.686956521739132
+  },
+  {
+   "text": "Peki",
+   "start": 14.852173913043485,
+   "end": 15.130434782608695
+  },
+  {
+   "text": "sen",
+   "start": 15.339130434782616,
+   "end": 15.547826086956524
+  },
+  {
+   "text": "ağırlık",
+   "start": 15.617391304347828,
+   "end": 15.826086956521744
+  },
+  {
+   "text": "kaldırınca",
+   "start": 15.895652173913051,
+   "end": 16.31304347826087
+  },
+  {
+   "text": "ne",
+   "start": 16.347826086956527,
+   "end": 16.382608695652177
+  },
+  {
+   "text": "olur?",
+   "start": 16.45217391304348,
+   "end": 16.869565217391305
+  },
+  {
+   "text": "Hiçbir",
+   "start": 17.078260869565227,
+   "end": 17.286956521739135
+  },
+  {
+   "text": "şey",
+   "start": 17.356521739130436,
+   "end": 17.42608695652174
+  },
+  {
+   "text": "durmaz.",
+   "start": 17.495652173913047,
+   "end": 17.982608695652175
+  },
+  {
+   "text": "Hatta",
+   "start": 18.121739130434786,
+   "end": 18.400000000000006
+  },
+  {
+   "text": "kemiklerin",
+   "start": 18.469565217391306,
+   "end": 18.886956521739137
+  },
+  {
+   "text": "daha",
+   "start": 18.95652173913044,
+   "end": 19.095652173913045
+  },
+  {
+   "text": "da",
+   "start": 19.16521739130435,
+   "end": 19.234782608695657
+  },
+  {
+   "text": "sağlamlaşır.",
+   "start": 19.30434782608696,
+   "end": 20.06956521739131
+  },
+  {
+   "text": "Ergenlik",
+   "start": 20.234782608695657,
+   "end": 20.65217391304348
+  },
+  {
+   "text": "bitince",
+   "start": 20.721739130434784,
+   "end": 21.06956521739131
+  },
+  {
+   "text": "bu",
+   "start": 21.27826086956522,
+   "end": 21.34782608695652
+  },
+  {
+   "text": "plak",
+   "start": 21.41739130434783,
+   "end": 21.626086956521746
+  },
+  {
+   "text": "kendiliğinden",
+   "start": 21.695652173913047,
+   "end": 22.18260869565218
+  },
+  {
+   "text": "kapanır.",
+   "start": 22.25217391304348,
+   "end": 22.739130434782616
+  },
+  {
+   "text": "Röntgende",
+   "start": 22.87826086956522,
+   "end": 23.365217391304352
+  },
+  {
+   "text": "o",
+   "start": 23.50434782608696,
+   "end": 23.573913043478264
+  },
+  {
+   "text": "çizgi",
+   "start": 23.60869565217392,
+   "end": 23.852173913043487
+  },
+  {
+   "text": "kaybolur,",
+   "start": 23.92173913043479,
+   "end": 24.408695652173922
+  },
+  {
+   "text": "gider.",
+   "start": 24.478260869565226,
+   "end": 24.82608695652174
+  },
+  {
+   "text": "Asıl",
+   "start": 24.991304347826084,
+   "end": 25.200000000000006
+  },
+  {
+   "text": "tehlike",
+   "start": 25.269565217391307,
+   "end": 25.54782608695652
+  },
+  {
+   "text": "ne,",
+   "start": 25.617391304347823,
+   "end": 25.71043478260869
+  },
+  {
+   "text": "biliyor",
+   "start": 25.733043478260875,
+   "end": 25.895652173913046
+  },
+  {
+   "text": "musun?",
+   "start": 25.96521739130435,
+   "end": 26.313043478260862
+  },
+  {
+   "text": "Koçsuz,",
+   "start": 26.45217391304348,
+   "end": 27.113043478260867
+  },
+  {
+   "text": "bozuk",
+   "start": 27.217391304347824,
+   "end": 27.426086956521733
+  },
+  {
+   "text": "teknikle,",
+   "start": 27.49565217391305,
+   "end": 28.08695652173913
+  },
+  {
+   "text": "kaldıramayacağın",
+   "start": 28.19130434782609,
+   "end": 28.956521739130434
+  },
+  {
+   "text": "yükü",
+   "start": 29.026086956521738,
+   "end": 29.165217391304342
+  },
+  {
+   "text": "zorlamak.",
+   "start": 29.23478260869566,
+   "end": 29.721739130434777
+  },
+  {
+   "text": "O",
+   "start": 29.88695652173913,
+   "end": 29.921739130434776
+  },
+  {
+   "text": "yüzden",
+   "start": 29.95652173913042,
+   "end": 30.234782608695646
+  },
+  {
+   "text": "önce",
+   "start": 30.373913043478264,
+   "end": 30.582608695652173
+  },
+  {
+   "text": "tekniği",
+   "start": 30.652173913043473,
+   "end": 30.930434782608685
+  },
+  {
+   "text": "öğren,",
+   "start": 31.0,
+   "end": 31.486956521739135
+  },
+  {
+   "text": "hafiften",
+   "start": 31.533043478260872,
+   "end": 31.90434782608695
+  },
+  {
+   "text": "başla,",
+   "start": 31.973913043478255,
+   "end": 32.53043478260869
+  },
+  {
+   "text": "mümkünse",
+   "start": 32.56521739130434,
+   "end": 32.94782608695652
+  },
+  {
+   "text": "bir",
+   "start": 33.01739130434782,
+   "end": 33.086956521739125
+  },
+  {
+   "text": "koçla",
+   "start": 33.156521739130426,
+   "end": 33.43478260869564
+  },
+  {
+   "text": "çalış.",
+   "start": 33.469565217391306,
+   "end": 33.95652173913043
+  },
+  {
+   "text": "Hadi,",
+   "start": 34.121739130434776,
+   "end": 34.53913043478259
+  },
+  {
+   "text": "şimdi",
+   "start": 34.60869565217391,
+   "end": 34.747826086956515
+  },
+  {
+   "text": "bu",
+   "start": 34.81739130434783,
+   "end": 34.886956521739116
+  },
+  {
+   "text": "videoyu",
+   "start": 34.99130434782608,
+   "end": 35.234782608695646
+  },
+  {
+   "text": "sana",
+   "start": 35.30434782608696,
+   "end": 35.513043478260855
+  },
+  {
+   "text": "bunu",
+   "start": 35.559130434782595,
+   "end": 35.65217391304346
+  },
+  {
+   "text": "söyleyene",
+   "start": 35.72173913043478,
+   "end": 36.06956521739131
+  },
+  {
+   "text": "gönder.",
+   "start": 36.10434782608695,
+   "end": 36.69565217391304
+  }
+ ],
+ "durationInSeconds": 36.81739130434782
+}

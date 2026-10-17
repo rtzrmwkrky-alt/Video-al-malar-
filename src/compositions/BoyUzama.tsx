@@ -39,15 +39,19 @@ export const BOY_LINES: Line[] = [
 ];
 
 export const BOY_TL = timeline(BOY_LINES, 0.3);
+
+/** kısa sürüm (~38 sn): orijinal satır numaralarından kalanlar; 1. satırın başı kesildi (scripts/boy-uzama-kisa.py) */
+const KISA_KEEP = [0, 1, 2, 3, 4, 5, 9, 10, 12];
+const KISA_LINES: Line[] = KISA_KEEP.map((i) => (i === 1 ? { text: "Gel, bir de kemiğin içine bakalım.", hl: ["kemiğin", "içine"], hold: 0.6 } : BOY_LINES[i]));
 export const BOY_TAIL = 1.6;
 
 type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
 
 /** seslendirmeden zaman çizelgesi: her satır ilk kelimesinin başladığı anda başlar */
-const voiceTimeline = (data: VoiceoverData): TL => {
+const voiceTimeline = (data: VoiceoverData, lines: Line[]): TL => {
   const offs: number[] = [];
   let o = 0;
-  for (const l of BOY_LINES) {
+  for (const l of lines) {
     offs.push(o);
     o += l.text.split(/\s+/).length;
   }
@@ -116,10 +120,10 @@ const Paper: React.FC<{ tint?: string }> = ({ tint }) => (
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-const Captions: React.FC<{ t: number; tl: TL; top?: number; cap: CapTheme }> = ({ t, tl, top = 1450, cap }) => {
+const Captions: React.FC<{ t: number; tl: TL; top?: number; cap: CapTheme; lines: Line[] }> = ({ t, tl, top = 1300, cap, lines }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
-  const line = BOY_LINES[i];
+  const line = lines[i];
   const words = line.text.split(/\s+/);
   const chunks: string[][] = [];
   for (let k = 0; k < words.length; ) {
@@ -674,8 +678,16 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const tl: TL = data ? voiceTimeline(data) : BOY_TL;
-  const L = tl.at;
+  const kisa = audioName.endsWith("-kisa");
+  const lines = kisa ? KISA_LINES : BOY_LINES;
+  const tl: TL = data ? voiceTimeline(data, lines) : BOY_TL;
+  /** sahneler orijinal satır numaralarıyla yazıldı; kısa sürümde çıkarılan satır, sonraki kalan satırın başına düşer */
+  const L = (i: number) => {
+    if (!kisa || !data) return tl.at(i);
+    const j = KISA_KEEP.findIndex((k) => k >= i);
+    return j < 0 ? tl.total : tl.at(j);
+  };
+  const has = (i: number) => !kisa || !data || KISA_KEEP.includes(i);
   const blink = blinkAt(t);
 
   // sahne aralıkları
@@ -693,7 +705,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
   const outro = t > L(12) - 0.3;
 
   // --- oda: genç dambıl çalışıyor
-  const curl = (1 - Math.cos(t * 3.6)) / 2;
+  const curl = (1 - Math.cos(t * 5)) / 2;
   // önce dambıl çalışır, annenin sözünden sonra eli çenesinde düşünür
   const thinkK = sm(t, L(0) + (L(1) - L(0)) * 0.45, L(0) + (L(1) - L(0)) * 0.45 + 0.4);
   const base = curlPose(curl * (1 - thinkK));
@@ -712,7 +724,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
   const strong = sm(t, L(4) + 1.2, L(4) + 2.2);
   const glow = win(t, L(2) + 0.2, L(3) + 0.4, 0.3);
   // hücre akışı: satır 3'te başlar, plak kapanırken durur
-  const flow = t > L(3) ? ((t - L(3)) * 0.6) % 1 : 0;
+  const flow = t > L(3) ? ((t - L(3)) * 0.9) % 1 : 0;
   const sleepy = t > L(5) + 0.3 ? 1 : 0;
   // satır 5'in ikinci cümlesi: röntgen
   const xr = tl.wordAt ? tl.wordAt(5, 6) - 0.1 : L(5) + (L(6) - L(5)) * 0.5;
@@ -825,7 +837,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
               </g>
             ) : null}
             {/* kararı veren: genler + hormonlar */}
-            {t > L(6) - 0.1 ? (
+            {has(6) && t > L(6) - 0.1 ? (
               <g>
                 <RedX x={540} y={480} s={110} p={sm(t, L(6) + 0.5, L(6) + 0.9)} />
                 <g transform={`translate(540,480) scale(${pop(t, L(6) + 0.05)})`}>
@@ -849,7 +861,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
         ) : null}
 
         {/* ===== 7–8: halterci ve basketbolcu ===== */}
-        {stage ? (
+        {stage && has(7) ? (
           <g opacity={win(t, L(7) - 0.3, L(9) + 0.3, 0.4)}>
             <rect x={0} y={FLOOR} width={1080} height={600} fill="#d9b98a" />
             <line x1={0} y1={FLOOR} x2={1080} y2={FLOOR} stroke={INK} strokeWidth={8} />
@@ -945,7 +957,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
         ) : null}
 
         {/* ===== 11: uyku + beslenme (kapıya dönüş) ===== */}
-        {sleep ? (
+        {sleep && has(11) ? (
           <g opacity={win(t, L(11) - 0.3, L(12) + 0.3, 0.4)}>
             <Room marks={3} />
             <DoorFrame marks={3} newMark={sm(t, L(11) + 0.4, L(11) + 0.9)} />
@@ -986,7 +998,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
       </svg>
 
       {Over ? <Over /> : null}
-      <Captions t={t} tl={tl} cap={th.cap} />
+      <Captions t={t} tl={tl} cap={th.cap} lines={lines} />
       {data ? (
         <>
           <Audio src={staticFile(`audio/${audioName}.mp3`)} />

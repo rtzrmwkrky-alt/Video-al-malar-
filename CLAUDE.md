@@ -190,7 +190,20 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   - Müzik + efektler hazır dosya değil: `python3 scripts/isinma-audio.py` (ukulele benzeri 120 bpm 16 sn döngü,
     woosh/boing/buz çatırtısı/ÇAT/bloop/ışıltı/metal/ding → `public/isinma/`, git'e girmez). Müzik ısınma
     bölümünde (konuşma yokken) biraz yükselir.
-  - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, Ekim sonunda ~470 karakter kaldı): satırları yeniden
+  - 3. geri bildirim: sentez müzik/efekt ve sesler beğenilmedi. Efektler artık Mixkit ücretsiz efektleri
+    (`public/isinma/sfx/<id>.mp3`, `FX` tablosu). Müzik: önce enerjik spor istendi, sonra **"sakin müzik"**;
+    **seçilen: Mixkit 1076 "Smile"** (`public/music/1076.mp3`, git'te yok:
+    `curl -o public/music/1076.mp3 https://assets.mixkit.co/music/1076/1076.mp3`). Müzik Remotion'da değil,
+    render sonrası ffmpeg ile konuşmanın altında kısılarak (sidechain) eklenir:
+    video `--props='{"music":null}'` ile render → `ffmpeg -i out/isinma-son.mp4 -i public/music/1076.mp3
+    -filter_complex "[0:a]asplit=2[v][key];[1:a]volume=0.32,afade=t=in:d=0.3[m];[m][key]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=400[md];[v][md]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1:LRA=11[a]"
+    -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k out/isinma-son-paylas.mp4`.
+  - **Bekleyen (kredi gelince, kullanıcıya sorarak):** kullanıcı konuşan seslerin tonunu/tınısını beğenmedi →
+    tüm satırlar yeni seslerle (ücretli plan olursa Türk sesler). Sporcu repliği "Abartma istersen, ne olacak ki?"
+    olacak (şimdilik balon eski sesle aynı: "Abartma, iki dakikalık iş."). Kapanış kartı yazısı yeni
+    ("Isınma 5 dakika. Ama sakatlanırsan aylarca sürebilir."), kasın sesi hâlâ eski cümle.
+    Kullanıcı şimdilik **hak harcanmasını istemedi**.
+  - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, 388 karakter kaldı; 13 Kasım 2026'da yenilenir): satırları yeniden
     seslendirme; gerekirse sadece değişen satırı üret.
 
 - **BoyUzama** — gençlere yönelik karikatür (~49 sn sessiz), tek anlatıcı. Apify ile TikTok/YouTube/Instagram tarandı:

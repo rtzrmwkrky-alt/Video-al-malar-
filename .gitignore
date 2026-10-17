@@ -13,3 +13,6 @@ public/music/
 public/wilma/*.wav
 public/wilma/grain-*.png
 public/wilma/kagit.jpg
+
+# scripts/isinma-audio.py ile yeniden üretilir
+public/isinma/*.wav

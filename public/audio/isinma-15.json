@@ -1,0 +1,31 @@
+{
+  "text": "Isınma beş dakika... sakatlık aylarca.",
+  "durationInSeconds": 3.52,
+  "words": [
+    {
+      "text": "Isınma",
+      "start": 0,
+      "end": 0.48
+    },
+    {
+      "text": "beş",
+      "start": 0.56,
+      "end": 0.72
+    },
+    {
+      "text": "dakika...",
+      "start": 0.76,
+      "end": 1.76
+    },
+    {
+      "text": "sakatlık",
+      "start": 1.84,
+      "end": 2.4
+    },
+    {
+      "text": "aylarca.",
+      "start": 2.56,
+      "end": 3.52
+    }
+  ]
+}

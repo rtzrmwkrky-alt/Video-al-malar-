@@ -5,12 +5,14 @@
  * soluk pembeden canlı kırmızıya döner, kaldırış rahat olur. Sonunda sporcu "Söz!" der ve ertesi sabah
  * yine halterlere koşar → video başa sarınca kesintisiz devam eder (loop).
  * Pozlar satır başına tanımlı (`guyAt`/`kasAt`); satır geçişlerinde yumuşak harmanlanır (`BLEND`).
- * Zamanlama satırlardan (`timeline`); ses gelince sadece zamanlar değişir.
+ * Zamanlama seslendirmeden: her satır, konuşmanın süresi (`isinma-ses.json`, `RATE` hızında) + kısa ara kadar sürer.
+ * Ses: `public/audio/isinma-NN.mp3` (kas = Jessica, sporcu = Liam), müzik/efekt `public/isinma/` (scripts/isinma-audio.py).
  */
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { SANS, loadFonts } from "../fonts";
-import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
+import { type Line, pop as rawPop, sm, win } from "../ornek/common";
+import SES from "./isinma-ses.json";
 import {
   INK,
   KasKarakter,
@@ -38,17 +40,17 @@ export const ISINMA_LINES: ILine[] = [
   { who: "kas", text: "Ama ben daha uyanmadım… Buz gibiyim!", hl: ["buz"] },
   { who: "adam", text: "Abartma, iki dakikalık iş.", hl: ["iki", "dakikalık"] },
   { who: "kas", text: "Gel, sana bir şey göstereyim." },
-  { who: "kas", text: "Bu lastik soğukken çekilirse…", hl: ["soğukken"], hold: 0.3 },
-  { who: "fx", text: "ÇAT!", hold: -0.4 },
-  { who: "kas", text: "Isınmadan yüklenirsen ben de böyle incinebilirim.", hl: ["incinebilirim."], hold: 0.2 },
+  { who: "kas", text: "Bu lastik soğukken çekilirse…", hl: ["soğukken"] },
+  { who: "fx", text: "ÇAT!" },
+  { who: "kas", text: "Isınmadan yüklenirsen ben de böyle incinebilirim.", hl: ["incinebilirim."] },
   { who: "adam", text: "Peki ne yapayım?" },
   { who: "kas", text: "Beni sadece 5-10 dakika ısıt.", hl: ["5-10", "dakika", "ısıt."] },
-  { who: "chip", text: "Hafif koşu", hold: 0.3 },
-  { who: "chip", text: "Kol çevirme", hold: 0.3 },
-  { who: "chip", text: "Bacak sallama", hold: 0.3 },
+  { who: "chip", text: "Hafif koşu" },
+  { who: "chip", text: "Kol çevirme" },
+  { who: "chip", text: "Bacak sallama" },
   { who: "kas", text: "Oh be! Kan geldi, ısındım!", hl: ["ısındım!"] },
-  { who: "kas", text: "Şimdi hazırım. Kaldır bakalım!", hl: ["kaldır"], hold: 0.8 },
-  { who: "card", text: "Isınma 5 dakika. Sakatlık aylarca.", hold: 0.3 },
+  { who: "kas", text: "Şimdi hazırım. Kaldır bakalım!", hl: ["kaldır"] },
+  { who: "card", text: "Isınma 5 dakika. Sakatlık aylarca." },
   { who: "kas", text: "Yarın sabah da ısınıyoruz, tamam mı?", hl: ["yarın", "sabah"] },
   { who: "adam", text: "Söz!" },
 ];
@@ -57,7 +59,41 @@ export const ISINMA_LINES: ILine[] = [
 const LOOP_END = 0.63;
 const LOOP_START = 0.77;
 
-export const ISINMA_TL = timeline(ISINMA_LINES, LOOP_END);
+/** seslendirme hızı (sesler biraz hızlandırılır; perde korunur) */
+const RATE = 1.08;
+const GAP = 0.25;
+type SesLine = { file: string; lead: number; speech: number };
+const sesOf = (i: number) => (SES.lines as Record<string, SesLine>)[String(i)];
+/** satırın konuşma süresi (video saniyesi) */
+const speechOf = (i: number) => {
+  const l = sesOf(i);
+  return l ? (l.speech - l.lead) / RATE : 0;
+};
+const FIXED: Record<number, number> = { 6: 1.1, 10: 1.7, 11: 1.7, 12: 1.7 };
+const EXTRA: Record<number, number> = { 5: 0.15, 14: 0.3, 15: 0.4, 17: 0.2 };
+
+const buildTimeline = () => {
+  const starts: number[] = [];
+  let acc = 0.4;
+  ISINMA_LINES.forEach((_, i) => {
+    starts.push(acc);
+    acc += (FIXED[i] ?? Math.max(0.9, speechOf(i) + GAP)) + (EXTRA[i] ?? 0);
+  });
+  const total = acc + LOOP_END;
+  return {
+    starts,
+    total,
+    frames: Math.ceil(total * 30),
+    at: (i: number) => (i >= starts.length ? acc : starts[i]),
+    idx: (t: number) => {
+      let i = -1;
+      while (i + 1 < starts.length && t >= starts[i + 1]) i++;
+      return i;
+    },
+  };
+};
+
+export const ISINMA_TL = buildTimeline();
 
 const CORAL = "#ff4f64";
 const BLUE = "#2f6bff";
@@ -69,6 +105,9 @@ const GUY_X = 280;
 const GUY_S = 0.95;
 const KAS_X = 800;
 const KAS_S = 0.92;
+/** geniş plan ölçeği (halter ve karakterler kadraja rahat sığsın) */
+const BASE = 0.88;
+const BASE_FY = 1000;
 /** satır geçişinde poz harmanlama süresi (sn) */
 const BLEND = 0.4;
 
@@ -162,7 +201,7 @@ const Gym: React.FC<{ t: number; warm: number; clockSpin: number }> = ({ t, warm
 
 // ------------------------------------------------------------ halter
 
-const Barbell: React.FC<{ x: number; y: number; w?: number }> = ({ x, y, w = 340 }) => (
+const Barbell: React.FC<{ x: number; y: number; w?: number }> = ({ x, y, w = 300 }) => (
   <g transform={`translate(${x},${y})`}>
     <rect x={-w} y={-9} width={w * 2} height={18} rx={9} fill="#cfd6e4" stroke={INK} strokeWidth={6} />
     {[-1, 1].map((s) => (
@@ -333,13 +372,14 @@ const Bubble: React.FC<{
   tailX: number;
   top: number;
   color: string;
+  speak: number;
   shout?: boolean;
-}> = ({ line, t, s, e, tailX, top, color, shout }) => {
+}> = ({ line, t, s, e, tailX, top, color, speak, shout }) => {
   const o = win(t, s, e, 0.14);
   if (o <= 0) return null;
   const p = pop(t, s);
   const words = line.text.split(/\s+/);
-  const reveal = interpolate(t, [s, s + Math.min(0.7, words.length * 0.12)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const reveal = interpolate(t, [s, s + Math.max(0.3, speak * 0.8)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const shown = Math.ceil(words.length * reveal);
   const hl = (line.hl ?? []).map(norm);
   const half = Math.min(470, (shout ? 960 : Math.min(820, line.text.length * 40 + 110)) / 2);
@@ -464,7 +504,7 @@ const at = TL.at;
 
 /** sporcunun salona koşusu; p: 0 → 1 (sondan başa kesintisiz) */
 const walkGuy = (p: number): GuyState => {
-  const x = interpolate(p, [0, 0.8, 1], [-170, GUY_X - 30, GUY_X], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const x = interpolate(p, [0, 0.8, 1], [-300, GUY_X - 30, GUY_X], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const ph = p * Math.PI * 5;
   const amp = 1 - sm(p, 0.75, 1);
   return {
@@ -688,6 +728,50 @@ const blended = <S,>(fn: (li: number, t: number) => S, mixFn: (a: S, b: S, k: nu
   return k >= 1 ? cur : mixFn(fn(li - 1, t), cur, k);
 };
 
+// ------------------------------------------------------------ ses: seslendirme + müzik + efektler
+
+const FX: { at: number; src: string; v: number }[] = [
+  { at: 0.12, src: "woosh", v: 0.45 },
+  { at: 0.58, src: "boing", v: 0.35 },
+  { at: at(5) + 0.05, src: "buz", v: 0.55 },
+  { at: at(6), src: "cat", v: 0.9 },
+  { at: at(10), src: "bloop", v: 0.45 },
+  { at: at(11), src: "bloop", v: 0.45 },
+  { at: at(12), src: "bloop", v: 0.45 },
+  { at: at(13) - 0.05, src: "woosh", v: 0.35 },
+  { at: at(13), src: "isilti", v: 0.4 },
+  { at: at(14) + 0.42, src: "metal", v: 0.4 },
+  { at: at(15), src: "ding", v: 0.4 },
+  { at: at(16) + 1.05, src: "metal", v: 0.35 },
+];
+
+const Sounds: React.FC = () => {
+  const { fps } = useVideoConfig();
+  const montage = (f: number) => {
+    const t = f / fps;
+    return 0.09 + 0.1 * sm(t, at(10) - 0.2, at(10) + 0.3) * (1 - sm(t, at(13) - 0.3, at(13) + 0.2));
+  };
+  return (
+    <>
+      <Audio src={staticFile("isinma/muzik.wav")} loop volume={montage} />
+      {ISINMA_LINES.map((_, i) => {
+        const l = sesOf(i);
+        if (!l) return null;
+        return (
+          <Sequence key={i} from={Math.round(at(i) * fps)} layout="none">
+            <Audio src={staticFile(`audio/${l.file}`)} startFrom={Math.round(l.lead * fps)} playbackRate={RATE} />
+          </Sequence>
+        );
+      })}
+      {FX.map((f, i) => (
+        <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} layout="none">
+          <Audio src={staticFile(`isinma/${f.src}.wav`)} volume={f.v} />
+        </Sequence>
+      ))}
+    </>
+  );
+};
+
 // ------------------------------------------------------------ ana kompozisyon
 
 export const IsinmaKas: React.FC = () => {
@@ -706,9 +790,9 @@ export const IsinmaKas: React.FC = () => {
 
   // ---------- kamera: lastik sahnesinde kasa yaklaş
   const zoomIn = sm(t, at(4) + 0.2, at(4) + 1.0) * (1 - sm(t, at(8) - 0.1, at(8) + 0.6));
-  const cs = 1 + 0.25 * zoomIn;
-  const fx = 540 + (KAS_X + 60 - 540) * zoomIn;
-  const fy = 960 + (1180 - 960) * zoomIn;
+  const cs = lerp(BASE, 1.15, zoomIn);
+  const fx = lerp(540, KAS_X + 60, zoomIn);
+  const fy = lerp(BASE_FY, 1180, zoomIn);
   const cam = (x: number, y: number) => ({ x: (x - fx) * cs + 540, y: (y - fy) * cs + 960 });
 
   const guy = loopEnd ? walkGuy(((t - (END - LOOP_END)) / LOOP_END) * 0.45) : blended(guyAt, lerpGuy, t);
@@ -720,8 +804,9 @@ export const IsinmaKas: React.FC = () => {
   const s0 = li >= 0 ? at(li) : 0;
   const e0 = li >= 0 ? at(li + 1) : 0;
   const lt = t - s0;
-  const talkAmt = line && lt < (e0 - s0) * 0.75 ? Math.abs(Math.sin(lt * 13)) : 0;
-  const kasTalk = line?.who === "kas" ? talkAmt : 0;
+  const speak = li >= 0 ? speechOf(li) : 0;
+  const talkAmt = line && lt < speak ? Math.abs(Math.sin(lt * 13)) * (0.6 + 0.4 * Math.abs(Math.sin(lt * 5.3))) : 0;
+  const kasTalk = line?.who === "kas" || line?.who === "card" ? talkAmt : 0;
   const guyTalk = line?.who === "adam" ? talkAmt : 0;
 
   // ---------- buz lastik (ellerin arasında)
@@ -748,6 +833,7 @@ export const IsinmaKas: React.FC = () => {
 
   return (
     <AbsoluteFill lang="tr" style={{ background: "#ffe8d4", overflow: "hidden" }}>
+      <Sounds />
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={`translate(540,960) scale(${cs}) translate(${-fx},${-fy})`}>
           <Gym t={t} warm={w} clockSpin={clockSpin} />
@@ -826,7 +912,8 @@ export const IsinmaKas: React.FC = () => {
           s={s0}
           e={e0}
           tailX={line.who === "kas" ? kasHead.x : guyHead.x}
-          top={zoomLine ? 170 : 430}
+          top={zoomLine ? 170 : 380}
+          speak={speak}
           color={line.who === "kas" ? CORAL : BLUE}
         />
       ) : null}

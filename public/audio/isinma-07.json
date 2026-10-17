@@ -1,0 +1,36 @@
+{
+  "text": "Isınmadan yüklenirsen, ben de böyle incinebilirim.",
+  "durationInSeconds": 3.36,
+  "words": [
+    {
+      "text": "Isınmadan",
+      "start": 0,
+      "end": 0.64
+    },
+    {
+      "text": "yüklenirsen,",
+      "start": 0.72,
+      "end": 1.68
+    },
+    {
+      "text": "ben",
+      "start": 1.76,
+      "end": 1.92
+    },
+    {
+      "text": "de",
+      "start": 1.96,
+      "end": 2
+    },
+    {
+      "text": "böyle",
+      "start": 2.08,
+      "end": 2.32
+    },
+    {
+      "text": "incinebilirim.",
+      "start": 2.44,
+      "end": 3.36
+    }
+  ]
+}

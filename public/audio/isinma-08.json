@@ -1,0 +1,21 @@
+{
+  "text": "Peki ne yapayım?",
+  "durationInSeconds": 1.12,
+  "words": [
+    {
+      "text": "Peki",
+      "start": 0,
+      "end": 0.24
+    },
+    {
+      "text": "ne",
+      "start": 0.32,
+      "end": 0.4
+    },
+    {
+      "text": "yapayım?",
+      "start": 0.44,
+      "end": 1.12
+    }
+  ]
+}

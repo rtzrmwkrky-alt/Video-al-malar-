@@ -1,0 +1,26 @@
+{
+  "text": "Şimdi hazırım. Kaldır bakalım!",
+  "durationInSeconds": 2.24,
+  "words": [
+    {
+      "text": "Şimdi",
+      "start": 0,
+      "end": 0.32
+    },
+    {
+      "text": "hazırım.",
+      "start": 0.36,
+      "end": 0.96
+    },
+    {
+      "text": "Kaldır",
+      "start": 1.12,
+      "end": 1.44
+    },
+    {
+      "text": "bakalım!",
+      "start": 1.52,
+      "end": 2.24
+    }
+  ]
+}

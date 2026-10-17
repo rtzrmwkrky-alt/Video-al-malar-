@@ -1,0 +1,74 @@
+{
+ "lines": {
+  "0": {
+   "file": "isinma-00.mp3",
+   "lead": 0.0,
+   "speech": 1.663
+  },
+  "1": {
+   "file": "isinma-01.mp3",
+   "lead": 0.0,
+   "speech": 1.774
+  },
+  "2": {
+   "file": "isinma-02.mp3",
+   "lead": 0.0,
+   "speech": 3.133
+  },
+  "3": {
+   "file": "isinma-03.mp3",
+   "lead": 0.087,
+   "speech": 2.109
+  },
+  "4": {
+   "file": "isinma-04.mp3",
+   "lead": 0.0,
+   "speech": 1.79
+  },
+  "5": {
+   "file": "isinma-05.mp3",
+   "lead": 0.0,
+   "speech": 2.054
+  },
+  "7": {
+   "file": "isinma-07.mp3",
+   "lead": 0.0,
+   "speech": 3.194
+  },
+  "8": {
+   "file": "isinma-08.mp3",
+   "lead": 0.0,
+   "speech": 0.866
+  },
+  "9": {
+   "file": "isinma-09.mp3",
+   "lead": 0.0,
+   "speech": 2.237
+  },
+  "13": {
+   "file": "isinma-13.mp3",
+   "lead": 0.0,
+   "speech": 2.8
+  },
+  "14": {
+   "file": "isinma-14.mp3",
+   "lead": 0.0,
+   "speech": 1.99
+  },
+  "15": {
+   "file": "isinma-15.mp3",
+   "lead": 0.0,
+   "speech": 3.29
+  },
+  "16": {
+   "file": "isinma-16.mp3",
+   "lead": 0.0,
+   "speech": 2.207
+  },
+  "17": {
+   "file": "isinma-17.mp3",
+   "lead": 0.0,
+   "speech": 0.674
+  }
+ }
+}

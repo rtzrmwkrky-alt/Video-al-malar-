@@ -1,0 +1,26 @@
+{
+  "text": "Abartma, iki dakikalık iş.",
+  "durationInSeconds": 2.4,
+  "words": [
+    {
+      "text": "Abartma,",
+      "start": 0,
+      "end": 0.96
+    },
+    {
+      "text": "iki",
+      "start": 1.08,
+      "end": 1.2
+    },
+    {
+      "text": "dakikalık",
+      "start": 1.253,
+      "end": 1.76
+    },
+    {
+      "text": "iş.",
+      "start": 1.92,
+      "end": 2.4
+    }
+  ]
+}

@@ -179,11 +179,21 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
     ben de böyle incinebilirim." → "Peki ne yapayım?" → "Beni sadece 5-10 dakika ısıt." → 3 ısınma hareketi →
     "Oh be! Kan geldi, ısındım!" → kaldırış → kart → "Yarın sabah da ısınıyoruz, tamam mı?" → "Söz!".
   - **Döngü (loop) kullanıcı isteği:** son 0.63 sn sporcu halterlere koşar, video aynı koşunun devamıyla başlar
-    (`LOOP_END`/`LOOP_START`). Konuşmalar balonlarda (altyazı yerine). Onaylanırsa ses/efekt konuşulacak.
+    (`LOOP_END`/`LOOP_START`). Konuşmalar balonlarda (altyazı yerine).
+  - 2. taslak onaylandı ("daha iyi"); "halter yandan kesilmiş, alanı genişlet" → geniş plan ölçeği `BASE` 0.88.
+  - **Seslendirildi:** `icerik/isinma.seslendirme.txt` → satır başına ayrı dosya `public/audio/isinma-NN.mp3`
+    (kas = Jessica `cgSgspJ2msm6clMCkdW9`, sporcu = Liam `TX3LPaxmHKxFdv7VOQHJ`; eleven_v4, tr, 0.3/0.45/1.05).
+    Videoda `RATE` 1.08 hızla çalınır. Satır süreleri konuşma süresinden (`src/compositions/isinma-ses.json`,
+    sessizlik ölçülerek `scripts/isinma-audio.py` yazar) → toplam ~39 sn. Kart cümlesini de kas okur.
+  - Müzik + efektler hazır dosya değil: `python3 scripts/isinma-audio.py` (ukulele benzeri 120 bpm 16 sn döngü,
+    woosh/boing/buz çatırtısı/ÇAT/bloop/ışıltı/metal/ding → `public/isinma/`, git'e girmez). Müzik ısınma
+    bölümünde (konuşma yokken) biraz yükselir.
+  - **ElevenLabs kredisi bitmek üzere** (ücretsiz plan, Ekim sonunda ~470 karakter kaldı): satırları yeniden
+    seslendirme; gerekirse sadece değişen satırı üret.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **IsinmaKas** sessiz taslak (render: `npx remotion render IsinmaKas out/isinma-taslak-2.mp4 --concurrency=4 --browser-executable=...`, ~10 dk). Kullanıcı izleyip onay verecek; sonra seslendirme (kas + sporcu iki ayrı hazır ses) ve efektler.
+- Son iş: **IsinmaKas** sesli sürüm (önce `python3 scripts/isinma-audio.py` (scipy gerekir), sonra render: `npx remotion render IsinmaKas out/isinma-sesli.mp4 --concurrency=4 --browser-executable=...`, ~12 dk, ardından -14 LUFS paylaşım kopyası).
 - Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —
   yeniden seslendirme gerekmez, kredi harcama. Render:

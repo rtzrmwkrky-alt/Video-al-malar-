@@ -1,0 +1,26 @@
+{
+  "text": "Bu lastik soğukken çekilirse...",
+  "durationInSeconds": 2.32,
+  "words": [
+    {
+      "text": "Bu",
+      "start": 0,
+      "end": 0.16
+    },
+    {
+      "text": "lastik",
+      "start": 0.32,
+      "end": 0.64
+    },
+    {
+      "text": "soğukken",
+      "start": 0.72,
+      "end": 1.2
+    },
+    {
+      "text": "çekilirse...",
+      "start": 1.32,
+      "end": 2.32
+    }
+  ]
+}

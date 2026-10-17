@@ -38,7 +38,7 @@ export const ISINMA_LINES: ILine[] = [
   { who: "kas", text: "Hop hop! Nereye böyle?", hl: ["nereye"] },
   { who: "adam", text: "Halter kaldıracağım. Ne var?", hl: ["halter"] },
   { who: "kas", text: "Ama ben daha uyanmadım… Buz gibiyim!", hl: ["buz"] },
-  { who: "adam", text: "Abartma, iki dakikalık iş.", hl: ["iki", "dakikalık"] },
+  { who: "adam", text: "Abartma istersen, ne olacak ki?", hl: ["abartma"] },
   { who: "kas", text: "Gel, sana bir şey göstereyim." },
   { who: "kas", text: "Bu lastik soğukken çekilirse…", hl: ["soğukken"] },
   { who: "fx", text: "ÇAT!" },

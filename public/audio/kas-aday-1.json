@@ -1,0 +1,46 @@
+{
+  "text": "Hop hop! Nereye böyle? Daha uyanmadım... Buz gibiyim!",
+  "durationInSeconds": 4.4,
+  "words": [
+    {
+      "text": "Hop",
+      "start": 0,
+      "end": 0.24
+    },
+    {
+      "text": "hop!",
+      "start": 0.4,
+      "end": 0.72
+    },
+    {
+      "text": "Nereye",
+      "start": 0.88,
+      "end": 1.2
+    },
+    {
+      "text": "böyle?",
+      "start": 1.24,
+      "end": 1.8
+    },
+    {
+      "text": "Daha",
+      "start": 2,
+      "end": 2.16
+    },
+    {
+      "text": "uyanmadım...",
+      "start": 2.24,
+      "end": 3.28
+    },
+    {
+      "text": "Buz",
+      "start": 3.36,
+      "end": 3.6
+    },
+    {
+      "text": "gibiyim!",
+      "start": 3.64,
+      "end": 4.4
+    }
+  ]
+}

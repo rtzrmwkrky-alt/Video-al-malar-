@@ -11,6 +11,8 @@ import os
 import re
 import subprocess
 
+import numpy as np
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VERSION = "v2-yumusak"
 AUDIO = os.path.join(ROOT, "public", "audio")
@@ -31,7 +33,14 @@ for row in open(os.path.join(ROOT, "icerik", "isinma.seslendirme.txt"), encoding
     speech_end = starts[-1] if starts and (len(ends) < len(starts) or ends[-1] >= dur - 0.1) else dur
     lead = ends[0] if starts and starts[0] < 0.01 else 0.0
     words = [w["start"] for w in json.load(open(os.path.join(AUDIO, f"isinma-{n}.json"), encoding="utf8"))["words"]]
+    # ağız hareketi için ses zarfı: video karesi başına (30 fps) 0-1 seviye
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", mp3, "-ac", "1", "-ar", "24000", "-f", "s16le", "-"], capture_output=True).stdout
+    x = np.frombuffer(pcm, dtype=np.int16).astype(np.float64) / 32768
+    hop = 24000 // 30
+    rms = np.array([np.sqrt(np.mean(x[i : i + hop] ** 2)) for i in range(0, len(x), hop)])
+    env = np.clip((20 * np.log10(rms + 1e-6) + 45) / 30, 0, 1)
     lines[str(int(n))] = {
+        "env": [round(float(v), 2) for v in env],
         "file": f"isinma-{n}.mp3",
         "lead": round(lead, 3),
         "speech": round(speech_end, 3),
@@ -41,4 +50,4 @@ for row in open(os.path.join(ROOT, "icerik", "isinma.seslendirme.txt"), encoding
 out = os.path.join(ROOT, "src", "compositions", "isinma-ses.json")
 json.dump({"version": VERSION, "lines": lines}, open(out, "w", encoding="utf8"), ensure_ascii=False, indent=1)
 for k, v in lines.items():
-    print(k, v["lead"], v["speech"], v["text"])
+    print(k, v["lead"], v["speech"], v["text"], len(v["env"]))

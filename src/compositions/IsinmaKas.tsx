@@ -73,7 +73,7 @@ const RATE = 1.0;
 const GAP = 0.15;
 /** seslendirme sürümü: isinma-ses.json bununla aynı değilse sesler eski kabul edilir → süreler tahmini, ses çalınmaz */
 const VOICE_VERSION = "v2-yumusak";
-type SesLine = { file: string; lead: number; speech: number; text?: string; words?: number[] };
+type SesLine = { file: string; lead: number; speech: number; text?: string; words?: number[]; env?: number[] };
 const SES_T = SES as { version?: string; lines: Record<string, SesLine> };
 const VOICED = SES_T.version === VOICE_VERSION;
 const sesOf = (i: number): SesLine | undefined => {
@@ -808,7 +808,17 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
   const e0 = li >= 0 ? at(li + 1) : 0;
   const lt = t - s0;
   const speak = li >= 0 ? speechOf(li) : 0;
-  const talkAmt = line && lt < speak ? Math.abs(Math.sin(lt * 13)) * (0.6 + 0.4 * Math.abs(Math.sin(lt * 5.3))) : 0;
+  // ağız: gerçek sesin seviyesine göre (ses yoksa tahmini açılıp kapanma)
+  const env = li >= 0 ? sesOf(li)?.env : undefined;
+  const envAt = (k: number) => (env ? env[Math.max(0, Math.min(env.length - 1, k))] ?? 0 : 0);
+  const fk = li >= 0 ? ((sesOf(li)?.lead ?? 0) + lt * RATE) * 30 : 0;
+  const talkAmt = !line
+    ? 0
+    : env
+      ? Math.max(envAt(Math.floor(fk)), envAt(Math.floor(fk) + 1) * 0.6)
+      : lt < speak
+        ? Math.abs(Math.sin(lt * 13)) * (0.6 + 0.4 * Math.abs(Math.sin(lt * 5.3)))
+        : 0;
   const kasTalk = line?.who === "kas" || line?.who === "card" ? talkAmt : 0;
   const guyTalk = line?.who === "adam" ? talkAmt : 0;
 
@@ -845,6 +855,11 @@ export const IsinmaKas: React.FC<IsinmaProps> = ({ music }) => {
               blink={blinkAt(t, 2)}
               look={guy.look}
               talk={guyTalk}
+              bicep={{
+                glow: loopEnd ? 0 : kasTalk > 0 ? 0.55 + 0.45 * kasTalk : line?.who === "kas" || line?.who === "card" ? 0.4 : 0,
+                color: w > 0.5 ? "#e8404f" : "#e3909c",
+                dark: w > 0.5 ? "#a81e33" : "#a85a6e",
+              }}
               held={guy.bar !== null ? <Barbell x={0} y={guy.bar} /> : null}
             />
           </g>

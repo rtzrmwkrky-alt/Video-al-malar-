@@ -42,7 +42,9 @@ const Limb: React.FC<{
   f1: string;
   f2: string;
   end?: React.ReactNode;
-}> = ({ x, y, s, L1, L2, w1, w2, f1, f2, end }) => (
+  /** üst parçanın üstüne çizilecek şey (ör. pazu kası), parçanın kendi koordinatında */
+  over1?: React.ReactNode;
+}> = ({ x, y, s, L1, L2, w1, w2, f1, f2, end, over1 }) => (
   <g transform={`translate(${x},${y}) rotate(${s.a})`}>
     <g transform={`translate(0,${L1}) rotate(${s.e})`}>
       <rect x={-w2 / 2} y={-w2 / 2} width={w2} height={L2 + w2 / 2} rx={w2 / 2} fill={f2} stroke={INK} strokeWidth={SW} />
@@ -50,6 +52,19 @@ const Limb: React.FC<{
     </g>
     <rect x={-w1 / 2} y={-w1 / 2} width={w1} height={L1 + w1 / 2} rx={w1 / 2} fill={f1} stroke={INK} strokeWidth={SW} />
     <circle cx={0} cy={L1} r={w2 / 2 - SW / 2} fill={f2} />
+    {over1}
+  </g>
+);
+
+/** sporcunun kolundaki pazu kası (konuşan kas onun kası: kas konuşurken parlar) */
+const Bicep: React.FC<{ glow: number; color: string; dark: string }> = ({ glow, color, dark }) => (
+  <g>
+    {glow > 0.02 ? <ellipse cx={0} cy={64} rx={34} ry={70} fill={color} opacity={glow * 0.35} /> : null}
+    <ellipse cx={0} cy={64} rx={17} ry={48} fill={color} opacity={0.5 + 0.5 * glow} stroke={dark} strokeWidth={3} />
+    {[-8, 0, 8].map((x) => (
+      <path key={x} d={`M${x * 0.6},20 Q${x * 1.4},64 ${x * 0.6},108`} stroke={dark} strokeWidth={2.5} fill="none" opacity={0.45 + 0.4 * glow} />
+    ))}
+    <ellipse cx={-6} cy={46} rx={4} ry={14} fill="#fff" opacity={0.35} />
   </g>
 );
 
@@ -89,7 +104,7 @@ export const guyStand = (): GuyPose => ({
 });
 
 const GuyFace: React.FC<{ e: GuyExpr; blink: number; look: number; talk: number }> = ({ e, blink, look, talk }) => {
-  const talking = talk > 0.12 && (e === "focus" || e === "smirk" || e === "sheepish");
+  const talking = talk > 0.06 && e !== "grit";
   const open = (e === "shock" ? 1.25 : e === "happy" ? 0.15 : 1) * (1 - blink);
   const eye = (x: number) =>
     open < 0.25 ? (
@@ -113,10 +128,10 @@ const GuyFace: React.FC<{ e: GuyExpr; blink: number; look: number; talk: number 
       <ellipse cx={66} cy={-650} rx={17} ry={10} fill="#ff7d7d" opacity={0.35} />
       {!talking && e === "focus" ? <path d="M-20,-626 Q0,-614 20,-626" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
       {!talking && e === "smirk" ? <path d="M-22,-622 Q8,-614 26,-634" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
-      {e === "shock" ? <ellipse cx={0} cy={-618} rx={16} ry={21} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
-      {e === "happy" ? <path d="M-30,-634 Q0,-590 30,-634 Z" fill="#6b1f2a" stroke={INK} strokeWidth={5} strokeLinejoin="round" /> : null}
+      {!talking && e === "shock" ? <ellipse cx={0} cy={-618} rx={16} ry={21} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
+      {!talking && e === "happy" ? <path d="M-30,-634 Q0,-590 30,-634 Z" fill="#6b1f2a" stroke={INK} strokeWidth={5} strokeLinejoin="round" /> : null}
       {!talking && e === "sheepish" ? <path d="M-22,-626 Q-8,-618 4,-626 Q14,-632 22,-624" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" /> : null}
-      {talking ? <ellipse cx={0} cy={-624} rx={17 + talk * 4} ry={4 + talk * 15} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
+      {talking ? <ellipse cx={0} cy={-622} rx={18 + talk * 5} ry={4 + talk * 17} fill="#6b1f2a" stroke={INK} strokeWidth={5} /> : null}
       {e === "grit" ? (
         <g>
           <rect x={-28} y={-638} width={56} height={22} rx={8} fill="#fff" stroke={INK} strokeWidth={5} />
@@ -134,9 +149,11 @@ export const ToonGuy: React.FC<{
   blink?: number;
   look?: number;
   talk?: number;
+  /** pazu kası parlaklığı (0-1) ve rengi */
+  bicep?: { glow: number; color: string; dark: string };
   /** ellerde tutulan şey (karakter koordinatında çizilir, kollardan önce) */
   held?: React.ReactNode;
-}> = ({ pose, expr = "focus", blink = 0, look = 0, talk = 0, held }) => {
+}> = ({ pose, expr = "focus", blink = 0, look = 0, talk = 0, bicep, held }) => {
   const d = pose.drop ?? 0;
   const hipY = -330 + d;
   const shY = -540 + d;
@@ -170,8 +187,8 @@ export const ToonGuy: React.FC<{
         <path d={`M-70,${shY + 120} Q0,${shY + 150} 70,${shY + 120}`} stroke={G.topD} strokeWidth={10} fill="none" strokeLinecap="round" />
         <rect x={-24} y={shY - 64} width={48} height={50} fill={G.skin} stroke={INK} strokeWidth={SW} />
         {held}
-        <Limb x={-112} y={shY} s={armL} L1={130} L2={122} w1={48} w2={44} f1={G.skin} f2={G.skin} end={hand} />
-        <Limb x={112} y={shY} s={armR} L1={130} L2={122} w1={48} w2={44} f1={G.skin} f2={G.skin} end={hand} />
+        <Limb x={-112} y={shY} s={armL} L1={130} L2={122} w1={48} w2={44} f1={G.skin} f2={G.skin} end={hand} over1={bicep ? <Bicep {...bicep} /> : null} />
+        <Limb x={112} y={shY} s={armR} L1={130} L2={122} w1={48} w2={44} f1={G.skin} f2={G.skin} end={hand} over1={bicep ? <Bicep {...bicep} /> : null} />
         <g transform={`translate(0,${d}) rotate(${pose.head ?? 0},0,-600)`}>
           <circle cx={-104} cy={-676} r={20} fill={G.skin} stroke={INK} strokeWidth={SW} />
           <circle cx={104} cy={-676} r={20} fill={G.skin} stroke={INK} strokeWidth={SW} />
@@ -242,8 +259,8 @@ const KasFace: React.FC<{ e: KasExpr; blink: number; look: number; t: number; li
   const br = ang ? 14 : e === "shock" ? -18 : e === "shiver" || e === "sleepy" || e === "worried" ? -8 : 0;
   const worried = e === "worried" || e === "shiver";
   const chat = Math.sin(t * 40) > 0 ? 3 : -3;
-  const closed = e === "smile" || e === "wink" || e === "stern" || e === "annoyed" || e === "worried";
-  const talking = talk > 0.12 && (closed || e === "sleepy");
+  const talking = talk > 0.06;
+  const openSmile = e === "happy" || e === "shout";
   return (
     <g>
       <path
@@ -266,8 +283,12 @@ const KasFace: React.FC<{ e: KasExpr; blink: number; look: number; t: number; li
       <ellipse cx={98} cy={-412} rx={22} ry={12} fill="#ffb3c0" opacity={0.7} />
       {talking ? (
         <g>
-          <ellipse cx={0} cy={-392} rx={20 + talk * 6} ry={5 + talk * 20} fill="#5c1626" stroke={INK} strokeWidth={6} />
-          {talk > 0.5 ? <ellipse cx={0} cy={-384 + talk * 8} rx={10} ry={5} fill="#ff8a9a" /> : null}
+          {openSmile ? (
+            <path d={`M-42,-408 Q0,${-396 + talk * 70} 42,-408 Z`} fill="#5c1626" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
+          ) : (
+            <ellipse cx={0} cy={-390} rx={22 + talk * 8} ry={5 + talk * 26} fill="#5c1626" stroke={INK} strokeWidth={6} />
+          )}
+          {talk > 0.45 ? <ellipse cx={0} cy={openSmile ? -392 + talk * 30 : -380 + talk * 12} rx={12} ry={6} fill="#ff8a9a" /> : null}
         </g>
       ) : (
         <>
@@ -361,11 +382,18 @@ export const KasKarakter: React.FC<{
             />
           ))}
           {[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map((k) => (
-            <path key={k} d={meridian(k)} stroke={bodyD} strokeWidth={4} fill="none" opacity={0.55} />
+            <path key={k} d={meridian(k)} stroke={bodyD} strokeWidth={5.5} fill="none" opacity={0.75} />
           ))}
           {[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map((k) => (
             <path key={k} d={meridian(k + 0.5)} stroke={bodyL} strokeWidth={6} fill="none" opacity={0.45} strokeLinecap="round" />
           ))}
+          {/* enine çizgiler (iskelet kası dokusu) */}
+          {Array.from({ length: 50 }).map((_, j) => (
+            <line key={j} x1={-200} y1={-680 + j * 10} x2={200} y2={-680 + j * 10} stroke={bodyD} strokeWidth={1.6} opacity={0.16} />
+          ))}
+          {/* tendon yelpazesi: kirişin kasın içine yayılması */}
+          <path d="M-46,-694 Q-24,-650 0,-596 Q24,-650 46,-694 Z" fill="url(#tendonG)" opacity={0.95} />
+          <path d="M-40,-178 Q-20,-206 0,-246 Q20,-206 40,-178 Z" fill="url(#tendonG)" opacity={0.95} />
           {/* gölge + parlaklık */}
           <path d="M140,-600 Q200,-430 110,-220" stroke={bodyD} strokeWidth={56} fill="none" opacity={0.35} />
           <ellipse cx={-96} cy={-560} rx={30} ry={80} fill="#fff" opacity={0.3} transform="rotate(20,-96,-560)" />

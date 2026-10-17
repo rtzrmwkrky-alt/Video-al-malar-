@@ -300,11 +300,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   etiketler okunmaz, altyazıdan otomatik ayıklanır. Kompozisyon: HerKafadanAkiciDuygulu.
 - HerKafadanAkici'de kesmeler saniyeyle değil **kelime sırasıyla** (`word`) tanımlı: ses
   değişse de kesmeler cümle başında kalır.
-- ElevenLabs hesabı Ekim 2026'dan beri **Starter** planda (eskiden ücretsiz): kütüphanedeki Türk sesler API'den kullanılabilir
-  (`POST /v1/voices/add/<public_owner_id>/<voice_id>` ile hesaba eklenir).
-  Ses tasarımı (yeni ses oluşturma) da ücretli. Şimdilik hazır ses "Sarah"
-  (EXAVITQu4vr4xnSDxMaL) + en yeni model `eleven_v4` + `--language tr` (Türkçe zorlanır).
-  Ücretli plana geçilirse önerilen Türkçe ses: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY).
+- ElevenLabs hesabı Ekim 2026'dan beri **Starter** planda (aylık ~30.000 karakter): kütüphanedeki Türk sesler API'den
+  kullanılabilir (`POST /v1/voices/add/<public_owner_id>/<voice_id>` ile hesaba eklenir).
+  Kullanıcının **beğendiği anlatıcı sesi: "Chris"** (`iP95p4xoKVk53GoZ742B`, eleven_v4,
+  `--language tr --stability 0.3 --style 0.45 --speed 1.05`; BoyUzama) — tek anlatıcılı yeni videolarda bunu öner.
+  Türkçe sesler: "Gökçe Deniz" (oPC5I9GKjMReiaM29gjY), "Arman Yılmazkurt" (qUGjOGoUuQBTUqwY8n0e; IsinmaKas).
+  Eski videolarda hazır ses "Sarah" (EXAVITQu4vr4xnSDxMaL) kullanıldı.
 - Bilgilendirici içerikte iddialar genel kabul görmüş bilgiye dayanmalı (ör. kardiyo/ağırlık
   sırası hedefe bağlı; tükenişe yakın setlerde hafif ve ağır yük benzer kas gelişimi sağlar,
   güç için ağır yük gerekir; pilates karın/duruş için iyi, tek başına yeterli değil).

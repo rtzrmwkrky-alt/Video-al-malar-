@@ -215,7 +215,7 @@ const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
   return null;
 };
 
-export type AnimeExpr = "grin" | "happy" | "wink" | "think" | "ouch" | "shout" | "smile";
+export type AnimeExpr = "grin" | "happy" | "wink" | "think" | "ouch" | "shout" | "smile" | "worry";
 
 /** karakter görünümü (anne, koç, halterci, basketbolcu…) */
 export type AnimeLook = {
@@ -253,6 +253,8 @@ export type AnimePose = {
   ly?: number;
   /** baş eğimi (derece) */
   head?: number;
+  /** konuşurken ağız açıklığı 0-1 (worry/smile ifadesinde) */
+  mouth?: number;
 };
 
 /** yumruk + elde tutulan nesne */
@@ -442,6 +444,11 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
             <path d="M474,428 Q500,440 528,446 L526,456 Q500,452 476,440 Z" fill={INK} />
             <path d="M606,428 Q580,440 552,446 L554,456 Q580,452 604,440 Z" fill={INK} />
           </>
+        ) : expr === "worry" ? (
+          <>
+            <path d="M476,446 Q498,436 526,424 L528,434 Q500,446 478,456 Z" fill={INK} />
+            <path d="M604,446 Q582,436 554,424 L552,434 Q580,446 602,456 Z" fill={INK} />
+          </>
         ) : expr === "think" ? (
           <>
             <path d="M474,430 Q500,412 528,426 L526,436 Q500,426 476,442 Z" fill={INK} />
@@ -467,8 +474,21 @@ export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean;
             <path d="M512,552 Q540,546 568,552 L566,562 Q540,558 514,562 Z" fill="#ffffff" />
             <path d="M520,590 Q540,580 560,590 Q552,602 540,602 Q528,602 520,590 Z" fill="#e2626a" />
           </g>
-        ) : expr === "smile" ? (
+        ) : expr === "smile" && !(pose.mouth ?? 0) ? (
           <path d="M504,560 Q540,584 578,558" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" />
+        ) : expr === "worry" || expr === "smile" ? (
+          (() => {
+            const m = pose.mouth ?? 0;
+            const h = 6 + 26 * m;
+            return m < 0.08 ? (
+              <path d="M512,566 Q540,576 568,564" stroke={INK} strokeWidth={6} fill="none" strokeLinecap="round" />
+            ) : (
+              <g>
+                <path d={`M512,560 Q540,${552} 568,560 Q566,${560 + h} 540,${562 + h} Q514,${560 + h} 512,560 Z`} fill="#7a1f24" stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
+                {m > 0.4 ? <path d={`M526,${556 + h} Q540,${548 + h} 554,${556 + h} Q548,${561 + h} 540,${561 + h} Q532,${561 + h} 526,${556 + h} Z`} fill="#e2626a" /> : null}
+              </g>
+            );
+          })()
         ) : expr === "ouch" ? (
           <g>
             <path d="M494,548 Q540,540 586,548 L582,580 Q540,588 498,580 Z" fill="#ffffff" stroke={INK} strokeWidth={W} strokeLinejoin="round" />

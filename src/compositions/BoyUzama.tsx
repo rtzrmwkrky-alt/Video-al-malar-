@@ -751,8 +751,25 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kag
           >
             <Room marks={3} />
             {/* anne kapıda */}
-            <g opacity={win(t, 0.05, L(1) - 0.1, 0.25)}>
-              <Hero uid="anne" look={A_MOM} x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={{ ...DOWN, elL: [730, 650], wrL: [800, 540 + Math.sin(t * 9) * 12], head: 4 }} expr="shout" t={t} />
+            <g opacity={sm(t, 0.05, 0.3)}>
+              {(() => {
+                // konuşurken parmağını kaldırıp "dikkat!" der, sonra gence sevecen bir gülümsemeyle bakar
+                const talkEnd = L(0) + (L(1) - L(0)) * 0.5;
+                const talking = t < talkEnd;
+                const down = sm(t, talkEnd - 0.1, talkEnd + 0.35);
+                const mouth = talking ? 0.25 + 0.75 * Math.abs(Math.sin(t * 13)) : 0;
+                const pose: AnimePose = {
+                  elR: mixP([404, 700], [404, 840], down),
+                  wrR: mixP([432, 540 + Math.sin(t * 6) * 6], [396, 1000], down),
+                  handR: down > 0.5 ? "fist" : "point",
+                  elL: [736, 800],
+                  wrL: [640, 922],
+                  itemL: null,
+                  head: 4 - 6 * down,
+                  mouth,
+                };
+                return <Hero uid="anne" look={A_MOM} x={DOOR_X + DOOR_W / 2} y={FLOOR} scale={0.92} pose={pose} expr={talking ? "worry" : "smile"} t={t} />;
+              })()}
             </g>
             <DoorFrame marks={3} />
             <Hero uid="oda" x={680} y={FLOOR} scale={0.92} pose={tPose} expr={tExpr} t={t} />

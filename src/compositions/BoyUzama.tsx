@@ -8,6 +8,7 @@ import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideo
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, pop as rawPop, sm, timeline, win } from "../ornek/common";
+import { THEMES, type BoyStyle, type CapTheme } from "./boyUzamaStyles";
 import { INK, ToonGirl2D, blinkAt, type Expr, type ToonLook, type ToonPose } from "../cartoon/ToonGirl2D";
 
 loadFonts();
@@ -113,7 +114,7 @@ const Paper: React.FC<{ tint?: string }> = ({ tint }) => (
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-const Captions: React.FC<{ t: number; tl: TL; top?: number }> = ({ t, tl, top = 1450 }) => {
+const Captions: React.FC<{ t: number; tl: TL; top?: number; cap: CapTheme }> = ({ t, tl, top = 1450, cap }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
   const line = BOY_LINES[i];
@@ -138,6 +139,21 @@ const Captions: React.FC<{ t: number; tl: TL; top?: number }> = ({ t, tl, top = 
   const hl = (line.hl ?? []).map(norm);
   return (
     <div style={{ position: "absolute", left: 40, right: 40, top, textAlign: "center" }}>
+      <div
+        style={
+          cap.box
+            ? {
+                display: "inline-block",
+                background: cap.box.bg,
+                border: cap.box.border,
+                borderRadius: 40,
+                padding: "6px 22px 12px",
+                transform: `rotate(${cap.box.rot ?? 0}deg)`,
+                opacity: sm(t, s, s + 0.15),
+              }
+            : { display: "inline" }
+        }
+      >
       {chunks[c].map((w, k) => {
         const p = sm(t, wordT(k), wordT(k) + 0.16);
         return (
@@ -146,14 +162,14 @@ const Captions: React.FC<{ t: number; tl: TL; top?: number }> = ({ t, tl, top = 
             style={{
               display: "inline-block",
               margin: "0 12px",
-              fontFamily: SANS,
-              fontWeight: 800,
+              fontFamily: cap.font,
+              fontWeight: cap.weight,
+              fontStyle: cap.italic ? "italic" : "normal",
               fontSize: 90,
               letterSpacing: -1.5,
-              color: hl.includes(norm(w)) ? Y : "#ffffff",
-              WebkitTextStroke: `14px ${INK}`,
-              paintOrder: "stroke",
-              textShadow: "0 8px 0 rgba(31,42,68,0.3)",
+              color: hl.includes(norm(w)) ? cap.hl : cap.color,
+              ...(cap.stroke ? { WebkitTextStroke: `${cap.stroke.w}px ${cap.stroke.c}`, paintOrder: "stroke" } : {}),
+              textShadow: cap.shadow,
               transform: `translateY(${(1 - p) * 14}px)`,
               opacity: p,
             }}
@@ -162,6 +178,7 @@ const Captions: React.FC<{ t: number; tl: TL; top?: number }> = ({ t, tl, top = 
           </span>
         );
       })}
+      </div>
     </div>
   );
 };
@@ -621,9 +638,12 @@ const Plane: React.FC<{ x: number; y: number; r: number }> = ({ x, y, r }) => (
 
 // ------------------------------------------------------------ ana kompozisyon
 
-export type BoyUzamaProps = { audioName: string; data: VoiceoverData | null };
+export type BoyUzamaProps = { audioName: string; data: VoiceoverData | null; look?: BoyStyle };
 
-export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
+export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data, look = "kagit" }) => {
+  const th = THEMES[look];
+  const Back = th.Back;
+  const Over = th.Over;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -679,10 +699,11 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
   const fade = interpolate(t, [0, 0.12, tl.total - 0.3, tl.total], [0.6, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
-    <AbsoluteFill lang="tr" style={{ background: PAPER, overflow: "hidden" }}>
-      <Paper />
+    <AbsoluteFill lang="tr" className={`th-${look}`} style={{ background: th.bg, overflow: "hidden" }}>
+      {th.css ? <style>{th.css}</style> : null}
+      {Back ? <Back /> : <Paper />}
 
-      <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+      <svg className="scene" width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         {/* ===== 0–1: oda ===== */}
         {room ? (
           <g
@@ -944,7 +965,8 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
         ) : null}
       </svg>
 
-      <Captions t={t} tl={tl} />
+      {Over ? <Over /> : null}
+      <Captions t={t} tl={tl} cap={th.cap} />
       {data ? (
         <>
           <Audio src={staticFile(`audio/${audioName}.mp3`)} />

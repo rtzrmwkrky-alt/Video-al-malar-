@@ -197,9 +197,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   en çok izlenenler komedi skeci ve "annene göster" tarzı cevap videoları; Türkçede animasyonlu anlatım yok.
   Kurgu: kapıda anne "Ağırlık kaldırma, boyun kısa kalır!" (kapı pervazında boy çizgileri) → kemiğin içi:
   büyüme bölgesi = baretli işçilerin "minik inşaatı" → ergenlik sonu "İNŞAAT TAMAMLANDI" → kararı genler +
-  hormonlar verir → halterci/basketbolcu (seçilme, spor boyu değiştirmez) → asıl tehlike: hocasız, bozuk teknik,
+  hormonlar verir → halterci/basketbolcu (seçilme, spor boyu değiştirmez) → asıl tehlike: koçsuz, bozuk teknik,
   aşırı yük → 3 kural kartı → uyku + beslenme (pervaza yeni çizgi "16") → "sana bunu söyleyene gönder".
-  Metin `icerik/boy-uzama.txt`. Genç/anne/halterci/basketbolcu/hoca `ToonGirl2D`'nin `look` seçenekleriyle
+  Metin `icerik/boy-uzama.txt`. Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
   (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
 
 ## Son durum (yeni oturumda buradan devam)

@@ -29,7 +29,7 @@ export const BOY_LINES: Line[] = [
   { text: "Ne zaman biteceğine dambıl değil, genlerin ve hormonların karar veriyor.", hl: ["genlerin", "hormonların"], hold: 0.4 },
   { text: "“İyi de halterciler hep kısa!” Doğru, ama halter onları kısaltmadı.", hl: ["kısaltmadı."], hold: 0.3 },
   { text: "Kısa boylular bu sporda avantajlı, o yüzden seçiliyorlar. Basketbol da kimseyi uzatmıyor.", hl: ["avantajlı,", "uzatmıyor."], hold: 0.3 },
-  { text: "Asıl tehlike ağırlık değil; hocasız, bozuk teknikle aşırı yüklenmek.", hl: ["hocasız,", "bozuk", "aşırı"], hold: 0.3 },
+  { text: "Asıl tehlike ağırlık değil; koçsuz, bozuk teknikle aşırı yüklenmek.", hl: ["koçsuz,", "bozuk", "aşırı"], hold: 0.3 },
   { text: "Kural basit: önce teknik, hafiften başla, mümkünse bir koçla çalış.", hl: ["teknik,", "hafiften", "koçla"], hold: 0.4 },
   { text: "Boyun için asıl önemli olanlar: iyi uyku ve iyi beslenme.", hl: ["uyku", "beslenme."], hold: 0.3 },
   { text: "Bu videoyu, sana bunu söyleyene gönder!", hl: ["gönder!"], hold: 1.0 },
@@ -810,7 +810,7 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
             <g opacity={sm(t, L(9) + 0.9, L(9) + 1.2)}>
               <rect x={60} y={1150} width={300} height={96} rx={48} fill="#fff" stroke={INK} strokeWidth={7} />
               <Txt x={210} y={1214} size={44} fill={INK} sw={0}>
-                hoca yok
+                koç yok
               </Txt>
             </g>
           </g>

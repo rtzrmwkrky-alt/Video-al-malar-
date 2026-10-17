@@ -87,7 +87,7 @@ const Eye: React.FC<{ x: number; y: number; flip?: boolean }> = ({ x, y, flip })
     <circle cx={6} cy={8} r={2.5} fill="#ffffff" opacity={0.9} />
     {/* üst kirpik çizgisi (kalın) */}
     <path d="M-34,-2 Q-10,-30 32,-16 L34,-10 Q-6,-22 -32,4 Z" fill={INK} />
-    <path d="M32,-16 L40,-22" stroke={INK} strokeWidth={4} strokeLinecap="round" />
+    <path d="M-33,0 L-42,-6" stroke={INK} strokeWidth={4} strokeLinecap="round" />
     {/* alt çizgi */}
     <path d="M-20,14 Q0,20 20,12" stroke={INK} strokeWidth={3} fill="none" strokeLinecap="round" />
   </g>
@@ -112,7 +112,56 @@ const FRINGE: [number, number, number][] = [
   [604, 420, 16],
 ];
 
-export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
+export type HairStyle = "curly" | "wavy" | "side" | "quiff" | "messy";
+
+/** kontur + dolgu saç parçası */
+const HairPart: React.FC<{ d: string; fill?: string }> = ({ d, fill = C.hair }) => (
+  <path d={d} fill={fill} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+);
+
+const Hair: React.FC<{ style: HairStyle }> = ({ style }) => {
+  if (style === "wavy")
+    return (
+      <g>
+        <HairPart d="M440,476 C426,404 448,334 530,318 C610,304 664,350 646,432 C642,452 638,466 632,478 C630,452 624,432 614,420 L466,420 C458,436 452,456 450,478 Z" />
+        <path d="M600,330 C640,350 654,390 646,432 C640,454 636,468 632,478 C630,452 624,432 614,420 L600,420 Z" fill={C.hairS} />
+        <HairPart d="M452,438 C462,384 520,358 584,364 C628,370 650,396 646,428 C632,410 612,404 596,408 C604,418 604,432 596,442 C584,422 562,412 538,414 C516,416 500,426 490,444 C484,430 470,426 452,438 Z" />
+        <path d="M476,352 C500,338 520,350 540,338 M556,334 C580,326 602,340 622,354 M512,392 C540,382 568,384 600,392" stroke={C.hairH} strokeWidth={6} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  if (style === "side")
+    return (
+      <g>
+        <HairPart d="M444,474 C434,386 468,336 540,332 C612,334 648,384 636,474 C632,446 626,424 616,412 C580,402 540,400 506,404 C490,396 476,394 464,404 C456,420 450,444 448,474 Z" />
+        <path d="M600,342 C632,360 646,400 636,474 C632,446 626,424 616,412 L604,408 Z" fill={C.hairS} />
+        <path d="M498,338 Q504,370 502,402" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
+        <path d="M514,356 Q560,346 608,368 M516,378 Q562,370 612,390" stroke={C.hairH} strokeWidth={5} fill="none" strokeLinecap="round" />
+        <path d="M486,350 Q470,368 466,394" stroke={C.hairH} strokeWidth={5} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  if (style === "quiff")
+    return (
+      <g>
+        {/* yanlar kısa (fade) */}
+        <path d="M446,478 C440,430 446,400 462,386 L620,386 C636,400 642,430 634,478 C628,456 624,440 618,430 L462,430 C456,440 452,456 450,478 Z" fill="#5a4034" stroke={INK} strokeWidth={W} strokeLinejoin="round" />
+        {/* üst: kabarık, öne kalkık */}
+        <HairPart d="M458,410 C450,352 482,300 548,290 C604,284 644,314 632,358 C626,380 614,398 598,404 C578,396 540,396 500,404 C484,408 468,416 458,410 Z" />
+        <path d="M596,300 C630,316 642,340 632,358 C626,380 614,398 598,404 C610,370 612,330 596,300 Z" fill={C.hairS} />
+        <path d="M486,342 C516,310 566,302 604,318 M480,372 C514,346 566,340 610,352" stroke={C.hairH} strokeWidth={6} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  if (style === "messy")
+    return (
+      <g>
+        <HairPart d="M440,470 C424,430 432,392 448,380 C436,356 452,330 478,330 C482,306 512,296 532,310 C548,290 584,294 594,318 C620,310 646,330 640,356 C660,372 656,408 640,420 C646,440 644,460 634,476 C628,452 622,434 612,424 C604,440 590,440 586,428 C578,446 560,446 556,428 C546,446 528,446 524,428 C514,444 496,444 494,426 C484,440 468,438 466,424 C458,438 452,456 450,476 Z" />
+        <path d="M600,330 C630,336 646,356 640,370 C656,390 650,410 640,420 C644,440 642,460 634,476 C628,452 622,434 612,424 C618,390 614,356 600,330 Z" fill={C.hairS} />
+        <path d="M480,352 Q500,336 524,340 M548,322 Q570,316 588,330 M506,392 Q540,380 574,390" stroke={C.hairH} strokeWidth={6} fill="none" strokeLinecap="round" />
+      </g>
+    );
+  return null;
+};
+
+export const AnimeTeen: React.FC<{ t?: number; hair?: HairStyle; band?: boolean }> = ({ t = 0, hair = "curly", band = true }) => {
   // eklemler
   const shR: P = [430, 668]; // karakterin sağ omzu (ekranda solda) — yukarıyı gösteren kol
   const elR: P = [368, 512];
@@ -250,7 +299,9 @@ export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
       <path d="M486,548 Q490,544 496,550 M592,546 Q588,542 582,548" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round" />
 
       {/* ---------------- saç + kafa bandı ---------------- */}
+      <Hair style={hair} />
       {/* kısa kıvırcık saç: taban + kenarda küçük bukleler (önce konturlar, sonra dolgular) */}
+      {hair === "curly" ? (
       <g>
         <path d={HAIR_CAP} fill={INK} stroke={INK} strokeWidth={W * 2} strokeLinejoin="round" />
         {CURLS.map(([x, y, r], i) => (
@@ -274,20 +325,25 @@ export const AnimeTeen: React.FC<{ t?: number }> = ({ t = 0 }) => {
           <path key={`i${i}`} d={`M${x - 10},${y + 4} a12,12 0 1 1 14,9`} stroke={i === 1 ? C.hairH : C.hairS} strokeWidth={4} fill="none" strokeLinecap="round" />
         ))}
       </g>
+      ) : null}
+      {band ? (
+        <g>
       {/* kafa bandı */}
       <path d="M448,396 Q540,360 632,396 L630,426 Q540,392 450,426 Z" fill={C.band} stroke={INK} strokeWidth={W} strokeLinejoin="round" />
       <path d="M590,382 Q616,388 632,396 L630,426 Q612,416 588,408 Z" fill={C.bandS} />
       {/* bandın uçları (rüzgârda) */}
       <path d="M636,408 Q690,396 724,424 Q700,428 690,444 Q672,424 640,426 Z" fill={C.band} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
       <path d="M636,418 Q680,434 700,474 Q676,466 660,474 Q656,444 634,432 Z" fill={C.bandS} stroke={INK} strokeWidth={W - 1} strokeLinejoin="round" />
+        </g>
+      ) : null}
       {/* bandın altından alına düşen birkaç bukle */}
-      {FRINGE.map(([x, y, r], i) => (
+      {hair === "curly" && band ? FRINGE.map(([x, y, r], i) => (
         <g key={`fr${i}`}>
           <circle cx={x} cy={y} r={r + W / 2} fill={INK} />
           <circle cx={x} cy={y} r={r - W / 2} fill={C.hair} />
           <path d={`M${x - r * 0.4},${y} a${r * 0.38},${r * 0.38} 0 1 1 ${r * 0.45},${r * 0.3}`} stroke={C.hairH} strokeWidth={4} fill="none" strokeLinecap="round" />
         </g>
-      ))}
+      )) : null}
     </g>
   );
 };

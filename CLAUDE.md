@@ -232,14 +232,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ("Tanıdık geldi mi?", "dediğini duyar gibiyim"). "Hoca" değil **"koç"** kelimesi.
   Ses isteği: **sıcak, samimi, yapay zekâ olduğu belli olmayan** ses.
   Ses karşılaştırması yapıldı (`out/ses-karsilastirma.mp4`; SES 1 Sarah, 2 Jessica, 3 Will, 4 Chris; örnekler
-  `public/audio/ses-*`). Kullanıcının seçimi bekleniyor. Metin ~1150 harf; 168 harf kredi kaldı (13.11.2026'da yenilenir). Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
+  `public/audio/ses-*`). Kullanıcı **SES 4 = Chris** (`iP95p4xoKVk53GoZ742B`, eleven_v4, tr, 0.3/0.45/1.05) seçti. Seslendirme yapıldı. Genç/anne/halterci/basketbolcu/koç `ToonGirl2D`'nin `look` seçenekleriyle
   (kısa saç, renkler) çizilir; ele nesne `itemL/itemR` ile verilir.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **BoyUzama** — "Erken yaşta ağırlık kaldırmak boy uzatmaz mı?" **sessiz taslak**, onay bekliyor
-  (render: `npx remotion render BoyUzama out/boy-uzama-taslak.mp4 --concurrency=4 --browser-executable=...`, ~5 dk).
-  Onaylanırsa seslendirme (tek anlatıcı) — **kredi harcamadan önce kullanıcıya sor**.
+- Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —
+  yeniden seslendirme gerekmez. Render: `npx remotion render BoyUzama out/boy-uzama-sesli.mp4 --concurrency=4
+  --browser-executable=...` (~10 dk), ardından -14 LUFS paylaşım kopyası `out/boy-uzama-paylas.mp4`.
+  Müzik `public/music/623.mp3` git'te yok (curl ile indir).
 - Önceki iş: **IsinmaKas** sesli sürüm (önce `python3 scripts/isinma-audio.py` (scipy gerekir), sonra render: `npx remotion render IsinmaKas out/isinma-sesli.mp4 --concurrency=4 --browser-executable=...`, ~12 dk, ardından -14 LUFS paylaşım kopyası).
 - Önceki iş: **WilmaRudolph** (render: `npx remotion render WilmaRudolph out/wilma-rudolph.mp4 --concurrency=4 --browser-executable=...`, sonra -14 LUFS kopya).
 - Önceki iş: **KasAgrisiToon** (karikatür kas ağrısı, sesli). Ses hazır ve kayıtlı (`public/audio/kas-agrisi.*`) —

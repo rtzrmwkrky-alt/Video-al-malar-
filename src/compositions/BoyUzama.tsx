@@ -945,7 +945,21 @@ export const BoyUzama: React.FC<BoyUzamaProps> = ({ audioName, data }) => {
       </svg>
 
       <Captions t={t} tl={tl} />
-      {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} /> : null}
+      {data ? (
+        <>
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {/* konuşmanın altında kısık müzik; kapanışta biraz yükselir */}
+          <Audio
+            src={staticFile("music/623.mp3")}
+            volume={(f) => {
+              const mt = f / fps;
+              const end = data.durationInSeconds;
+              const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.06, 0.06, 0.14], { extrapolateRight: "clamp" });
+              return base * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            }}
+          />
+        </>
+      ) : null}
       <AbsoluteFill style={{ background: "#000", opacity: fade }} />
     </AbsoluteFill>
   );

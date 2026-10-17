@@ -18,10 +18,13 @@ const FACES = [
   { family: "Playfair Display", file: "PlayfairDisplay.ttf", style: "normal", weight: "400 900", format: "truetype" },
   { family: "Playfair Display", file: "PlayfairDisplay-Italic.ttf", style: "italic", weight: "400 900", format: "truetype" },
   { family: "Dancing Script", file: "DancingScript.ttf", style: "normal", weight: "400 700", format: "truetype" },
+  // Karikatür el yazısı: Patrick Hand (OFL)
+  { family: "Patrick Hand", file: "PatrickHand.ttf", style: "normal", weight: "400", format: "truetype" },
 ];
 
 export const PLAYFAIR = "'Playfair Display', Georgia, serif";
 export const SCRIPT = "'Dancing Script', cursive";
+export const HAND = "'Patrick Hand', 'Comic Sans MS', cursive";
 export const ROUND = "'Baloo 2', Geist, Helvetica, sans-serif";
 export const SANS = "Geist, Helvetica, Arial, sans-serif";
 export const MONO = "'Geist Mono', ui-monospace, monospace";

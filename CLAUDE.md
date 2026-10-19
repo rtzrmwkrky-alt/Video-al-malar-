@@ -316,6 +316,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Tüm tarif ve kurallar `icerik/bora-karakter.md`.
   Kullanıcı "sen bana üretiyordun" diye kızdı: **karakteri kullanıcıya ürettirme, kendin üret.** → `src/avatar/Bora.tsx`
   (kodla çizim, 7 duruş + 6 ifade), tanıtım **BoraTanitim** (`out/bora.png`).
+  Kullanıcı yandan görünen KnitGuy "Sporcu" çizimini gösterip **buğday ten + daha dikkat çekici spor kıyafeti** istedi →
+  KnitGuy'a `skin` (WHEAT_SKIN), `jacket`, `zip`, `sleeveStripe`, `block` eklendi; 4 seçenek `BORA_SPOR`
+  (OrguKiyafet `--props='{"set":"spor"}'`, `out/bora-spor.png`): 1 Neon yeşil ceket + siyah eşofman, 2 kırmızı eşofman
+  takımı beyaz şeritli, 3 elektrik mavisi kapüşonlu + turuncu blok, 4 turuncu kapüşonlu + siyah blok/şerit. **Seçim bekleniyor**;
+  seçilince önden Bora (`Bora.tsx`) da aynı ten/kıyafete çevrilecek.
 
 ## Son durum (yeni oturumda buradan devam)
 

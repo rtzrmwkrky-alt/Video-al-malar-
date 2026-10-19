@@ -304,6 +304,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   karakter ChatGPT/Gemini resim aracında üretilecek, biz **karakter tarifi** yazıp videoya yerleştiriyoruz.
   Harman önerisi "kanal karakteri": Pixar ifadeli yüz (3) + örgü kazak ve bere (1) + alnına itilmiş yuvarlak gözlük imza
   eşyası (2'den, gözler açık kalır) + her videoda tek renk parlak zemin.
+  Kullanıcı 1. görseldeki **erkeği** farklı kıyafetlerle istedi → `src/avatar/KnitGuy.tsx` (yandan, uzun boyun, bere,
+  örgü kazak deseni, kareli pantolon, kalın tabanlı ayakkabı; düz 2B çizim, kıyafet seçimi için), **OrguKiyafet**
+  (`out/orgu-kiyafet.png`): 1 Klasik örgü (krem kazak, kahve kareli, yeşil bere), 2 Sporcu (turuncu kapüşonlu, gri eşofman,
+  siyah bere), 3 Renkli (hardal kazak, mavi kareli, mavi bere), 4 Şık (yeşil kazak, krem pantolon, gözlük berede).
+  Her biri için ChatGPT/Gemini tarifi verildi. **Seçim bekleniyor.**
 
 ## Son durum (yeni oturumda buradan devam)
 

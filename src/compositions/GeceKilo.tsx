@@ -219,12 +219,11 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
   const s9 = win(t, L(9) - 0.02, tl.total + 1, 0.21); // kapanış videonun sonuna kadar kalır
 
   // ses efektleri (Mixkit ücretsiz, public/sfx/<id>.mp3). Kullanıcı: "abartma, profesyonel olsun" → az, kısık, gerçekçi:
-  // gece ortam sesi (cırcır böceği, buzdolabı uğultusu), kancada yumuşak bas, soruda hafif gerilim → cevapta tok vuruş,
+  // gece ortam sesi (buzdolabı uğultusu; cırcır böceği ve kapanış bildirimi kullanıcı isteğiyle çıkarıldı), kancada yumuşak bas, soruda hafif gerilim → cevapta tok vuruş,
   // temiz arayüz tıkları. Çizgi film/komik efekt (pop, boing, horlama, bant durması) yok.
   // lead: dosyanın başındaki sessizlik, dur: çalma süresi, fade/fin: sonda sönme / başta açılma (sn)
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number; fin?: number }[] = [
     { at: 0, id: 2299, v: 0.3, lead: 0.05 }, // kanca: yumuşak bas (başlık)
-    { at: L(1) - 0.2, id: 1789, v: 0.35, dur: L(3) - L(1) + 0.2, fade: 0.4, fin: 0.5 }, // gece: dışarıda cırcır böcekleri
     { at: L(1), id: 1060, v: 0.06, dur: 1.6, fade: 0.5 }, // duvar saati (kısa, uzakta)
     { at: W(1, 4) - 0.1, id: 1908, v: 0.3, lead: 0.16 }, // buzdolabı kapağı
     { at: W(1, 4), id: 1837, v: 0.7, lead: 0.22, dur: L(3) - W(1, 4), fade: 0.4, fin: 0.4 }, // buzdolabı uğultusu
@@ -237,7 +236,6 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
     { at: sleep7, id: 2569, v: 0.2, dur: 0.6 }, // uyku ölçer düşer
     { at: W(8, 4), id: 1120, v: 0.35, lead: 0.1 }, // ✓ ne kadar yedin
     { at: W(8, 10), id: 1120, v: 0.35, lead: 0.1 }, // ✓ ne kadar tok yattın
-    { at: L(9) + 0.2, id: 933, v: 0.16, lead: 0.09 }, // kapanış: telefon bildirimi
   ];
   /** müzik "Gece yersen kilo alırsın!" cümlesinde ve "Tabii ki hayır!" vuruşunda hafifçe kısılır (söz öne çıksın) */
   const duck = (mt: number) =>

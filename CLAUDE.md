@@ -358,6 +358,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   izlenecek video, unutma" → **her videoda ses tasarımı profesyonel olsun** (az ama yerinde, çizgi film pop/boing/woosh yok).
   Sonra: **"abartma, profesyonel olsun"** → horlama, bant durması, ışıltı çıkarıldı; hepsi kısık; müzik tamamen susmaz, hafifçe kısılır.
   Genel kural: **abartı/komik efekt yerine sade, gerçekçi, profesyonel** (görselde de, seste de).
+  Kullanıcı ayrıca **cırcır böceği** (mutfak) ve **kapanıştaki "gönder" bildirim sesini** istemedi → çıkarıldı.
   **Her videoda ses efekti olsun** (kısık, pop/woosh yok). Kullanıcı "ana ses kısık" dedi → konuşma `volume={1.6}` (~+4 dB, müzik/efekt üstünde).
 
 ## Son durum (yeni oturumda buradan devam)

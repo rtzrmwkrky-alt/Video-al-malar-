@@ -475,7 +475,7 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
   const girlP = mixP(stairPos(stepK), stairPos(Math.min(STEPS - 1, stepK + 1)), stepF);
   const hop = Math.sin(stepF * Math.PI) * 26;
   const steps = Math.round(interpolate(t, [L(10), L(11) - 0.1], [2400, 11800], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) / 7) * 7;
-  const st = sm(t, L(10) - 0.2, L(10)) * (1 - sm(t, L(11) - 0.2, L(11))); // merdiven bölümü
+  const st = sm(t, L(10) - 0.2, L(10) + 0.05) * (1 - sm(t, L(11) - 0.2, L(11))); // merdiven bölümü
   const sp = sm(t, L(11), L(11) + 0.25); // spor ↔ kanepe bölümü
   const lazy = W(11, 4); // "yatarken"
 
@@ -679,8 +679,10 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
         {/* ===== 9-11: 3. "Şanslı değiller" ===== */}
         {s9 > 0 ? (
           <g opacity={s9}>
-            {t < L(10) ? (
+            {t < L(10) - 0.2 ? (
+              <g opacity={1 - sm(t, L(10) - 0.45, L(10) - 0.25)}>
               <Who uid="kiz9" look={GIRL_LOOK} x={540} s={1.0} t={t} pose={{ r: { el: [300, 540], wr: [320, 450], hand: "open" }, head: 6 }} expr="grin" />
+              </g>
             ) : null}
             {/* merdiven: fark etmeden sürekli hareket */}
             {st > 0 ? (

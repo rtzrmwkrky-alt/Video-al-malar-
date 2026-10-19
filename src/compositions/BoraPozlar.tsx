@@ -1,6 +1,6 @@
 /** Bora'nın videoda kullanılacak poz ve ifadeleri (kontrol tablosu). */
 import { AbsoluteFill } from "remotion";
-import { Bora, type BoraExpr, type BoraPose } from "../avatar/Bora";
+import { Bora, type BoraExpr, type BoraPose } from "../avatar/BoraYan";
 import { SANS, loadFonts } from "../fonts";
 
 loadFonts();

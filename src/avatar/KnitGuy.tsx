@@ -13,14 +13,18 @@ export type KnitOutfit = {
   pants: string;
   plaid?: string; // kareli desenin ikinci rengi
   stripe?: string; // eşofman yan şeridi
+  skin?: [string, string, string]; // ışık, orta, gölge
+  sleeveStripe?: string; // kolda boydan şerit
+  zip?: string; // önde fermuar (eşofman ceketi)
+  block?: string; // göğüste renk bloğu
+  jacket?: boolean; // kapüşon yerine dik yaka
   beanie: string;
   shoe: string;
   glasses?: boolean;
 };
 
-const SKIN = "#6b4330";
-const SKIN_S = "#4e2f20";
-const SKIN_H = "#8a5a40";
+const DARK_SKIN: [string, string, string] = ["#8a5a40", "#6b4330", "#4e2f20"];
+export const WHEAT_SKIN: [string, string, string] = ["#f7d6b4", "#eabd93", "#c9946b"];
 
 const HEAD =
   "M176,150 Q174,92 222,90 Q266,92 268,140 L281,166 Q285,173 270,175 L268,190 Q262,216 236,216 Q196,214 182,190 Q174,172 176,150 Z";
@@ -68,6 +72,7 @@ export const KnitGuy: React.FC<{ o: KnitOutfit; id: string; t?: number }> = ({
   id,
   t = 0,
 }) => {
+  const [SKIN_H, SKIN, SKIN_S] = o.skin ?? DARK_SKIN;
   const breathe = Math.sin(t * 2) * 1.5;
   return (
     <g>
@@ -208,7 +213,37 @@ export const KnitGuy: React.FC<{ o: KnitOutfit; id: string; t?: number }> = ({
         {/* gövde */}
         <path d={BODY} fill={o.top} />
         {o.knit ? <path d={BODY} fill={`url(#${id}-knit)`} /> : null}
+        {o.block ? (
+          <g>
+            <clipPath id={`${id}-body`}>
+              <path d={BODY} />
+            </clipPath>
+            <rect
+              x={100}
+              y={270}
+              width={220}
+              height={120}
+              fill={o.block}
+              clipPath={`url(#${id}-body)`}
+            />
+            <path
+              d="M110,390 L320,390"
+              stroke="#fff"
+              strokeWidth={6}
+              clipPath={`url(#${id}-body)`}
+            />
+          </g>
+        ) : null}
         <Shade d={BODY} id={id} />
+        {o.zip ? (
+          <path
+            d="M286,292 Q304,410 300,526"
+            fill="none"
+            stroke={o.zip}
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+        ) : null}
         {o.knit ? (
           <g>
             <rect
@@ -258,6 +293,11 @@ export const KnitGuy: React.FC<{ o: KnitOutfit; id: string; t?: number }> = ({
               fill={`url(#${id}-shade)`}
             />
           </g>
+        ) : o.jacket ? (
+          <path
+            d="M190,262 L250,262 L254,300 L186,300 Z"
+            fill={o.block ?? o.topS}
+          />
         ) : (
           <g>
             {/* kapüşon arkada + ipler */}
@@ -273,6 +313,20 @@ export const KnitGuy: React.FC<{ o: KnitOutfit; id: string; t?: number }> = ({
         {/* kol (eller cepte) */}
         <path d={SLEEVE} fill={o.top} />
         {o.knit ? <path d={SLEEVE} fill={`url(#${id}-knit)`} /> : null}
+        {o.sleeveStripe ? (
+          <g>
+            <clipPath id={`${id}-slv`}>
+              <path d={SLEEVE} />
+            </clipPath>
+            <path
+              d="M236,296 Q282,380 268,500 M252,300 Q296,380 284,500"
+              fill="none"
+              stroke={o.sleeveStripe}
+              strokeWidth={8}
+              clipPath={`url(#${id}-slv)`}
+            />
+          </g>
+        ) : null}
         <Shade d={SLEEVE} id={id} />
         <path
           d="M212,492 Q240,506 272,492"
@@ -440,6 +494,79 @@ export const KNIT_OUTFITS: {
       beanie: "#7a4a2a",
       shoe: "#efe6d4",
       glasses: true,
+    },
+  },
+];
+
+/** Bora için dikkat çekici spor kıyafetleri (buğday ten). */
+export const BORA_SPOR: typeof KNIT_OUTFITS = [
+  {
+    name: "Neon",
+    desc: "Neon yeşil eşofman ceketi",
+    bg: "#5b5fc7",
+    o: {
+      skin: WHEAT_SKIN,
+      top: "#c6ff3d",
+      topS: "#8fc21a",
+      knit: false,
+      jacket: true,
+      zip: "#111",
+      sleeveStripe: "#111",
+      pants: "#1c1c22",
+      stripe: "#c6ff3d",
+      beanie: "#1c1c22",
+      shoe: "#c6ff3d",
+    },
+  },
+  {
+    name: "Kırmızı takım",
+    desc: "Kırmızı eşofman takımı, beyaz şerit",
+    bg: "#f2ede3",
+    o: {
+      skin: WHEAT_SKIN,
+      top: "#e63946",
+      topS: "#a8202c",
+      knit: false,
+      jacket: true,
+      zip: "#fff",
+      sleeveStripe: "#fff",
+      pants: "#e63946",
+      stripe: "#ffffff",
+      beanie: "#1c1c22",
+      shoe: "#ffffff",
+    },
+  },
+  {
+    name: "Mavi-turuncu",
+    desc: "Elektrik mavisi kapüşonlu",
+    bg: "#ffd166",
+    o: {
+      skin: WHEAT_SKIN,
+      top: "#1f6feb",
+      topS: "#1249a8",
+      knit: false,
+      block: "#ff7a2f",
+      pants: "#1c1c22",
+      stripe: "#ff7a2f",
+      beanie: "#1c1c22",
+      shoe: "#ff7a2f",
+    },
+  },
+  {
+    name: "Turuncu imza",
+    desc: "Turuncu kapüşonlu, siyah detay",
+    bg: "#3fbfb2",
+    o: {
+      skin: WHEAT_SKIN,
+      top: "#ff7a2f",
+      topS: "#c9551a",
+      knit: false,
+      block: "#1c1c22",
+      sleeveStripe: "#1c1c22",
+      pants: "#1c1c22",
+      stripe: "#ff7a2f",
+      beanie: "#1c1c22",
+      shoe: "#ffffff",
     },
   },
 ];

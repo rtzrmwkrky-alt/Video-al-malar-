@@ -314,10 +314,17 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "bu karakterin aynısı" diye o resimle üretecek, bize gönderecek → biz videoya dizeriz (hafif yakınlaşma, altyazı, ses, müzik).
   **Karakterin adı: BORA.** Kullanıcı "Bora" dediğinde bu karakter kastedilir ve o video Bora ile yapılır.
   Tüm tarif ve kurallar `icerik/bora-karakter.md`.
+  Kullanıcı "sen bana üretiyordun" diye kızdı: **karakteri kullanıcıya ürettirme, kendin üret.** → `src/avatar/Bora.tsx`
+  (kodla çizim, 7 duruş + 6 ifade), tanıtım **BoraTanitim** (`out/bora.png`).
+  Kullanıcı yandan görünen KnitGuy "Sporcu" çizimini gösterip **buğday ten + daha dikkat çekici spor kıyafeti** istedi →
+  KnitGuy'a `skin` (WHEAT_SKIN, açık buğday: kullanıcı "biraz daha aç" dedi), `jacket`, `zip`, `sleeveStripe`, `block` eklendi; 4 seçenek `BORA_SPOR`
+  (OrguKiyafet `--props='{"set":"spor"}'`, `out/bora-spor.png`): 1 Neon yeşil ceket + siyah eşofman, 2 kırmızı eşofman
+  takımı beyaz şeritli, 3 elektrik mavisi kapüşonlu + turuncu blok, 4 turuncu kapüşonlu + siyah blok/şerit. **Seçim bekleniyor**;
+  seçilince önden Bora (`Bora.tsx`) da aynı ten/kıyafete çevrilecek.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Son iş: **GeceYemekBora** — Bora kodla çizildi (`src/avatar/Bora.tsx`; buğday ten, mavi-neon eşofman, bej fon; ayrıntı
+- Son iş: **GeceYemekBora** — yandan, pozlanabilir Bora (`src/avatar/BoraYan.tsx`; açık buğday ten, mavi-neon eşofman, bej fon; ayrıntı
   `icerik/bora-karakter.md`). Aynı ses/akış (43 sn). Render: `npx remotion render GeceYemekBora out/gece-yemek-bora.mp4 ...` → -14 LUFS.
 - Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.
   Render: `npx remotion render GeceYemek out/gece-yemek-sesli.mp4 --concurrency=4 --browser-executable=...` → -14 LUFS kopya.

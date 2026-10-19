@@ -1,6 +1,6 @@
 /** Örgü tarzı erkek karakter için 4 kıyafet seçeneği (sessiz önizleme). */
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { KNIT_OUTFITS, KnitGuy } from "../avatar/KnitGuy";
+import { BORA_SPOR, KNIT_OUTFITS, KnitGuy } from "../avatar/KnitGuy";
 import { loadFonts, ROUND } from "../fonts";
 
 loadFonts();
@@ -10,15 +10,16 @@ export const ORGU_FRAMES = 30 * 6;
 const CW = 500;
 const CH = 820;
 
-export const OrguKiyafet: React.FC = () => {
+export const OrguKiyafet: React.FC<{ set?: "orgu" | "spor" }> = ({ set = "orgu" }) => {
   const t = useCurrentFrame() / 30;
+  const items = set === "spor" ? BORA_SPOR : KNIT_OUTFITS;
   return (
     <AbsoluteFill lang="tr" style={{ background: "#14151f" }}>
       <div style={{ position: "absolute", top: 70, width: "100%", textAlign: "center", fontFamily: ROUND, fontWeight: 800, fontSize: 80, color: "#fff" }}>
-        Kıyafetini seç
+        {set === "spor" ? "Bora: spor kıyafeti seç" : "Kıyafetini seç"}
       </div>
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
-        {KNIT_OUTFITS.map((k, i) => {
+        {items.map((k, i) => {
           const x = 27 + (i % 2) * (CW + 26);
           const y = 220 + Math.floor(i / 2) * (CH + 30);
           return (

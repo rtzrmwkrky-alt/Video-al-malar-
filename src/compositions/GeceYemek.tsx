@@ -10,7 +10,7 @@ import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { AnimeTeen, INK, type AnimeExpr, type AnimeLook, type AnimePose } from "../anime/AnimeTeen";
-import { Bora, type BoraExpr, type BoraPose } from "../avatar/Bora";
+import { Bora, type BoraExpr, type BoraPose } from "../avatar/BoraYan";
 
 loadFonts();
 

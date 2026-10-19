@@ -9,7 +9,12 @@ Kullanıcı "Bora" dediğinde bu karakter kastedilir: o videoda ana karakter / a
 - Zemin: düz tek renk (varsayılan turkuaz), başka eşya yok. Dikey 9:16.
 - Kıyafet seçimi çizimi: `src/avatar/KnitGuy.tsx` (`KNIT_OUTFITS[1]` "Sporcu").
 
-## Üretim
+## Kodla çizilmiş Bora (kullanıcı "sen üret" dedi)
+`src/avatar/Bora.tsx` — önden, keçe dokusu filtresi; `pose` (pocket/cheeks/point/tired/cheer/phone/dumbbell),
+`expr` (smile/talk/surprised/tired/happy/smug), `talk`, `blink`. Tanıtım: **BoraTanitim** (`out/bora.png`, `out/bora.mp4`).
+Videolarda varsayılan bu çizim kullanılır; daha gerçekçi 3B görsel istenirse (ücretli yapay zekâ aracı) önce sorulur.
+
+## Üretim (alternatif: yapay zekâ görseli)
 Görseller ChatGPT/Gemini resim aracında kullanıcı tarafından üretilir (kodla çizim bu kaliteye ulaşmıyor).
 İlk resim = kimlik kartı; sonraki her sahne o resim yüklenerek "Bu karakterin aynısı, aynı kıyafet ve aynı tarz, ..." ile istenir.
 
@@ -37,6 +42,6 @@ Kullanıcının gönderdiği Bora resimleri `public/bora/` altına konur; sahnel
 ## Kodla çizilen Bora (güncel, kullanıcı onayı: KnitGuy taslağı)
 Kullanıcı yapay zekâ resmi yerine kendi taslağımızı (KnitGuy, yandan görünüm) Bora olarak seçti:
 **buğday ten**, dikkat çeken spor kıyafeti (elektrik mavisi eşofman üstü + neon sarı-yeşil şeritler, siyah jogger, neon tabanlı
-beyaz ayakkabı, siyah bere + neon etiket), **bej zemin**. Bileşen `src/avatar/Bora.tsx` (pozlanabilir yakın kol, el biçimi
+beyaz ayakkabı, siyah bere + neon etiket), **bej zemin**. Bileşen `src/avatar/BoraYan.tsx` (yandan; önden olan `Bora.tsx` ayrı) (pozlanabilir yakın kol, el biçimi
 fist/point/thumb/open, elde nesne, ifadeler neutral/smile/grin/chew/surprise/think/ouch/yawn/happy/laugh, baş eğimi).
 Poz tablosu: `BoraPozlar`. İlk video: **GeceYemekBora** (`GeceYemek` + `hero: "bora"`, bej fon), `out/gece-yemek-bora-paylas.mp4`.

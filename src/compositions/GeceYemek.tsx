@@ -5,7 +5,7 @@
  * Metin `icerik/gece-yemek.txt`. Seslendirme varsa (public/audio/<ad>.json) satır ve altyazı zamanları
  * kelime zamanlarından gelir; yoksa okuma hızından hesaplanır (sessiz taslak).
  */
-import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, interpolate, interpolateColors, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
@@ -467,7 +467,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   const isBora = hero === "bora";
   const isCurly = hero === "kivircik";
   /** zemin/kapı tonu: fona uysun */
-  const tint = isCurly ? "#8a6a44" : isBora ? "#8e2f33" : "#0d5b5e";
+  const tint = isCurly ? "#2a2a3a" : isBora ? "#8e2f33" : "#0d5b5e";
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -530,15 +530,36 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   // ===== 9: kapanış
   const s9 = scene(9, 10);
 
+  // fon rengi sahneye göre değişir (kıvırcık Bora sürümü): gece mutfak → cevap → terazi → yatak odası → atıştırmalık → özet → kapanış
+  const SCENE_BG: [number, string, string][] = [
+    [0, "#5f6f96", "#46557a"], // gece, mutfak: akşam mavisi
+    [1, "#f3d98a", "#e9c46a"], // cevap: sıcak sarı (aydınlanma anı)
+    [2, "#d4ebe0", "#b9dccb"], // terazi: ferah mint
+    [5, "#8c84b6", "#6d6699"], // yatak odası, gece: lavanta
+    [7, "#dcefc2", "#c3e3a0"], // hafif atıştırmalık: taze yeşil
+    [8, "#f1e6d2", "#e2d2b6"], // özet: krem
+    [9, "#f7cdb0", "#eeb08a"], // kapanış: şeftali
+  ];
+  let bgTop = bg[0];
+  let bgBot = bg[1];
+  if (isCurly) {
+    bgTop = SCENE_BG[0][1];
+    bgBot = SCENE_BG[0][2];
+    for (let k = 1; k < SCENE_BG.length; k++) {
+      const at = L(SCENE_BG[k][0]);
+      bgTop = interpolateColors(t, [at - 0.15, at + 0.25], [bgTop, SCENE_BG[k][1]]);
+      bgBot = interpolateColors(t, [at - 0.15, at + 0.25], [bgBot, SCENE_BG[k][2]]);
+    }
+  }
   const fade = interpolate(t, [0, 0.12, tl.total - 0.3, tl.total], [0.6, 0, 0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
-    <AbsoluteFill lang="tr" style={{ background: bg[0], overflow: "hidden" }}>
+    <AbsoluteFill lang="tr" style={{ background: bgTop, overflow: "hidden" }}>
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <defs>
           <linearGradient id="gy-bg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor={bg[0]} />
-            <stop offset="1" stopColor={bg[1]} />
+            <stop offset="0" stopColor={bgTop} />
+            <stop offset="1" stopColor={bgBot} />
           </linearGradient>
           <radialGradient id="gy-glow" cx="50%" cy="40%" r="55%">
             <stop offset="0" stopColor="#ffffff" stopOpacity={0.4} />

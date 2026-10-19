@@ -352,6 +352,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sessiz taslak önce gösterildi (kullanıcı "sesi en sona bırak" dedi). Son: `out/gece-kilo-paylas.mp4` (-14 LUFS).
   Kullanıcı "ses efekti yok" dedi → yumuşak efektler eklendi (`FX` tablosu; Mixkit, `public/sfx/<id>.mp3` git'te): saat tıkırtısı + gong,
   buzdolabı kapağı, kart sayfası, ibre dönüşü, EFSANE damgası, kalori sayacı, kefeye düşen sandviç, uyku ölçer, ✓ tonları, telefon bildirimi.
+  İlk efektler (gong, sayfa, sayaç, ding) **"amatör" bulundu** → sinematik ses tasarımı: ortam sesi (gece cırcır 1789,
+  buzdolabı uğultusu 1837), kancada bas vuruşu 2299, kilit cümlede bant durması 1092 + **müzik susar** (`duck`), soru öncesi
+  gerilim yükselişi 790 → cevapta derin vuruş 1143, horlama 2478, temiz arayüz tıkları (2568, 1120). Kullanıcı: "milyonlarca
+  izlenecek video, unutma" → **her videoda ses tasarımı profesyonel olsun** (az ama yerinde, çizgi film pop/boing/woosh yok).
+  Sonra: **"abartma, profesyonel olsun"** → horlama, bant durması, ışıltı çıkarıldı; hepsi kısık; müzik tamamen susmaz, hafifçe kısılır.
+  Genel kural: **abartı/komik efekt yerine sade, gerçekçi, profesyonel** (görselde de, seste de).
   **Her videoda ses efekti olsun** (kısık, pop/woosh yok). Kullanıcı "ana ses kısık" dedi → konuşma `volume={1.6}` (~+4 dB, müzik/efekt üstünde).
 
 ## Son durum (yeni oturumda buradan devam)

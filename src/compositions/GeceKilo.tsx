@@ -218,23 +218,33 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
   // ===== 9: kapanış
   const s9 = win(t, L(9) - 0.02, tl.total + 1, 0.21); // kapanış videonun sonuna kadar kalır
 
-  // ses efektleri (Mixkit ücretsiz, public/sfx/<id>.mp3): yumuşak, kısık; pop/woosh yok (kullanıcı "sıp sıp" sevmiyor)
-  // lead: dosyanın başındaki sessizlik, dur: sadece ilk vuruş çalsın
-  const FX: { at: number; id: number; v: number; lead?: number; dur?: number }[] = [
-    { at: L(1), id: 1060, v: 0.18, dur: shout - 0.3 - L(1) }, // gece mutfakta duvar saati tıkırtısı
-    { at: W(1, 2), id: 1066, v: 0.16, lead: 0.04, dur: 2.2 }, // "on iki": saat gongu
-    { at: W(1, 4) - 0.1, id: 1908, v: 0.4, lead: 0.16 }, // buzdolabı kapağı açılır
-    { at: W(3, 2) - 0.2, id: 1104, v: 0.35, lead: 0.06 }, // ÖĞLEN kartı
-    { at: W(3, 6) - 0.2, id: 1104, v: 0.35, lead: 0.06 }, // GECE kartı
-    { at: L(4) - 0.1, id: 1062, v: 0.35, lead: 0.1 }, // saat ibresi döner
-    { at: no4 - 0.03, id: 2182, v: 0.5 }, // EFSANE damgası
-    { at: W(5, 4), id: 1053, v: 0.12, dur: L(6) - W(5, 4) - 0.1 }, // uyurken kalori sayacı
-    { at: more - 0.1 + 0.25, id: 2933, v: 0.4, dur: 0.6 }, // sandviç kefeye düşer
-    { at: sleep7, id: 2876, v: 0.3, dur: 1.0 }, // uyku ölçer düşer
-    { at: W(8, 4), id: 2870, v: 0.22, dur: 0.6 }, // ✓ ne kadar yedin
-    { at: W(8, 10), id: 2870, v: 0.22, dur: 0.6 }, // ✓ ne kadar tok yattın
-    { at: L(9) + 0.2, id: 933, v: 0.25, lead: 0.09 }, // kapanış: telefon bildirimi
+  // ses efektleri (Mixkit ücretsiz, public/sfx/<id>.mp3). Kullanıcı: "abartma, profesyonel olsun" → az, kısık, gerçekçi:
+  // gece ortam sesi (cırcır böceği, buzdolabı uğultusu), kancada yumuşak bas, soruda hafif gerilim → cevapta tok vuruş,
+  // temiz arayüz tıkları. Çizgi film/komik efekt (pop, boing, horlama, bant durması) yok.
+  // lead: dosyanın başındaki sessizlik, dur: çalma süresi, fade/fin: sonda sönme / başta açılma (sn)
+  const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number; fin?: number }[] = [
+    { at: 0, id: 2299, v: 0.3, lead: 0.05 }, // kanca: yumuşak bas (başlık)
+    { at: L(1) - 0.2, id: 1789, v: 0.35, dur: L(3) - L(1) + 0.2, fade: 0.4, fin: 0.5 }, // gece: dışarıda cırcır böcekleri
+    { at: L(1), id: 1060, v: 0.06, dur: 1.6, fade: 0.5 }, // duvar saati (kısa, uzakta)
+    { at: W(1, 4) - 0.1, id: 1908, v: 0.3, lead: 0.16 }, // buzdolabı kapağı
+    { at: W(1, 4), id: 1837, v: 0.7, lead: 0.22, dur: L(3) - W(1, 4), fade: 0.4, fin: 0.4 }, // buzdolabı uğultusu
+    { at: W(3, 2) - 0.12, id: 2568, v: 0.22 }, // ÖĞLEN kartı (temiz arayüz tıkı)
+    { at: W(3, 6) - 0.12, id: 2568, v: 0.22 }, // GECE kartı
+    { at: L(4) - 0.1, id: 1062, v: 0.22, lead: 0.1 }, // saat ibresi döner
+    { at: no4 - 2.0, id: 790, v: 0.22, lead: 0.61, dur: 2.0 }, // "yağ depolamaya mı?": hafif gerilim
+    { at: no4 - 0.08, id: 1143, v: 0.3, lead: 0.14, dur: 1.8, fade: 0.8 }, // "Tabii ki hayır!": tok vuruş + EFSANE
+    { at: more + 0.15, id: 2933, v: 0.28, dur: 0.5 }, // sandviç kefeye düşer
+    { at: sleep7, id: 2569, v: 0.2, dur: 0.6 }, // uyku ölçer düşer
+    { at: W(8, 4), id: 1120, v: 0.35, lead: 0.1 }, // ✓ ne kadar yedin
+    { at: W(8, 10), id: 1120, v: 0.35, lead: 0.1 }, // ✓ ne kadar tok yattın
+    { at: L(9) + 0.2, id: 933, v: 0.16, lead: 0.09 }, // kapanış: telefon bildirimi
   ];
+  /** müzik "Gece yersen kilo alırsın!" cümlesinde ve "Tabii ki hayır!" vuruşunda hafifçe kısılır (söz öne çıksın) */
+  const duck = (mt: number) =>
+    Math.min(
+      1 - 0.6 * win(mt, shout - 0.15, L(3) + 0.2, 0.3),
+      1 - 0.4 * win(mt, no4 - 0.1, no4 + 1.2, 0.3),
+    );
 
   // fon rengi sahneye göre değişir; geçişte yumuşak renk kayması
   const SCENE_BG: [number, string, string][] = [
@@ -605,7 +615,11 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
           <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} />
           {FX.map((f, i) => (
             <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">
-              <Audio src={staticFile(`sfx/${f.id}.mp3`)} startFrom={Math.round((f.lead ?? 0) * fps)} volume={f.v} />
+              <Audio
+                src={staticFile(`sfx/${f.id}.mp3`)}
+                startFrom={Math.round((f.lead ?? 0) * fps)}
+                volume={(k) => (f.dur && f.fade ? f.v * interpolate(k / fps, [0, f.fin ?? 0.001, f.dur - f.fade, f.dur], [f.fin ? 0 : 1, 1, 1, 0], { extrapolateRight: "clamp" }) : f.v)}
+              />
             </Sequence>
           ))}
           {/* konuşmanın altında kısık müzik; kapanışta biraz yükselir */}
@@ -615,7 +629,7 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
               const mt = f / fps;
               const end = data.durationInSeconds;
               const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.04, 0.04, 0.09], { extrapolateRight: "clamp" });
-              return base * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+              return base * duck(mt) * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             }}
           />
         </>

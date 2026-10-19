@@ -161,7 +161,7 @@ const blinkAt = (t: number) => {
   return x > 0.96 ? 1 : 0;
 };
 
-const PhoneItem: React.FC = () => (
+export const PhoneItem: React.FC = () => (
   <g transform="translate(0,-58)">
     <rect x={-30} y={-60} width={60} height={112} rx={12} fill="#2b2f45" stroke={INK} strokeWidth={5} />
     <rect x={-23} y={-51} width={46} height={92} rx={7} fill="#9fd8ff" />
@@ -171,7 +171,7 @@ const PhoneItem: React.FC = () => (
 
 // ------------------------------------------------------------ küçük çizim parçaları
 
-const Txt: React.FC<{ x: number; y: number; size: number; children: React.ReactNode; fill?: string; anchor?: "middle" | "start" | "end"; sw?: number }> = ({
+export const Txt: React.FC<{ x: number; y: number; size: number; children: React.ReactNode; fill?: string; anchor?: "middle" | "start" | "end"; sw?: number }> = ({
   x,
   y,
   size,
@@ -186,7 +186,7 @@ const Txt: React.FC<{ x: number; y: number; size: number; children: React.ReactN
 );
 
 /** konuşma balonu (kuyruk tx,ty noktasına); yumuşak solarak gelir */
-const Bubble: React.FC<{ x: number; y: number; w: number; h: number; tx: number; ty: number; o: number; lines: string[]; size?: number }> = ({ x, y, w, h, tx, ty, o, lines, size = 50 }) => {
+export const Bubble: React.FC<{ x: number; y: number; w: number; h: number; tx: number; ty: number; o: number; lines: string[]; size?: number }> = ({ x, y, w, h, tx, ty, o, lines, size = 50 }) => {
   if (o <= 0) return null;
   const cx = x + w / 2;
   const cy = y + h / 2;
@@ -207,7 +207,7 @@ const Bubble: React.FC<{ x: number; y: number; w: number; h: number; tx: number;
 };
 
 /** yazılı etiket kutusu */
-const Pill: React.FC<{ x: number; y: number; text: string; o: number; color?: string; size?: number; ink?: string }> = ({ x, y, text, o, color = "#fff", size = 46, ink = INK }) => {
+export const Pill: React.FC<{ x: number; y: number; text: string; o: number; color?: string; size?: number; ink?: string }> = ({ x, y, text, o, color = "#fff", size = 46, ink = INK }) => {
   if (o <= 0) return null;
   const w = text.length * size * 0.6 + 56;
   return (
@@ -220,7 +220,7 @@ const Pill: React.FC<{ x: number; y: number; text: string; o: number; color?: st
   );
 };
 
-const Check: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y, s, p }) =>
+export const Check: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y, s, p }) =>
   p <= 0 ? null : (
     <path
       d={`M${x - s},${y} L${x - s * 0.3},${y + s * 0.7} L${x + s},${y - s * 0.7}`}
@@ -235,7 +235,7 @@ const Check: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y,
     />
   );
 
-const Cross: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y, s, p }) =>
+export const Cross: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y, s, p }) =>
   p <= 0 ? null : (
     <g stroke={RED} strokeWidth={s * 0.3} strokeLinecap="round">
       <line x1={x - s} y1={y - s} x2={x - s + 2 * s * Math.min(1, p * 2)} y2={y - s + 2 * s * Math.min(1, p * 2)} />
@@ -243,7 +243,7 @@ const Cross: React.FC<{ x: number; y: number; s: number; p: number }> = ({ x, y,
     </g>
   );
 
-const Sandwich: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+export const Sandwich: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
   <g transform={`translate(${x},${y}) rotate(${rot}) scale(${s})`}>
     <path d="M-70,10 Q-74,-30 -40,-40 L40,-40 Q74,-30 70,10 Z" fill="#f2b65a" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <path d="M-76,8 Q-60,-6 -40,8 Q-20,-6 0,8 Q20,-6 40,8 Q60,-6 76,8 L74,20 L-74,20 Z" fill="#7ccf4a" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
@@ -252,7 +252,7 @@ const Sandwich: React.FC<{ x: number; y: number; s?: number; rot?: number }> = (
   </g>
 );
 
-const Burger: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Burger: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <path d="M-60,0 Q-60,-56 0,-56 Q60,-56 60,0 Z" fill="#e8a23e" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <circle cx={-20} cy={-34} r={4} fill="#fff3cf" />
@@ -263,7 +263,7 @@ const Burger: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 })
   </g>
 );
 
-const Pizza: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+export const Pizza: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
   <g transform={`translate(${x},${y}) rotate(${rot}) scale(${s})`}>
     <path d="M-60,-50 Q0,-74 60,-50 L0,70 Z" fill="#ffd66b" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <path d="M-60,-50 Q0,-74 60,-50 L54,-36 Q0,-58 -54,-36 Z" fill="#d98a3a" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
@@ -273,7 +273,7 @@ const Pizza: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x
   </g>
 );
 
-const Apple: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Apple: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <path d="M0,-30 C-30,-50 -62,-20 -52,16 C-44,46 -20,56 0,46 C20,56 44,46 52,16 C62,-20 30,-50 0,-30 Z" fill="#ff5a4e" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <path d="M-30,-18 Q-38,0 -32,14" stroke="#ffb3a8" strokeWidth={8} fill="none" strokeLinecap="round" />
@@ -415,7 +415,7 @@ const Scale: React.FC<{ a: number; left: React.ReactNode; right: React.ReactNode
 };
 
 /** saat; h: saat ibresi (0-12), m: dakika ibresi (0-60) */
-const Clock: React.FC<{ x: number; y: number; r: number; h: number; m: number }> = ({ x, y, r, h, m }) => {
+export const Clock: React.FC<{ x: number; y: number; r: number; h: number; m: number }> = ({ x, y, r, h, m }) => {
   const ha = (h / 12) * 360;
   const ma = (m / 60) * 360;
   return (

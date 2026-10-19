@@ -50,6 +50,7 @@ import { KivircikPozlar } from "./compositions/KivircikPozlar";
 import { Bora3DDeneme } from "./compositions/Bora3DDeneme";
 import { BoraKiyafet } from "./compositions/BoraKiyafet";
 import { GECE_TAIL, GECE_TL, GeceYemek, type GeceYemekProps } from "./compositions/GeceYemek";
+import { ZAYIF_TAIL, ZAYIF_TL, Zayiflar, type ZayiflarProps } from "./compositions/Zayiflar";
 
 const FPS = 30;
 
@@ -285,6 +286,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={GECE_TL.frames}
       defaultProps={{ audioName: "gece-yemek-v2", data: null, hero: "kivircik", bg: ["#ddd3c6", "#c4b6a4"] } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
+    />
+    <Composition
+      id="Zayiflar"
+      component={Zayiflar}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={ZAYIF_TL.frames}
+      defaultProps={{ audioName: "zayiflar", data: null } satisfies ZayiflarProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(ZAYIF_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="Bora3DDeneme" component={Bora3DDeneme} width={1080} height={1920} fps={FPS} durationInFrames={60} />

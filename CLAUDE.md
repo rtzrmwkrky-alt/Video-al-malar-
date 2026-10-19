@@ -333,6 +333,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Önceki Bora sürümleri (önden turuncu kapüşonlu `Bora.tsx`, yandan `BoraYan.tsx`/örgü, `Bora3D`) artık **eski**; yeni
   videolarda Bora denince `CurlyGuy` kullanılır. Eksik: pozlar/ifadeler (şu an sadece ayakta, eller cepte, göz kırpma).
 
+- **Zayiflar** — "Zayıflar bunu saklıyor!" (kullanıcının metni, ~32 sn, 3 yanlış inanış). Hikâye: her şeyi yiyen kız ("o") ↔ diyet
+  yapan Bora ("sen"). Kız = `CurlyGuy` + `GIRL_LOOK` (uzun koyu saç, kâkül, mercan hırka, açık kot, küpe, kirpik; Bora'nın tarzında).
+  Kanca ilk karede ekranda; 3 efsane kartı + kırmızı YANLIŞ mührü; cevaplar sahnede (tokluk ölçeri/tabakta kalan, gün boyu atıştırma
+  çizelgesi + kcal, merdiven + adım sayacı); son sahne fonu = ilk sahne (döngü). "Onlar şanslı" cevabı doğruluk için "Sadece şans değil".
+  Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (Chris; 521 karakter). Sessiz taslak hazır; **seslendirme onayı bekleniyor.**
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

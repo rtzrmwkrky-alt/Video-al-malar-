@@ -41,6 +41,61 @@ export type CurlyPose = {
   ly?: number;
 };
 
+/** kıyafet/saç seçenekleri; verilmezse Bora (kıvırcık saç, gözlük, koyu kuzu yünü ceket) */
+export type CurlyLook = {
+  hair?: "curly" | "long";
+  /** saç: açık, orta, koyu ton */
+  hairColor?: [string, string, string];
+  glasses?: boolean;
+  /** ceket gradyanı: açık, orta, koyu */
+  jacket?: [string, string, string];
+  teddy?: boolean;
+  sweater?: string;
+  knit?: boolean;
+  pants?: [string, string];
+  cuff?: string;
+  shoe?: [string, string];
+  shoeLine?: string;
+  strap?: boolean;
+  lashes?: boolean;
+  earrings?: string;
+};
+
+const BORA_LOOK: Required<CurlyLook> = {
+  hair: "curly",
+  hairColor: ["#c08a55", HAIR, "#5a3518"],
+  glasses: true,
+  jacket: ["#4a4d55", "#33363d", "#1f2126"],
+  teddy: true,
+  sweater: "#e9e1d2",
+  knit: true,
+  pants: ["#5a5a5e", "#3a3a3e"],
+  cuff: "#4a4a4e",
+  shoe: ["#e2774e", "#b8472b"],
+  shoeLine: "#c45a3a",
+  strap: true,
+  lashes: false,
+  earrings: "",
+};
+
+/** "Zayıflar bunu saklıyor" videosundaki kız: uzun koyu saç, kâküllü, mercan hırka, açık kot, beyaz ayakkabı */
+export const GIRL_LOOK: CurlyLook = {
+  hair: "long",
+  hairColor: ["#8a5a3a", "#4a2a18", "#2a160c"],
+  glasses: false,
+  jacket: ["#ff9a86", "#f2685c", "#c84a42"],
+  teddy: false,
+  sweater: "#fff7ee",
+  knit: false,
+  pants: ["#a9cdee", "#82acd6"],
+  cuff: "#9cc0e4",
+  shoe: ["#ffffff", "#dcdcdc"],
+  shoeLine: "#f2685c",
+  strap: false,
+  lashes: true,
+  earrings: "#f5c542",
+};
+
 const SH_R: P = [262, 358];
 const SH_L: P = [138, 358];
 
@@ -62,14 +117,17 @@ const Hand: React.FC<{ at: P; type: CurlyHand; rot: number }> = ({ at, type, rot
   </g>
 );
 
-export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?: CurlyPose; expr?: CurlyExpr; item?: React.ReactNode }> = ({
+export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?: CurlyPose; expr?: CurlyExpr; item?: React.ReactNode; look?: CurlyLook }> = ({
   id,
   t = 0,
   blink = 0,
   pose = {},
   expr = "neutral",
   item,
+  look: lk = {},
 }) => {
+  const look = { ...BORA_LOOK, ...lk };
+  const long = look.hair === "long";
   const breathe = Math.sin(t * 2) * 1.5;
   const tilt = Math.sin(t * 1.2) * 1.5 + (pose.head ?? 0);
   const closedEyes = expr === "happy" || expr === "laugh";
@@ -82,10 +140,10 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
     const d = `M${sh[0]},${sh[1]} L${a.el[0]},${a.el[1]} L${a.wr[0]},${a.wr[1]}`;
     return (
       <g key={k}>
-        <path d={d} fill="none" stroke="#1f2126" strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
-        <path d={d} fill="none" stroke="#3a3d45" strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
-        <path d={d} fill="none" stroke={`url(#${id}-teddy)`} strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx={a.wr[0]} cy={a.wr[1]} r={17} fill="#e9e1d2" />
+        <path d={d} fill="none" stroke={look.jacket[2]} strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
+        <path d={d} fill="none" stroke={look.teddy ? "#3a3d45" : look.jacket[1]} strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
+        {look.teddy ? <path d={d} fill="none" stroke={`url(#${id}-teddy)`} strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" /> : null}
+        <circle cx={a.wr[0]} cy={a.wr[1]} r={17} fill={look.sweater} />
         {withItem && item ? <g transform={`translate(${hand[0]},${hand[1]})`}>{item}</g> : null}
         <Hand at={hand} type={a.hand ?? "fist"} rot={a.handRot ?? 0} />
       </g>
@@ -100,26 +158,26 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
           <stop offset="1" stopColor={SKIN_S} />
         </radialGradient>
         <radialGradient id={`${id}-curl`} cx="0.35" cy="0.3" r="0.75">
-          <stop offset="0" stopColor="#c08a55" />
-          <stop offset="0.6" stopColor={HAIR} />
-          <stop offset="1" stopColor="#5a3518" />
+          <stop offset="0" stopColor={look.hairColor[0]} />
+          <stop offset="0.6" stopColor={look.hairColor[1]} />
+          <stop offset="1" stopColor={look.hairColor[2]} />
         </radialGradient>
         <radialGradient id={`${id}-ear`} cx="0.4" cy="0.4" r="0.7">
           <stop offset="0" stopColor="#f7b2a4" />
           <stop offset="1" stopColor={PINK} />
         </radialGradient>
         <linearGradient id={`${id}-jacket`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#4a4d55" />
-          <stop offset="0.5" stopColor="#33363d" />
-          <stop offset="1" stopColor="#1f2126" />
+          <stop offset="0" stopColor={look.jacket[0]} />
+          <stop offset="0.5" stopColor={look.jacket[1]} />
+          <stop offset="1" stopColor={look.jacket[2]} />
         </linearGradient>
         <linearGradient id={`${id}-pants`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#5a5a5e" />
-          <stop offset="1" stopColor="#3a3a3e" />
+          <stop offset="0" stopColor={look.pants[0]} />
+          <stop offset="1" stopColor={look.pants[1]} />
         </linearGradient>
         <linearGradient id={`${id}-shoe`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#e2774e" />
-          <stop offset="1" stopColor="#b8472b" />
+          <stop offset="0" stopColor={look.shoe[0]} />
+          <stop offset="1" stopColor={look.shoe[1]} />
         </linearGradient>
         {/* kuzu yünü dokusu */}
         <pattern id={`${id}-teddy`} width={12} height={12} patternUnits="userSpaceOnUse">
@@ -138,8 +196,8 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
           <path d={`M${x - 26},876 L${x - 26},818 Q${x - 24},800 ${x},800 Q${x + 22},800 ${x + 24},818 L${x + 34},846 Q${x + 44},858 ${x + 44},876 Z`} fill={`url(#${id}-shoe)`} />
           <path d={`M${x - 28},864 L${x + 46},864 L${x + 46},880 Q${x + 10},884 ${x - 28},880 Z`} fill="#f2ede4" />
           <path d={`M${x + 18},846 Q${x + 36},846 ${x + 44},864 L${x + 14},864 Z`} fill="#f2ede4" />
-          <path d={`M${x - 8},816 l18,0 M${x - 6},828 l20,0 M${x - 4},840 l22,0`} stroke="#fff" strokeWidth={3.5} strokeLinecap="round" />
-          <path d={`M${x - 28},868 L${x + 46},868`} stroke="#c45a3a" strokeWidth={2} />
+          <path d={`M${x - 8},816 l18,0 M${x - 6},828 l20,0 M${x - 4},840 l22,0`} stroke={look.teddy ? "#fff" : look.shoeLine} strokeWidth={3.5} strokeLinecap="round" />
+          <path d={`M${x - 28},868 L${x + 46},868`} stroke={look.shoeLine} strokeWidth={2} />
         </g>
       ))}
       {/* çoraplar */}
@@ -148,20 +206,26 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
       {/* pantolon */}
       <path d="M156,620 L198,620 L196,790 L162,790 Z" fill={`url(#${id}-pants)`} />
       <path d="M204,620 L246,620 L242,790 L208,790 Z" fill={`url(#${id}-pants)`} />
-      <rect x={154} y={766} width={46} height={24} rx={8} fill="#4a4a4e" />
-      <rect x={204} y={766} width={46} height={24} rx={8} fill="#4a4a4e" />
+      <rect x={154} y={766} width={46} height={24} rx={8} fill={look.cuff} />
+      <rect x={204} y={766} width={46} height={24} rx={8} fill={look.cuff} />
       <path d="M156,778 L200,778 M206,778 L250,778" stroke="#2e2e32" strokeWidth={2} />
       <g transform={`translate(0,${breathe})`}>
+        {/* uzun saçın arkası (omuzlara dökülür) */}
+        {long ? (
+          <g transform={`rotate(${tilt},200,230)`}>
+            <path d="M136,190 Q130,104 200,100 Q270,104 264,190 L276,372 Q242,392 200,384 Q158,392 124,372 Z" fill={`url(#${id}-curl)`} />
+          </g>
+        ) : null}
         {/* boyun */}
         <rect x={189} y={220} width={22} height={110} rx={10} fill={`url(#${id}-skin)`} />
         <rect x={189} y={226} width={8} height={96} rx={4} fill={SKIN_S} opacity={0.4} />
         {/* kazak (açık cekette görünen) */}
-        <path d="M172,320 L228,320 L234,640 L166,640 Z" fill="#e9e1d2" />
-        <path d="M172,320 L228,320 L234,640 L166,640 Z" fill={`url(#${id}-knit)`} />
-        <rect x={180} y={300} width={40} height={30} rx={12} fill="#e9e1d2" />
-        <rect x={180} y={300} width={40} height={30} rx={12} fill={`url(#${id}-knit)`} />
+        <path d="M172,320 L228,320 L234,640 L166,640 Z" fill={look.sweater} />
+        {look.knit ? <path d="M172,320 L228,320 L234,640 L166,640 Z" fill={`url(#${id}-knit)`} /> : null}
+        <rect x={180} y={300} width={40} height={30} rx={12} fill={look.sweater} />
+        {look.knit ? <rect x={180} y={300} width={40} height={30} rx={12} fill={`url(#${id}-knit)`} /> : null}
         {/* çanta askısı */}
-        <path d="M184,334 L220,560" stroke="#2b2a2a" strokeWidth={4} />
+        {look.strap ? <path d="M184,334 L220,560" stroke="#2b2a2a" strokeWidth={4} /> : null}
         {/* ceket: iki ön parça, eller cepte */}
         {[-1, 1].map((s) => {
           const d =
@@ -171,7 +235,7 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
           return (
             <g key={s}>
               <path d={d} fill={`url(#${id}-jacket)`} />
-              <path d={d} fill={`url(#${id}-teddy)`} />
+              {look.teddy ? <path d={d} fill={`url(#${id}-teddy)`} /> : null}
             </g>
           );
         })}
@@ -181,12 +245,20 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
         {/* dik yaka / kapüşon */}
         <path d="M164,352 Q146,312 162,282 Q182,266 194,292 L194,342 Z" fill={`url(#${id}-jacket)`} />
         <path d="M236,352 Q254,312 238,282 Q218,266 206,292 L206,342 Z" fill={`url(#${id}-jacket)`} />
-        <path d="M164,352 Q146,312 162,282 Q182,266 194,292 L194,342 Z" fill={`url(#${id}-teddy)`} />
-        <path d="M236,352 Q254,312 238,282 Q218,266 206,292 L206,342 Z" fill={`url(#${id}-teddy)`} />
+        {look.teddy ? (
+          <>
+            <path d="M164,352 Q146,312 162,282 Q182,266 194,292 L194,342 Z" fill={`url(#${id}-teddy)`} />
+            <path d="M236,352 Q254,312 238,282 Q218,266 206,292 L206,342 Z" fill={`url(#${id}-teddy)`} />
+          </>
+        ) : null}
         {/* kafa */}
         <g transform={`rotate(${tilt},200,230)`}>
-          <circle cx={146} cy={200} r={22} fill={`url(#${id}-ear)`} />
-          <circle cx={254} cy={200} r={22} fill={`url(#${id}-ear)`} />
+          {long ? null : (
+            <>
+              <circle cx={146} cy={200} r={22} fill={`url(#${id}-ear)`} />
+              <circle cx={254} cy={200} r={22} fill={`url(#${id}-ear)`} />
+            </>
+          )}
           <path d="M150,180 Q150,128 200,126 Q250,128 250,180 Q250,222 230,240 Q214,252 200,252 Q186,252 170,240 Q150,222 150,180 Z" fill={`url(#${id}-skin)`} />
           {/* gözler (gözlüğün arkasında, hafif yukarı bakıyor) */}
           {[180, 220].map((x) => (
@@ -195,10 +267,19 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
             ) : expr === "ouch" ? (
               <path key={x} d={x < 200 ? `M${x - 8},180 L${x + 6},187 L${x - 8},194` : `M${x + 8},180 L${x - 6},187 L${x + 8},194`} fill="none" stroke="#2a1a10" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" />
             ) : (
-              <g key={x} transform={`translate(${x},186) scale(${eyeR},${Math.max(0.08, open) * eyeR}) translate(${-x},-186)`}>
+              <g key={x} transform={`translate(${x},186) scale(${eyeR * (look.glasses ? 1 : 1.25)},${Math.max(0.08, open) * eyeR * (look.glasses ? 1 : 1.25)}) translate(${-x},-186)`}>
                 <ellipse cx={x} cy={186} rx={9} ry={10} fill="#fbf8f2" />
                 <circle cx={x + 1 + lx} cy={182 + ly} r={5.5} fill="#2a1a10" />
                 <circle cx={x + 3 + lx} cy={180 + ly} r={1.8} fill="#fff" />
+                {look.lashes ? (
+                  <path
+                    d={x < 200 ? `M${x - 10},183 Q${x},173 ${x + 10},181 M${x - 9},180 L${x - 14},175 M${x - 5},177 L${x - 8},171` : `M${x + 10},183 Q${x},173 ${x - 10},181 M${x + 9},180 L${x + 14},175 M${x + 5},177 L${x + 8},171`}
+                    fill="none"
+                    stroke="#2a1a10"
+                    strokeWidth={2.6}
+                    strokeLinecap="round"
+                  />
+                ) : null}
               </g>
             )
           ))}
@@ -219,11 +300,20 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
             strokeLinecap="round"
           />
           {/* gözlük */}
+          {look.glasses ? (
+          <>
           <circle cx={178} cy={186} r={23} fill="#fff" fillOpacity={0.08} stroke="#141414" strokeWidth={6} />
           <circle cx={222} cy={186} r={23} fill="#fff" fillOpacity={0.08} stroke="#141414" strokeWidth={6} />
           <path d="M197,182 Q200,178 203,182" fill="none" stroke="#141414" strokeWidth={5} />
           <path d="M155,182 L148,180 M245,182 L252,180" stroke="#141414" strokeWidth={5} />
           <path d="M168,174 Q174,168 182,168" fill="none" stroke="#fff" strokeWidth={3} opacity={0.5} />
+          </>
+          ) : (
+            <>
+              <ellipse cx={168} cy={214} rx={12} ry={7} fill={PINK} opacity={0.35} />
+              <ellipse cx={232} cy={214} rx={12} ry={7} fill={PINK} opacity={0.35} />
+            </>
+          )}
           {/* burun */}
           <ellipse cx={200} cy={208} rx={12} ry={11} fill={PINK} />
           <ellipse cx={196} cy={204} rx={4} ry={3} fill="#fff" opacity={0.45} />
@@ -249,13 +339,28 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
           ) : (
             <path d="M193,232 Q200,230 207,232" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
           )}
-          {/* kıvırcık saç */}
-          {CURLS.map(([x, y, r], i) => (
-            <g key={i}>
-              <circle cx={x} cy={y} r={r} fill={`url(#${id}-curl)`} />
-              <path d={`M${x - r * 0.5},${y} Q${x},${y - r * 0.6} ${x + r * 0.5},${y}`} fill="none" stroke="#d9a46a" strokeWidth={3} opacity={0.6} />
+          {long ? (
+            <g>
+              {/* kâkül + yüzü çerçeveleyen tutamlar (kulakları örter) */}
+              <path d="M142,200 Q138,112 200,110 Q262,112 258,200 Q252,160 236,150 Q222,160 204,146 Q186,162 166,152 Q150,162 142,200 Z" fill={`url(#${id}-curl)`} />
+              <path d="M144,170 Q128,250 140,330 L162,330 Q152,250 160,176 Z" fill={`url(#${id}-curl)`} />
+              <path d="M256,170 Q272,250 260,330 L238,330 Q248,250 240,176 Z" fill={`url(#${id}-curl)`} />
+              <path d="M170,124 Q196,114 226,122" fill="none" stroke={look.hairColor[0]} strokeWidth={5} strokeLinecap="round" opacity={0.7} />
+              {look.earrings ? (
+                <>
+                  <circle cx={150} cy={238} r={6} fill="none" stroke={look.earrings} strokeWidth={3.5} />
+                  <circle cx={250} cy={238} r={6} fill="none" stroke={look.earrings} strokeWidth={3.5} />
+                </>
+              ) : null}
             </g>
-          ))}
+          ) : (
+            CURLS.map(([x, y, r], i) => (
+              <g key={i}>
+                <circle cx={x} cy={y} r={r} fill={`url(#${id}-curl)`} />
+                <path d={`M${x - r * 0.5},${y} Q${x},${y - r * 0.6} ${x + r * 0.5},${y}`} fill="none" stroke="#d9a46a" strokeWidth={3} opacity={0.6} />
+              </g>
+            ))
+          )}
         </g>
         {/* kollar (cepten çıkınca) */}
         {pose.l ? arm(pose.l, SH_L, "l", !pose.r) : null}

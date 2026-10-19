@@ -1,7 +1,8 @@
 /**
- * "Zayıflar bunu saklıyor!" — 3 yanlış inanış (~32 sn), tek anlatıcı (Chris).
- * Hikâye: her şeyi yiyen ama kilo almayan kız ("o") ↔ diyet yapan Bora ("sen").
- * 3 efsane kartı (YANLIŞ damgası) → her birinin cevabı sahnede gösterilir → "yasak değil, alışkanlık" → yorum çağrısı.
+ * "Zayıfların sakladığı o sır!" — 3 yalan (~40 sn), tek anlatıcı (Chris). Metin kullanıcının (2. sürüm).
+ * Hikâye: her şeyi yiyen ama kilo almayan kız ("o") ↔ Bora ("sen" / "biz").
+ * Her maddede önce ekranı kaplayan dev rakam (kullanıcı ipucu), sonra efsane kartı + kırmızı YALAN mührü,
+ * cevap sahnede gösterilir → "şans değil, alışkanlık" → yorum çağrısı.
  * Kanca ilk karede ekranda (kapak görseli de olur). Son sahnenin fonu ilk sahneyle aynı: video döngüye girince dikiş görünmez.
  * Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (kelime sayıları satır satır aynı olmalı).
  * Ses yoksa zamanlar okuma hızından hesaplanır (sessiz taslak).
@@ -12,7 +13,7 @@ import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { INK } from "../anime/AnimeTeen";
 import { CurlyGuy, GIRL_LOOK, type CurlyExpr, type CurlyLook, type CurlyPose } from "../avatar/CurlyGuy";
-import { Apple, Bubble, Burger, Check, Clock, Cross, Pill, Pizza, Txt } from "./GeceYemek";
+import { Apple, Bubble, Burger, Check, Clock, Cross, Dumbbell, Flame, Moon, Nuts, Pill, Pizza, Txt } from "./GeceYemek";
 
 loadFonts();
 
@@ -22,22 +23,24 @@ const GREEN = "#3ccf7a";
 const FLOOR = 1400;
 
 export const ZAYIF_LINES: Line[] = [
-  { text: "Zayıflar bunu saklıyor!", hl: ["saklıyor!"], hold: 0.2 },
-  { text: "Bu kız her şeyi yiyor ama kilo almıyor. Sence neden?", hl: ["her", "şeyi", "almıyor.", "neden?"], hold: 0.4 },
-  { text: "Sen diyet yapıyorsun, o yapmıyor.", hl: ["diyet", "yapmıyor."], hold: 0.2 },
-  { text: "Çünkü herkesin doğru bildiği 3 yanlış var.", hl: ["3", "yanlış"], hold: 0.3 },
-  { text: "1. “Zayıflar az yer.”", hold: 0.2 },
-  { text: "Az yemiyorlar. Doyunca bırakıyorlar, tabağı bitirmek zorunda hissetmiyorlar.", hl: ["doyunca", "bırakıyorlar,"], hold: 0.3 },
-  { text: "2. “Akşam yemek kilo aldırır.”", hold: 0.2 },
-  { text: "Saat değil, gün boyu atıştırmak kilo aldırır.", hl: ["saat", "değil,", "atıştırmak"], hold: 0.3 },
-  { text: "3. “Onlar şanslı.”", hold: 0.2 },
-  { text: "Sadece şans değil. Gün içinde sürekli hareket ediyorlar, farkında bile değilsin.", hl: ["sürekli", "hareket"], hold: 0.3 },
-  { text: "Zayıf insanlar yasakla değil, alışkanlıkla yaşar.", hl: ["yasakla", "alışkanlıkla"], hold: 0.4 },
-  { text: "Kaçına inanıyordun? Yoruma yaz!", hl: ["yoruma", "yaz!"], hold: 0.6 },
+  { text: "Zayıfların sakladığı o sır!", hold: 0.2 },
+  { text: "Bu kız her şeyi yiyor ama gram kilo almıyor.", hl: ["her", "şeyi", "gram", "almıyor."], hold: 0.2 },
+  { text: "“Şanslı” deyip geçme, kandırıldığımız 3 yalan var!", hl: ["3", "yalan"], hold: 0.3 },
+  { text: "1. “Az yiyorlar.”", hold: 0.2 },
+  { text: "Az yemiyorlar! Doydukları an tabağı bırakıyorlar.", hl: ["doydukları", "bırakıyorlar."], hold: 0.2 },
+  { text: "Biz ise tabağı bitirmek için kendimizi zorluyoruz.", hl: ["zorluyoruz."], hold: 0.3 },
+  { text: "2. “Gece yemek kilo aldırır.”", hold: 0.2 },
+  { text: "Vücut saate bakmaz!", hl: ["saate", "bakmaz!"], hold: 0.2 },
+  { text: "Sen gün boyu “sağlıklı” diye avuç avuç kuruyemişle 3 bin kaloriyi deviriyorsun.", hl: ["avuç", "3", "bin"], hold: 0.3 },
+  { text: "3. Şanslı değiller!", hold: 0.2 },
+  { text: "Fark etmeden sürekli hareket ediyorlar.", hl: ["sürekli", "hareket"], hold: 0.2 },
+  { text: "Sen 1 saat spor yapıp yatarken, o oturduğu yerde bile kalori yakıyor.", hl: ["yatarken,", "kalori", "yakıyor."], hold: 0.3 },
+  { text: "Zayıflık şans değil, alışkanlık.", hl: ["alışkanlık."], hold: 0.4 },
+  { text: "Hangisine inanıyordun? Yorumlara yaz!", hl: ["yorumlara", "yaz!"], hold: 0.6 },
 ];
 
 /** ekrandaki büyük yazıyla aynı olduğu için altyazısı gösterilmeyen satırlar (kanca + efsane kartları) */
-const NO_CAPTION = [0, 4, 6, 8];
+const NO_CAPTION = [0, 3, 6, 9];
 
 export const ZAYIF_TAIL = 1.4;
 export const ZAYIF_TL = timeline(ZAYIF_LINES, ZAYIF_TAIL);
@@ -311,7 +314,7 @@ const CommentIcon: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s =
 );
 
 /** kırmızı mühür (YANLIŞ); p: 0→1 yumuşak gelir, hafif büyükten yerine oturur */
-const Stamp: React.FC<{ x: number; y: number; p: number; text?: string; size?: number }> = ({ x, y, p, text = "YANLIŞ", size = 92 }) => {
+const Stamp: React.FC<{ x: number; y: number; p: number; text?: string; size?: number }> = ({ x, y, p, text = "YALAN", size = 92 }) => {
   if (p <= 0) return null;
   const w = text.length * size * 0.66 + 70;
   return (
@@ -368,7 +371,37 @@ const Stairs: React.FC = () => (
   </g>
 );
 
+/** kanepe (Bora'nın "yatarken"i) */
+const Sofa: React.FC<{ x: number; w?: number }> = ({ x, w = 420 }) => (
+  <g>
+    <rect x={x} y={1060} width={w} height={200} rx={50} fill="#7a8fd6" stroke={INK} strokeWidth={8} />
+    <rect x={x - 30} y={1160} width={w + 60} height={180} rx={40} fill="#8fa3e6" stroke={INK} strokeWidth={8} />
+    <rect x={x - 50} y={1120} width={80} height={220} rx={36} fill="#7a8fd6" stroke={INK} strokeWidth={8} />
+    <rect x={x + w - 30} y={1120} width={80} height={220} rx={36} fill="#7a8fd6" stroke={INK} strokeWidth={8} />
+    <rect x={x} y={1340} width={24} height={60} fill="#6b4a32" stroke={INK} strokeWidth={6} />
+    <rect x={x + w - 24} y={1340} width={24} height={60} fill="#6b4a32" stroke={INK} strokeWidth={6} />
+  </g>
+);
+
+/** ekranı kaplayan dev rakam (madde başında izleyiciyi tutar); yumuşak gelir, hafif küçülerek söner */
+const BigNum: React.FC<{ n: number; t: number; at: number }> = ({ n, t, at }) => {
+  const o = win(t, at - 0.08, at + 0.75, 0.18);
+  if (o <= 0) return null;
+  const k = sm(t, at - 0.08, at + 0.75);
+  return (
+    <g opacity={o}>
+      <rect width={1080} height={1920} fill="#000" opacity={0.25 * o} />
+      <g transform={`translate(540,${1060}) scale(${1.06 - 0.12 * k})`}>
+        <text x={0} y={0} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={900} fill={Y} stroke={INK} strokeWidth={36} paintOrder="stroke" letterSpacing={-20}>
+          {n}
+        </text>
+      </g>
+    </g>
+  );
+};
+
 // ------------------------------------------------------------ ana kompozisyon
+
 
 export type ZayiflarProps = { audioName: string; data: VoiceoverData | null };
 
@@ -383,16 +416,19 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
   const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - 0.02, L(b) + 0.02, X * 0.6);
   const W = (line: number, k: number) => wordTime(tl, line, k);
   const bite = (speed: number, phase = 0) => (1 - Math.cos(t * speed + phase)) / 2;
+  const fmt = (n: number) => n.toLocaleString("tr-TR");
+  /** kart açılışı: dev rakam sönerken gelir */
+  const cardIn = (line: number) => sm(t, L(line) + 0.45, L(line) + 0.8);
 
   // fon rengi sahneye göre (son sahne = ilk sahne: döngüde dikiş görünmez)
   const SCENE_BG: [number, string, string][] = [
     [0, "#ffd6c9", "#f6b5a2"], // kanca: şeftali
-    [2, "#d9e6f4", "#bcd1ea"], // sen ↔ o: açık mavi
-    [4, "#fbe9b6", "#f2d684"], // 1: tereyağı sarısı
+    [2, "#d9e6f4", "#bcd1ea"], // şanslı mı?: açık mavi
+    [3, "#fbe9b6", "#f2d684"], // 1: tereyağı sarısı
     [6, "#e3ddf6", "#c9bfee"], // 2: lavanta
-    [8, "#d4ebe0", "#b6dac9"], // 3: mint
-    [10, "#f1e6d2", "#e2d2b6"], // özet: krem
-    [11, "#ffd6c9", "#f6b5a2"], // kapanış: şeftali
+    [9, "#d4ebe0", "#b6dac9"], // 3: mint
+    [12, "#f1e6d2", "#e2d2b6"], // özet: krem
+    [13, "#ffd6c9", "#f6b5a2"], // kapanış: şeftali
   ];
   let bgTop = SCENE_BG[0][1];
   let bgBot = SCENE_BG[0][2];
@@ -404,42 +440,50 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
 
   // ===== 0-1: kanca — kız her şeyi yiyor
   const s0 = scene(0, 2);
-  const why = sm(t, W(1, 8) - 0.2, W(1, 8) + 0.15); // "Sence neden?"
-  const eat0 = bite(4.2) * (1 - why);
+  const eat0 = bite(4.2);
 
-  // ===== 2-3: sen diyet / o yemiyor
-  const s2 = scene(2, 4);
-  const three = sm(t, W(3, 4) - 0.1, W(3, 4) + 0.3); // "3 yanlış"
+  // ===== 2: "şanslı" deyip geçme → 3 yalan
+  const s2 = scene(2, 3);
+  const three = sm(t, W(2, 4) - 0.15, W(2, 4) + 0.2);
 
-  // ===== 4-5: 1. efsane
-  const s4 = scene(4, 6);
-  const full = W(5, 2); // "Doyunca"
-  const biteN = Math.max(0, Math.min(3, Math.floor((t - L(4) + 0.2) / 1.05)));
-  const eatK = t < full - 0.2 ? bite((Math.PI * 2) / 1.05, -(L(4) - 0.2) * ((Math.PI * 2) / 1.05)) : 0;
-  const fullV = interpolate(t, [L(4), full], [0.2, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // ===== 3-5: 1. yalan
+  const s3 = scene(3, 6);
+  const full = W(4, 2); // "Doydukları an"
+  const T5 = L(5);
+  const girlO = 1 - sm(t, T5 - 0.2, T5);
+  const boraO = sm(t, T5, T5 + 0.2);
+  const biteN = Math.max(0, Math.min(2, Math.floor((t - L(3) - 0.3) / 0.9)));
+  const eatK = t < full - 0.2 && t > L(3) + 0.3 ? bite((Math.PI * 2) / 0.9, -(L(3) + 0.3) * ((Math.PI * 2) / 0.9)) : 0;
+  const fullV = interpolate(t, [L(3) + 0.5, full], [0.25, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // Bora: aynı masada zorla bitiriyor (tabak 6 → 0, ölçer taşar)
+  const forced = W(5, 6); // "zorluyoruz"
+  const boraBite = interpolate(t, [T5, forced], [0, 6], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const boraEat = t < forced ? bite(7.5) : 0;
+  const overV = interpolate(t, [T5, forced], [0.6, 1.3], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-  // ===== 6-7: 2. efsane
-  const s6 = scene(6, 8);
-  const snackT = [W(7, 3), W(7, 3) + 0.35, W(7, 4), W(7, 4) + 0.35, W(7, 5)];
-  const snackN = snackT.filter((x) => t >= x).length;
-  const kcal = Math.round(interpolate(t, [snackT[0], snackT[4] + 0.3], [0, 1250], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) / 10) * 10;
+  // ===== 6-8: 2. yalan
+  const s6 = scene(6, 9);
+  const nutT = [W(8, 0), W(8, 2), W(8, 4), W(8, 5), W(8, 7)];
+  const kcal = Math.round(interpolate(t, [nutT[0], W(8, 9) + 0.2], [0, 3000], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) / 10) * 10;
 
-  // ===== 8-9: 3. efsane
-  const s8 = scene(8, 10);
-  const climb = interpolate(t, [W(9, 3), L(10) - 0.3], [0, STEPS - 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // ===== 9-11: 3. yalan
+  const s9 = scene(9, 12);
+  const climb = interpolate(t, [L(10), L(11) - 0.1], [0, STEPS - 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const stepK = Math.floor(climb);
   const stepF = sm(climb - stepK, 0.15, 0.85);
   const stairPos = (k: number): P => [STEP_X0 + k * STEP_W + STEP_W * 0.55, FLOOR - (k + 1) * STEP_H];
   const girlP = mixP(stairPos(stepK), stairPos(Math.min(STEPS - 1, stepK + 1)), stepF);
   const hop = Math.sin(stepF * Math.PI) * 26;
-  const steps = Math.round(interpolate(t, [W(9, 3), L(10) - 0.2], [2400, 11800], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) / 7) * 7;
+  const steps = Math.round(interpolate(t, [L(10), L(11) - 0.1], [2400, 11800], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) / 7) * 7;
+  const st = sm(t, L(10) - 0.2, L(10)) * (1 - sm(t, L(11) - 0.2, L(11))); // merdiven bölümü
+  const sp = sm(t, L(11), L(11) + 0.25); // spor ↔ kanepe bölümü
+  const lazy = W(11, 4); // "yatarken"
 
-  // ===== 10: yasak değil alışkanlık
-  const s10 = scene(10, 11);
+  // ===== 12: şans değil, alışkanlık
+  const s12 = scene(12, 13);
 
-  // ===== 11: kapanış
-  const s11 = win(t, L(11) - 0.02, tl.total + 1, X * 0.6); // sona kadar kalır (döngü: siyaha kararmaz)
-  const fmt = (n: number) => n.toLocaleString("tr-TR");
+  // ===== 13: kapanış (sona kadar kalır; döngü için siyaha kararmaz)
+  const s13 = win(t, L(13) - 0.02, tl.total + 1, X * 0.6);
 
   return (
     <AbsoluteFill lang="tr" style={{ background: bgTop, overflow: "hidden" }}>
@@ -466,16 +510,7 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
         {/* ===== 0-1: kanca ===== */}
         {s0 > 0 ? (
           <g opacity={s0}>
-            <Who
-              uid="kiz0"
-              look={GIRL_LOOK}
-              x={540}
-              s={1.12}
-              t={t}
-              pose={why > 0.5 ? { r: { el: [300, 540], wr: [320, 450], hand: "thumb" }, head: -6 } : { r: eatArm(eat0) }}
-              expr={why > 0.5 ? "happy" : "chew"}
-              item={why > 0.5 ? undefined : <Burger x={0} y={-14} s={0.55} />}
-            />
+            <Who uid="kiz0" look={GIRL_LOOK} x={540} s={1.12} t={t} pose={{ r: eatArm(eat0) }} expr="chew" item={<Burger x={0} y={-14} s={0.55} />} />
             <Table x0={90} x1={990} y={1130} />
             <Fries x={210} y={1090} s={0.95} />
             <Pizza x={860} y={1080} s={0.85} rot={200} />
@@ -483,104 +518,116 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
             <Apple x={700} y={1105} s={0.6} />
             {/* kanca yazısı: ilk karede tam görünür (kapak) */}
             <g transform={`translate(0,${Math.sin(t * 2) * 4})`}>
-              <Txt x={540} y={300} size={150} fill="#ffffff" sw={22}>
-                ZAYIFLAR
+              <Txt x={540} y={290} size={140} fill="#ffffff" sw={22}>
+                ZAYIFLARIN
               </Txt>
-              <Txt x={540} y={440} size={118} fill={Y} sw={20}>
-                BUNU SAKLIYOR!
+              <Txt x={540} y={420} size={104} fill={Y} sw={20}>
+                SAKLADIĞI O SIR!
               </Txt>
             </g>
-            {/* "kilo almıyor": kilo ibresi kıpırdamıyor */}
-            <Pill x={230} y={620} text="KİLO: AYNI" o={win(t, W(1, 5) - 0.1, W(1, 8) - 0.1, 0.25)} color={GREEN} ink="#fff" size={46} />
-            {why > 0 ? (
-              <g opacity={why} transform={`translate(${830},${700 + Math.sin(t * 3) * 10})`}>
-                <Txt x={0} y={0} size={230} fill={Y} sw={16}>
-                  ?
-                </Txt>
-              </g>
-            ) : null}
+            <Pill x={230} y={620} text="KİLO: AYNI" o={sm(t, W(1, 6) - 0.1, W(1, 6) + 0.2)} color={GREEN} ink="#fff" size={50} />
           </g>
         ) : null}
 
-        {/* ===== 2-3: sen ↔ o ===== */}
+        {/* ===== 2: şanslı mı? ===== */}
         {s2 > 0 ? (
           <g opacity={s2}>
-            <Who
-              uid="bora2"
-              x={280}
-              s={1.06}
-              t={t}
-              pose={{ r: { el: [300, 540], wr: [310, 470] }, head: 5, lx: 5 }}
-              expr="ouch"
-              item={<Salad x={0} y={-20} s={0.7} />}
-            />
+            <Who uid="bora2" x={280} s={1.06} t={t} pose={{ r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: 20 } }} expr={t < W(2, 2) ? "grin" : "surprise"} />
             <Who uid="kiz2" look={GIRL_LOOK} x={800} s={1.06} t={t} pose={{ r: eatArm(bite(4.6, 1)) }} expr="chew" item={<Pizza x={0} y={-20} s={0.5} rot={180} />} />
             <g opacity={1 - three}>
-              <Pill x={290} y={600} text="SEN: DİYET" o={sm(t, W(2, 0) - 0.1, W(2, 0) + 0.2)} color="#ffffff" size={50} />
-              <Pill x={790} y={600} text="O: DİYET YOK" o={sm(t, W(2, 3) - 0.1, W(2, 3) + 0.2)} color={Y} size={50} />
+              <Bubble x={60} y={250} w={460} h={170} tx={330} ty={560} o={sm(t, L(2) - 0.05, L(2) + 0.2)} lines={["ŞANSLI!"]} size={70} />
+              <Clover x={600} y={320} s={0.7} />
+              <Cross x={290} y={335} s={70} p={sm(t, W(2, 2) - 0.1, W(2, 2) + 0.3)} />
             </g>
-            {/* 3 yanlış: üç kapalı kart */}
-            <g opacity={sm(t, L(3) + 0.1, L(3) + 0.4)}>
-              {[0, 1, 2].map((k) => {
-                const x = 240 + k * 300;
-                const o = sm(t, L(3) + 0.1 + k * 0.12, L(3) + 0.4 + k * 0.12);
-                return (
-                  <g key={k} opacity={o} transform={`translate(0,${(1 - o) * 20})`}>
-                    <rect x={x - 115} y={250} width={230} height={260} rx={30} fill="#ffffff" stroke={INK} strokeWidth={8} />
-                    <Txt x={x} y={420} size={150} fill={Y} sw={14}>
-                      {String(k + 1)}
-                    </Txt>
-                  </g>
-                );
-              })}
-              <Pill x={540} y={600} text="3 YANLIŞ" o={three} color={RED} ink="#fff" size={60} />
-            </g>
+            {[0, 1, 2].map((k) => {
+              const x = 240 + k * 300;
+              const o = sm(t, W(2, 4) - 0.15 + k * 0.1, W(2, 4) + 0.15 + k * 0.1);
+              return (
+                <g key={k} opacity={o} transform={`translate(0,${(1 - o) * 20})`}>
+                  <rect x={x - 115} y={250} width={230} height={260} rx={30} fill="#ffffff" stroke={INK} strokeWidth={8} />
+                  <Txt x={x} y={420} size={150} fill={Y} sw={14}>
+                    {String(k + 1)}
+                  </Txt>
+                </g>
+              );
+            })}
+            <Pill x={540} y={600} text="3 YALAN" o={three} color={RED} ink="#fff" size={64} />
           </g>
         ) : null}
 
-        {/* ===== 4-5: 1. "Zayıflar az yer" ===== */}
-        {s4 > 0 ? (
-          <g opacity={s4}>
-            <Who
-              uid="kiz4"
-              look={GIRL_LOOK}
-              x={430}
-              s={1.02}
-              t={t}
-              pose={
-                t < full - 0.2
-                  ? { r: { el: mixP([310, 500], EAT_UP[0], eatK), wr: mixP([296, 600], EAT_UP[1], eatK) } }
-                  : { r: { el: [292, 560], wr: [236, 560], hand: "open" }, l: { el: [108, 560], wr: [164, 560], hand: "open" }, head: -4 }
-              }
-              expr={t < full - 0.2 ? "chew" : "happy"}
-            />
+        {/* ===== 3-5: 1. "Az yiyorlar" ===== */}
+        {s3 > 0 ? (
+          <g opacity={s3}>
+            {girlO > 0 ? (
+              <g opacity={girlO}>
+                <Who
+                  uid="kiz3"
+                  look={GIRL_LOOK}
+                  x={430}
+                  s={1.02}
+                  t={t}
+                  pose={
+                    t < full - 0.2
+                      ? { r: { el: mixP([310, 500], EAT_UP[0], eatK), wr: mixP([296, 600], EAT_UP[1], eatK) } }
+                      : { r: { el: [320, 520], wr: [380, 600], hand: "open", handRot: 60 }, head: -4 }
+                  }
+                  expr={t < full - 0.2 ? "chew" : "happy"}
+                />
+              </g>
+            ) : null}
+            {boraO > 0 ? (
+              <g opacity={boraO}>
+                <Who
+                  uid="bora3"
+                  x={430}
+                  s={1.02}
+                  t={t}
+                  pose={
+                    t < forced
+                      ? { r: eatArm(boraEat), head: Math.sin(t * 7) * 2 }
+                      : { r: { el: [292, 560], wr: [236, 560], hand: "open" }, l: { el: [108, 560], wr: [164, 560], hand: "open" }, head: 5 }
+                  }
+                  expr={t < forced ? "chew" : "ouch"}
+                />
+              </g>
+            ) : null}
             <Table x0={60} x1={1020} y={1150} />
-            <Plate x={530} y={1150} n={6 - biteN} />
-            <FullMeter x={810} y={640} v={fullV} o={sm(t, L(4) + 0.2, L(4) + 0.5)} done={sm(t, full, full + 0.4)} />
-            <Bubble x={60} y={560} w={380} h={150} tx={340} ty={760} o={sm(t, full - 0.1, full + 0.2)} lines={["DOYDUM!"]} size={62} />
-            <Pill x={350} y={1290} text="TABAKTA KALABİLİR" o={sm(t, W(5, 4) - 0.1, W(5, 4) + 0.2)} color={Y} size={44} />
-            <MythCard n={1} lines={["“ZAYIFLAR", "AZ YER”"]} p={sm(t, L(4) - 0.05, L(4) + 0.3)} stamp={sm(t, L(5) - 0.05, L(5) + 0.25)} />
+            <Plate x={530} y={1150} n={t < T5 ? 6 - biteN : 6 - Math.floor(boraBite)} />
+            {/* tokluk ölçeri: kızda yeşil "doydum", Bora'da taşar */}
+            <FullMeter x={810} y={640} v={Math.min(1, t < T5 ? fullV : overV)} o={sm(t, L(3) + 0.6, L(3) + 0.9)} done={sm(t, full, full + 0.4) * girlO} />
+            {t > T5 && overV > 1 ? (
+              <g opacity={sm(overV, 1, 1.1)}>
+                <rect x={822} y={660 - (overV - 1) * 300} width={66} height={(overV - 1) * 300 + 20} rx={20} fill={RED} />
+                <Pill x={855} y={1120} text="FAZLA!" o={1} color={RED} ink="#fff" size={44} />
+              </g>
+            ) : null}
+            <g opacity={girlO}>
+              <Bubble x={40} y={560} w={380} h={150} tx={330} ty={760} o={sm(t, full - 0.1, full + 0.2)} lines={["DOYDUM!"]} size={62} />
+              <Pill x={600} y={1290} text="TABAKTA KALDI" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} color={Y} size={44} />
+            </g>
+            <Pill x={560} y={1290} text="BİTİRMEK ZORUNDAYIM" o={boraO * sm(t, W(5, 2) - 0.1, W(5, 2) + 0.2)} color="#ffffff" size={42} />
+            <BigNum n={1} t={t} at={L(3)} />
+            <MythCard n={1} lines={["“AZ", "YİYORLAR”"]} p={cardIn(3)} stamp={sm(t, L(4) - 0.05, L(4) + 0.25)} />
           </g>
         ) : null}
 
-        {/* ===== 6-7: 2. "Akşam yemek kilo aldırır" ===== */}
+        {/* ===== 6-8: 2. "Gece yemek kilo aldırır" ===== */}
         {s6 > 0 ? (
           <g opacity={s6}>
-            {/* gün boyu atıştırma çizelgesi */}
-            <g opacity={sm(t, W(7, 2) - 0.1, W(7, 2) + 0.2)}>
-              <line x1={110} y1={760} x2={970} y2={760} stroke={INK} strokeWidth={8} strokeLinecap="round" opacity={0.6} />
-              {["10:00", "13:00", "16:00", "19:00", "22:00"].map((h, k) => {
+            {/* gün boyu avuç avuç kuruyemiş */}
+            <g opacity={sm(t, L(8) - 0.1, L(8) + 0.2)}>
+              <line x1={110} y1={560} x2={970} y2={560} stroke={INK} strokeWidth={8} strokeLinecap="round" opacity={0.6} />
+              {["10:00", "12:00", "15:00", "17:00", "20:00"].map((h, k) => {
                 const x = 150 + k * 195;
-                const o = sm(t, snackT[k] - 0.1, snackT[k] + 0.2);
-                const icons = [<Chips key="c" x={x} y={655} s={0.6} />, <Cookie key="k" x={x} y={665} s={0.8} />, <Soda key="s" x={x} y={660} s={0.7} />, <Chips key="c2" x={x} y={655} s={0.6} />, <Donut key="d" x={x} y={670} s={0.6} />];
+                const o = sm(t, nutT[k] - 0.1, nutT[k] + 0.2);
                 return (
                   <g key={h}>
-                    <circle cx={x} cy={760} r={12} fill={o > 0.5 ? RED : "#ffffff"} stroke={INK} strokeWidth={5} />
-                    <Txt x={x} y={835} size={36} fill="#ffffff" sw={8}>
+                    <circle cx={x} cy={560} r={12} fill={o > 0.5 ? RED : "#ffffff"} stroke={INK} strokeWidth={5} />
+                    <Txt x={x} y={630} size={36} fill="#ffffff" sw={8}>
                       {h}
                     </Txt>
                     <g opacity={o} transform={`translate(0,${(1 - o) * 16})`}>
-                      {icons[k]}
+                      <Nuts x={x} y={490} s={0.75} />
                     </g>
                   </g>
                 );
@@ -588,104 +635,146 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
             </g>
             <Who
               uid="bora6"
-              x={640}
-              s={1.06}
+              x={660}
+              s={0.98}
               t={t}
-              pose={{ r: eatArm(t > W(7, 2) - 0.2 ? bite(5) : 0) }}
-              expr={t > W(7, 2) - 0.2 ? "chew" : "think"}
-              item={<g opacity={sm(t, W(7, 2) - 0.2, W(7, 2) + 0.1)}><Chips x={0} y={-30} s={0.5} /></g>}
+              pose={t > L(8) - 0.1 ? { r: eatArm(bite(5)) } : { r: { el: [290, 500], wr: [228, 300] } }}
+              expr={t > L(8) - 0.1 ? "chew" : "think"}
+              item={t > L(8) - 0.1 ? <Nuts x={0} y={-30} s={0.45} /> : undefined}
             />
-            {/* "saat değil" */}
-            <g opacity={win(t, L(7) - 0.05, W(7, 2), 0.25)}>
-              <Clock x={230} y={1000} r={110} h={9} m={0} />
-              <Cross x={230} y={1000} s={80} p={sm(t, W(7, 1) - 0.1, W(7, 1) + 0.3)} />
+            {/* "vücut saate bakmaz" */}
+            <g opacity={win(t, L(7) - 0.05, L(8), 0.25)}>
+              <Clock x={240} y={900} r={130} h={11} m={0} />
+              <Moon x={360} y={760} r={44} />
+              <Cross x={240} y={900} s={95} p={sm(t, W(7, 2) - 0.1, W(7, 2) + 0.3)} />
             </g>
-            <g opacity={sm(t, snackT[0], snackT[0] + 0.25)}>
-              <Pill x={240} y={1020} text={`+${fmt(kcal)} kcal`} o={1} color={RED} ink="#fff" size={52} />
-              <Pill x={240} y={1130} text="ATIŞTIRMALIK" o={1} color="#ffffff" size={38} />
+            <g opacity={sm(t, nutT[0], nutT[0] + 0.25)}>
+              <Pill x={250} y={1020} text={`+${fmt(kcal)} kcal`} o={1} color={RED} ink="#fff" size={56} />
+              <Pill x={250} y={1135} text="“SAĞLIKLI” DİYE" o={1} color="#ffffff" size={38} />
             </g>
+            <BigNum n={2} t={t} at={L(6)} />
             <MythCard
               n={2}
-              lines={["“AKŞAM YEMEK", "KİLO ALDIRIR”"]}
-              p={sm(t, L(6) - 0.05, L(6) + 0.3) * (1 - sm(t, W(7, 2) - 0.3, W(7, 2)))}
+              lines={["“GECE YEMEK", "KİLO ALDIRIR”"]}
+              p={cardIn(6) * (1 - sm(t, L(8) - 0.3, L(8)))}
               stamp={sm(t, L(7) - 0.05, L(7) + 0.25)}
             />
-            {/* kart kalkınca: küçük başlık */}
-            <Pill x={540} y={300} text="SAAT DEĞİL, ATIŞTIRMA" o={sm(t, W(7, 2) - 0.1, W(7, 2) + 0.2)} color={Y} size={52} />
+            <Pill x={540} y={260} text="SAAT DEĞİL, TOPLAM KALORİ" o={sm(t, L(8) - 0.1, L(8) + 0.2)} color={Y} size={48} />
           </g>
         ) : null}
 
-        {/* ===== 8-9: 3. "Onlar şanslı" ===== */}
-        {s8 > 0 ? (
-          <g opacity={s8}>
-            <g opacity={sm(t, W(9, 3) - 0.4, W(9, 3))}>
-              <Stairs />
-            </g>
-            {t < W(9, 3) - 0.2 ? (
-              <Who uid="kiz8a" look={GIRL_LOOK} x={540} s={1.0} t={t} pose={{ r: { el: [300, 540], wr: [320, 450], hand: "open" }, head: 6 }} expr={t > L(9) ? "smile" : "grin"} />
-            ) : (
-              <Who
-                uid="kiz8b"
-                look={GIRL_LOOK}
-                x={girlP[0]}
-                y={girlP[1] - hop}
-                s={0.72}
-                t={t}
-                pose={{ r: { el: [300, 500], wr: mixP([290, 600], [320, 560], stepF), hand: "fist" }, l: { el: [100, 500], wr: mixP([110, 560], [80, 600], stepF), hand: "fist" } }}
-                expr="smile"
-              />
-            )}
-            <g opacity={sm(t, W(9, 3) - 0.1, W(9, 3) + 0.2)}>
-              <rect x={70} y={420} width={400} height={170} rx={34} fill="#ffffff" stroke={INK} strokeWidth={8} />
-              <Txt x={270} y={480} size={38} fill={INK} sw={0}>
-                BUGÜN ADIM
-              </Txt>
-              <Txt x={270} y={560} size={74} fill={GREEN} sw={0}>
-                {fmt(steps)}
-              </Txt>
-            </g>
-            <Pill x={270} y={680} text="FARKINDA BİLE DEĞİL" o={sm(t, W(9, 8) - 0.1, W(9, 8) + 0.2)} color={Y} size={40} />
-            <MythCard
-              n={3}
-              lines={["“ONLAR", "ŞANSLI”"]}
-              p={sm(t, L(8) - 0.05, L(8) + 0.3) * (1 - sm(t, W(9, 3) - 0.4, W(9, 3) - 0.1))}
-              stamp={sm(t, L(9) - 0.05, L(9) + 0.25)}
-              icon={<Clover x={700} y={330} s={0.9} />}
-            />
-            <Pill x={540} y={300} text="ŞANS DEĞİL, HAREKET" o={sm(t, W(9, 3) - 0.1, W(9, 3) + 0.2)} color={Y} size={52} />
+        {/* ===== 9-11: 3. "Şanslı değiller" ===== */}
+        {s9 > 0 ? (
+          <g opacity={s9}>
+            {t < L(10) ? (
+              <Who uid="kiz9" look={GIRL_LOOK} x={540} s={1.0} t={t} pose={{ r: { el: [300, 540], wr: [320, 450], hand: "open" }, head: 6 }} expr="grin" />
+            ) : null}
+            {/* merdiven: fark etmeden sürekli hareket */}
+            {st > 0 ? (
+              <g opacity={st}>
+                <Stairs />
+                <Who
+                  uid="kiz10"
+                  look={GIRL_LOOK}
+                  x={girlP[0]}
+                  y={girlP[1] - hop}
+                  s={0.72}
+                  t={t}
+                  pose={{ r: { el: [300, 500], wr: mixP([290, 600], [320, 560], stepF) }, l: { el: [100, 500], wr: mixP([110, 560], [80, 600], stepF) } }}
+                  expr="smile"
+                />
+                <rect x={70} y={420} width={400} height={170} rx={34} fill="#ffffff" stroke={INK} strokeWidth={8} />
+                <Txt x={270} y={480} size={38} fill={INK} sw={0}>
+                  BUGÜN ADIM
+                </Txt>
+                <Txt x={270} y={560} size={74} fill={GREEN} sw={0}>
+                  {fmt(steps)}
+                </Txt>
+                <Pill x={540} y={300} text="FARK ETMEDEN HAREKET" o={1} color={Y} size={50} />
+              </g>
+            ) : null}
+            {/* sen: 1 saat spor → kanepe | o: oturduğu yerde bile kıpır kıpır */}
+            {sp > 0 ? (
+              <g opacity={sp}>
+                <line x1={540} y1={220} x2={540} y2={FLOOR} stroke={INK} strokeWidth={5} strokeDasharray="18 18" opacity={0.3} />
+                <g opacity={sm(t, lazy - 0.2, lazy + 0.1)}>
+                  <Sofa x={60} />
+                </g>
+                <Who
+                  uid="bora11"
+                  x={270}
+                  s={0.86}
+                  t={t}
+                  pose={t < lazy - 0.1 ? { r: { el: [330, 470], wr: [330, 340 + Math.sin(t * 6) * 40] } } : { r: { el: [300, 470], wr: [236, 286], hand: "open" }, head: 6 }}
+                  expr={t < lazy - 0.1 ? "grin" : "yawn"}
+                  item={t < lazy - 0.1 ? <Dumbbell x={0} y={0} s={0.45} rot={90} /> : undefined}
+                />
+                <Who
+                  uid="kiz11"
+                  look={GIRL_LOOK}
+                  x={810}
+                  y={FLOOR - Math.abs(Math.sin(t * 5)) * 12}
+                  s={0.86}
+                  t={t}
+                  pose={{ r: { el: [300, 500], wr: [330 + Math.sin(t * 5) * 20, 580] }, l: { el: [100, 500], wr: [70 - Math.sin(t * 5) * 20, 580] } }}
+                  expr="smile"
+                />
+                <Pill x={270} y={400} text={t < lazy - 0.1 ? "1 SAAT SPOR" : "SONRA KANEPE"} o={1} color="#ffffff" size={46} />
+                <Pill x={810} y={400} text="BÜTÜN GÜN HAREKET" o={1} color={GREEN} ink="#fff" size={40} />
+                {t > lazy ? (
+                  <g opacity={sm(t, lazy, lazy + 0.3)}>
+                    {["Z", "z"].map((z, k) => (
+                      <Txt key={k} x={380 + k * 50} y={620 - k * 60 - ((t * 30) % 20)} size={70 - k * 16} fill="#ffffff">
+                        {z}
+                      </Txt>
+                    ))}
+                  </g>
+                ) : null}
+                {[0, 1, 2].map((k) => {
+                  const ph = ((t * 0.9 + k / 3) % 1 + 1) % 1;
+                  return (
+                    <g key={k} opacity={sm(t, W(11, 7), W(11, 7) + 0.3) * Math.sin(ph * Math.PI)}>
+                      <Flame x={700 + k * 110} y={700 - ph * 160} s={0.5} t={t} />
+                    </g>
+                  );
+                })}
+              </g>
+            ) : null}
+            <BigNum n={3} t={t} at={L(9)} />
+            <MythCard n={3} lines={["“ONLAR", "ŞANSLI”"]} p={cardIn(9) * (1 - sm(t, L(10) - 0.3, L(10)))} stamp={sm(t, W(9, 2) - 0.05, W(9, 2) + 0.25)} icon={<Clover x={700} y={330} s={0.9} />} />
           </g>
         ) : null}
 
-        {/* ===== 10: yasak değil, alışkanlık ===== */}
-        {s10 > 0 ? (
-          <g opacity={s10}>
-            <Who uid="bora10" x={300} s={1.05} t={t} pose={{ r: { el: [300, 560], wr: [330, 470], hand: "thumb" } }} expr="smile" />
-            <Who uid="kiz10" look={GIRL_LOOK} x={780} s={1.05} t={t} pose={{ l: { el: [100, 560], wr: [70, 470], hand: "thumb" } }} expr="grin" />
-            <g opacity={sm(t, W(10, 2) - 0.2, W(10, 2) + 0.1)}>
-              <Pill x={540} y={300} text="YASAK" o={1} color="#ffffff" size={76} />
-              <line x1={400} y1={300} x2={680} y2={276} stroke={RED} strokeWidth={14} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - sm(t, W(10, 3) - 0.1, W(10, 3) + 0.3)} />
+        {/* ===== 12: şans değil, alışkanlık ===== */}
+        {s12 > 0 ? (
+          <g opacity={s12}>
+            <Who uid="bora12" x={300} s={1.05} t={t} pose={{ r: { el: [300, 560], wr: [330, 470], hand: "thumb" } }} expr="smile" />
+            <Who uid="kiz12" look={GIRL_LOOK} x={780} s={1.05} t={t} pose={{ l: { el: [100, 560], wr: [70, 470], hand: "thumb" } }} expr="grin" />
+            <g opacity={sm(t, W(12, 1) - 0.2, W(12, 1) + 0.1)}>
+              <Pill x={540} y={300} text="ŞANS" o={1} color="#ffffff" size={76} />
+              <line x1={420} y1={300} x2={660} y2={276} stroke={RED} strokeWidth={14} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - sm(t, W(12, 2) - 0.1, W(12, 2) + 0.3)} />
             </g>
-            <g opacity={sm(t, W(10, 4) - 0.15, W(10, 4) + 0.15)}>
+            <g opacity={sm(t, W(12, 3) - 0.15, W(12, 3) + 0.15)}>
               <Pill x={540} y={470} text="ALIŞKANLIK" o={1} color={GREEN} ink="#fff" size={84} />
-              <Check x={860} y={455} s={44} p={sm(t, W(10, 4), W(10, 4) + 0.4)} />
+              <Check x={860} y={455} s={44} p={sm(t, W(12, 3), W(12, 3) + 0.4)} />
             </g>
           </g>
         ) : null}
 
-        {/* ===== 11: kapanış — yorum ===== */}
-        {s11 > 0 ? (
-          <g opacity={s11}>
-            <Who uid="bora11" x={300} s={0.8} t={t} pose={{ r: { el: [290, 500], wr: [228, 300] } }} expr="think" />
-            <Who uid="kiz11" look={GIRL_LOOK} x={780} s={0.8} t={t} pose={{ r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: -20 } }} expr="grin" />
+        {/* ===== 13: kapanış — yorum ===== */}
+        {s13 > 0 ? (
+          <g opacity={s13}>
+            <Who uid="bora13" x={300} s={0.8} t={t} pose={{ r: { el: [290, 500], wr: [228, 300] } }} expr="think" />
+            <Who uid="kiz13" look={GIRL_LOOK} x={780} s={0.8} t={t} pose={{ r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: -20 } }} expr="grin" />
             <Txt x={540} y={230} size={100} fill="#ffffff" sw={18}>
-              KAÇINA
+              HANGİSİNE
             </Txt>
             <Txt x={540} y={340} size={100} fill="#ffffff" sw={18}>
               İNANIYORDUN?
             </Txt>
-            {["AZ YER", "AKŞAM", "ŞANS"].map((s, k) => {
+            {["AZ YİYOR", "GECE", "ŞANS"].map((s, k) => {
               const x = 230 + k * 310;
-              const o = sm(t, L(11) + 0.15 + k * 0.12, L(11) + 0.45 + k * 0.12);
+              const o = sm(t, L(13) + 0.15 + k * 0.12, L(13) + 0.45 + k * 0.12);
               return (
                 <g key={s} opacity={o}>
                   <rect x={x - 130} y={400} width={260} height={150} rx={28} fill="#ffffff" stroke={INK} strokeWidth={7} />
@@ -698,10 +787,10 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
                 </g>
               );
             })}
-            <g opacity={sm(t, W(11, 2) - 0.15, W(11, 2) + 0.15)}>
-              <CommentIcon x={250} y={650 + Math.sin(t * 3) * 6} s={0.9} />
-              <Txt x={600} y={676} size={84} fill={Y} sw={16}>
-                YORUMA YAZ!
+            <g opacity={sm(t, W(13, 2) - 0.15, W(13, 2) + 0.15)}>
+              <CommentIcon x={200} y={650 + Math.sin(t * 3) * 6} s={0.9} />
+              <Txt x={600} y={676} size={80} fill={Y} sw={16}>
+                YORUMLARA YAZ!
               </Txt>
             </g>
           </g>

@@ -18,14 +18,14 @@ export type Bora3DLook = {
 };
 
 export const BORA3D_ORGU: Bora3DLook = {
-  skin: "#d39b6d",
-  sweater: "#f3a3a3",
-  sweaterDark: "#d9797d",
+  skin: "#7d4b31",
+  sweater: "#eaa49d",
+  sweaterDark: "#c97a74",
   pants: "#2f6fd1",
   plaid: "#f2e6d0",
-  beanie: "#2f6fd1",
+  beanie: "#1d5ad8",
   shoe: "#2f6fd1",
-  sole: "#efe3cc",
+  sole: "#ffffff",
 };
 
 const canvasTex = (w: number, h: number, draw: (c: CanvasRenderingContext2D) => void, repeat: [number, number]) => {
@@ -62,7 +62,7 @@ const knitTex = (base: string, dark: string, repeat: [number, number]) =>
       c.fillStyle = base;
       c.fillRect(0, 0, 256, 256);
       c.strokeStyle = dark;
-      c.lineWidth = 5;
+      c.lineWidth = 8;
       c.lineCap = "round";
       for (let col = 0; col < 8; col++) {
         for (let row = 0; row < 12; row++) {
@@ -140,17 +140,17 @@ export type Bora3DPose = {
 
 export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: number }> = ({ look = BORA3D_ORGU, pose = {}, blink = 0 }) => {
   const m = useMemo(() => {
-    const knit = knitTex(look.sweater, look.sweaterDark, [5, 4]);
-    const knitArm = knitTex(look.sweater, look.sweaterDark, [3, 2]);
-    const plaid = plaidTex(look.pants, look.plaid, [4, 4.5]);
+    const knit = knitTex(look.sweater, look.sweaterDark, [4, 3]);
+    const knitArm = knitTex(look.sweater, look.sweaterDark, [2.4, 1.6]);
+    const plaid = plaidTex(look.pants, look.plaid, [2.6, 3]);
     const rib = ribTex(look.beanie, [10, 1]);
     const sweaterRib = ribTex(look.sweater, [14, 1]);
     const pantsRib = ribTex(look.pants, [10, 1]);
     const std = (o: THREE.MeshStandardMaterialParameters) => new THREE.MeshStandardMaterial({ roughness: 0.92, metalness: 0, ...o });
     return {
-      skin: std({ color: look.skin, roughness: 0.6 }),
-      sweater: std({ map: knit, bumpMap: knit, bumpScale: 2.5 }),
-      sleeve: std({ map: knitArm, bumpMap: knitArm, bumpScale: 2.5 }),
+      skin: std({ color: look.skin, roughness: 0.55 }),
+      sweater: std({ map: knit, bumpMap: knit, bumpScale: 4.5 }),
+      sleeve: std({ map: knitArm, bumpMap: knitArm, bumpScale: 4.5 }),
       sweaterRib: std({ map: sweaterRib }),
       pants: std({ map: plaid, bumpMap: plaid, bumpScale: 0.8 }),
       pantsRib: std({ map: pantsRib }),
@@ -164,7 +164,7 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
     };
   }, [look]);
 
-  const headY = 1.87;
+  const headY = 2.19;
   const nearZ = 0.24;
   const sh = V(0.0, 1.55, nearZ);
   const armNear = pose.armNear ?? { el: [-0.05, 1.24, nearZ + 0.08] as [number, number, number], hand: [0.1, 1.06, nearZ - 0.01] as [number, number, number] };
@@ -272,53 +272,53 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
       ))}
 
       {/* boyun */}
-      <mesh position={[0.02, 1.73, 0]} material={m.skin} castShadow>
-        <cylinderGeometry args={[0.042, 0.048, 0.12, 18]} />
+      <mesh position={[0.02, 1.87, 0]} material={m.skin} castShadow>
+        <cylinderGeometry args={[0.034, 0.04, 0.34, 18]} />
       </mesh>
 
       {/* baş */}
       <group position={[0.03, headY, 0]} rotation={[0, 0, -(pose.head ?? 0)]}>
-        <mesh scale={[1, 1.15, 0.92]} material={m.skin} castShadow>
-          <sphereGeometry args={[0.16, 48, 36]} />
+        <mesh scale={[0.92, 1.3, 0.85]} material={m.skin} castShadow>
+          <sphereGeometry args={[0.15, 48, 36]} />
         </mesh>
         {/* çene */}
 
         {/* burun */}
-        <mesh position={[0.165, -0.01, 0]} scale={[1.5, 1, 0.9]} material={m.skin} castShadow>
+        <mesh position={[0.142, -0.01, 0]} scale={[1.45, 1.05, 1]} material={m.skin} castShadow>
           <sphereGeometry args={[0.035, 20, 16]} />
         </mesh>
         {/* kulaklar */}
         {[-1, 1].map((s) => (
-          <mesh key={s} position={[-0.02, 0.0, s * 0.145]} scale={[0.7, 1, 0.5]} material={m.skin}>
+          <mesh key={s} position={[-0.02, 0.0, s * 0.125]} scale={[0.7, 1, 0.5]} material={m.skin}>
             <sphereGeometry args={[0.04, 16, 12]} />
           </mesh>
         ))}
         {/* gözler */}
         {[-1, 1].map((s) => (
-          <group key={s} position={[0.12, 0.03, s * 0.072]}>
+          <group key={s} position={[0.11, 0.05, s * 0.06]}>
             <mesh scale={[0.6, blink > 0.5 ? 0.15 : 1, 1]} material={m.white}>
-              <sphereGeometry args={[0.03, 16, 12]} />
+              <sphereGeometry args={[0.021, 16, 12]} />
             </mesh>
             {blink > 0.5 ? null : (
               <mesh position={[0.016, 0.002, 0]} material={m.dark}>
-                <sphereGeometry args={[0.017, 12, 10]} />
+                <sphereGeometry args={[0.012, 12, 10]} />
               </mesh>
             )}
             {/* kaş */}
-            <mesh position={[0.008, 0.052, 0]} rotation={[Math.PI / 2, 0, 0.1]} material={m.dark}>
+            <mesh position={[0.004, 0.04, 0]} rotation={[Math.PI / 2, 0, 0.05]} material={m.dark} visible={false}>
               <capsuleGeometry args={[0.008, 0.04, 4, 8]} />
             </mesh>
             {/* yanak */}
-            <mesh position={[-0.005, -0.065, s * 0.02]} scale={[0.4, 0.7, 1]} material={m.blush}>
+            <mesh position={[-0.005, -0.065, s * 0.02]} scale={[0.4, 0.7, 1]} material={m.blush} visible={false}>
               <sphereGeometry args={[0.035, 16, 12]} />
             </mesh>
           </group>
         ))}
         {/* ağız */}
         {(() => {
-          const arc = Math.PI * (0.4 + 0.4 * (pose.smile ?? 0.6));
+          const arc = Math.PI * (0.3 + 0.4 * (pose.smile ?? 0.15));
           return (
-            <group position={[0.15, -0.07, 0]} rotation={[0, Math.PI / 2, 0]}>
+            <group position={[0.128, -0.085, 0]} rotation={[0, Math.PI / 2, 0]}>
               <mesh rotation={[0, 0, -Math.PI / 2 - arc / 2]} material={m.dark}>
                 <torusGeometry args={[0.024, 0.0065, 10, 24, arc]} />
               </mesh>
@@ -326,12 +326,12 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
           );
         })()}
         {/* bere (küçük, başın üstünde) */}
-        <group position={[-0.015, 0.135, 0]} rotation={[0, 0, 0.12]}>
-          <mesh scale={[1, 0.72, 1]} material={m.beanie} castShadow>
-            <sphereGeometry args={[0.15, 32, 20, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <group position={[-0.01, 0.14, 0]} rotation={[0, 0, 0.15]}>
+          <mesh scale={[0.95, 0.75, 0.88]} material={m.beanie} castShadow>
+            <sphereGeometry args={[0.145, 32, 20, 0, Math.PI * 2, 0, Math.PI / 2]} />
           </mesh>
           <mesh rotation={[Math.PI / 2, 0, 0]} material={m.beanie} castShadow>
-            <torusGeometry args={[0.148, 0.035, 14, 36]} />
+            <torusGeometry args={[0.135, 0.03, 14, 36]} />
           </mesh>
         </group>
       </group>

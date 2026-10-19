@@ -56,3 +56,8 @@ yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, kre
 (`out/bora-3d.png`, mercan pembe fon). Kullanıcı geri bildirimi: ten **biraz daha kapalı** (`#d39b6d`), **boyun daha kısa**.
 Sonra "vücudu örnekle alakası yok" → oranlar örneğe göre: bol kutumsu kazak (lathe), uzun geniş paçalı pantolon (pantolon ≈ 1.2× kazak boyu), puf kollar, eller cepte, tıknaz kalın krem tabanlı ayakkabı, kısa boyun.
 3B video kurulumu kullanıcı onayı bekliyor (~2-3 saat iş, ek ücret yok).
+Kullanıcı sonra ayrıntılı tarif yapıştırdı (ilk Pinterest görselindeki esmer erkek **kesin referans**): belirgin koyu zengin
+kahverengi ten (`#7d4b31`; beyazlatma yok), ince uzun oval kafa, yuvarlak belirgin burun, **çok uzun ince boyun** (önceki
+"kısa boyun" isteğinin yerine geçti), küçük sade gözler, sakin nötr ifade, kobalt mavi bere, kalın örgü toz pembe bol kazak,
+büyük mavi-krem kareli pijama pantolon + mavi örgü paça, beyaz burunlu/tabanlı mavi ayakkabı, uzun ince silüet, mercan pembe fon,
+başka nesne/yazı yok. Bora3D buna göre güncellendi.

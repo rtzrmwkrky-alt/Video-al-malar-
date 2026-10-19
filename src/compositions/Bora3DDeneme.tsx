@@ -10,7 +10,7 @@ export const Bora3DDeneme: React.FC = () => {
   const t = useCurrentFrame() / fps;
   return (
     <AbsoluteFill style={{ background: BG }}>
-      <ThreeCanvas width={width} height={height} shadows="soft" gl={{ antialias: true }} camera={{ position: [1.3, 1.25, 6.7], fov: 26 }}>
+      <ThreeCanvas width={width} height={height} shadows="soft" gl={{ antialias: true }} camera={{ position: [1.3, 1.35, 7.4], fov: 26 }}>
         <color attach="background" args={[BG]} />
         <ambientLight intensity={0.55} />
         <hemisphereLight args={["#ffe9e4", "#b5474b", 0.6]} />
@@ -43,6 +43,6 @@ export const Bora3DDeneme: React.FC = () => {
 import { useThree } from "@react-three/fiber";
 const CamLook: React.FC = () => {
   const cam = useThree((s) => s.camera);
-  cam.lookAt(0.05, 1.06, 0);
+  cam.lookAt(0.05, 1.18, 0);
   return null;
 };

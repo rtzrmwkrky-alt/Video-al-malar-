@@ -45,3 +45,8 @@ Kullanıcı yapay zekâ resmi yerine kendi taslağımızı (KnitGuy, yandan gör
 beyaz ayakkabı, siyah bere + neon etiket), **bej zemin**. Bileşen `src/avatar/BoraYan.tsx` (yandan; önden olan `Bora.tsx` ayrı) (pozlanabilir yakın kol, el biçimi
 fist/point/thumb/open, elde nesne, ifadeler neutral/smile/grin/chew/surprise/think/ouch/yawn/happy/laugh, baş eğimi).
 Poz tablosu: `BoraPozlar`. İlk video: **GeceYemekBora** (`GeceYemek` + `hero: "bora"`, bej fon), `out/gece-yemek-bora-paylas.mp4`.
+
+## Son seçim (kıyafet)
+Kullanıcı Pinterest örgü görselini gösterip "direk bu olsun" dedi → `BORA_ORGU` (BoraYan varsayılanı): pembe örgü kazak (balıkçı
+yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, krem burunlu mavi ayakkabı; açık buğday ten; bej fon.
+Önceki spor kıyafet denemeleri (mavi-neon, Retro, Yeşil vintage, basketbol/futbol/koşu/tenis) beğenilmedi / seçilmedi.

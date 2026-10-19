@@ -34,6 +34,12 @@ export type BoraOutfit = {
   number?: string;
   /** ceket ayrıntıları (fermuar, dik yaka, lastikli bel) */
   jacket?: boolean;
+  /** örgü kazak dokusu (üst + kol) */
+  knit?: boolean;
+  /** kareli pantolon: desenin ikinci rengi */
+  plaid?: string;
+  /** ayakkabı burnu (krem lastik burun) */
+  toe?: string;
 };
 
 /** varsayılan: elektrik mavisi eşofman üstü + neon şeritler, siyah jogger, neon tabanlı beyaz ayakkabı */
@@ -59,6 +65,21 @@ export const BORA_OUTFITS: { name: string; desc: string; o: BoraOutfit }[] = [
     o: { top: "#ffffff", topS: "#d6d9de", stripe: "#1f8a4c", sleeves: "short", bottom: "shorts", pants: "#1f8a4c", pantsStripe: "#ffffff", socks: "#ffffff", head: "band", beanie: "#1f8a4c", shoe: "#ffffff", sole: "#1f8a4c" },
   },
 ];
+
+/** kullanıcının seçtiği görünüm (Pinterest örgü referansı): pembe örgü kazak, mavi kareli pantolon, mavi bere ve ayakkabı */
+export const BORA_ORGU: BoraOutfit = {
+  top: "#f08b8f",
+  topS: "#c9636a",
+  stripe: "none",
+  knit: true,
+  pants: "#2f6fd1",
+  plaid: "#f4ead8",
+  pantsStripe: "none",
+  beanie: "#2f6fd1",
+  shoe: "#2f6fd1",
+  sole: "#efe3cc",
+  toe: "#efe3cc",
+};
 
 export const BORA_SPORT: BoraOutfit = {
   top: "#2f6bff",
@@ -116,7 +137,7 @@ const Shoe: React.FC<{ x: number; o: BoraOutfit }> = ({ x, o }) => (
   <g transform={`translate(${x},0)`}>
     <path d="M0,848 L0,818 Q8,800 40,802 L70,804 Q104,808 112,832 L114,848 Z" fill={o.shoe} />
     <path d="M0,818 Q8,800 40,802 L70,804 Q104,808 112,832" fill="none" stroke="#00000022" strokeWidth={4} />
-    <path d="M30,826 Q60,812 96,826" fill="none" stroke={o.sole} strokeWidth={6} strokeLinecap="round" />
+    {o.toe ? <path d="M72,806 Q104,810 112,832 L80,834 Q70,820 72,806 Z" fill={o.toe} /> : <path d="M30,826 Q60,812 96,826" fill="none" stroke={o.sole} strokeWidth={6} strokeLinecap="round" />}
     <rect x={-2} y={834} width={118} height={16} rx={6} fill={o.sole} />
     <path d="M2,842 L112,842" stroke="#00000030" strokeWidth={2} />
     <path d="M36,806 l8,10 M48,805 l8,10 M60,805 l8,10" stroke="#b9bcc6" strokeWidth={3.5} strokeLinecap="round" />
@@ -159,12 +180,13 @@ export const Bora: React.FC<{
   item?: React.ReactNode;
   /** göz kırpma (0-1) */
   blink?: number;
-}> = ({ id, t = 0, o = BORA_SPORT, pose = {}, expr = "neutral", item, blink = 0 }) => {
+}> = ({ id, t = 0, o = BORA_ORGU, pose = {}, expr = "neutral", item, blink = 0 }) => {
   const breathe = Math.sin(t * 2) * 1.5;
   const sleeves = o.sleeves ?? "long";
   const shorts = o.bottom === "shorts";
   const head = o.head ?? "beanie";
-  const jacket = o.jacket ?? (sleeves === "long" && !o.hood);
+  const jacket = o.jacket ?? (sleeves === "long" && !o.hood && !o.knit);
+  const pantsFill = o.plaid ? `url(#${id}-plaid)` : o.pants;
   // kolsuz/kısa kolluda eller cepte duramaz: kol yanda sarkar
   if (!pose.el && sleeves !== "long") pose = { ...pose, el: [246, 440], wr: [250, 530] };
   const posed = !!(pose.el && pose.wr);
@@ -205,6 +227,15 @@ export const Bora: React.FC<{
           <stop offset="0.7" stopColor={SKIN} />
           <stop offset="1" stopColor={SKIN_S} />
         </radialGradient>
+        <pattern id={`${id}-knit`} width={14} height={12} patternUnits="userSpaceOnUse">
+          <path d="M0,0 L7,10 L14,0" fill="none" stroke={o.topS} strokeWidth={2.6} opacity={0.6} />
+        </pattern>
+        <pattern id={`${id}-plaid`} width={46} height={46} patternUnits="userSpaceOnUse">
+          <rect width={46} height={46} fill={o.pants} />
+          <rect x={0} y={15} width={46} height={15} fill={o.plaid ?? o.pants} opacity={0.6} />
+          <rect x={15} y={0} width={15} height={46} fill={o.plaid ?? o.pants} opacity={0.6} />
+          <rect x={15} y={15} width={15} height={15} fill={o.plaid ?? o.pants} opacity={0.5} />
+        </pattern>
         <pattern id={`${id}-rib`} width={8} height={10} patternUnits="userSpaceOnUse">
           <path d="M4,0 L4,10" stroke="#000" strokeWidth={2.5} opacity={0.2} />
         </pattern>
@@ -232,13 +263,13 @@ export const Bora: React.FC<{
       ) : (
         <g>
           {/* jogger */}
-          <path d={PANTS} fill={o.pants} />
+          <path d={PANTS} fill={pantsFill} />
           <path d={PANTS} fill={`url(#${id}-shade)`} />
           <path d="M286,520 Q296,650 292,780" fill="none" stroke={o.pantsStripe} strokeWidth={9} />
           {/* lastikli paçalar */}
-          <rect x={140} y={782} width={58} height={26} rx={10} fill={o.pants} />
+          <rect x={140} y={782} width={58} height={26} rx={10} fill={pantsFill} />
           <rect x={140} y={782} width={58} height={26} rx={10} fill={`url(#${id}-rib)`} />
-          <rect x={216} y={782} width={88} height={26} rx={10} fill={o.pants} />
+          <rect x={216} y={782} width={88} height={26} rx={10} fill={pantsFill} />
           <rect x={216} y={782} width={88} height={26} rx={10} fill={`url(#${id}-rib)`} />
         </g>
       )}
@@ -260,7 +291,18 @@ export const Bora: React.FC<{
             <rect x={100} y={360} width={240} height={70} fill={o.block} clipPath={`url(#${id}-body)`} />
           </g>
         ) : null}
+        {o.knit ? <path d={BODY} fill={`url(#${id}-knit)`} /> : null}
         <path d={BODY} fill={`url(#${id}-shade)`} />
+        {o.knit ? (
+          <g>
+            {/* örgü bel ve balıkçı yaka */}
+            <rect x={122} y={504} width={186} height={30} rx={12} fill={o.top} />
+            <rect x={122} y={504} width={186} height={30} rx={12} fill={`url(#${id}-rib)`} />
+            <rect x={186} y={264} width={62} height={40} rx={18} fill={o.top} />
+            <rect x={186} y={264} width={62} height={40} rx={18} fill={`url(#${id}-rib)`} />
+            <rect x={186} y={264} width={62} height={40} rx={18} fill={`url(#${id}-shade)`} />
+          </g>
+        ) : null}
         {/* yan panel şeridi */}
         <path d="M132,350 Q118,430 128,520" fill="none" stroke={o.stripe} strokeWidth={10} strokeLinecap="round" />
         {o.number ? (
@@ -296,6 +338,7 @@ export const Bora: React.FC<{
               <>
                 <path d={armPath} fill="none" stroke={o.topS} strokeWidth={66} strokeLinecap="round" strokeLinejoin="round" />
                 <path d={armPath} fill="none" stroke={o.top} strokeWidth={58} strokeLinecap="round" strokeLinejoin="round" />
+                {o.knit ? <path d={armPath} fill="none" stroke={`url(#${id}-knit)`} strokeWidth={58} strokeLinecap="round" strokeLinejoin="round" /> : null}
               </>
             ) : (
               <>
@@ -329,6 +372,7 @@ export const Bora: React.FC<{
         ) : (
           <g>
             <path d={SLEEVE} fill={o.top} />
+            {o.knit ? <path d={SLEEVE} fill={`url(#${id}-knit)`} /> : null}
             <path d={SLEEVE} fill={`url(#${id}-shade)`} />
             <path d="M262,330 Q284,410 270,490" fill="none" stroke={o.stripe} strokeWidth={7} strokeLinecap="round" />
             {o.block ? <path d="M200,372 Q244,362 280,372 L284,428 Q244,420 206,430 Z" fill={o.block} /> : null}

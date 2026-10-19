@@ -279,7 +279,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kullanıcı **40-45 sn** istedi (uzun video istemiyor, akış bozulmasın) → kredi harcamadan kısaltıldı:
   `python3 scripts/sikistir-ses.py gece-yemek gece-yemek-kisa --max-pause 0.28 --tempo 1.04` (uzun sessizlikler 0.28 sn'ye,
   perde bozulmadan %4 hız; kelime zamanları da yeniden yazılır) → video `audioName: gece-yemek-kisa`, ~43 sn.
-  Son: `out/gece-yemek-43sn-paylas.mp4`. **Yeni videolarda hedef süre 40-45 sn.**
+  Son: `out/gece-yemek-43sn-paylas.mp4`.
+  **KESİN KURAL (kullanıcı tekrar hatırlattı): videolar 30-40 sn**, çok akıcı, görsellerde hiçbir kusur yok, ses tonu Chris (sıcak,
+  samimi, konuşma dili). Kısaltma = metni yeniden yaz + onayla yeniden seslendir (sesi hızlandırma/kesme yok).
 
 - **AvatarSecim** — kullanıcı videolarda sürekli kullanacağı bir **kanal avatarı** (ekrana konuşan karikatür) istedi; 4 aday
   (`src/avatar/Avatars.tsx`, omuz plan, göz kırpar, konuşurken ağız oynar): 1 Deniz (anime sporcu kız), 2 Kaan Koç

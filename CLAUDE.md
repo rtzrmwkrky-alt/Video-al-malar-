@@ -284,7 +284,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **AvatarSecim** — kullanıcı videolarda sürekli kullanacağı bir **kanal avatarı** (ekrana konuşan karikatür) istedi; 4 aday
   (`src/avatar/Avatars.tsx`, omuz plan, göz kırpar, konuşurken ağız oynar): 1 Deniz (anime sporcu kız), 2 Kaan Koç
   (anime genç koç, şapka + düdük), 3 Bobo (maskot ayı), 4 Efe (Pixar tarzı büyük gözlü genç). Önizleme
-  `out/avatar-secim.mp4`. **Seçim bekleniyor.**
+  `out/avatar-secim.mp4`. Kullanıcı **4 Efe'yi (Pixar tarzı) seçti**, ismin değişmesini istedi.
+  Görünüm seçenekli sürüm `src/avatar/Chibi.tsx` (`LOOKS`), önizleme **EfeVaryant** (`out/efe-varyant.mp4`):
+  1 Arda (dağınık kahve saç, turuncu kapüşonlu = orijinal), 2 Kuzey (kıvırcık siyah saç, ter bandı, çil, mavi tişört),
+  3 Atlas (sarı saç, yeşil forma 7), 4 Poyraz (ters kırmızı şapka, boyunda kulaklık, mor kapüşonlu).
+  **Görünüm ve isim seçimi bekleniyor** (isim ve görünüm ayrı ayrı da eşleşebilir).
 
 ## Son durum (yeni oturumda buradan devam)
 

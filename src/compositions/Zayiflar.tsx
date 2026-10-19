@@ -815,7 +815,8 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
       <Captions t={t} tl={tl} />
       {data ? (
         <>
-          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {/* ana ses müzik ve efektlerin üstünde kalsın: ~+4 dB */}
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} />
           {FX.map((f, i) => (
             <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">
               <Audio src={staticFile(`zayiflar/sfx/${f.id}.mp3`)} volume={f.v} />

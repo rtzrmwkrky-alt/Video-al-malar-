@@ -643,13 +643,20 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               ) : null;
             })()}
             {isCurly ? (
-              <CurlyAt uid="kiv1" x={720} s={1.1} t={t} pose={{ r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: 10 } }} expr="grin" />
+              <CurlyAt
+                uid="kiv1"
+                x={720}
+                s={1.1}
+                t={t}
+                pose={t < W(1, 3) - 0.25 ? { r: { el: [290, 500], wr: [228, 300] } } : { r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: 10 } }}
+                expr={t < W(1, 3) - 0.25 ? "think" : "grin"}
+              />
             ) : isBora ? (
               <BoraAt uid="bora1" x={700} s={1.1} t={t} pose={{ el: [312, 370], wr: [322, 250], hand: "point", handRot: 20 }} expr="grin" />
             ) : (
               <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
             )}
-            <Bubble x={50} y={190} w={560} h={210} tx={isCurly ? 652 : isBora ? 765 : 690} ty={isCurly ? 700 : isBora ? 695 : 560} o={sm(t, W(1, 3) - 0.2, W(1, 3) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
+            <Bubble x={30} y={170} w={600} h={240} tx={isCurly ? 652 : isBora ? 765 : 690} ty={isCurly ? 700 : isBora ? 695 : 560} o={sm(t, W(1, 3) - 0.25, W(1, 3) - 0.05)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={54} />
             <g opacity={sm(t, W(1, 4), W(1, 4) + 0.3)}>
               <Clock x={230} y={700} r={95} h={11} m={58} />
               <Cross x={230} y={700} s={70} p={sm(t, W(1, 5), W(1, 5) + 0.4)} />

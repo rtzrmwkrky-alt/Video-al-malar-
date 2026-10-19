@@ -24,11 +24,7 @@ export type KnitOutfit = {
 };
 
 const DARK_SKIN: [string, string, string] = ["#8a5a40", "#6b4330", "#4e2f20"];
-export const WHEAT_SKIN: [string, string, string] = [
-  "#e8b98f",
-  "#d39a6e",
-  "#a8714a",
-];
+export const WHEAT_SKIN: [string, string, string] = ["#f7d6b4", "#eabd93", "#c9946b"];
 
 const HEAD =
   "M176,150 Q174,92 222,90 Q266,92 268,140 L281,166 Q285,173 270,175 L268,190 Q262,216 236,216 Q196,214 182,190 Q174,172 176,150 Z";

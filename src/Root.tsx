@@ -40,6 +40,7 @@ import { EFE_VAR_FRAMES, EfeVaryant } from "./compositions/EfeVaryant";
 import { FIGUR_FRAMES, FigurSecim } from "./compositions/FigurSecim";
 import { FIGUR_UC_FRAMES, FigurUc } from "./compositions/FigurUc";
 import { ORGU_FRAMES, OrguKiyafet } from "./compositions/OrguKiyafet";
+import { BORA_FRAMES, BoraTanitim } from "./compositions/BoraTanitim";
 import { SILUET_FRAMES, SiluetRontgen } from "./compositions/SiluetRontgen";
 import { STIL_FRAMES, StilOrnekleri } from "./compositions/StilOrnekleri";
 import { BOY_TAIL, BOY_TL, BoyUzama, type BoyUzamaProps } from "./compositions/BoyUzama";
@@ -279,6 +280,7 @@ export const RemotionRoot: React.FC = () => {
     <Composition id="FigurSecim" component={FigurSecim} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_FRAMES} />
     <Composition id="FigurUc" component={FigurUc} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_UC_FRAMES} />
     <Composition id="OrguKiyafet" component={OrguKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={ORGU_FRAMES} />
+    <Composition id="BoraTanitim" component={BoraTanitim} width={1080} height={1920} fps={FPS} durationInFrames={BORA_FRAMES} />
     <Composition id="AnimeKarakter" component={AnimeKarakter} width={1080} height={1920} fps={FPS} durationInFrames={ANIME_FRAMES} />
     <Composition id="SiluetRontgen" component={SiluetRontgen} width={1080} height={1920} fps={FPS} durationInFrames={SILUET_FRAMES} />
     <Composition id="StilOrnekleri" component={StilOrnekleri} width={1080} height={1920} fps={FPS} durationInFrames={STIL_FRAMES} />

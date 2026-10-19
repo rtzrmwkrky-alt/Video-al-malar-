@@ -9,7 +9,12 @@ Kullanıcı "Bora" dediğinde bu karakter kastedilir: o videoda ana karakter / a
 - Zemin: düz tek renk (varsayılan turkuaz), başka eşya yok. Dikey 9:16.
 - Kıyafet seçimi çizimi: `src/avatar/KnitGuy.tsx` (`KNIT_OUTFITS[1]` "Sporcu").
 
-## Üretim
+## Kodla çizilmiş Bora (kullanıcı "sen üret" dedi)
+`src/avatar/Bora.tsx` — önden, keçe dokusu filtresi; `pose` (pocket/cheeks/point/tired/cheer/phone/dumbbell),
+`expr` (smile/talk/surprised/tired/happy/smug), `talk`, `blink`. Tanıtım: **BoraTanitim** (`out/bora.png`, `out/bora.mp4`).
+Videolarda varsayılan bu çizim kullanılır; daha gerçekçi 3B görsel istenirse (ücretli yapay zekâ aracı) önce sorulur.
+
+## Üretim (alternatif: yapay zekâ görseli)
 Görseller ChatGPT/Gemini resim aracında kullanıcı tarafından üretilir (kodla çizim bu kaliteye ulaşmıyor).
 İlk resim = kimlik kartı; sonraki her sahne o resim yüklenerek "Bu karakterin aynısı, aynı kıyafet ve aynı tarz, ..." ile istenir.
 

@@ -314,6 +314,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "bu karakterin aynısı" diye o resimle üretecek, bize gönderecek → biz videoya dizeriz (hafif yakınlaşma, altyazı, ses, müzik).
   **Karakterin adı: BORA.** Kullanıcı "Bora" dediğinde bu karakter kastedilir ve o video Bora ile yapılır.
   Tüm tarif ve kurallar `icerik/bora-karakter.md`.
+  Kullanıcı "sen bana üretiyordun" diye kızdı: **karakteri kullanıcıya ürettirme, kendin üret.** → `src/avatar/Bora.tsx`
+  (kodla çizim, 7 duruş + 6 ifade), tanıtım **BoraTanitim** (`out/bora.png`).
 
 ## Son durum (yeni oturumda buradan devam)
 

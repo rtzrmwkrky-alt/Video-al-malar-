@@ -343,9 +343,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 - **GeceKilo** — "Gece yemek yemek gerçekten kilo aldırır mı?" (kullanıcının metni, 40 sn'ye sığsın diye sıkılaştırıldı; ~87 kelime).
   Bora (`CurlyGuy`), sahneye göre fon rengi. Seslendirme metni `icerik/gece-kilo.seslendirme.txt` → `public/audio/gece-kilo`.
-  Kullanıcı ses olarak `ZDms2uXMdWDykDg7lTQ3` kimliğini verdi; API'de bulunamadı (hesapta da kütüphanede de yok) →
-  kullanıcıdan sesi "Sesimlere ekle" ile eklemesi istendi. **Bekleyen:** ses eklenince + metin onayıyla seslendir;
-  "YAĞ DEPOLA?" etiketi Bora'nın başına biniyor → sola al (x 380, çarpı üstünde).
+  Kullanıcı ses olarak `ZDms2uXMdWDykDg7lTQ3` kimliğini verdi; API'de bulunamadı → kullanıcı sesi hesabına ekledi:
+  **"Manitammm"** (`WYz3C2SUJKV2mMyXR0L3`, klon, Türkçe genç erkek). Seslendirildi (eleven_v4, tr, 0.3/0.45/1.05; 36.9 sn, ~600 karakter).
+  Sessiz taslak önce gösterildi (kullanıcı "sesi en sona bırak" dedi). Son: `out/gece-kilo-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)
 

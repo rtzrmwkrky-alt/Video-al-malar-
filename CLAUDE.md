@@ -308,7 +308,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   örgü kazak deseni, kareli pantolon, kalın tabanlı ayakkabı; düz 2B çizim, kıyafet seçimi için), **OrguKiyafet**
   (`out/orgu-kiyafet.png`): 1 Klasik örgü (krem kazak, kahve kareli, yeşil bere), 2 Sporcu (turuncu kapüşonlu, gri eşofman,
   siyah bere), 3 Renkli (hardal kazak, mavi kareli, mavi bere), 4 Şık (yeşil kazak, krem pantolon, gözlük berede).
-  Her biri için ChatGPT/Gemini tarifi verildi. **Seçim bekleniyor.**
+  Her biri için ChatGPT/Gemini tarifi verildi. **Kullanıcı 2 = Sporcu'yu seçti** (turuncu kapüşonlu, beyaz şeritli gri
+  eşofman, siyah örgü bere, beyaz spor ayakkabı, koyu ten, uzun ince boyun, keçe/örgü dokulu 3B oyuncak tarzı,
+  turkuaz düz zemin). Karakter ChatGPT/Gemini'de üretilecek; kullanıcı ilk resmi kaydedip sonraki sahneleri
+  "bu karakterin aynısı" diye o resimle üretecek, bize gönderecek → biz videoya dizeriz (hafif yakınlaşma, altyazı, ses, müzik).
 
 ## Son durum (yeni oturumda buradan devam)
 

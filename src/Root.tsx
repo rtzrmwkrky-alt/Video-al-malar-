@@ -45,6 +45,7 @@ import { SILUET_FRAMES, SiluetRontgen } from "./compositions/SiluetRontgen";
 import { STIL_FRAMES, StilOrnekleri } from "./compositions/StilOrnekleri";
 import { BOY_TAIL, BOY_TL, BoyUzama, type BoyUzamaProps } from "./compositions/BoyUzama";
 import { BoraPozlar } from "./compositions/BoraPozlar";
+import { BoraKiyafet } from "./compositions/BoraKiyafet";
 import { GECE_TAIL, GECE_TL, GeceYemek, type GeceYemekProps } from "./compositions/GeceYemek";
 
 const FPS = 30;
@@ -282,6 +283,7 @@ export const RemotionRoot: React.FC = () => {
       defaultProps={{ audioName: "gece-yemek-kisa", data: null, hero: "bora", bg: ["#f4e6cc", "#e3c9a0"] } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
     />
+    <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="BoraPozlar" component={BoraPozlar} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="Karakterler" component={Karakterler} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="FigurPozlar" component={FigurPozlar} width={1080} height={1920} fps={FPS} durationInFrames={30} />

@@ -18,9 +18,36 @@ export type BoraOutfit = {
   beanie: string;
   shoe: string;
   sole: string;
+  /** göğüste geniş renk bloğu (renk bloklu ceket) */
+  block?: string;
+  /** boyun arkasında kapüşon */
+  hood?: boolean;
 };
 
 /** varsayılan: elektrik mavisi eşofman üstü + neon şeritler, siyah jogger, neon tabanlı beyaz ayakkabı */
+export const BORA_OUTFITS: { name: string; desc: string; o: BoraOutfit }[] = [
+  {
+    name: "Retro",
+    desc: "Mor-pembe renk bloklu rüzgarlık, beyaz eşofman",
+    o: { top: "#7b3fe4", topS: "#5a28b0", stripe: "#ffffff", block: "#ff5fa2", pants: "#f4f1ec", pantsStripe: "#7b3fe4", beanie: "#ff5fa2", shoe: "#ffffff", sole: "#7b3fe4" },
+  },
+  {
+    name: "Sarı kapüşonlu",
+    desc: "Parlak sarı kapüşonlu, mor eşofman",
+    o: { top: "#ffc21a", topS: "#e09a00", stripe: "#5b2ca0", hood: true, pants: "#4a2590", pantsStripe: "#ffc21a", beanie: "#4a2590", shoe: "#ffffff", sole: "#ffc21a" },
+  },
+  {
+    name: "Siyah-kırmızı",
+    desc: "Siyah ceket, kırmızı göğüs bandı, kırmızı bere",
+    o: { top: "#1e1f26", topS: "#0f1015", stripe: "#ff3b30", block: "#ff3b30", pants: "#1e1f26", pantsStripe: "#ff3b30", beanie: "#ff3b30", shoe: "#ffffff", sole: "#ff3b30" },
+  },
+  {
+    name: "Yeşil vintage",
+    desc: "Orman yeşili ceket, krem şerit, lacivert eşofman",
+    o: { top: "#1f7a4d", topS: "#145535", stripe: "#f6e7c1", block: "#f6e7c1", pants: "#1f2a4a", pantsStripe: "#f6e7c1", beanie: "#f6e7c1", shoe: "#f6e7c1", sole: "#1f7a4d" },
+  },
+];
+
 export const BORA_SPORT: BoraOutfit = {
   top: "#2f6bff",
   topS: "#1d47c2",
@@ -181,8 +208,18 @@ export const Bora: React.FC<{
         {/* boyun */}
         <rect x={203} y={196} width={26} height={100} rx={12} fill={`url(#${id}-skin)`} />
         <rect x={203} y={200} width={10} height={90} rx={5} fill={SKIN_S} opacity={0.35} />
+        {/* kapüşon (boynun arkasında) */}
+        {o.hood ? <path d="M146,318 Q140,252 196,256 Q206,284 204,318 Z" fill={o.topS} /> : null}
         {/* eşofman üstü */}
         <path d={BODY} fill={o.top} />
+        {o.block ? (
+          <g>
+            <clipPath id={`${id}-body`}>
+              <path d={BODY} />
+            </clipPath>
+            <rect x={100} y={360} width={240} height={70} fill={o.block} clipPath={`url(#${id}-body)`} />
+          </g>
+        ) : null}
         <path d={BODY} fill={`url(#${id}-shade)`} />
         {/* yan panel şeridi + fermuar */}
         <path d="M132,350 Q118,430 128,520" fill="none" stroke={o.stripe} strokeWidth={10} strokeLinecap="round" />
@@ -208,6 +245,13 @@ export const Bora: React.FC<{
                 <path d={`M${a1[0]},${a1[1]} L${b1[0]},${b1[1]} L${a2[0]},${a2[1]} L${b2[0]},${b2[1]}`} fill="none" stroke={o.stripe} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />
               );
             })()}
+            {o.block ? (
+              <path
+                d={`M${SH[0] + (pose.el![0] - SH[0]) * 0.35},${SH[1] + (pose.el![1] - SH[1]) * 0.35} L${SH[0] + (pose.el![0] - SH[0]) * 0.75},${SH[1] + (pose.el![1] - SH[1]) * 0.75}`}
+                stroke={o.block}
+                strokeWidth={58}
+              />
+            ) : null}
             <circle cx={pose.wr![0]} cy={pose.wr![1]} r={29} fill={o.topS} />
             {item && hand ? <g transform={`translate(${hand[0]},${hand[1]})`}>{item}</g> : null}
             {hand ? <Hand at={hand} type={pose.hand ?? "fist"} rot={pose.handRot ?? 0} /> : null}
@@ -217,6 +261,7 @@ export const Bora: React.FC<{
             <path d={SLEEVE} fill={o.top} />
             <path d={SLEEVE} fill={`url(#${id}-shade)`} />
             <path d="M262,330 Q284,410 270,490" fill="none" stroke={o.stripe} strokeWidth={7} strokeLinecap="round" />
+            {o.block ? <path d="M200,372 Q244,362 280,372 L284,428 Q244,420 206,430 Z" fill={o.block} /> : null}
             <path d="M212,492 Q240,506 272,492" fill="none" stroke={o.topS} strokeWidth={5} opacity={0.7} />
           </g>
         )}

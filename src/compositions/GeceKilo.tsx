@@ -216,7 +216,7 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
   // ===== 8: özet
   const s8 = scene(8, 9);
   // ===== 9: kapanış
-  const s9 = scene(9, 10);
+  const s9 = win(t, L(9) - 0.02, tl.total + 1, 0.21); // kapanış videonun sonuna kadar kalır
 
   // fon rengi sahneye göre değişir; geçişte yumuşak renk kayması
   const SCENE_BG: [number, string, string][] = [
@@ -300,7 +300,7 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
         {s1 > 0 ? (
           <g opacity={s1}>
             <Window x={140} y={150} w={250} h={210} t={t} />
-            <g opacity={sm(t, W(1, 0) - 0.1, W(1, 0) + 0.25)}>
+            <g opacity={sm(t, W(1, 0) - 0.1, W(1, 0) + 0.25) * (1 - sm(t, shout - 0.5, shout - 0.25))}>
               <Clock x={600} y={250} r={90} h={12} m={0} />
               <Pill x={600} y={400} text="00:00" o={sm(t, W(1, 2), W(1, 2) + 0.3)} size={40} />
             </g>
@@ -327,7 +327,7 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
             <rect x={930} y={420} width={170} height={FLOOR - 420} fill={tint} opacity={0.55} />
             <rect x={930} y={420} width={170} height={FLOOR - 420} fill="none" stroke={INK} strokeWidth={8} opacity={0.6} />
             <path d={`M930,${FLOOR} L860,${FLOOR + 160} L1080,${FLOOR + 160} L1080,${FLOOR} Z`} fill="#fff4c2" opacity={0.18} />
-            <Bubble x={420} y={430} w={600} h={210} tx={985} ty={700} o={sm(t, shout - 0.25, shout)} lines={["GECE YERSEN", "KİLO ALIRSIN!"]} size={56} />
+            <Bubble x={420} y={170} w={600} h={210} tx={985} ty={700} o={sm(t, shout - 0.25, shout)} lines={["GECE YERSEN", "KİLO ALIRSIN!"]} size={56} />
             {freeze > 0 ? (
               <g opacity={freeze * (1 - sm(t, shout - 0.3, shout))} transform={`translate(800,${600 + Math.sin(t * 3) * 10})`}>
                 <Txt x={0} y={0} size={160} fill={Y} sw={14}>

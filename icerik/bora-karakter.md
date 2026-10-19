@@ -33,3 +33,10 @@ Kullanıcının gönderdiği Bora resimleri `public/bora/` altına konur; sahnel
   1 sandviçle yakalanmış şaşkın · 2 eli çenesinde düşünüyor · 3 parmak kaldırmış anlatıyor · 4 elleri karnında ağrı ·
   5 esniyor yorgun · 6 elinde yoğurt + elma mutlu · 7 başparmak yukarı · 8 telefona bakıp gülüyor, göz kırpıyor.
   Resimler gelince `public/bora/gece-1..8.png`; zemin kesilip sahne nesneleri (buzdolabı, terazi, saat, yatak) etrafına çizilir.
+
+## Kodla çizilen Bora (güncel, kullanıcı onayı: KnitGuy taslağı)
+Kullanıcı yapay zekâ resmi yerine kendi taslağımızı (KnitGuy, yandan görünüm) Bora olarak seçti:
+**buğday ten**, dikkat çeken spor kıyafeti (elektrik mavisi eşofman üstü + neon sarı-yeşil şeritler, siyah jogger, neon tabanlı
+beyaz ayakkabı, siyah bere + neon etiket), **bej zemin**. Bileşen `src/avatar/Bora.tsx` (pozlanabilir yakın kol, el biçimi
+fist/point/thumb/open, elde nesne, ifadeler neutral/smile/grin/chew/surprise/think/ouch/yawn/happy/laugh, baş eğimi).
+Poz tablosu: `BoraPozlar`. İlk video: **GeceYemekBora** (`GeceYemek` + `hero: "bora"`, bej fon), `out/gece-yemek-bora-paylas.mp4`.

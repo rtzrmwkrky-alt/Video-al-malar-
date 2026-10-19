@@ -339,6 +339,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   çizelgesi + kcal, merdiven + adım sayacı); son sahne fonu = ilk sahne (döngü). "Onlar şanslı" cevabı doğruluk için "Sadece şans değil".
   Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (Chris; 521 karakter). Sessiz taslak hazır; **seslendirme onayı bekleniyor.**
 
+- **GeceKilo** — "Gece yemek yemek gerçekten kilo aldırır mı?" (kullanıcının metni, 40 sn'ye sığsın diye sıkılaştırıldı; ~87 kelime).
+  Bora (`CurlyGuy`), sahneye göre fon rengi. Seslendirme metni `icerik/gece-kilo.seslendirme.txt` → `public/audio/gece-kilo`.
+  Kullanıcı ses olarak `ZDms2uXMdWDykDg7lTQ3` kimliğini verdi; API'de bulunamadı (hesapta da kütüphanede de yok) →
+  kullanıcıdan sesi "Sesimlere ekle" ile eklemesi istendi. **Bekleyen:** ses eklenince + metin onayıyla seslendir;
+  "YAĞ DEPOLA?" etiketi Bora'nın başına biniyor → sola al (x 380, çarpı üstünde).
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

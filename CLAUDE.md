@@ -333,11 +333,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Önceki Bora sürümleri (önden turuncu kapüşonlu `Bora.tsx`, yandan `BoraYan.tsx`/örgü, `Bora3D`) artık **eski**; yeni
   videolarda Bora denince `CurlyGuy` kullanılır. Eksik: pozlar/ifadeler (şu an sadece ayakta, eller cepte, göz kırpma).
 
-- **Zayiflar** — "Zayıflar bunu saklıyor!" (kullanıcının metni, ~32 sn, 3 yanlış inanış). Hikâye: her şeyi yiyen kız ("o") ↔ diyet
-  yapan Bora ("sen"). Kız = `CurlyGuy` + `GIRL_LOOK` (uzun koyu saç, kâkül, mercan hırka, açık kot, küpe, kirpik; Bora'nın tarzında).
-  Kanca ilk karede ekranda; 3 efsane kartı + kırmızı YANLIŞ mührü; cevaplar sahnede (tokluk ölçeri/tabakta kalan, gün boyu atıştırma
-  çizelgesi + kcal, merdiven + adım sayacı); son sahne fonu = ilk sahne (döngü). "Onlar şanslı" cevabı doğruluk için "Sadece şans değil".
-  Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (Chris; 521 karakter). Sessiz taslak hazır; **seslendirme onayı bekleniyor.**
+- **Zayiflar** — "Zayıfların sakladığı o sır!" (kullanıcının 2. metni, 3 yalan; 30-40 sn kuralı için kullanıcının metni hafif
+  sıkılaştırıldı, 590 karakter ≈ 40 sn). Hikâye: her şeyi yiyen kız ("o") ↔ Bora ("sen/biz"). Kız = `CurlyGuy` + `GIRL_LOOK`
+  (uzun koyu saç, kâkül, mercan hırka, açık kot, küpe, kirpik; Bora'nın tarzında, kulaklar saç altında).
+  Kanca ilk karede ekranda; **her maddede ekranı kaplayan dev rakam** (kullanıcı ipucu, `BigNum`) → efsane kartı + kırmızı YALAN mührü;
+  cevaplar sahnede: kız doyunca bırakır / Bora aynı masada zorla bitirir (ölçer taşar), gün boyu kuruyemiş çizelgesi + 3.000 kcal,
+  merdiven + adım sayacı, "1 saat spor → kanepe" ↔ kız bütün gün hareket; son sahne fonu = ilk sahne (döngü).
+  Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (Chris). Sessiz taslak 2 hazır; **seslendirme onayı bekleniyor.**
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -290,7 +290,7 @@ const Yogurt: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 })
   </g>
 );
 
-const Nuts: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Nuts: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     {[
       [-30, -14],
@@ -305,7 +305,7 @@ const Nuts: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) =
   </g>
 );
 
-const Flame: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y, s = 1, t }) => {
+export const Flame: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y, s = 1, t }) => {
   const f = 1 + Math.sin(t * 9 + x) * 0.05;
   return (
     <g transform={`translate(${x},${y}) scale(${s},${s * f})`}>
@@ -315,7 +315,7 @@ const Flame: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y
   );
 };
 
-const Dumbbell: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+export const Dumbbell: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
   <g transform={`translate(${x},${y}) rotate(${rot}) scale(${s})`}>
     <rect x={-70} y={-9} width={140} height={18} rx={8} fill="#8b93a6" stroke={INK} strokeWidth={6} />
     <rect x={-92} y={-38} width={34} height={76} rx={10} fill="#3b3f58" stroke={INK} strokeWidth={6} />
@@ -323,7 +323,7 @@ const Dumbbell: React.FC<{ x: number; y: number; s?: number; rot?: number }> = (
   </g>
 );
 
-const Moon: React.FC<{ x: number; y: number; r: number }> = ({ x, y, r }) => (
+export const Moon: React.FC<{ x: number; y: number; r: number }> = ({ x, y, r }) => (
   <g>
     <circle cx={x} cy={y} r={r} fill="#fff4c2" stroke={INK} strokeWidth={6} />
     <circle cx={x + r * 0.45} cy={y - r * 0.2} r={r * 0.85} fill="#2b3a6b" />

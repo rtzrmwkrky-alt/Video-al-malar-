@@ -10,6 +10,7 @@ import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { AnimeTeen, INK, type AnimeExpr, type AnimeLook, type AnimePose } from "../anime/AnimeTeen";
+import { Bora, type BoraExpr, type BoraPose } from "../avatar/BoraYan";
 
 loadFonts();
 
@@ -137,6 +138,27 @@ const Fig: React.FC<{ x: number; y: number; s: number; pose?: AnimePose; expr?: 
 const figPt = (x: number, y: number, s: number, p: P, wide = 1): P => [x + (540 + (p[0] - 540) * wide - 540) * s, y + (p[1] - 1586) * s];
 
 const DOWN: AnimePose = { elR: [404, 840], wrR: [396, 1000], elL: [676, 846], wrL: [684, 1004], itemL: null };
+
+/** Bora (kanal karakteri): ayak ortası (x, y), s ölçek (~810 birim boy) */
+const BoraAt: React.FC<{ x: number; y?: number; s: number; pose?: BoraPose; expr?: BoraExpr; t: number; uid: string; item?: React.ReactNode }> = ({ x, y = FLOOR, s, pose, expr, t, uid, item }) => (
+  <g transform={`translate(${x},${y}) scale(${s}) translate(-220,-850)`}>
+    <Bora id={uid} pose={pose} expr={expr} t={t} item={item} blink={blinkAt(t + x)} />
+  </g>
+);
+const boraPt = (x: number, s: number, p: P): P => [x + (p[0] - 220) * s, FLOOR + (p[1] - 850) * s];
+/** göz kırpma (her ~3.5 sn kısa bir an) */
+const blinkAt = (t: number) => {
+  const x = (t % 3.5) / 3.5;
+  return x > 0.96 ? 1 : 0;
+};
+
+const PhoneItem: React.FC = () => (
+  <g transform="translate(0,-58)">
+    <rect x={-30} y={-60} width={60} height={112} rx={12} fill="#2b2f45" stroke={INK} strokeWidth={5} />
+    <rect x={-23} y={-51} width={46} height={92} rx={7} fill="#9fd8ff" />
+    <path d="M-10,-12 L12,-2 L-10,8 Z" fill="#ffffff" />
+  </g>
+);
 
 // ------------------------------------------------------------ küçük çizim parçaları
 
@@ -318,9 +340,9 @@ const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number }
 );
 
 /** zemin: fon renginin koyu tonu (fon rengi değişse de uyar) */
-const Floor: React.FC = () => (
+const Floor: React.FC<{ tint: string }> = ({ tint }) => (
   <g>
-    <rect x={0} y={FLOOR} width={1080} height={1920 - FLOOR} fill="#0d5b5e" opacity={0.45} />
+    <rect x={0} y={FLOOR} width={1080} height={1920 - FLOOR} fill={tint} opacity={0.35} />
     <line x1={0} y1={FLOOR} x2={1080} y2={FLOOR} stroke={INK} strokeWidth={8} opacity={0.6} />
   </g>
 );
@@ -430,9 +452,12 @@ const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x,
 // ------------------------------------------------------------ ana kompozisyon
 
 /** bg: [üst, alt] gradyan renkleri */
-export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string] };
+export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string]; hero?: "anime" | "bora" };
 
-export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1cb5ad", "#48d8cc"] }) => {
+export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1cb5ad", "#48d8cc"], hero = "anime" }) => {
+  const isBora = hero === "bora";
+  /** zemin/kapı tonu: fona uysun */
+  const tint = isBora ? "#8e2f33" : "#0d5b5e";
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -515,17 +540,31 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
         </defs>
         <rect width={1080} height={1920} fill="url(#gy-bg)" />
         <rect width={1080} height={1920} fill="url(#gy-glow)" />
-        <Floor />
+        <Floor tint={tint} />
 
         {/* ===== 0: mutfak ===== */}
         {s0 > 0 ? (
           <g opacity={s0}>
             <Window x={140} y={150} w={250} h={210} t={t} />
             <Fridge x={110} t={t} />
-            <Fig uid="genc0" x={teenX} y={FLOOR} s={teenS} pose={teenPose} expr={caught > 0.5 ? "think" : bite > 0.6 ? "happy" : "grin"} t={t} />
-            <Sandwich x={sw[0]} y={sw[1] - 10} s={0.62} rot={-10 + 20 * caught} />
+            {isBora ? (
+              <BoraAt
+                uid="bora0"
+                x={560}
+                s={1.12}
+                t={t}
+                pose={{ el: mixP([292, 440], [292, 450], caught), wr: mixP([302, 290 - 18 * bite], [318, 340], caught), head: -3 * caught }}
+                expr={caught > 0.5 ? "surprise" : "chew"}
+                item={<Sandwich x={0} y={-14} s={0.55} rot={-10 + 20 * caught} />}
+              />
+            ) : (
+              <>
+                <Fig uid="genc0" x={teenX} y={FLOOR} s={teenS} pose={teenPose} expr={caught > 0.5 ? "think" : bite > 0.6 ? "happy" : "grin"} t={t} />
+                <Sandwich x={sw[0]} y={sw[1] - 10} s={0.62} rot={-10 + 20 * caught} />
+              </>
+            )}
             {/* aralık kapı: ses buradan gelir */}
-            <rect x={930} y={420} width={170} height={FLOOR - 420} fill="#0d5b5e" opacity={0.55} />
+            <rect x={930} y={420} width={170} height={FLOOR - 420} fill={tint} opacity={0.55} />
             <rect x={930} y={420} width={170} height={FLOOR - 420} fill="none" stroke={INK} strokeWidth={8} opacity={0.6} />
             <path d={`M930,${FLOOR} L860,${FLOOR + 160} L1080,${FLOOR + 160} L1080,${FLOOR} Z`} fill="#fff4c2" opacity={0.18} />
             <Bubble x={440} y={210} w={580} h={200} tx={985} ty={560} o={sm(t, shoutAt, shoutAt + 0.3) * (1 - sm(t, W(0, 5) - 0.2, W(0, 5) + 0.1))} lines={["GECE GECE YEME,", "KİLO ALIRSIN!"]} size={48} />
@@ -554,15 +593,19 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               const p = sm(t, W(1, 4) - 0.1, W(1, 4) + 0.35);
               return p > 0 ? (
                 <g opacity={p} transform={`translate(260,1200) rotate(-12) scale(${1.15 - 0.15 * p})`}>
-                  <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={RED} strokeWidth={14} />
-                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={88} fill={RED} letterSpacing={4}>
+                  <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={isBora ? "#ffffff" : RED} strokeWidth={14} />
+                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={88} fill={isBora ? "#ffffff" : RED} letterSpacing={4}>
                     EFSANE
                   </text>
                 </g>
               ) : null;
             })()}
-            <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
-            <Bubble x={50} y={190} w={560} h={210} tx={690} ty={560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
+            {isBora ? (
+              <BoraAt uid="bora1" x={700} s={1.1} t={t} pose={{ el: [312, 370], wr: [322, 250], hand: "point", handRot: 20 }} expr="grin" />
+            ) : (
+              <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
+            )}
+            <Bubble x={50} y={190} w={560} h={210} tx={isBora ? 765 : 690} ty={isBora ? 695 : 560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
             <g opacity={sm(t, W(1, 8), W(1, 8) + 0.3)}>
               <Clock x={230} y={700} r={95} h={11} m={58} />
               <Cross x={230} y={700} s={70} p={sm(t, W(1, 9), W(1, 9) + 0.4)} />
@@ -623,11 +666,22 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
           <g opacity={s5}>
             <Window x={90} y={220} w={260} h={220} t={t} />
             <Bed />
-            <Fig uid="genc5" x={470} y={FLOOR} s={0.74} pose={ouchPose} expr={t > L(6) ? "ouch" : "think"} t={t} />
+            {isBora ? (
+              <BoraAt
+                uid="bora5"
+                x={430}
+                s={1.12}
+                t={t}
+                pose={t > W(6, 4) - 0.1 ? { head: 4 } : { el: [252, 470], wr: [290, 432], hand: "open", head: 6 }}
+                expr={t > W(6, 4) - 0.1 ? "yawn" : t > L(6) ? "ouch" : "think"}
+              />
+            ) : (
+              <Fig uid="genc5" x={470} y={FLOOR} s={0.74} pose={ouchPose} expr={t > L(6) ? "ouch" : "think"} t={t} />
+            )}
             {/* ağır, yağlı yemekler mideye iner */}
             {(() => {
               const d = sm(t, W(5, 9) - 0.2, W(5, 9) + 0.7); // "midene yük olur"
-              const belly = figPt(470, FLOOR, 0.74, [540, 880]);
+              const belly = isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
               const o = sm(t, W(5, 5) - 0.2, W(5, 5) + 0.2) * (1 - d * 0.9);
               return (
                 <g opacity={o}>
@@ -643,7 +697,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             })()}
             {/* mide: yük */}
             {(() => {
-              const belly = figPt(470, FLOOR, 0.74, [540, 880]);
+              const belly = isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
               const o = sm(t, W(5, 10), W(5, 10) + 0.3);
               return o > 0 ? (
                 <g opacity={o}>
@@ -686,7 +740,19 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
         {/* ===== 7: hafif atıştırmalık ===== */}
         {s7 > 0 ? (
           <g opacity={s7}>
-            <Fig uid="genc7" x={540} y={FLOOR} s={0.64} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr={t > snack[0] ? "happy" : "grin"} t={t} />
+            {isBora ? (
+              <BoraAt
+                uid="bora7"
+                x={500}
+                s={0.92}
+                t={t}
+                pose={{ el: [284, 450], wr: [350, 400] }}
+                expr={t > snack[1] ? "happy" : "smile"}
+                item={<g opacity={sm(t, snack[1] - 0.1, snack[1] + 0.25)}><Apple x={0} y={-58} s={0.7} /></g>}
+              />
+            ) : (
+              <Fig uid="genc7" x={540} y={FLOOR} s={0.64} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr={t > snack[0] ? "happy" : "grin"} t={t} />
+            )}
             <Pill x={540} y={190} text="HAFİF SEÇ" o={sm(t, W(7, 2) - 0.1, W(7, 2) + 0.2)} color={GREEN} ink="#fff" size={56} />
             {[
               { x: 200, el: <Yogurt x={200} y={400} s={1.1} />, l: "yoğurt" },
@@ -725,14 +791,22 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               </Txt>
               <Check x={860} y={560} s={50} p={sm(t, W(8, 6), W(8, 6) + 0.4)} />
             </g>
-            <Fig uid="genc8" x={540} y={FLOOR} s={0.52} pose={DOWN} expr="happy" t={t} />
+            {isBora ? (
+              <BoraAt uid="bora8" x={510} s={0.78} t={t} pose={{ el: [290, 452], wr: [342, 384], hand: "thumb" }} expr="smile" />
+            ) : (
+              <Fig uid="genc8" x={540} y={FLOOR} s={0.52} pose={DOWN} expr="happy" t={t} />
+            )}
           </g>
         ) : null}
 
         {/* ===== 9: kapanış ===== */}
         {s9 > 0 ? (
           <g opacity={s9}>
-            <Fig uid="genc9" x={540} y={FLOOR} s={0.66} pose={{ ...DOWN, elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t + 2} />
+            {isBora ? (
+              <BoraAt uid="bora9" x={500} s={1.0} t={t} pose={{ el: [290, 444], wr: [330, 336], head: 8, ly: 3 }} expr="laugh" item={<PhoneItem />} />
+            ) : (
+              <Fig uid="genc9" x={540} y={FLOOR} s={0.66} pose={{ ...DOWN, elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t + 2} />
+            )}
             <g opacity={sm(t, L(9) + 0.2, L(9) + 0.5)}>
               <Txt x={540} y={330} size={84} fill="#ffffff" sw={14}>
                 “GECE YEME”

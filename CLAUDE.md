@@ -328,7 +328,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- Sıradaki: **GeceYemek Bora sürümü** (krem fon) — kullanıcının 8 Bora resmi bekleniyor (`icerik/bora-karakter.md` › Videolar).
+- Son iş: **GeceYemekBora** — yandan, pozlanabilir Bora (`src/avatar/BoraYan.tsx`; açık buğday ten, **pembe örgü kazak + mavi kareli pantolon + mavi bere** (kullanıcının Pinterest görseli), bej fon; ayrıntı
+  `icerik/bora-karakter.md`). Aynı ses/akış (43 sn). Render: `npx remotion render GeceYemekBora out/gece-yemek-bora.mp4 ...` → -14 LUFS.
 - Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.
   Render: `npx remotion render GeceYemek out/gece-yemek-sesli.mp4 --concurrency=4 --browser-executable=...` → -14 LUFS kopya.
 - Son iş: **BoyUzama** — sesli + müzikli (~68 sn). Ses hazır ve kayıtlı (`public/audio/boy-uzama.*`, Chris) —

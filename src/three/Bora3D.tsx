@@ -18,7 +18,7 @@ export type Bora3DLook = {
 };
 
 export const BORA3D_ORGU: Bora3DLook = {
-  skin: "#e8b98f",
+  skin: "#d39b6d",
   sweater: "#f3a3a3",
   sweaterDark: "#d9797d",
   pants: "#2f6fd1",
@@ -164,7 +164,7 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
     };
   }, [look]);
 
-  const headY = 2.06;
+  const headY = 1.93;
   const nearZ = 0.27;
   const sh = V(0.0, 1.5, nearZ);
   const armNear = pose.armNear ?? { el: [0.06, 1.12, nearZ + 0.06] as [number, number, number], hand: [0.17, 0.98, nearZ - 0.02] as [number, number, number] };
@@ -239,8 +239,8 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
       ))}
 
       {/* boyun */}
-      <mesh position={[0.02, 1.83, 0]} material={m.skin} castShadow>
-        <cylinderGeometry args={[0.042, 0.048, 0.36, 18]} />
+      <mesh position={[0.02, 1.73, 0]} material={m.skin} castShadow>
+        <cylinderGeometry args={[0.045, 0.05, 0.16, 18]} />
       </mesh>
 
       {/* baş */}

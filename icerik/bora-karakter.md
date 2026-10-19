@@ -50,3 +50,8 @@ Poz tablosu: `BoraPozlar`. İlk video: **GeceYemekBora** (`GeceYemek` + `hero: "
 Kullanıcı Pinterest örgü görselini gösterip "direk bu olsun" dedi → `BORA_ORGU` (BoraYan varsayılanı): pembe örgü kazak (balıkçı
 yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, krem burunlu mavi ayakkabı; açık buğday ten; **fon da görseldeki mercan/somon pembesi** (`#e86d6f → #d85b5e`; kullanıcı "arka ton da bu olsun").
 Önceki spor kıyafet denemeleri (mavi-neon, Retro, Yeşil vintage, basketbol/futbol/koşu/tenis) beğenilmedi / seçilmedi.
+
+## 3B Bora (deneme)
+`src/three/Bora3D.tsx` (basit geometri + canvas örgü/kareli/lastik dokuları, yumuşak gölge), deneme karesi **Bora3DDeneme**
+(`out/bora-3d.png`, mercan pembe fon). Kullanıcı geri bildirimi: ten **biraz daha kapalı** (`#d39b6d`), **boyun daha kısa**.
+3B video kurulumu kullanıcı onayı bekliyor (~2-3 saat iş, ek ücret yok).

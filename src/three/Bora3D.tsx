@@ -142,7 +142,7 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
   const m = useMemo(() => {
     const knit = knitTex(look.sweater, look.sweaterDark, [5, 4]);
     const knitArm = knitTex(look.sweater, look.sweaterDark, [3, 2]);
-    const plaid = plaidTex(look.pants, look.plaid, [3, 3.2]);
+    const plaid = plaidTex(look.pants, look.plaid, [4, 4.5]);
     const rib = ribTex(look.beanie, [10, 1]);
     const sweaterRib = ribTex(look.sweater, [14, 1]);
     const pantsRib = ribTex(look.pants, [10, 1]);
@@ -164,75 +164,108 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
     };
   }, [look]);
 
-  const headY = 1.93;
-  const nearZ = 0.27;
-  const sh = V(0.0, 1.5, nearZ);
-  const armNear = pose.armNear ?? { el: [0.06, 1.12, nearZ + 0.06] as [number, number, number], hand: [0.17, 0.98, nearZ - 0.02] as [number, number, number] };
-  const armFar = { el: V(0.06, 1.12, -nearZ - 0.06), hand: V(0.17, 0.98, -nearZ + 0.02) };
+  const headY = 1.87;
+  const nearZ = 0.24;
+  const sh = V(0.0, 1.55, nearZ);
+  const armNear = pose.armNear ?? { el: [-0.05, 1.24, nearZ + 0.08] as [number, number, number], hand: [0.1, 1.06, nearZ - 0.01] as [number, number, number] };
+  const armFar = { el: V(-0.05, 1.24, -nearZ - 0.08), hand: V(0.1, 1.06, -nearZ + 0.01) };
+  // bol, kutumsu kazak: yandan profil (yarıçap, yükseklik)
+  const sweaterGeo = useMemo(
+    () =>
+      new THREE.LatheGeometry(
+        [
+          [0.0, 1.01],
+          [0.235, 1.01],
+          [0.265, 1.05],
+          [0.28, 1.15],
+          [0.285, 1.3],
+          [0.275, 1.45],
+          [0.24, 1.55],
+          [0.17, 1.61],
+          [0.09, 1.64],
+          [0.0, 1.645],
+        ].map(([r, y]) => new THREE.Vector2(r, y)),
+        48,
+      ),
+    [],
+  );
+  // geniş paçalı pantolon bacağı (hafif genişleyen)
+  const legGeo = useMemo(
+    () =>
+      new THREE.LatheGeometry(
+        [
+          [0.0, 0.24],
+          [0.142, 0.24],
+          [0.138, 0.55],
+          [0.13, 0.85],
+          [0.122, 1.04],
+          [0.0, 1.05],
+        ].map(([r, y]) => new THREE.Vector2(r, y)),
+        36,
+      ),
+    [],
+  );
 
   return (
     <group>
-      {/* ayakkabılar */}
+      {/* tıknaz spor ayakkabılar (kalın krem taban, krem burun) */}
       {[-1, 1].map((s) => (
-        <group key={s} position={[0.06 + (s > 0 ? 0.06 : 0), 0, s * 0.12]}>
-          <mesh position={[0.02, 0.04, 0]} scale={[1, 0.22, 0.48]} material={m.sole} castShadow>
-            <sphereGeometry args={[0.185, 28, 16]} />
+        <group key={s} position={[s > 0 ? 0.1 : -0.02, 0, s * 0.12]}>
+          <mesh position={[0.02, 0.045, 0]} rotation={[0, 0, Math.PI / 2]} scale={[1, 1, 1.9]} material={m.sole} castShadow>
+            <capsuleGeometry args={[0.045, 0.27, 8, 20]} />
           </mesh>
-          <mesh position={[0.02, 0.025, 0]} material={m.sole} castShadow>
-            <cylinderGeometry args={[0.001, 0.001, 0.001, 4]} />
+          <mesh position={[-0.01, 0.13, 0]} scale={[1.75, 0.85, 0.95]} material={m.shoe} castShadow>
+            <sphereGeometry args={[0.1, 28, 18]} />
           </mesh>
-          <mesh position={[0, 0.1, 0]} scale={[1.7, 0.75, 0.95]} material={m.shoe} castShadow>
-            <sphereGeometry args={[0.1, 24, 16]} />
-          </mesh>
-          <mesh position={[0.13, 0.085, 0]} scale={[1, 0.7, 1]} material={m.sole} castShadow>
-            <sphereGeometry args={[0.075, 20, 14]} />
+          <mesh position={[0.15, 0.1, 0]} scale={[0.9, 0.62, 0.92]} material={m.sole} castShadow>
+            <sphereGeometry args={[0.08, 22, 14]} />
           </mesh>
           {[0, 1, 2].map((k) => (
-            <mesh key={k} position={[0.02 + k * 0.035, 0.165 - k * 0.012, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.lace}>
-              <cylinderGeometry args={[0.008, 0.008, 0.1, 8]} />
+            <mesh key={k} position={[0.0 + k * 0.035, 0.205 - k * 0.012, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.lace}>
+              <cylinderGeometry args={[0.008, 0.008, 0.11, 8]} />
             </mesh>
           ))}
+          {/* bilek */}
+          <mesh position={[-0.02, 0.22, 0]} material={m.skin}>
+            <cylinderGeometry args={[0.045, 0.05, 0.08, 14]} />
+          </mesh>
         </group>
       ))}
 
-      {/* pantolon */}
+      {/* pantolon: uzun, geniş paçalı, hafif açık duruş */}
       {[-1, 1].map((s) => (
-        <group key={s} position={[0.05, 0, s * 0.12]}>
-          <mesh position={[0, 0.55, 0]} material={m.pants} castShadow>
-            <cylinderGeometry args={[0.15, 0.14, 0.78, 28]} />
-          </mesh>
-          <mesh position={[0, 0.2, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.pantsRib} castShadow>
+        <group key={s} position={[s > 0 ? 0.05 : 0.0, 0, s * 0.1]} rotation={[s * 0.035, 0, s > 0 ? -0.04 : 0.02]}>
+          <mesh geometry={legGeo} material={m.pants} castShadow />
+          <mesh position={[0, 0.27, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.pantsRib} castShadow>
             <torusGeometry args={[0.14, 0.045, 14, 32]} />
           </mesh>
         </group>
       ))}
-      <mesh position={[0.05, 0.92, 0]} scale={[1, 0.6, 1.25]} material={m.pants}>
+      <mesh position={[0.03, 1.02, 0]} scale={[0.9, 0.45, 1.05]} material={m.pants}>
         <sphereGeometry args={[0.24, 24, 16]} />
       </mesh>
 
       {/* kazak */}
-      <mesh position={[0.02, 1.22, 0]} scale={[0.92, 1, 1.05]} material={m.sweater} castShadow>
-        <capsuleGeometry args={[0.29, 0.34, 10, 28]} />
+      <mesh geometry={sweaterGeo} position={[0.02, 0, 0]} scale={[0.95, 1, 1.05]} material={m.sweater} castShadow />
+      <mesh position={[0.02, 1.03, 0]} scale={[0.95, 1, 1.05]} rotation={[Math.PI / 2, 0, 0]} material={m.sweaterRib} castShadow>
+        <torusGeometry args={[0.245, 0.045, 14, 40]} />
       </mesh>
-      <mesh position={[0.02, 0.9, 0]} scale={[0.92, 1, 1.05]} rotation={[Math.PI / 2, 0, 0]} material={m.sweaterRib} castShadow>
-        <torusGeometry args={[0.26, 0.05, 14, 40]} />
-      </mesh>
-      {/* yaka */}
-      <mesh position={[0.02, 1.64, 0]} material={m.sweaterRib} castShadow>
-        <cylinderGeometry args={[0.085, 0.1, 0.09, 24]} />
+      {/* boğazlı yaka */}
+      <mesh position={[0.02, 1.67, 0]} material={m.sweaterRib} castShadow>
+        <cylinderGeometry args={[0.075, 0.095, 0.1, 24]} />
       </mesh>
 
-      {/* kollar (bol kollu) */}
+      {/* kollar (bol, düşük omuzlu) */}
       {[
         { el: V(...armNear.el), hand: V(...armNear.hand), s: 1 },
         { ...armFar, s: -1 },
       ].map((a, k) => (
         <group key={k}>
-          <Limb a={V(sh.x, sh.y, a.s * Math.abs(sh.z))} b={a.el} r={0.115} mat={m.sleeve} />
-          <Limb a={a.el} b={a.hand} r={0.1} mat={m.sleeve} />
+          <Limb a={V(sh.x, sh.y, a.s * Math.abs(sh.z))} b={a.el} r={0.125} mat={m.sleeve} />
+          <Limb a={a.el} b={a.hand} r={0.112} mat={m.sleeve} />
           {pose.armNear && k === 0 ? (
             <mesh position={a.hand.clone().add(a.hand.clone().sub(a.el).normalize().multiplyScalar(0.11))} material={m.skin} castShadow>
-              <sphereGeometry args={[0.06, 20, 16]} />
+              <sphereGeometry args={[0.055, 20, 16]} />
             </mesh>
           ) : null}
         </group>
@@ -240,7 +273,7 @@ export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: nu
 
       {/* boyun */}
       <mesh position={[0.02, 1.73, 0]} material={m.skin} castShadow>
-        <cylinderGeometry args={[0.045, 0.05, 0.16, 18]} />
+        <cylinderGeometry args={[0.042, 0.048, 0.12, 18]} />
       </mesh>
 
       {/* baş */}

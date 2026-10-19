@@ -54,4 +54,5 @@ yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, kre
 ## 3B Bora (deneme)
 `src/three/Bora3D.tsx` (basit geometri + canvas örgü/kareli/lastik dokuları, yumuşak gölge), deneme karesi **Bora3DDeneme**
 (`out/bora-3d.png`, mercan pembe fon). Kullanıcı geri bildirimi: ten **biraz daha kapalı** (`#d39b6d`), **boyun daha kısa**.
+Sonra "vücudu örnekle alakası yok" → oranlar örneğe göre: bol kutumsu kazak (lathe), uzun geniş paçalı pantolon (pantolon ≈ 1.2× kazak boyu), puf kollar, eller cepte, tıknaz kalın krem tabanlı ayakkabı, kısa boyun.
 3B video kurulumu kullanıcı onayı bekliyor (~2-3 saat iş, ek ücret yok).

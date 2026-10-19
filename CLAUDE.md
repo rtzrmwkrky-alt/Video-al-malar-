@@ -281,6 +281,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   perde bozulmadan %4 hız; kelime zamanları da yeniden yazılır) → video `audioName: gece-yemek-kisa`, ~43 sn.
   Son: `out/gece-yemek-43sn-paylas.mp4`. **Yeni videolarda hedef süre 40-45 sn.**
 
+- **AvatarSecim** — kullanıcı videolarda sürekli kullanacağı bir **kanal avatarı** (ekrana konuşan karikatür) istedi; 4 aday
+  (`src/avatar/Avatars.tsx`, omuz plan, göz kırpar, konuşurken ağız oynar): 1 Deniz (anime sporcu kız), 2 Kaan Koç
+  (anime genç koç, şapka + düdük), 3 Bobo (maskot ayı), 4 Efe (Pixar tarzı büyük gözlü genç). Önizleme
+  `out/avatar-secim.mp4`. **Seçim bekleniyor.**
+
 ## Son durum (yeni oturumda buradan devam)
 
 - Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.

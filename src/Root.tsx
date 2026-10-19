@@ -35,6 +35,7 @@ import { FigurPozlar } from "./compositions/FigurPozlar";
 import { SacSecenekleri } from "./compositions/SacSecenekleri";
 import { KARIKATUR_FRAMES, KarikaturGenc } from "./compositions/KarikaturGenc";
 import { ANIME_FRAMES, AnimeKarakter } from "./compositions/AnimeKarakter";
+import { AVATAR_FRAMES, AvatarSecim } from "./compositions/AvatarSecim";
 import { SILUET_FRAMES, SiluetRontgen } from "./compositions/SiluetRontgen";
 import { STIL_FRAMES, StilOrnekleri } from "./compositions/StilOrnekleri";
 import { BOY_TAIL, BOY_TL, BoyUzama, type BoyUzamaProps } from "./compositions/BoyUzama";
@@ -269,6 +270,7 @@ export const RemotionRoot: React.FC = () => {
     <Composition id="FigurPozlar" component={FigurPozlar} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="SacSecenekleri" component={SacSecenekleri} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="KarikaturGenc" component={KarikaturGenc} width={1080} height={1920} fps={FPS} durationInFrames={KARIKATUR_FRAMES} />
+    <Composition id="AvatarSecim" component={AvatarSecim} width={1080} height={1920} fps={FPS} durationInFrames={AVATAR_FRAMES} />
     <Composition id="AnimeKarakter" component={AnimeKarakter} width={1080} height={1920} fps={FPS} durationInFrames={ANIME_FRAMES} />
     <Composition id="SiluetRontgen" component={SiluetRontgen} width={1080} height={1920} fps={FPS} durationInFrames={SILUET_FRAMES} />
     <Composition id="StilOrnekleri" component={StilOrnekleri} width={1080} height={1920} fps={FPS} durationInFrames={STIL_FRAMES} />

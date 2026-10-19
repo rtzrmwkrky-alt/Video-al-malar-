@@ -880,7 +880,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             volume={(f) => {
               const mt = f / fps;
               const end = data.durationInSeconds;
-              const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.06, 0.06, 0.14], { extrapolateRight: "clamp" });
+              const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.025, 0.025, 0.06], { extrapolateRight: "clamp" });
               return base * interpolate(mt, [tl.total - 1.0, tl.total], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
             }}
           />

@@ -533,7 +533,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   // fon rengi sahneye göre değişir (kıvırcık Bora sürümü): gece mutfak → cevap → terazi → yatak odası → atıştırmalık → özet → kapanış
   const SCENE_BG: [number, string, string][] = [
     [0, "#5f6f96", "#46557a"], // gece, mutfak: akşam mavisi
-    [1, "#f3d98a", "#e9c46a"], // cevap: sıcak sarı (aydınlanma anı)
+    [1, "#cfe1f3", "#b3cbe6"], // cevap: açık gök mavisi (gece mavisinden yumuşak geçiş; sarı istenmedi)
     [2, "#d4ebe0", "#b9dccb"], // terazi: ferah mint
     [5, "#8c84b6", "#6d6699"], // yatak odası, gece: lavanta
     [7, "#dcefc2", "#c3e3a0"], // hafif atıştırmalık: taze yeşil

@@ -348,7 +348,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sessiz taslak önce gösterildi (kullanıcı "sesi en sona bırak" dedi). Son: `out/gece-kilo-paylas.mp4` (-14 LUFS).
   Kullanıcı "ses efekti yok" dedi → yumuşak efektler eklendi (`FX` tablosu; Mixkit, `public/sfx/<id>.mp3` git'te): saat tıkırtısı + gong,
   buzdolabı kapağı, kart sayfası, ibre dönüşü, EFSANE damgası, kalori sayacı, kefeye düşen sandviç, uyku ölçer, ✓ tonları, telefon bildirimi.
-  **Her videoda ses efekti olsun** (kısık, pop/woosh yok).
+  **Her videoda ses efekti olsun** (kısık, pop/woosh yok). Kullanıcı "ana ses kısık" dedi → konuşma `volume={1.6}` (~+4 dB, müzik/efekt üstünde).
 
 ## Son durum (yeni oturumda buradan devam)
 

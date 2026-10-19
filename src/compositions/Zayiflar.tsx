@@ -7,7 +7,7 @@
  * Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (kelime sayıları satır satır aynı olmalı).
  * Ses yoksa zamanlar okuma hızından hesaplanır (sessiz taslak).
  */
-import { AbsoluteFill, Audio, interpolate, interpolateColors, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, interpolate, interpolateColors, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
@@ -485,6 +485,19 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
   // ===== 13: kapanış (sona kadar kalır; döngü için siyaha kararmaz)
   const s13 = win(t, L(13) - 0.02, tl.total + 1, X * 0.6);
 
+  // ses efektleri (Mixkit, public/zayiflar/sfx/<id>.mp3): sade, az ve olayın tam anında
+  const overAt = T5 + (forced - T5) * (0.4 / 0.7); // ölçer taşmaya başlar
+  const FX: { at: number; id: number; v: number; dur?: number }[] = [
+    { at: 0.15, id: 117, v: 0.5 }, // ısırık (kanca)
+    ...[3, 6, 9].map((l) => ({ at: L(l) - 0.06, id: 2902, v: 0.32, dur: 1.3 })), // dev rakam
+    ...[L(4), L(7), W(9, 2)].map((a) => ({ at: a - 0.05, id: 2182, v: 0.6 })), // YALAN mührü
+    { at: full, id: 2870, v: 0.28 }, // "doydum" ✓
+    { at: overAt, id: 946, v: 0.22 }, // ölçer taştı
+    ...nutT.map((a) => ({ at: a, id: 2841, v: 0.18, dur: 0.35 })), // kcal sayacı
+    { at: W(12, 3), id: 952, v: 0.28 }, // alışkanlık ✓
+    { at: W(13, 2) - 0.05, id: 2354, v: 0.45 }, // yorum bildirimi
+  ];
+
   return (
     <AbsoluteFill lang="tr" style={{ background: bgTop, overflow: "hidden" }}>
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
@@ -802,7 +815,13 @@ export const Zayiflar: React.FC<ZayiflarProps> = ({ audioName, data }) => {
       <Captions t={t} tl={tl} />
       {data ? (
         <>
-          <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {/* ana ses müzik ve efektlerin üstünde kalsın: ~+4 dB */}
+          <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} />
+          {FX.map((f, i) => (
+            <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">
+              <Audio src={staticFile(`zayiflar/sfx/${f.id}.mp3`)} volume={f.v} />
+            </Sequence>
+          ))}
           <Audio
             src={staticFile("music/623.mp3")}
             volume={(f) => {

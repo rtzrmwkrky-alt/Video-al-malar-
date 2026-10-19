@@ -339,7 +339,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kanca ilk karede ekranda; **her maddede ekranı kaplayan dev rakam** (kullanıcı ipucu, `BigNum`) → efsane kartı + kırmızı YALAN mührü;
   cevaplar sahnede: kız doyunca bırakır / Bora aynı masada zorla bitirir (ölçer taşar), gün boyu kuruyemiş çizelgesi + 3.000 kcal,
   merdiven + adım sayacı, "1 saat spor → kanepe" ↔ kız bütün gün hareket; son sahne fonu = ilk sahne (döngü).
-  Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt` (Chris). Sessiz taslak 2 hazır; **seslendirme onayı bekleniyor.**
+  Metin `icerik/zayiflar.txt`, seslendirme `icerik/zayiflar.seslendirme.txt`. **Kullanıcı isteği: ses = "Manitammm"**
+  (kullanıcının klonladığı Türkçe erkek ses, `WYz3C2SUJKV2mMyXR0L3`; eleven_v4, tr, 0.4/0.35/1.05) → `public/audio/zayiflar` (38.6 sn, video 40 sn).
+  Kullanıcı "Manitamın sesi" derse bu ses. **Ses efektleri istendi** (sade, olay anında): Mixkit `public/zayiflar/sfx/` — ısırık 117,
+  dev rakam 2902, YALAN mührü 2182, doydum 2870, ölçer taştı 946, kcal 2841, alışkanlık 952, yorum bildirimi 2354 (`FX` tablosu).
+  Müzik 623 (0.04). Son: `out/zayiflar-paylas.mp4` (-14 LUFS).
 
 - **GeceKilo** — "Gece yemek yemek gerçekten kilo aldırır mı?" (kullanıcının metni, 40 sn'ye sığsın diye sıkılaştırıldı; ~87 kelime).
   Bora (`CurlyGuy`), sahneye göre fon rengi. Seslendirme metni `icerik/gece-kilo.seslendirme.txt` → `public/audio/gece-kilo`.

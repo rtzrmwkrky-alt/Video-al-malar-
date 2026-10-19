@@ -1,0 +1,426 @@
+{
+  "text": "Zayıfların sakladığı o sır! Bu kız her şeyi yiyor... ama gram kilo almıyor. \"Şanslı\" deyip geçme, kandırıldığımız üç yalan var! Bir: \"Az yiyorlar.\" Az yemiyorlar! Doydukları an tabağı bırakıyorlar. Biz ise tabağı bitirmek için kendimizi zorluyoruz. İki: \"Gece yemek kilo aldırır.\" Vücut saate bakmaz! Sen gün boyu \"sağlıklı\" diye, avuç avuç kuruyemişle üç bin kaloriyi deviriyorsun. Üç: Şanslı değiller! Fark etmeden, sürekli hareket ediyorlar. Sen bir saat spor yapıp yatarken, o oturduğu yerde bile kalori yakıyor. Zayıflık şans değil... alışkanlık. Hangisine inanıyordun? Yorumlara yaz!",
+  "durationInSeconds": 38.56,
+  "words": [
+    {
+      "text": "Zayıfların",
+      "start": 0,
+      "end": 0.56
+    },
+    {
+      "text": "sakladığı",
+      "start": 0.64,
+      "end": 1.2
+    },
+    {
+      "text": "o",
+      "start": 1.28,
+      "end": 1.36
+    },
+    {
+      "text": "sır!",
+      "start": 1.44,
+      "end": 1.84
+    },
+    {
+      "text": "Bu",
+      "start": 2.16,
+      "end": 2.24
+    },
+    {
+      "text": "kız",
+      "start": 2.32,
+      "end": 2.48
+    },
+    {
+      "text": "her",
+      "start": 2.56,
+      "end": 2.72
+    },
+    {
+      "text": "şeyi",
+      "start": 2.8,
+      "end": 3.08
+    },
+    {
+      "text": "yiyor...",
+      "start": 3.12,
+      "end": 3.76
+    },
+    {
+      "text": "ama",
+      "start": 3.88,
+      "end": 4
+    },
+    {
+      "text": "gram",
+      "start": 4.08,
+      "end": 4.4
+    },
+    {
+      "text": "kilo",
+      "start": 4.48,
+      "end": 4.64
+    },
+    {
+      "text": "almıyor.",
+      "start": 4.72,
+      "end": 5.2
+    },
+    {
+      "text": "\"Şanslı\"",
+      "start": 5.6,
+      "end": 6.027
+    },
+    {
+      "text": "deyip",
+      "start": 6.053,
+      "end": 6.24
+    },
+    {
+      "text": "geçme,",
+      "start": 6.32,
+      "end": 6.96
+    },
+    {
+      "text": "kandırıldığımız",
+      "start": 7.04,
+      "end": 7.84
+    },
+    {
+      "text": "üç",
+      "start": 8,
+      "end": 8.12
+    },
+    {
+      "text": "yalan",
+      "start": 8.16,
+      "end": 8.48
+    },
+    {
+      "text": "var!",
+      "start": 8.6,
+      "end": 8.8
+    },
+    {
+      "text": "Bir:",
+      "start": 9.2,
+      "end": 9.72
+    },
+    {
+      "text": "\"Az",
+      "start": 9.92,
+      "end": 10.12
+    },
+    {
+      "text": "yiyorlar.\"",
+      "start": 10.16,
+      "end": 10.88
+    },
+    {
+      "text": "Az",
+      "start": 11.04,
+      "end": 11.2
+    },
+    {
+      "text": "yemiyorlar!",
+      "start": 11.28,
+      "end": 12
+    },
+    {
+      "text": "Doydukları",
+      "start": 12.16,
+      "end": 12.64
+    },
+    {
+      "text": "an",
+      "start": 12.72,
+      "end": 12.8
+    },
+    {
+      "text": "tabağı",
+      "start": 12.92,
+      "end": 13.12
+    },
+    {
+      "text": "bırakıyorlar.",
+      "start": 13.2,
+      "end": 14
+    },
+    {
+      "text": "Biz",
+      "start": 14.16,
+      "end": 14.32
+    },
+    {
+      "text": "ise",
+      "start": 14.44,
+      "end": 14.56
+    },
+    {
+      "text": "tabağı",
+      "start": 14.68,
+      "end": 14.88
+    },
+    {
+      "text": "bitirmek",
+      "start": 14.96,
+      "end": 15.28
+    },
+    {
+      "text": "için",
+      "start": 15.36,
+      "end": 15.52
+    },
+    {
+      "text": "kendimizi",
+      "start": 15.6,
+      "end": 16
+    },
+    {
+      "text": "zorluyoruz.",
+      "start": 16.08,
+      "end": 16.92
+    },
+    {
+      "text": "İki:",
+      "start": 17.12,
+      "end": 17.84
+    },
+    {
+      "text": "\"Gece",
+      "start": 17.893,
+      "end": 18.08
+    },
+    {
+      "text": "yemek",
+      "start": 18.16,
+      "end": 18.4
+    },
+    {
+      "text": "kilo",
+      "start": 18.48,
+      "end": 18.64
+    },
+    {
+      "text": "aldırır.\"",
+      "start": 18.72,
+      "end": 19.2
+    },
+    {
+      "text": "Vücut",
+      "start": 19.44,
+      "end": 19.76
+    },
+    {
+      "text": "saate",
+      "start": 19.84,
+      "end": 20.08
+    },
+    {
+      "text": "bakmaz!",
+      "start": 20.16,
+      "end": 20.8
+    },
+    {
+      "text": "Sen",
+      "start": 20.96,
+      "end": 21.12
+    },
+    {
+      "text": "gün",
+      "start": 21.2,
+      "end": 21.36
+    },
+    {
+      "text": "boyu",
+      "start": 21.44,
+      "end": 21.6
+    },
+    {
+      "text": "\"sağlıklı\"",
+      "start": 21.68,
+      "end": 22.293
+    },
+    {
+      "text": "diye,",
+      "start": 22.347,
+      "end": 22.64
+    },
+    {
+      "text": "avuç",
+      "start": 22.72,
+      "end": 22.88
+    },
+    {
+      "text": "avuç",
+      "start": 22.96,
+      "end": 23.2
+    },
+    {
+      "text": "kuruyemişle",
+      "start": 23.28,
+      "end": 23.84
+    },
+    {
+      "text": "üç",
+      "start": 23.92,
+      "end": 24.04
+    },
+    {
+      "text": "bin",
+      "start": 24.08,
+      "end": 24.24
+    },
+    {
+      "text": "kaloriyi",
+      "start": 24.32,
+      "end": 24.64
+    },
+    {
+      "text": "deviriyorsun.",
+      "start": 24.72,
+      "end": 25.6
+    },
+    {
+      "text": "Üç:",
+      "start": 25.68,
+      "end": 26.24
+    },
+    {
+      "text": "Şanslı",
+      "start": 26.28,
+      "end": 26.64
+    },
+    {
+      "text": "değiller!",
+      "start": 26.72,
+      "end": 27.52
+    },
+    {
+      "text": "Fark",
+      "start": 27.6,
+      "end": 27.76
+    },
+    {
+      "text": "etmeden,",
+      "start": 27.84,
+      "end": 28.32
+    },
+    {
+      "text": "sürekli",
+      "start": 28.36,
+      "end": 28.72
+    },
+    {
+      "text": "hareket",
+      "start": 28.8,
+      "end": 29.04
+    },
+    {
+      "text": "ediyorlar.",
+      "start": 29.08,
+      "end": 29.76
+    },
+    {
+      "text": "Sen",
+      "start": 29.88,
+      "end": 30
+    },
+    {
+      "text": "bir",
+      "start": 30.04,
+      "end": 30.08
+    },
+    {
+      "text": "saat",
+      "start": 30.16,
+      "end": 30.4
+    },
+    {
+      "text": "spor",
+      "start": 30.48,
+      "end": 30.64
+    },
+    {
+      "text": "yapıp",
+      "start": 30.72,
+      "end": 30.96
+    },
+    {
+      "text": "yatarken,",
+      "start": 31.04,
+      "end": 31.68
+    },
+    {
+      "text": "o",
+      "start": 31.76,
+      "end": 31.84
+    },
+    {
+      "text": "oturduğu",
+      "start": 31.92,
+      "end": 32.32
+    },
+    {
+      "text": "yerde",
+      "start": 32.44,
+      "end": 32.64
+    },
+    {
+      "text": "bile",
+      "start": 32.68,
+      "end": 32.88
+    },
+    {
+      "text": "kalori",
+      "start": 32.96,
+      "end": 33.2
+    },
+    {
+      "text": "yakıyor.",
+      "start": 33.253,
+      "end": 33.92
+    },
+    {
+      "text": "Zayıflık",
+      "start": 34,
+      "end": 34.4
+    },
+    {
+      "text": "şans",
+      "start": 34.44,
+      "end": 34.72
+    },
+    {
+      "text": "değil...",
+      "start": 34.8,
+      "end": 35.36
+    },
+    {
+      "text": "alışkanlık.",
+      "start": 35.48,
+      "end": 36.4
+    },
+    {
+      "text": "Hangisine",
+      "start": 36.52,
+      "end": 36.88
+    },
+    {
+      "text": "inanıyordun?",
+      "start": 37,
+      "end": 37.68
+    },
+    {
+      "text": "Yorumlara",
+      "start": 37.76,
+      "end": 38.08
+    },
+    {
+      "text": "yaz!",
+      "start": 38.16,
+      "end": 38.56
+    }
+  ]
+}

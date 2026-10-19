@@ -22,29 +22,41 @@ export type BoraOutfit = {
   block?: string;
   /** boyun arkasında kapüşon */
   hood?: boolean;
+  /** kol boyu: uzun (ceket), kısa (tişört/forma), yok (atlet) */
+  sleeves?: "long" | "short" | "none";
+  /** alt: eşofman ya da şort */
+  bottom?: "pants" | "shorts";
+  /** çorap rengi (şortla) */
+  socks?: string;
+  /** başlık: bere, kep, saç + saç bandı, sadece saç */
+  head?: "beanie" | "cap" | "band" | "hair";
+  /** formada numara */
+  number?: string;
+  /** ceket ayrıntıları (fermuar, dik yaka, lastikli bel) */
+  jacket?: boolean;
 };
 
 /** varsayılan: elektrik mavisi eşofman üstü + neon şeritler, siyah jogger, neon tabanlı beyaz ayakkabı */
 export const BORA_OUTFITS: { name: string; desc: string; o: BoraOutfit }[] = [
   {
-    name: "Retro",
-    desc: "Mor-pembe renk bloklu rüzgarlık, beyaz eşofman",
-    o: { top: "#7b3fe4", topS: "#5a28b0", stripe: "#ffffff", block: "#ff5fa2", pants: "#f4f1ec", pantsStripe: "#7b3fe4", beanie: "#ff5fa2", shoe: "#ffffff", sole: "#7b3fe4" },
+    name: "Basketbolcu",
+    desc: "Kolsuz forma 23, uzun şort, saç bandı",
+    o: { top: "#e63946", topS: "#b02531", stripe: "#ffffff", sleeves: "none", number: "23", bottom: "shorts", pants: "#e63946", pantsStripe: "#ffffff", socks: "#ffffff", head: "band", beanie: "#ffffff", shoe: "#ffffff", sole: "#e63946" },
   },
   {
-    name: "Sarı kapüşonlu",
-    desc: "Parlak sarı kapüşonlu, mor eşofman",
-    o: { top: "#ffc21a", topS: "#e09a00", stripe: "#5b2ca0", hood: true, pants: "#4a2590", pantsStripe: "#ffc21a", beanie: "#4a2590", shoe: "#ffffff", sole: "#ffc21a" },
+    name: "Futbolcu",
+    desc: "Sarı-lacivert forma 10, şort, uzun çorap",
+    o: { top: "#ffd23f", topS: "#e0a800", stripe: "#1f2a6b", sleeves: "short", number: "10", bottom: "shorts", pants: "#1f2a6b", pantsStripe: "#ffd23f", socks: "#ffd23f", head: "hair", beanie: "#1f2a6b", shoe: "#1f2a6b", sole: "#ffd23f" },
   },
   {
-    name: "Siyah-kırmızı",
-    desc: "Siyah ceket, kırmızı göğüs bandı, kırmızı bere",
-    o: { top: "#1e1f26", topS: "#0f1015", stripe: "#ff3b30", block: "#ff3b30", pants: "#1e1f26", pantsStripe: "#ff3b30", beanie: "#ff3b30", shoe: "#ffffff", sole: "#ff3b30" },
+    name: "Koşucu",
+    desc: "Neon atlet, siyah şort, kep",
+    o: { top: "#c6f432", topS: "#97c214", stripe: "#1c1d22", sleeves: "none", bottom: "shorts", pants: "#1c1d22", pantsStripe: "#c6f432", socks: "#1c1d22", head: "cap", beanie: "#1c1d22", shoe: "#ffffff", sole: "#c6f432" },
   },
   {
-    name: "Yeşil vintage",
-    desc: "Orman yeşili ceket, krem şerit, lacivert eşofman",
-    o: { top: "#1f7a4d", topS: "#145535", stripe: "#f6e7c1", block: "#f6e7c1", pants: "#1f2a4a", pantsStripe: "#f6e7c1", beanie: "#f6e7c1", shoe: "#f6e7c1", sole: "#1f7a4d" },
+    name: "Tenisçi",
+    desc: "Beyaz tişört, yeşil şort, yeşil saç bandı",
+    o: { top: "#ffffff", topS: "#d6d9de", stripe: "#1f8a4c", sleeves: "short", bottom: "shorts", pants: "#1f8a4c", pantsStripe: "#ffffff", socks: "#ffffff", head: "band", beanie: "#1f8a4c", shoe: "#ffffff", sole: "#1f8a4c" },
   },
 ];
 
@@ -87,6 +99,7 @@ const HEAD =
   "M176,150 Q174,92 222,90 Q266,92 268,140 L281,166 Q285,173 270,175 L268,190 Q262,216 236,216 Q196,214 182,190 Q174,172 176,150 Z";
 const BODY = "M126,334 Q148,282 214,278 Q278,282 300,334 Q320,424 306,524 Q214,546 122,524 Q108,424 126,334 Z";
 const SLEEVE = "M194,306 Q262,296 276,362 Q290,432 272,494 Q240,510 212,494 Q204,420 194,306 Z";
+const SHORTS = "M140,512 L294,512 Q302,590 304,660 L222,660 Q218,630 214,600 Q208,630 196,660 L136,660 Q134,590 140,512 Z";
 const PANTS = "M140,512 L294,512 Q304,650 300,800 L222,800 Q218,700 214,650 Q208,700 194,800 L144,800 Q134,650 140,512 Z";
 const BEANIE = "M168,128 Q164,62 222,58 Q278,60 276,128 Z";
 
@@ -148,6 +161,12 @@ export const Bora: React.FC<{
   blink?: number;
 }> = ({ id, t = 0, o = BORA_SPORT, pose = {}, expr = "neutral", item, blink = 0 }) => {
   const breathe = Math.sin(t * 2) * 1.5;
+  const sleeves = o.sleeves ?? "long";
+  const shorts = o.bottom === "shorts";
+  const head = o.head ?? "beanie";
+  const jacket = o.jacket ?? (sleeves === "long" && !o.hood);
+  // kolsuz/kısa kolluda eller cepte duramaz: kol yanda sarkar
+  if (!pose.el && sleeves !== "long") pose = { ...pose, el: [246, 440], wr: [250, 530] };
   const posed = !!(pose.el && pose.wr);
   const hand = boraHandAt(pose);
   const lx = pose.lx ?? (expr === "think" ? -2 : 0);
@@ -192,16 +211,37 @@ export const Bora: React.FC<{
       </defs>
       {/* zemin gölgesi */}
       <ellipse cx={220} cy={850} rx={150} ry={14} fill="#000" opacity={0.15} />
+      {shorts ? (
+        <g>
+          {/* bacaklar + çoraplar */}
+          <rect x={150} y={630} width={40} height={190} rx={18} fill={`url(#${id}-skin)`} />
+          <rect x={228} y={630} width={44} height={190} rx={18} fill={`url(#${id}-skin)`} />
+          <rect x={148} y={736} width={44} height={84} rx={10} fill={o.socks ?? "#ffffff"} />
+          <rect x={226} y={736} width={48} height={84} rx={10} fill={o.socks ?? "#ffffff"} />
+          <path d="M148,752 L192,752 M226,752 L274,752" stroke={o.pantsStripe} strokeWidth={6} />
+        </g>
+      ) : null}
       <Shoe x={140} o={o} />
-      {/* jogger */}
-      <path d={PANTS} fill={o.pants} />
-      <path d={PANTS} fill={`url(#${id}-shade)`} />
-      <path d="M286,520 Q296,650 292,780" fill="none" stroke={o.pantsStripe} strokeWidth={9} />
-      {/* lastikli paçalar */}
-      <rect x={140} y={782} width={58} height={26} rx={10} fill={o.pants} />
-      <rect x={140} y={782} width={58} height={26} rx={10} fill={`url(#${id}-rib)`} />
-      <rect x={216} y={782} width={88} height={26} rx={10} fill={o.pants} />
-      <rect x={216} y={782} width={88} height={26} rx={10} fill={`url(#${id}-rib)`} />
+      {shorts ? (
+        <g>
+          <path d={SHORTS} fill={o.pants} />
+          <path d={SHORTS} fill={`url(#${id}-shade)`} />
+          <path d="M288,520 Q296,580 296,656" fill="none" stroke={o.pantsStripe} strokeWidth={9} />
+          <path d="M138,650 L214,650 M222,654 L304,654" stroke={o.pantsStripe} strokeWidth={6} />
+        </g>
+      ) : (
+        <g>
+          {/* jogger */}
+          <path d={PANTS} fill={o.pants} />
+          <path d={PANTS} fill={`url(#${id}-shade)`} />
+          <path d="M286,520 Q296,650 292,780" fill="none" stroke={o.pantsStripe} strokeWidth={9} />
+          {/* lastikli paçalar */}
+          <rect x={140} y={782} width={58} height={26} rx={10} fill={o.pants} />
+          <rect x={140} y={782} width={58} height={26} rx={10} fill={`url(#${id}-rib)`} />
+          <rect x={216} y={782} width={88} height={26} rx={10} fill={o.pants} />
+          <rect x={216} y={782} width={88} height={26} rx={10} fill={`url(#${id}-rib)`} />
+        </g>
+      )}
       <Shoe x={204} o={o} />
 
       <g transform={`translate(0,${breathe})`}>
@@ -221,38 +261,68 @@ export const Bora: React.FC<{
           </g>
         ) : null}
         <path d={BODY} fill={`url(#${id}-shade)`} />
-        {/* yan panel şeridi + fermuar */}
+        {/* yan panel şeridi */}
         <path d="M132,350 Q118,430 128,520" fill="none" stroke={o.stripe} strokeWidth={10} strokeLinecap="round" />
-        <path d="M296,312 Q314,420 304,520" fill="none" stroke="#ffffff" strokeWidth={4} opacity={0.85} />
-        <circle cx={300} cy={318} r={6} fill="#ffffff" />
-        {/* lastikli bel */}
-        <rect x={122} y={506} width={186} height={26} rx={12} fill={o.topS} />
-        <rect x={122} y={506} width={186} height={26} rx={12} fill={`url(#${id}-rib)`} />
-        {/* dik yaka */}
-        <path d="M190,300 L192,266 Q218,256 248,266 L250,300 Z" fill={o.top} />
-        <path d="M190,300 L192,266 Q218,256 248,266 L250,300 Z" fill={`url(#${id}-shade)`} />
-        <path d="M192,272 Q220,262 248,272" fill="none" stroke={o.stripe} strokeWidth={5} />
+        {o.number ? (
+          <text x={214} y={470} textAnchor="middle" fontFamily="Geist, Helvetica, Arial, sans-serif" fontWeight={800} fontSize={92} fill={o.stripe} stroke={o.topS} strokeWidth={4} paintOrder="stroke">
+            {o.number}
+          </text>
+        ) : null}
+        {jacket ? (
+          <g>
+            {/* fermuar */}
+            <path d="M296,312 Q314,420 304,520" fill="none" stroke="#ffffff" strokeWidth={4} opacity={0.85} />
+            <circle cx={300} cy={318} r={6} fill="#ffffff" />
+            {/* lastikli bel */}
+            <rect x={122} y={506} width={186} height={26} rx={12} fill={o.topS} />
+            <rect x={122} y={506} width={186} height={26} rx={12} fill={`url(#${id}-rib)`} />
+            {/* dik yaka */}
+            <path d="M190,300 L192,266 Q218,256 248,266 L250,300 Z" fill={o.top} />
+            <path d="M190,300 L192,266 Q218,256 248,266 L250,300 Z" fill={`url(#${id}-shade)`} />
+            <path d="M192,272 Q220,262 248,272" fill="none" stroke={o.stripe} strokeWidth={5} />
+          </g>
+        ) : (
+          <g>
+            {/* yuvarlak yaka + etek bandı */}
+            <path d="M194,286 Q218,300 244,284" fill="none" stroke={o.stripe} strokeWidth={8} strokeLinecap="round" />
+            <path d="M124,516 Q214,536 306,516" fill="none" stroke={o.stripe} strokeWidth={7} strokeLinecap="round" />
+          </g>
+        )}
 
         {/* kol */}
         {posed ? (
           <g>
-            <path d={armPath} fill="none" stroke={o.topS} strokeWidth={66} strokeLinecap="round" strokeLinejoin="round" />
-            <path d={armPath} fill="none" stroke={o.top} strokeWidth={58} strokeLinecap="round" strokeLinejoin="round" />
-            {(() => {
+            {sleeves === "long" ? (
+              <>
+                <path d={armPath} fill="none" stroke={o.topS} strokeWidth={66} strokeLinecap="round" strokeLinejoin="round" />
+                <path d={armPath} fill="none" stroke={o.top} strokeWidth={58} strokeLinecap="round" strokeLinejoin="round" />
+              </>
+            ) : (
+              <>
+                <path d={armPath} fill="none" stroke={SKIN_S} strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
+                <path d={armPath} fill="none" stroke={SKIN} strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
+                {sleeves === "short" ? (
+                  <path d={`M${SH[0]},${SH[1]} L${SH[0] + (pose.el![0] - SH[0]) * 0.5},${SH[1] + (pose.el![1] - SH[1]) * 0.5}`} stroke={o.top} strokeWidth={66} strokeLinecap="round" />
+                ) : (
+                  <circle cx={SH[0]} cy={SH[1]} r={30} fill={SKIN} />
+                )}
+              </>
+            )}
+            {sleeves === "long" ? (() => {
               const [a1, b1] = off(SH, pose.el!, 17);
               const [a2, b2] = off(pose.el!, pose.wr!, 15);
               return (
                 <path d={`M${a1[0]},${a1[1]} L${b1[0]},${b1[1]} L${a2[0]},${a2[1]} L${b2[0]},${b2[1]}`} fill="none" stroke={o.stripe} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" />
               );
-            })()}
-            {o.block ? (
+            })() : null}
+            {o.block && sleeves === "long" ? (
               <path
                 d={`M${SH[0] + (pose.el![0] - SH[0]) * 0.35},${SH[1] + (pose.el![1] - SH[1]) * 0.35} L${SH[0] + (pose.el![0] - SH[0]) * 0.75},${SH[1] + (pose.el![1] - SH[1]) * 0.75}`}
                 stroke={o.block}
                 strokeWidth={58}
               />
             ) : null}
-            <circle cx={pose.wr![0]} cy={pose.wr![1]} r={29} fill={o.topS} />
+            {sleeves === "long" ? <circle cx={pose.wr![0]} cy={pose.wr![1]} r={29} fill={o.topS} /> : null}
             {item && hand ? <g transform={`translate(${hand[0]},${hand[1]})`}>{item}</g> : null}
             {hand ? <Hand at={hand} type={pose.hand ?? "fist"} rot={pose.handRot ?? 0} /> : null}
           </g>
@@ -327,8 +397,28 @@ export const Bora: React.FC<{
             <path d="M262,194 Q268,196 270,192" fill="none" stroke="#7a3424" strokeWidth={3} strokeLinecap="round" />
           )}
 
+          {/* saç (bere yoksa) */}
+          {head !== "beanie" ? (
+            <path d="M174,150 Q168,90 222,84 Q272,86 270,128 Q254,112 230,114 Q214,116 206,128 Q194,128 186,156 Z" fill="#2a1c14" />
+          ) : null}
+          {head === "band" ? (
+            <g>
+              <path d="M172,128 Q222,110 272,122 L270,142 Q222,130 174,150 Z" fill={o.beanie} />
+              <path d="M174,140 Q222,124 272,132" fill="none" stroke={o.stripe} strokeWidth={4} />
+            </g>
+          ) : null}
+          {head === "cap" ? (
+            <g>
+              <path d="M170,132 Q166,76 222,72 Q274,76 274,124 Z" fill={o.beanie} />
+              <path d="M170,132 Q166,76 222,72 Q274,76 274,124 Z" fill={`url(#${id}-shade)`} />
+              <path d="M262,114 Q308,112 322,128 Q296,134 266,132 Z" fill={o.beanie} />
+              <path d="M266,132 Q296,134 322,128" fill="none" stroke="#000" strokeWidth={3} opacity={0.2} />
+              <circle cx={222} cy={74} r={6} fill={o.stripe} />
+              <path d="M200,100 Q232,92 258,104" fill="none" stroke={o.stripe} strokeWidth={5} />
+            </g>
+          ) : null}
           {/* bere */}
-          <g transform="translate(0,-20)">
+          {head === "beanie" ? <g transform="translate(0,-20)">
             <path d={BEANIE} fill={o.beanie} />
             <path d={BEANIE} fill={`url(#${id}-rib)`} />
             <path d={BEANIE} fill={`url(#${id}-shade)`} />
@@ -337,7 +427,7 @@ export const Bora: React.FC<{
             <path d="M164,140 Q222,128 280,140 L280,146 Q222,134 164,146 Z" fill="#000" opacity={0.15} />
             {/* neon etiket */}
             <rect x={246} y={118} width={22} height={14} rx={3} fill={o.stripe} transform="rotate(-6 257 125)" />
-          </g>
+          </g> : null}
         </g>
       </g>
     </g>

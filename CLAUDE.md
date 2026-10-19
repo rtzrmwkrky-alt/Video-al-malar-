@@ -298,6 +298,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   **FigurUc** (`out/figur-3-halleri.mp4`): A sarı kapüşonlu + turkuaz atkı (koyu yeşil kareli), B turkuaz +
   kırmızı ter bandı (bordo), C turuncu + mavi bileklik, kahve saç (koyu petrol), D kırmızı + sarı kulaklık (antrasit).
   Doodle'a imza eşyalar eklendi: `hood`, `scarf`, `headband`, `wrist`, `phones`. **Seçim bekleniyor.**
+- **Yeni yön (yapay zekâ görselleri):** kullanıcı Pinterest'ten 3 yapay zekâ 3B görseli buldu: (1) örgü kazaklı, uzun boyunlu,
+  pembe düz zemin; (2) bej zemin, güneş gözlüklü şık sade çift; (3) turuncu zemin, battaniyeli koltukta Pixar tarzı ifadeli çift.
+  Önerimiz 3 (ifade + tanıdık mizah), sonra 1; 2 gözleri kapattığı için uygun değil. Kodla çizim bu kaliteye ulaşmaz →
+  karakter ChatGPT/Gemini resim aracında üretilecek, biz **karakter tarifi** yazıp videoya yerleştiriyoruz.
+  Harman önerisi "kanal karakteri": Pixar ifadeli yüz (3) + örgü kazak ve bere (1) + alnına itilmiş yuvarlak gözlük imza
+  eşyası (2'den, gözler açık kalır) + her videoda tek renk parlak zemin.
 
 ## Son durum (yeni oturumda buradan devam)
 

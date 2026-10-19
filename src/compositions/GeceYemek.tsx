@@ -11,6 +11,7 @@ import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { AnimeTeen, INK, type AnimeExpr, type AnimeLook, type AnimePose } from "../anime/AnimeTeen";
 import { Bora, type BoraExpr, type BoraPose } from "../avatar/BoraYan";
+import { CurlyGuy, type CurlyExpr, type CurlyPose } from "../avatar/CurlyGuy";
 
 loadFonts();
 
@@ -146,6 +147,14 @@ const BoraAt: React.FC<{ x: number; y?: number; s: number; pose?: BoraPose; expr
   </g>
 );
 const boraPt = (x: number, s: number, p: P): P => [x + (p[0] - 220) * s, FLOOR + (p[1] - 850) * s];
+
+/** Kıvırcık Bora (güncel kanal karakteri, önden): ayak ortası (x, FLOOR) */
+const CurlyAt: React.FC<{ x: number; s: number; pose?: CurlyPose; expr?: CurlyExpr; t: number; uid: string; item?: React.ReactNode }> = ({ x, s, pose, expr, t, uid, item }) => (
+  <g transform={`translate(${x},${FLOOR}) scale(${s}) translate(-200,-880)`}>
+    <CurlyGuy id={uid} pose={pose} expr={expr} t={t} item={item} blink={blinkAt(t + x)} />
+  </g>
+);
+const curlyPt = (x: number, s: number, p: P): P => [x + (p[0] - 200) * s, FLOOR + (p[1] - 880) * s];
 /** göz kırpma (her ~3.5 sn kısa bir an) */
 const blinkAt = (t: number) => {
   const x = (t % 3.5) / 3.5;
@@ -452,12 +461,13 @@ const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x,
 // ------------------------------------------------------------ ana kompozisyon
 
 /** bg: [üst, alt] gradyan renkleri */
-export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string]; hero?: "anime" | "bora" };
+export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg?: [string, string]; hero?: "anime" | "bora" | "kivircik" };
 
 export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1cb5ad", "#48d8cc"], hero = "anime" }) => {
   const isBora = hero === "bora";
+  const isCurly = hero === "kivircik";
   /** zemin/kapı tonu: fona uysun */
-  const tint = isBora ? "#8e2f33" : "#0d5b5e";
+  const tint = isCurly ? "#8a6a44" : isBora ? "#8e2f33" : "#0d5b5e";
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -547,7 +557,17 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
           <g opacity={s0}>
             <Window x={140} y={150} w={250} h={210} t={t} />
             <Fridge x={110} t={t} />
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt
+                uid="kiv0"
+                x={560}
+                s={1.15}
+                t={t}
+                pose={{ r: { el: mixP([300, 480], [300, 500], caught), wr: mixP([238, 300 + 14 * bite], [300, 400], caught) }, head: -3 * caught }}
+                expr={caught > 0.5 ? "surprise" : "chew"}
+                item={<Sandwich x={0} y={-12} s={0.5} rot={-10 + 20 * caught} />}
+              />
+            ) : isBora ? (
               <BoraAt
                 uid="bora0"
                 x={560}
@@ -600,12 +620,14 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                 </g>
               ) : null;
             })()}
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt uid="kiv1" x={720} s={1.1} t={t} pose={{ r: { el: [320, 430], wr: [328, 310], hand: "point", handRot: 10 } }} expr="grin" />
+            ) : isBora ? (
               <BoraAt uid="bora1" x={700} s={1.1} t={t} pose={{ el: [312, 370], wr: [322, 250], hand: "point", handRot: 20 }} expr="grin" />
             ) : (
               <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
             )}
-            <Bubble x={50} y={190} w={560} h={210} tx={isBora ? 765 : 690} ty={isBora ? 695 : 560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
+            <Bubble x={50} y={190} w={560} h={210} tx={isCurly ? 652 : isBora ? 765 : 690} ty={isCurly ? 700 : isBora ? 695 : 560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
             <g opacity={sm(t, W(1, 8), W(1, 8) + 0.3)}>
               <Clock x={230} y={700} r={95} h={11} m={58} />
               <Cross x={230} y={700} s={70} p={sm(t, W(1, 9), W(1, 9) + 0.4)} />
@@ -666,7 +688,20 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
           <g opacity={s5}>
             <Window x={90} y={220} w={260} h={220} t={t} />
             <Bed />
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt
+                uid="kiv5"
+                x={430}
+                s={1.12}
+                t={t}
+                pose={
+                  t > W(6, 4) - 0.1
+                    ? { r: { el: [300, 470], wr: [252, 300], hand: "open" }, head: 4 }
+                    : { r: { el: [292, 560], wr: [236, 560], hand: "open" }, l: { el: [108, 560], wr: [164, 560], hand: "open" }, head: 4 }
+                }
+                expr={t > W(6, 4) - 0.1 ? "yawn" : t > L(6) ? "ouch" : "think"}
+              />
+            ) : isBora ? (
               <BoraAt
                 uid="bora5"
                 x={430}
@@ -681,7 +716,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             {/* ağır, yağlı yemekler mideye iner */}
             {(() => {
               const d = sm(t, W(5, 9) - 0.2, W(5, 9) + 0.7); // "midene yük olur"
-              const belly = isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
+              const belly = isCurly ? curlyPt(430, 1.12, [200, 560]) : isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
               const o = sm(t, W(5, 5) - 0.2, W(5, 5) + 0.2) * (1 - d * 0.9);
               return (
                 <g opacity={o}>
@@ -697,7 +732,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             })()}
             {/* mide: yük */}
             {(() => {
-              const belly = isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
+              const belly = isCurly ? curlyPt(430, 1.12, [200, 560]) : isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
               const o = sm(t, W(5, 10), W(5, 10) + 0.3);
               return o > 0 ? (
                 <g opacity={o}>
@@ -740,7 +775,17 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
         {/* ===== 7: hafif atıştırmalık ===== */}
         {s7 > 0 ? (
           <g opacity={s7}>
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt
+                uid="kiv7"
+                x={500}
+                s={0.92}
+                t={t}
+                pose={{ r: { el: [300, 560], wr: [330, 470] } }}
+                expr={t > snack[1] ? "happy" : "smile"}
+                item={<g opacity={sm(t, snack[1] - 0.1, snack[1] + 0.25)}><Apple x={0} y={-50} s={0.6} /></g>}
+              />
+            ) : isBora ? (
               <BoraAt
                 uid="bora7"
                 x={500}
@@ -791,7 +836,9 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               </Txt>
               <Check x={860} y={560} s={50} p={sm(t, W(8, 6), W(8, 6) + 0.4)} />
             </g>
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt uid="kiv8" x={510} s={0.78} t={t} pose={{ r: { el: [300, 560], wr: [330, 470], hand: "thumb" } }} expr="smile" />
+            ) : isBora ? (
               <BoraAt uid="bora8" x={510} s={0.78} t={t} pose={{ el: [290, 452], wr: [342, 384], hand: "thumb" }} expr="smile" />
             ) : (
               <Fig uid="genc8" x={540} y={FLOOR} s={0.52} pose={DOWN} expr="happy" t={t} />
@@ -802,7 +849,9 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
         {/* ===== 9: kapanış ===== */}
         {s9 > 0 ? (
           <g opacity={s9}>
-            {isBora ? (
+            {isCurly ? (
+              <CurlyAt uid="kiv9" x={500} s={1.0} t={t} pose={{ r: { el: [290, 560], wr: [252, 440] }, head: 5, ly: 4 }} expr="laugh" item={<PhoneItem />} />
+            ) : isBora ? (
               <BoraAt uid="bora9" x={500} s={1.0} t={t} pose={{ el: [290, 444], wr: [330, 336], head: 8, ly: 3 }} expr="laugh" item={<PhoneItem />} />
             ) : (
               <Fig uid="genc9" x={540} y={FLOOR} s={0.66} pose={{ ...DOWN, elL: [730, 790], wrL: [700, 620], itemL: "phone" }} expr="wink" t={t + 2} />

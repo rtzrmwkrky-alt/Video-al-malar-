@@ -27,10 +27,70 @@ const CURLS: [number, number, number][] = (() => {
   return out;
 })();
 
-export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number }> = ({ id, t = 0, blink = 0 }) => {
+type P = [number, number];
+export type CurlyHand = "fist" | "point" | "thumb" | "open";
+export type CurlyArm = { el: P; wr: P; hand?: CurlyHand; handRot?: number };
+export type CurlyExpr = "neutral" | "smile" | "grin" | "chew" | "surprise" | "think" | "ouch" | "yawn" | "happy" | "laugh";
+export type CurlyPose = {
+  /** ekranda sağdaki kol (karakterin solu) / soldaki kol; verilmezse eller cepte */
+  r?: CurlyArm;
+  l?: CurlyArm;
+  /** baş eğimi (derece) */
+  head?: number;
+  lx?: number;
+  ly?: number;
+};
+
+const SH_R: P = [262, 358];
+const SH_L: P = [138, 358];
+
+/** elin konumu: bilekten kol doğrultusunda biraz ileri */
+export const curlyHandAt = (a: CurlyArm): P => {
+  const dx = a.wr[0] - a.el[0];
+  const dy = a.wr[1] - a.el[1];
+  const L = Math.hypot(dx, dy) || 1;
+  return [a.wr[0] + (dx / L) * 18, a.wr[1] + (dy / L) * 18];
+};
+
+const Hand: React.FC<{ at: P; type: CurlyHand; rot: number }> = ({ at, type, rot }) => (
+  <g transform={`translate(${at[0]},${at[1]}) rotate(${rot})`}>
+    {type === "point" ? <rect x={-6} y={-42} width={12} height={34} rx={6} fill={SKIN} /> : null}
+    {type === "thumb" ? <rect x={-7} y={-40} width={14} height={30} rx={7} fill={SKIN} /> : null}
+    {type === "open" ? <ellipse cx={0} cy={0} rx={15} ry={22} fill={SKIN} /> : <circle cx={0} cy={0} r={18} fill={SKIN} />}
+    <circle cx={-5} cy={-5} r={7} fill="#fde4d6" opacity={0.6} />
+    {type !== "open" ? <path d="M-9,6 Q0,11 9,6" fill="none" stroke={SKIN_S} strokeWidth={2.5} strokeLinecap="round" /> : null}
+  </g>
+);
+
+export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?: CurlyPose; expr?: CurlyExpr; item?: React.ReactNode }> = ({
+  id,
+  t = 0,
+  blink = 0,
+  pose = {},
+  expr = "neutral",
+  item,
+}) => {
   const breathe = Math.sin(t * 2) * 1.5;
-  const tilt = Math.sin(t * 1.2) * 1.5;
-  const open = 1 - blink;
+  const tilt = Math.sin(t * 1.2) * 1.5 + (pose.head ?? 0);
+  const closedEyes = expr === "happy" || expr === "laugh";
+  const open = expr === "yawn" ? 0.45 : 1 - blink;
+  const lx = pose.lx ?? (expr === "think" ? -3 : 0);
+  const ly = pose.ly ?? (expr === "think" ? -4 : 0);
+  const eyeR = expr === "surprise" ? 1.2 : 1;
+  const arm = (a: CurlyArm, sh: P, k: string, withItem: boolean) => {
+    const hand = curlyHandAt(a);
+    const d = `M${sh[0]},${sh[1]} L${a.el[0]},${a.el[1]} L${a.wr[0]},${a.wr[1]}`;
+    return (
+      <g key={k}>
+        <path d={d} fill="none" stroke="#1f2126" strokeWidth={50} strokeLinecap="round" strokeLinejoin="round" />
+        <path d={d} fill="none" stroke="#3a3d45" strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
+        <path d={d} fill="none" stroke={`url(#${id}-teddy)`} strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx={a.wr[0]} cy={a.wr[1]} r={17} fill="#e9e1d2" />
+        {withItem && item ? <g transform={`translate(${hand[0]},${hand[1]})`}>{item}</g> : null}
+        <Hand at={hand} type={a.hand ?? "fist"} rot={a.handRot ?? 0} />
+      </g>
+    );
+  };
   return (
     <g>
       <defs>
@@ -130,14 +190,34 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number }> = ({
           <path d="M150,180 Q150,128 200,126 Q250,128 250,180 Q250,222 230,240 Q214,252 200,252 Q186,252 170,240 Q150,222 150,180 Z" fill={`url(#${id}-skin)`} />
           {/* gözler (gözlüğün arkasında, hafif yukarı bakıyor) */}
           {[180, 220].map((x) => (
-            <g key={x} transform={`translate(${x},186) scale(1,${Math.max(0.08, open)}) translate(${-x},-186)`}>
-              <ellipse cx={x} cy={186} rx={9} ry={10} fill="#fbf8f2" />
-              <circle cx={x + 1} cy={182} r={5.5} fill="#2a1a10" />
-              <circle cx={x + 3} cy={180} r={1.8} fill="#fff" />
-            </g>
+            closedEyes ? (
+              <path key={x} d={`M${x - 9},190 Q${x},178 ${x + 9},190`} fill="none" stroke="#2a1a10" strokeWidth={3.5} strokeLinecap="round" />
+            ) : expr === "ouch" ? (
+              <path key={x} d={x < 200 ? `M${x - 8},180 L${x + 6},187 L${x - 8},194` : `M${x + 8},180 L${x - 6},187 L${x + 8},194`} fill="none" stroke="#2a1a10" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" />
+            ) : (
+              <g key={x} transform={`translate(${x},186) scale(${eyeR},${Math.max(0.08, open) * eyeR}) translate(${-x},-186)`}>
+                <ellipse cx={x} cy={186} rx={9} ry={10} fill="#fbf8f2" />
+                <circle cx={x + 1 + lx} cy={182 + ly} r={5.5} fill="#2a1a10" />
+                <circle cx={x + 3 + lx} cy={180 + ly} r={1.8} fill="#fff" />
+              </g>
+            )
           ))}
           {/* kaşlar (hafif endişeli) */}
-          <path d="M166,162 Q178,154 190,160 M210,160 Q222,154 234,162" fill="none" stroke="#6a4224" strokeWidth={4} strokeLinecap="round" />
+          <path
+            d={
+              expr === "surprise" || expr === "think"
+                ? "M166,152 Q178,144 190,150 M210,150 Q222,144 234,152"
+                : expr === "smile" || expr === "happy" || expr === "laugh" || expr === "grin" || expr === "chew"
+                  ? "M166,160 Q178,153 190,158 M210,158 Q222,153 234,160"
+                  : expr === "ouch"
+                    ? "M166,158 Q178,160 190,166 M210,166 Q222,160 234,158"
+                    : "M166,162 Q178,154 190,160 M210,160 Q222,154 234,162"
+            }
+            fill="none"
+            stroke="#6a4224"
+            strokeWidth={4}
+            strokeLinecap="round"
+          />
           {/* gözlük */}
           <circle cx={178} cy={186} r={23} fill="#fff" fillOpacity={0.08} stroke="#141414" strokeWidth={6} />
           <circle cx={222} cy={186} r={23} fill="#fff" fillOpacity={0.08} stroke="#141414" strokeWidth={6} />
@@ -148,7 +228,27 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number }> = ({
           <ellipse cx={200} cy={208} rx={12} ry={11} fill={PINK} />
           <ellipse cx={196} cy={204} rx={4} ry={3} fill="#fff" opacity={0.45} />
           {/* ağız */}
-          <path d="M193,232 Q200,230 207,232" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
+          {expr === "smile" || expr === "happy" ? (
+            <path d="M188,228 Q200,240 212,228" fill="none" stroke="#7a3a2c" strokeWidth={3.5} strokeLinecap="round" />
+          ) : expr === "grin" || expr === "laugh" ? (
+            <g>
+              <path d="M186,226 Q200,248 214,226 Z" fill="#5a1e16" />
+              <path d="M188,227 L212,227 L210,232 Q200,234 190,232 Z" fill="#fff" />
+            </g>
+          ) : expr === "surprise" || expr === "yawn" ? (
+            <ellipse cx={200} cy={236} rx={expr === "yawn" ? 9 : 6} ry={expr === "yawn" ? 12 : 8} fill="#5a1e16" />
+          ) : expr === "chew" ? (
+            <g>
+              <circle cx={176} cy={226} r={10 + Math.sin(t * 12) * 1.5} fill={SKIN} />
+              <path d="M192,232 Q200,236 208,232" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
+            </g>
+          ) : expr === "ouch" ? (
+            <path d="M190,236 Q195,230 200,235 Q205,230 210,236" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
+          ) : expr === "think" ? (
+            <path d="M194,234 Q202,232 208,228" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
+          ) : (
+            <path d="M193,232 Q200,230 207,232" fill="none" stroke="#7a3a2c" strokeWidth={3} strokeLinecap="round" />
+          )}
           {/* kıvırcık saç */}
           {CURLS.map(([x, y, r], i) => (
             <g key={i}>
@@ -157,6 +257,9 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number }> = ({
             </g>
           ))}
         </g>
+        {/* kollar (cepten çıkınca) */}
+        {pose.l ? arm(pose.l, SH_L, "l", !pose.r) : null}
+        {pose.r ? arm(pose.r, SH_R, "r", true) : null}
       </g>
     </g>
   );

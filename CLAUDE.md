@@ -330,7 +330,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 ## Son durum (yeni oturumda buradan devam)
 
-- **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon)** — GeceYemekBora eski Bora'yla yapıldı; yeni Bora'ya çevrilecekse sor.
+- **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,
+  el fist/point/thumb/open, elde `item`; `expr`: neutral/smile/grin/chew/surprise/think/ouch/yawn/happy/laugh; `head`), tablo **KivircikPozlar**.
+  **GeceYemekBora** artık kıvırcık Bora ile (`hero: "kivircik"`, bej fon) — kullanıcı "bununla devam" dedi. Render → `out/gece-yemek-bora-paylas.mp4`.
 - Son iş: **GeceYemekBora** — yandan, pozlanabilir Bora (`src/avatar/BoraYan.tsx`; açık buğday ten, **pembe örgü kazak + mavi kareli pantolon + mavi bere** (kullanıcının Pinterest görseli), bej fon; ayrıntı
   `icerik/bora-karakter.md`). Aynı ses/akış (43 sn). Render: `npx remotion render GeceYemekBora out/gece-yemek-bora.mp4 ...` → -14 LUFS.
 - Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.

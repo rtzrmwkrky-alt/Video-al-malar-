@@ -312,6 +312,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   eşofman, siyah örgü bere, beyaz spor ayakkabı, koyu ten, uzun ince boyun, keçe/örgü dokulu 3B oyuncak tarzı,
   turkuaz düz zemin). Karakter ChatGPT/Gemini'de üretilecek; kullanıcı ilk resmi kaydedip sonraki sahneleri
   "bu karakterin aynısı" diye o resimle üretecek, bize gönderecek → biz videoya dizeriz (hafif yakınlaşma, altyazı, ses, müzik).
+  **Karakterin adı: BORA.** Kullanıcı "Bora" dediğinde bu karakter kastedilir ve o video Bora ile yapılır.
+  Tüm tarif ve kurallar `icerik/bora-karakter.md`.
 
 ## Son durum (yeni oturumda buradan devam)
 

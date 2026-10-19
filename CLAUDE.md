@@ -321,6 +321,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (OrguKiyafet `--props='{"set":"spor"}'`, `out/bora-spor.png`): 1 Neon yeşil ceket + siyah eşofman, 2 kırmızı eşofman
   takımı beyaz şeritli, 3 elektrik mavisi kapüşonlu + turuncu blok, 4 turuncu kapüşonlu + siyah blok/şerit. **Seçim bekleniyor**;
   seçilince önden Bora (`Bora.tsx`) da aynı ten/kıyafete çevrilecek.
+  Sonra kullanıcı başka bir Pinterest görselinin ("3D Stylized Character", kıvırcık kahve saç, iri yuvarlak siyah gözlük,
+  iri pembe kulak ve burun, uzun boyun, koyu kuzu yünü ceket, krem örgü kazak, koyu gri dar pantolon, turuncu bilekli
+  ayakkabı, bej zemin) **aynısını** istedi → `src/avatar/CurlyGuy.tsx`, önizleme **KivircikGenc** (`out/kivircik.png/.mp4`).
+  Bora'nın yerine mi geçecek, adı ne olacak: **cevap bekleniyor.**
 
 ## Son durum (yeni oturumda buradan devam)
 

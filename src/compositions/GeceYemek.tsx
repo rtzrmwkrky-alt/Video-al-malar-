@@ -282,7 +282,7 @@ export const Apple: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s 
   </g>
 );
 
-const Yogurt: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Yogurt: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <path d="M-50,-30 L50,-30 L40,54 Q0,62 -40,54 Z" fill="#ffffff" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <rect x={-58} y={-46} width={116} height={20} rx={8} fill="#7fc8ff" stroke={INK} strokeWidth={6} />
@@ -331,7 +331,7 @@ export const Moon: React.FC<{ x: number; y: number; r: number }> = ({ x, y, r })
 );
 
 /** gece penceresi (lacivert gökyüzü, ay, yıldızlar) */
-const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number }> = ({ x, y, w, h, t }) => (
+export const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number }> = ({ x, y, w, h, t }) => (
   <g>
     <rect x={x} y={y} width={w} height={h} rx={14} fill="#2b3a6b" stroke={INK} strokeWidth={8} />
     <Moon x={x + w * 0.68} y={y + h * 0.36} r={Math.min(w, h) * 0.17} />
@@ -349,7 +349,7 @@ const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number }
 );
 
 /** zemin: fon renginin koyu tonu (fon rengi değişse de uyar) */
-const Floor: React.FC<{ tint: string }> = ({ tint }) => (
+export const Floor: React.FC<{ tint: string }> = ({ tint }) => (
   <g>
     <rect x={0} y={FLOOR} width={1080} height={1920 - FLOOR} fill={tint} opacity={0.35} />
     <line x1={0} y1={FLOOR} x2={1080} y2={FLOOR} stroke={INK} strokeWidth={8} opacity={0.6} />
@@ -357,7 +357,7 @@ const Floor: React.FC<{ tint: string }> = ({ tint }) => (
 );
 
 /** açık buzdolabı (iç ışığı yanıyor) */
-const Fridge: React.FC<{ x: number; t: number }> = ({ x, t }) => {
+export const Fridge: React.FC<{ x: number; t: number }> = ({ x, t }) => {
   const w = 300;
   const top = 560;
   const glow = 0.5 + 0.06 * Math.sin(t * 2);
@@ -383,7 +383,7 @@ const Fridge: React.FC<{ x: number; t: number }> = ({ x, t }) => {
 };
 
 /** kefeli terazi; a: eğim (derece, + sağ kefe aşağı) */
-const Scale: React.FC<{ a: number; left: React.ReactNode; right: React.ReactNode }> = ({ a, left, right }) => {
+export const Scale: React.FC<{ a: number; left: React.ReactNode; right: React.ReactNode }> = ({ a, left, right }) => {
   const px = 540;
   const py = 640;
   const L = 360;
@@ -432,7 +432,7 @@ export const Clock: React.FC<{ x: number; y: number; r: number; h: number; m: nu
 };
 
 /** yatak (karakterin arkasında) */
-const Bed: React.FC = () => (
+export const Bed: React.FC = () => (
   <g>
     <rect x={600} y={1060} width={30} height={340} rx={10} fill="#8c5a3c" stroke={INK} strokeWidth={7} />
     <rect x={620} y={1200} width={480} height={150} rx={20} fill="#ffffff" stroke={INK} strokeWidth={7} />
@@ -443,7 +443,7 @@ const Bed: React.FC = () => (
 );
 
 /** uyku ölçer (pil gibi) */
-const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x, y, v, o }) => {
+export const SleepBar: React.FC<{ x: number; y: number; v: number; o: number }> = ({ x, y, v, o }) => {
   if (o <= 0) return null;
   const col = v > 0.6 ? GREEN : v > 0.3 ? Y : RED;
   return (

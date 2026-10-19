@@ -50,6 +50,7 @@ import { KivircikPozlar } from "./compositions/KivircikPozlar";
 import { Bora3DDeneme } from "./compositions/Bora3DDeneme";
 import { BoraKiyafet } from "./compositions/BoraKiyafet";
 import { GECE_TAIL, GECE_TL, GeceYemek, type GeceYemekProps } from "./compositions/GeceYemek";
+import { GK_TAIL, GK_TL, GeceKilo, type GeceKiloProps } from "./compositions/GeceKilo";
 import { ZAYIF_TAIL, ZAYIF_TL, Zayiflar, type ZayiflarProps } from "./compositions/Zayiflar";
 
 const FPS = 30;
@@ -286,6 +287,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={GECE_TL.frames}
       defaultProps={{ audioName: "gece-yemek-v2", data: null, hero: "kivircik", bg: ["#ddd3c6", "#c4b6a4"] } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
+    />
+    <Composition
+      id="GeceKilo"
+      component={GeceKilo}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={GK_TL.frames}
+      defaultProps={{ audioName: "gece-kilo", data: null } satisfies GeceKiloProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(GK_TAIL, props)}
     />
     <Composition
       id="Zayiflar"

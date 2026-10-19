@@ -457,7 +457,7 @@ export type GeceYemekProps = { audioName: string; data: VoiceoverData | null; bg
 export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1cb5ad", "#48d8cc"], hero = "anime" }) => {
   const isBora = hero === "bora";
   /** zemin/kapı tonu: fona uysun */
-  const tint = isBora ? "#8a6a44" : "#0d5b5e";
+  const tint = isBora ? "#8e2f33" : "#0d5b5e";
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -593,8 +593,8 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               const p = sm(t, W(1, 4) - 0.1, W(1, 4) + 0.35);
               return p > 0 ? (
                 <g opacity={p} transform={`translate(260,1200) rotate(-12) scale(${1.15 - 0.15 * p})`}>
-                  <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={RED} strokeWidth={14} />
-                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={88} fill={RED} letterSpacing={4}>
+                  <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={isBora ? "#ffffff" : RED} strokeWidth={14} />
+                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={88} fill={isBora ? "#ffffff" : RED} letterSpacing={4}>
                     EFSANE
                   </text>
                 </g>
@@ -707,7 +707,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                       <path
                         key={k}
                         d={`M${belly[0] + Math.cos(a) * 130},${belly[1] + Math.sin(a) * 70} q20,-20 40,0 q20,20 40,0`}
-                        stroke={isBora ? "#c0643c" : "#ffffff"}
+                        stroke="#ffffff"
                         strokeWidth={8}
                         fill="none"
                         strokeLinecap="round"

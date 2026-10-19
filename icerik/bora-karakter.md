@@ -48,5 +48,5 @@ Poz tablosu: `BoraPozlar`. İlk video: **GeceYemekBora** (`GeceYemek` + `hero: "
 
 ## Son seçim (kıyafet)
 Kullanıcı Pinterest örgü görselini gösterip "direk bu olsun" dedi → `BORA_ORGU` (BoraYan varsayılanı): pembe örgü kazak (balıkçı
-yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, krem burunlu mavi ayakkabı; açık buğday ten; bej fon.
+yaka, örgü dokusu), mavi-krem kareli pantolon (lastikli paça), mavi bere, krem burunlu mavi ayakkabı; açık buğday ten; **fon da görseldeki mercan/somon pembesi** (`#e86d6f → #d85b5e`; kullanıcı "arka ton da bu olsun").
 Önceki spor kıyafet denemeleri (mavi-neon, Retro, Yeşil vintage, basketbol/futbol/koşu/tenis) beğenilmedi / seçilmedi.

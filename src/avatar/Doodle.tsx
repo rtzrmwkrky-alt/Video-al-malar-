@@ -20,6 +20,11 @@ export type DoodleLook = {
   shoe: string;
   cap?: string;
   lashes?: boolean;
+  hood?: boolean; // kapüşon + ipler
+  scarf?: string; // boyunda atkı
+  headband?: string; // alında ter bandı
+  wrist?: string; // bilekte bileklik
+  phones?: string; // boyunda kulaklık
 };
 
 const HX = 200;
@@ -110,11 +115,14 @@ export const Doodle: React.FC<{ t: number; talk?: number; look: DoodleLook; ink:
         <g transform={`rotate(${armL},140,220)`}>
           <Limb d="M140,222 Q122,280 128,332" ink={ink} fill={sleeve} />
           <circle cx={128} cy={340} r={15} fill={look.skin} stroke={ink} strokeWidth={5} />
+          {look.wrist ? <rect x={109} y={308} width={38} height={22} rx={6} fill={look.wrist} stroke={ink} strokeWidth={4} transform="rotate(4,128,320)" /> : null}
         </g>
         <g transform={`rotate(${-armL},260,220)`}>
           <Limb d="M260,222 Q278,280 272,332" ink={ink} fill={sleeve} />
           <circle cx={272} cy={340} r={15} fill={look.skin} stroke={ink} strokeWidth={5} />
+          {look.wrist ? <rect x={253} y={308} width={38} height={22} rx={6} fill={look.wrist} stroke={ink} strokeWidth={4} transform="rotate(-4,272,320)" /> : null}
         </g>
+        {look.hood ? <ellipse cx={200} cy={200} rx={66} ry={30} fill={look.topS} stroke={ink} strokeWidth={5.5} /> : null}
         {/* gövde */}
         <path d="M150,200 Q200,188 250,200 Q262,270 258,340 Q200,350 142,340 Q138,270 150,200 Z" fill={look.top} stroke={ink} strokeWidth={5.5} strokeLinejoin="round" />
         <path d="M156,318 Q200,330 244,318" fill="none" stroke={look.topS} strokeWidth={4} strokeLinecap="round" />
@@ -122,12 +130,41 @@ export const Doodle: React.FC<{ t: number; talk?: number; look: DoodleLook; ink:
         {/* omuz kabarıkları */}
         <ellipse cx={146} cy={218} rx={24} ry={28} fill={look.top} stroke={ink} strokeWidth={5.5} />
         <ellipse cx={254} cy={218} rx={24} ry={28} fill={look.top} stroke={ink} strokeWidth={5.5} />
+        {look.hood ? (
+          <g stroke={ink} strokeWidth={4} strokeLinecap="round">
+            <path d="M186,206 L183,252 M214,206 L217,252" />
+            <circle cx={183} cy={256} r={5} fill="#fff" />
+            <circle cx={217} cy={256} r={5} fill="#fff" />
+          </g>
+        ) : null}
+        {look.scarf ? (
+          <g stroke={ink} strokeWidth={5} strokeLinejoin="round">
+            <path d="M222,206 L244,292 L222,298 L206,212 Z" fill={look.scarf} />
+            <path d="M226,298 l-3,12 M234,296 l-2,12 M242,293 l0,12" strokeWidth={4} strokeLinecap="round" />
+            <path d="M146,190 Q200,222 254,190 L256,216 Q200,250 144,216 Z" fill={look.scarf} />
+            <path d="M170,206 L172,226 M200,212 L200,234 M230,206 L228,226" strokeWidth={3} opacity={0.35} />
+          </g>
+        ) : null}
+        {look.phones ? (
+          <g stroke={ink} strokeWidth={5}>
+            <path d="M146,226 Q200,272 254,226" fill="none" strokeWidth={12} stroke={ink} />
+            <path d="M146,226 Q200,272 254,226" fill="none" strokeWidth={6} stroke={look.phones} />
+            <ellipse cx={144} cy={226} rx={20} ry={25} fill={look.phones} />
+            <ellipse cx={256} cy={226} rx={20} ry={25} fill={look.phones} />
+          </g>
+        ) : null}
         {/* kafa */}
         <Hair look={look} ink={ink} back />
         <circle cx={HX - 70} cy={HY + 10} r={14} fill={look.skin} stroke={ink} strokeWidth={5} />
         <circle cx={HX + 70} cy={HY + 10} r={14} fill={look.skin} stroke={ink} strokeWidth={5} />
         <circle cx={HX} cy={HY} r={HR} fill={look.skin} stroke={ink} strokeWidth={5.5} />
         <Hair look={look} ink={ink} />
+        {look.headband ? (
+          <g>
+            <path d={`M${HX - 66},${HY - 30} Q${HX},${HY - 52} ${HX + 66},${HY - 30} L${HX + 69},${HY - 12} Q${HX},${HY - 34} ${HX - 69},${HY - 12} Z`} fill={look.headband} stroke={ink} strokeWidth={5} strokeLinejoin="round" />
+            <path d={`M${HX - 60},${HY - 22} Q${HX},${HY - 42} ${HX + 60},${HY - 22}`} fill="none" stroke="#fff" strokeWidth={4} opacity={0.8} />
+          </g>
+        ) : null}
         {/* yüz */}
         <ellipse cx={HX - 42} cy={HY + 30} rx={14} ry={8} fill="#ff6f7d" opacity={0.4} />
         <ellipse cx={HX + 42} cy={HY + 30} rx={14} ry={8} fill="#ff6f7d" opacity={0.4} />

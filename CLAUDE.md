@@ -294,7 +294,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   konturlu çubuk kollar/bacaklar; açık bej duvar + zemin ya da koyu lacivert kareli zemin + krem kontur; hafif
   titrek çizgi filtresi). `src/avatar/Doodle.tsx` (`DOODLES`, 5 aday: 1 kısa saç sarı tişört, 2 at kuyruğu kız,
   3 dikenli saç mor kapüşonlu, 4 ters şapka yeşil tişört, 5 kıvırcık kız turuncu üst). Önizleme `out/figur-secim.mp4`.
-  **Seçim bekleniyor** (Efe/Chibi yerine bu yön öncelikli).
+  Kullanıcı **3'ü** sordu; 3 ikinci örneğe (8 saat videosu) fazla benzediği için kendine özgü hâller yapıldı:
+  **FigurUc** (`out/figur-3-halleri.mp4`): A sarı kapüşonlu + turkuaz atkı (koyu yeşil kareli), B turkuaz +
+  kırmızı ter bandı (bordo), C turuncu + mavi bileklik, kahve saç (koyu petrol), D kırmızı + sarı kulaklık (antrasit).
+  Doodle'a imza eşyalar eklendi: `hood`, `scarf`, `headband`, `wrist`, `phones`. **Seçim bekleniyor.**
 
 ## Son durum (yeni oturumda buradan devam)
 

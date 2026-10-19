@@ -324,10 +324,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sonra kullanıcı başka bir Pinterest görselinin ("3D Stylized Character", kıvırcık kahve saç, iri yuvarlak siyah gözlük,
   iri pembe kulak ve burun, uzun boyun, koyu kuzu yünü ceket, krem örgü kazak, koyu gri dar pantolon, turuncu bilekli
   ayakkabı, bej zemin) **aynısını** istedi → `src/avatar/CurlyGuy.tsx`, önizleme **KivircikGenc** (`out/kivircik.png/.mp4`).
-  Bora'nın yerine mi geçecek, adı ne olacak: **cevap bekleniyor.**
+  **KARAR (son): Bora = bu kıvırcık saçlı gözlüklü genç (`CurlyGuy`).** Kullanıcı "çok beğendim, adı Bora kalsın" dedi.
+  Önceki Bora sürümleri (önden turuncu kapüşonlu `Bora.tsx`, yandan `BoraYan.tsx`/örgü, `Bora3D`) artık **eski**; yeni
+  videolarda Bora denince `CurlyGuy` kullanılır. Eksik: pozlar/ifadeler (şu an sadece ayakta, eller cepte, göz kırpma).
 
 ## Son durum (yeni oturumda buradan devam)
 
+- **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon)** — GeceYemekBora eski Bora'yla yapıldı; yeni Bora'ya çevrilecekse sor.
 - Son iş: **GeceYemekBora** — yandan, pozlanabilir Bora (`src/avatar/BoraYan.tsx`; açık buğday ten, **pembe örgü kazak + mavi kareli pantolon + mavi bere** (kullanıcının Pinterest görseli), bej fon; ayrıntı
   `icerik/bora-karakter.md`). Aynı ses/akış (43 sn). Render: `npx remotion render GeceYemekBora out/gece-yemek-bora.mp4 ...` → -14 LUFS.
 - Son iş: **GeceYemek** (turkuaz, sadece genç) sesli + müzikli. Ses kayıtlı — yeniden seslendirme gerekmez.

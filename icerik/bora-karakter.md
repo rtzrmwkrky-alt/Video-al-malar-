@@ -1,5 +1,11 @@
 # Bora — kanal karakteri
 
+> **GÜNCEL (son karar):** Bora = kıvırcık kahve saçlı, iri yuvarlak siyah gözlüklü genç — `src/avatar/CurlyGuy.tsx`
+> (önizleme `KivircikGenc`). İri pembe kulak ve burun, uzun ince boyun, koyu gri kuzu yünü fermuarlı ceket, krem örgü
+> kazak, çapraz çanta askısı, koyu gri dar pantolon (katlı paça), turuncu bilekli spor ayakkabı, bej zemin.
+> Kullanıcı "Bora" dediğinde bu karakter kullanılır. Aşağıdaki eski notlar önceki denemelere aittir.
+
+
 Kullanıcı "Bora" dediğinde bu karakter kastedilir: o videoda ana karakter / anlatıcı Bora'dır.
 
 ## Görünüm (değişmez)

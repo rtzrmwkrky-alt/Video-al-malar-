@@ -289,6 +289,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   1 Arda (dağınık kahve saç, turuncu kapüşonlu = orijinal), 2 Kuzey (kıvırcık siyah saç, ter bandı, çil, mavi tişört),
   3 Atlas (sarı saç, yeşil forma 7), 4 Poyraz (ters kırmızı şapka, boyunda kulaklık, mor kapüşonlu).
   **Görünüm ve isim seçimi bekleniyor** (isim ve görünüm ayrı ayrı da eşleşebilir).
+- **FigurSecim** — kullanıcı sonra yön değiştirdi: Voom hesabındaki (heyvoom) iki videonun figürlerinin
+  **ortalaması** olan sade el çizimi figür istedi (yuvarlak büyük kafa, nokta göz, allık, kabarık omuzlu tişört,
+  konturlu çubuk kollar/bacaklar; açık bej duvar + zemin ya da koyu lacivert kareli zemin + krem kontur; hafif
+  titrek çizgi filtresi). `src/avatar/Doodle.tsx` (`DOODLES`, 5 aday: 1 kısa saç sarı tişört, 2 at kuyruğu kız,
+  3 dikenli saç mor kapüşonlu, 4 ters şapka yeşil tişört, 5 kıvırcık kız turuncu üst). Önizleme `out/figur-secim.mp4`.
+  **Seçim bekleniyor** (Efe/Chibi yerine bu yön öncelikli).
 
 ## Son durum (yeni oturumda buradan devam)
 

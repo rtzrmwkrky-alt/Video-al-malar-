@@ -6,7 +6,7 @@
  * özet (ne kadar yediğin + ne kadar tok yattığın) → "gece yeme" diyene gönder.
  * Metin `icerik/gece-kilo.seslendirme.txt` (kelime sayıları satır satır aynı olmalı). Ses yoksa zamanlar okuma hızından (sessiz taslak).
  */
-import { AbsoluteFill, Audio, interpolate, interpolateColors, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Sequence, interpolate, interpolateColors, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { VoiceoverData } from "../types";
 import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
@@ -217,6 +217,24 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
   const s8 = scene(8, 9);
   // ===== 9: kapanış
   const s9 = win(t, L(9) - 0.02, tl.total + 1, 0.21); // kapanış videonun sonuna kadar kalır
+
+  // ses efektleri (Mixkit ücretsiz, public/sfx/<id>.mp3): yumuşak, kısık; pop/woosh yok (kullanıcı "sıp sıp" sevmiyor)
+  // lead: dosyanın başındaki sessizlik, dur: sadece ilk vuruş çalsın
+  const FX: { at: number; id: number; v: number; lead?: number; dur?: number }[] = [
+    { at: L(1), id: 1060, v: 0.18, dur: shout - 0.3 - L(1) }, // gece mutfakta duvar saati tıkırtısı
+    { at: W(1, 2), id: 1066, v: 0.16, lead: 0.04, dur: 2.2 }, // "on iki": saat gongu
+    { at: W(1, 4) - 0.1, id: 1908, v: 0.4, lead: 0.16 }, // buzdolabı kapağı açılır
+    { at: W(3, 2) - 0.2, id: 1104, v: 0.35, lead: 0.06 }, // ÖĞLEN kartı
+    { at: W(3, 6) - 0.2, id: 1104, v: 0.35, lead: 0.06 }, // GECE kartı
+    { at: L(4) - 0.1, id: 1062, v: 0.35, lead: 0.1 }, // saat ibresi döner
+    { at: no4 - 0.03, id: 2182, v: 0.5 }, // EFSANE damgası
+    { at: W(5, 4), id: 1053, v: 0.12, dur: L(6) - W(5, 4) - 0.1 }, // uyurken kalori sayacı
+    { at: more - 0.1 + 0.25, id: 2933, v: 0.4, dur: 0.6 }, // sandviç kefeye düşer
+    { at: sleep7, id: 2876, v: 0.3, dur: 1.0 }, // uyku ölçer düşer
+    { at: W(8, 4), id: 2870, v: 0.22, dur: 0.6 }, // ✓ ne kadar yedin
+    { at: W(8, 10), id: 2870, v: 0.22, dur: 0.6 }, // ✓ ne kadar tok yattın
+    { at: L(9) + 0.2, id: 933, v: 0.25, lead: 0.09 }, // kapanış: telefon bildirimi
+  ];
 
   // fon rengi sahneye göre değişir; geçişte yumuşak renk kayması
   const SCENE_BG: [number, string, string][] = [
@@ -584,6 +602,11 @@ export const GeceKilo: React.FC<GeceKiloProps> = ({ audioName, data }) => {
       {data ? (
         <>
           <Audio src={staticFile(`audio/${audioName}.mp3`)} />
+          {FX.map((f, i) => (
+            <Sequence key={`fx${i}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">
+              <Audio src={staticFile(`sfx/${f.id}.mp3`)} startFrom={Math.round((f.lead ?? 0) * fps)} volume={f.v} />
+            </Sequence>
+          ))}
           {/* konuşmanın altında kısık müzik; kapanışta biraz yükselir */}
           <Audio
             src={staticFile("music/623.mp3")}

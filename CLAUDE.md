@@ -346,6 +346,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kullanıcı ses olarak `ZDms2uXMdWDykDg7lTQ3` kimliğini verdi; API'de bulunamadı → kullanıcı sesi hesabına ekledi:
   **"Manitam"** (API adı "Manitammm") (`WYz3C2SUJKV2mMyXR0L3`, klon, Türkçe genç erkek). Seslendirildi (eleven_v4, tr, 0.3/0.45/1.05; 36.9 sn, ~600 karakter).
   Sessiz taslak önce gösterildi (kullanıcı "sesi en sona bırak" dedi). Son: `out/gece-kilo-paylas.mp4` (-14 LUFS).
+  Kullanıcı "ses efekti yok" dedi → yumuşak efektler eklendi (`FX` tablosu; Mixkit, `public/sfx/<id>.mp3` git'te): saat tıkırtısı + gong,
+  buzdolabı kapağı, kart sayfası, ibre dönüşü, EFSANE damgası, kalori sayacı, kefeye düşen sandviç, uyku ölçer, ✓ tonları, telefon bildirimi.
+  **Her videoda ses efekti olsun** (kısık, pop/woosh yok).
 
 ## Son durum (yeni oturumda buradan devam)
 

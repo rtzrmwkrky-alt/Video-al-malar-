@@ -21,16 +21,16 @@ const GREEN = "#3ccf7a";
 const FLOOR = 1400;
 
 export const GECE_LINES: Line[] = [
-  { text: "“Gece gece yeme, kilo alırsın!” Bu cümleyi kaç kere duydun?", hl: ["kilo", "alırsın!”"], hold: 0.3 },
-  { text: "Peki gerçekten öyle mi? Cevap çok net: kilonun saati yok, matematiği var.", hl: ["saati", "yok,", "matematiği"], hold: 0.5 },
-  { text: "Gün boyu aldığın kaloriyle harcadığın kaloriyi bir teraziye koy.", hl: ["aldığın", "harcadığın"], hold: 0.3 },
-  { text: "Alınan fazlaysa kilo alırsın, harcanan fazlaysa verirsin. Saat kaç olursa olsun.", hl: ["alırsın,", "verirsin."], hold: 0.3 },
-  { text: "Yani gün içinde kalori açığındaysan, gece yarısı yesen bile kilo almazsın.", hl: ["açığındaysan,", "almazsın."], hold: 0.6 },
-  { text: "Ama bir uyarı var: gece yenen ağır, yağlı yemekler midene yük olur.", hl: ["ağır,", "yağlı"], hold: 0.3 },
-  { text: "Sindirim zorlaşır, uykun bölünür, sabah yorgun uyanırsın.", hl: ["sindirim", "uykun", "bölünür,"], hold: 0.4 },
-  { text: "Gece acıktıysan hafif bir şey seç: yoğurt, meyve ya da bir avuç kuruyemiş.", hl: ["hafif"], hold: 0.4 },
-  { text: "Kısacası, önemli olan saat değil, günün toplamı.", hl: ["saat", "değil,", "toplamı."], hold: 0.6 },
-  { text: "Hadi, bu videoyu sana “gece yeme” diyene gönder.", hl: ["gönder."], hold: 1.0 },
+  { text: "“Gece gece yeme, kilo alırsın!” Kaç kere duydun bunu?", hl: ["kilo", "alırsın!”"], hold: 0.3 },
+  { text: "Peki doğru mu? Kilonun saati yok, matematiği var.", hl: ["saati", "yok,", "matematiği"], hold: 0.5 },
+  { text: "Gün boyu aldığın kaloriyle harcadığını teraziye koy.", hl: ["aldığın", "harcadığını"], hold: 0.3 },
+  { text: "Alınan fazlaysa kilo alırsın, harcanan fazlaysa verirsin.", hl: ["alırsın,", "verirsin."], hold: 0.3 },
+  { text: "Yani gün içinde açıktaysan, gece yesen bile kilo almazsın.", hl: ["açıktaysan,", "almazsın."], hold: 0.6 },
+  { text: "Ama gece ağır, yağlı yemekler midene yük olur.", hl: ["ağır,", "yağlı"], hold: 0.3 },
+  { text: "Uykun bölünür, sabah yorgun uyanırsın.", hl: ["uykun", "bölünür,"], hold: 0.4 },
+  { text: "Acıktıysan hafif seç: yoğurt, meyve ya da kuruyemiş.", hl: ["hafif"], hold: 0.4 },
+  { text: "Önemli olan saat değil, günün toplamı.", hl: ["saat", "değil,", "toplamı."], hold: 0.6 },
+  { text: "Bu videoyu sana “gece yeme” diyene gönder.", hl: ["gönder."], hold: 1.0 },
 ];
 
 export const GECE_TAIL = 1.6;
@@ -475,13 +475,14 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   const L = tl.at;
   const X = 0.35; // sahne geçişi (yumuşak solma)
   /** sahne görünürlüğü: a. satırdan b. satıra kadar */
-  const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - X / 2, L(b) + X / 2, X);
+  // önceki sahne tamamen sönünce yenisi gelir (üst üste binen hayalet görüntü olmasın)
+  const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - 0.02, L(b) + 0.02, X * 0.6);
   const W = (line: number, k: number) => wordTime(tl, line, k);
 
   // ===== 0: mutfak, gece
   const s0 = scene(0, 1);
   const shoutAt = 0.25;
-  const caught = sm(t, W(0, 5) - 0.1, W(0, 5) + 0.3); // "Bu cümleyi…" → genç düşünür
+  const caught = sm(t, W(0, 5) - 0.1, W(0, 5) + 0.3); // "Kaç kere…" → genç düşünür
   const teenX = 600;
   const teenS = 0.72;
   const bite = (1 - Math.cos(t * 4)) / 2 * (1 - caught);
@@ -500,8 +501,8 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   // ===== 2-4: terazi
   const s2 = scene(2, 5);
   const mid3 = W(3, 5); // "harcanan fazlaysa…"
-  const clock3 = W(3, 8); // "Saat kaç olursa olsun"
-  const drop4 = W(4, 6); // "gece yarısı yesen bile"
+  const clock3 = L(4) - 0.15; // saat 4. satırın başında dönmeye başlar
+  const drop4 = W(4, 5); // "gece yesen bile"
   let tilt = interpolate(t, [L(3) - 0.1, L(3) + 0.6], [0, -12], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   tilt = interpolate(t, [mid3 - 0.1, mid3 + 0.7], [tilt, 12], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   // gece yenen sandviç sol kefeye düşer: terazi sallanır ama sağda kalır
@@ -509,19 +510,19 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
   const wob = t > drop4 + 0.5 ? Math.sin((t - drop4 - 0.5) * 9) * 4 * Math.exp(-(t - drop4 - 0.5) * 2.5) : 0;
   tilt = tilt - 3 * sm(t, drop4 + 0.4, drop4 + 0.7) + wob;
   // saat: "Saat kaç olursa olsun"da hızla döner, 4. satırda gece yarısında durur
-  const spin = interpolate(t, [clock3, L(4) + 0.8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const spin = interpolate(t, [clock3, W(4, 4) + 0.2], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const spinE = 1 - (1 - spin) ** 3;
   const clockM = 60 * 9 * spinE; // 9 tur → 12:00
   const clockH = 3 + 9 * spinE;
 
   // ===== 5-6: yatak odası
   const s5 = scene(5, 7);
-  const sleep6 = W(6, 2); // "uykun bölünür"
+  const sleep6 = W(6, 0) + 0.1; // "uykun bölünür"
   const ouchPose: AnimePose = { elR: [420, 880], wrR: [520, 900], elL: [664, 880], wrL: [570, 930], itemL: null, head: 5 };
 
   // ===== 7: hafif atıştırmalık
   const s7 = scene(7, 8);
-  const snack = [W(7, 6), W(7, 7), W(7, 11)];
+  const snack = [W(7, 3), W(7, 4), W(7, 7)];
 
   // ===== 8: özet kartı
   const s8 = scene(8, 9);
@@ -610,7 +611,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               </g>
             ))}
             {(() => {
-              const p = sm(t, W(1, 4) - 0.1, W(1, 4) + 0.35);
+              const p = sm(t, W(1, 3) - 0.1, W(1, 3) + 0.35);
               return p > 0 ? (
                 <g opacity={p} transform={`translate(260,1200) rotate(-12) scale(${1.15 - 0.15 * p})`}>
                   <rect x={-210} y={-70} width={420} height={140} rx={22} fill="none" stroke={isBora ? "#ffffff" : RED} strokeWidth={14} />
@@ -627,17 +628,17 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             ) : (
               <Fig uid="genc1" x={760} y={FLOOR} s={0.76} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr="grin" t={t} />
             )}
-            <Bubble x={50} y={190} w={560} h={210} tx={isCurly ? 652 : isBora ? 765 : 690} ty={isCurly ? 700 : isBora ? 695 : 560} o={sm(t, W(1, 7) - 0.2, W(1, 7) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
-            <g opacity={sm(t, W(1, 8), W(1, 8) + 0.3)}>
+            <Bubble x={50} y={190} w={560} h={210} tx={isCurly ? 652 : isBora ? 765 : 690} ty={isCurly ? 700 : isBora ? 695 : 560} o={sm(t, W(1, 3) - 0.2, W(1, 3) + 0.15)} lines={["KİLONUN SAATİ YOK,", "MATEMATİĞİ VAR!"]} size={46} />
+            <g opacity={sm(t, W(1, 4), W(1, 4) + 0.3)}>
               <Clock x={230} y={700} r={95} h={11} m={58} />
-              <Cross x={230} y={700} s={70} p={sm(t, W(1, 9), W(1, 9) + 0.4)} />
+              <Cross x={230} y={700} s={70} p={sm(t, W(1, 5), W(1, 5) + 0.4)} />
             </g>
-            <g opacity={sm(t, W(1, 10), W(1, 10) + 0.3)}>
+            <g opacity={sm(t, W(1, 6), W(1, 6) + 0.3)}>
               <rect x={110} y={880} width={240} height={140} rx={24} fill="#fff" stroke={INK} strokeWidth={7} />
               <Txt x={230} y={975} size={66} fill={INK} sw={0}>
                 + − =
               </Txt>
-              <Check x={360} y={870} s={44} p={sm(t, W(1, 10) + 0.3, W(1, 10) + 0.7)} />
+              <Check x={360} y={870} s={44} p={sm(t, W(1, 6) + 0.3, W(1, 6) + 0.7)} />
             </g>
           </g>
         ) : null}
@@ -675,10 +676,10 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
               </g>
             </g>
             {/* 4: açık → gece yesen bile almazsın */}
-            <Pill x={830} y={720} text="KALORİ AÇIĞI" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} color={GREEN} ink="#fff" size={44} />
-            <g opacity={sm(t, W(4, 10) - 0.1, W(4, 10) + 0.2)}>
+            <Pill x={830} y={720} text="KALORİ AÇIĞI" o={sm(t, W(4, 3) - 0.1, W(4, 3) + 0.2)} color={GREEN} ink="#fff" size={44} />
+            <g opacity={sm(t, W(4, 8) - 0.1, W(4, 8) + 0.2)}>
               <Pill x={500} y={1395} text="KİLO ALMAZSIN" o={1} color="#fff" size={48} />
-              <Check x={790} y={1385} s={46} p={sm(t, W(4, 10), W(4, 10) + 0.4)} />
+              <Check x={790} y={1385} s={46} p={sm(t, W(4, 8), W(4, 8) + 0.4)} />
             </g>
           </g>
         ) : null}
@@ -695,11 +696,11 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                 s={1.12}
                 t={t}
                 pose={
-                  t > W(6, 4) - 0.1
+                  t > W(6, 2) - 0.1
                     ? { r: { el: [300, 470], wr: [252, 300], hand: "open" }, head: 4 }
                     : { r: { el: [292, 560], wr: [236, 560], hand: "open" }, l: { el: [108, 560], wr: [164, 560], hand: "open" }, head: 4 }
                 }
-                expr={t > W(6, 4) - 0.1 ? "yawn" : t > L(6) ? "ouch" : "think"}
+                expr={t > W(6, 2) - 0.1 ? "yawn" : t > W(5, 5) ? "ouch" : "think"}
               />
             ) : isBora ? (
               <BoraAt
@@ -707,17 +708,17 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                 x={430}
                 s={1.12}
                 t={t}
-                pose={t > W(6, 4) - 0.1 ? { head: 4 } : { el: [252, 470], wr: [290, 432], hand: "open", head: 6 }}
-                expr={t > W(6, 4) - 0.1 ? "yawn" : t > L(6) ? "ouch" : "think"}
+                pose={t > W(6, 2) - 0.1 ? { head: 4 } : { el: [252, 470], wr: [290, 432], hand: "open", head: 6 }}
+                expr={t > W(6, 2) - 0.1 ? "yawn" : t > W(5, 5) ? "ouch" : "think"}
               />
             ) : (
-              <Fig uid="genc5" x={470} y={FLOOR} s={0.74} pose={ouchPose} expr={t > L(6) ? "ouch" : "think"} t={t} />
+              <Fig uid="genc5" x={470} y={FLOOR} s={0.74} pose={ouchPose} expr={t > W(5, 5) ? "ouch" : "think"} t={t} />
             )}
             {/* ağır, yağlı yemekler mideye iner */}
             {(() => {
-              const d = sm(t, W(5, 9) - 0.2, W(5, 9) + 0.7); // "midene yük olur"
+              const d = sm(t, W(5, 5) - 0.2, W(5, 5) + 0.7); // "midene yük olur"
               const belly = isCurly ? curlyPt(430, 1.12, [200, 560]) : isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
-              const o = sm(t, W(5, 5) - 0.2, W(5, 5) + 0.2) * (1 - d * 0.9);
+              const o = sm(t, W(5, 2) - 0.2, W(5, 2) + 0.2) * (1 - d * 0.9);
               return (
                 <g opacity={o}>
                   <g transform={`translate(${mixP([720, 560], belly, d).join(",")}) scale(${1 - 0.6 * d})`}>
@@ -733,7 +734,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             {/* mide: yük */}
             {(() => {
               const belly = isCurly ? curlyPt(430, 1.12, [200, 560]) : isBora ? boraPt(430, 1.12, [300, 440]) : figPt(470, FLOOR, 0.74, [540, 880]);
-              const o = sm(t, W(5, 10), W(5, 10) + 0.3);
+              const o = sm(t, W(5, 6), W(5, 6) + 0.3);
               return o > 0 ? (
                 <g opacity={o}>
                   {[0, 1, 2].map((k) => {
@@ -768,7 +769,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
                 })}
               </g>
             ) : null}
-            <Pill x={810} y={1000} text="SABAH YORGUN" o={sm(t, W(6, 5) - 0.1, W(6, 5) + 0.2)} color="#fff" size={44} />
+            <Pill x={810} y={1000} text="SABAH YORGUN" o={sm(t, W(6, 3) - 0.1, W(6, 3) + 0.2)} color="#fff" size={44} />
           </g>
         ) : null}
 
@@ -798,7 +799,7 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
             ) : (
               <Fig uid="genc7" x={540} y={FLOOR} s={0.64} pose={{ ...DOWN, elL: [700, 840], wrL: [690, 720] }} expr={t > snack[0] ? "happy" : "grin"} t={t} />
             )}
-            <Pill x={540} y={190} text="HAFİF SEÇ" o={sm(t, W(7, 2) - 0.1, W(7, 2) + 0.2)} color={GREEN} ink="#fff" size={56} />
+            <Pill x={540} y={190} text="HAFİF SEÇ" o={sm(t, W(7, 1) - 0.1, W(7, 1) + 0.2)} color={GREEN} ink="#fff" size={56} />
             {[
               { x: 200, el: <Yogurt x={200} y={400} s={1.1} />, l: "yoğurt" },
               { x: 540, el: <Apple x={540} y={400} s={1.2} />, l: "meyve" },
@@ -822,19 +823,19 @@ export const GeceYemek: React.FC<GeceYemekProps> = ({ audioName, data, bg = ["#1
         {s8 > 0 ? (
           <g opacity={s8}>
             <rect x={90} y={200} width={900} height={500} rx={44} fill="#ffffff" stroke={INK} strokeWidth={9} />
-            <g opacity={sm(t, W(8, 3) - 0.1, W(8, 3) + 0.2)}>
+            <g opacity={sm(t, W(8, 2) - 0.1, W(8, 2) + 0.2)}>
               <Clock x={230} y={340} r={70} h={12} m={0} />
               <Txt x={340} y={365} size={76} fill={INK} sw={0} anchor="start">
                 SAAT
               </Txt>
-              <Cross x={860} y={340} s={50} p={sm(t, W(8, 4), W(8, 4) + 0.4)} />
+              <Cross x={860} y={340} s={50} p={sm(t, W(8, 3), W(8, 3) + 0.4)} />
             </g>
             <line x1={140} y1={450} x2={940} y2={450} stroke={INK} strokeWidth={4} opacity={0.2} />
-            <g opacity={sm(t, W(8, 5) - 0.1, W(8, 5) + 0.2)}>
+            <g opacity={sm(t, W(8, 4) - 0.1, W(8, 4) + 0.2)}>
               <Txt x={150} y={590} size={70} fill={INK} sw={0} anchor="start">
                 GÜNÜN TOPLAMI
               </Txt>
-              <Check x={860} y={560} s={50} p={sm(t, W(8, 6), W(8, 6) + 0.4)} />
+              <Check x={860} y={560} s={50} p={sm(t, W(8, 5), W(8, 5) + 0.4)} />
             </g>
             {isCurly ? (
               <CurlyAt uid="kiv8" x={510} s={0.78} t={t} pose={{ r: { el: [300, 560], wr: [330, 470], hand: "thumb" } }} expr="smile" />

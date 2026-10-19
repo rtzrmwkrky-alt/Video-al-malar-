@@ -273,7 +273,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={GECE_TL.frames}
-      defaultProps={{ audioName: "gece-yemek-kisa", data: null } satisfies GeceYemekProps}
+      defaultProps={{ audioName: "gece-yemek-v2", data: null } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
     />
     <Composition
@@ -283,7 +283,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={GECE_TL.frames}
-      defaultProps={{ audioName: "gece-yemek-kisa", data: null, hero: "kivircik", bg: ["#ddd3c6", "#c4b6a4"] } satisfies GeceYemekProps}
+      defaultProps={{ audioName: "gece-yemek-v2", data: null, hero: "kivircik", bg: ["#ddd3c6", "#c4b6a4"] } satisfies GeceYemekProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GECE_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />

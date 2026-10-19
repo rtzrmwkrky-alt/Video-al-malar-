@@ -61,3 +61,4 @@ kahverengi ten (`#7d4b31`; beyazlatma yok), ince uzun oval kafa, yuvarlak belirg
 "kısa boyun" isteğinin yerine geçti), küçük sade gözler, sakin nötr ifade, kobalt mavi bere, kalın örgü toz pembe bol kazak,
 büyük mavi-krem kareli pijama pantolon + mavi örgü paça, beyaz burunlu/tabanlı mavi ayakkabı, uzun ince silüet, mercan pembe fon,
 başka nesne/yazı yok. Bora3D buna göre güncellendi.
+Kullanıcı yapay zekâ resim aracı (Apify, ücretli) önerisini reddetti: **para harcanmayacak**, 3B kodla devam. Dokular kalın örgü ilmekleri + yün lifleri, kareli yün kumaş.

@@ -53,50 +53,101 @@ const fuzz = (c: CanvasRenderingContext2D, w: number, h: number, alpha: number, 
   }
 };
 
-/** örgü: dikey sütunlarda V ilmekler */
+/** yün lifleri: kısa, kıvrık, yarı saydam açık/koyu çizgiler */
+const fibers = (c: CanvasRenderingContext2D, w: number, h: number, n: number, light: string, dark: string, seed = 1) => {
+  let s = seed * 7919;
+  const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  c.lineCap = "round";
+  for (let i = 0; i < n; i++) {
+    const x = rnd() * w;
+    const y = rnd() * h;
+    const a = rnd() * Math.PI * 2;
+    const L = 4 + rnd() * 10;
+    c.strokeStyle = rnd() > 0.45 ? light : dark;
+    c.lineWidth = 0.8 + rnd() * 0.9;
+    c.beginPath();
+    c.moveTo(x, y);
+    c.quadraticCurveTo(x + Math.cos(a + 0.8) * L * 0.6, y + Math.sin(a + 0.8) * L * 0.6, x + Math.cos(a) * L, y + Math.sin(a) * L);
+    c.stroke();
+  }
+};
+
+/** kalın örgü: sütunlarda iki eğik ilmekten oluşan V'ler, ilmek başına ışık/gölge + yün lifleri */
 const knitTex = (base: string, dark: string, repeat: [number, number]) =>
   canvasTex(
-    256,
-    256,
+    512,
+    512,
     (c) => {
-      c.fillStyle = base;
-      c.fillRect(0, 0, 256, 256);
-      c.strokeStyle = dark;
-      c.lineWidth = 8;
-      c.lineCap = "round";
+      c.fillStyle = dark;
+      c.fillRect(0, 0, 512, 512);
+      const cw = 64;
+      const rh = 40;
       for (let col = 0; col < 8; col++) {
-        for (let row = 0; row < 12; row++) {
-          const x = col * 32;
-          const y = row * 22;
-          c.beginPath();
-          c.moveTo(x + 3, y + 2);
-          c.quadraticCurveTo(x + 10, y + 18, x + 16, y + 20);
-          c.moveTo(x + 29, y + 2);
-          c.quadraticCurveTo(x + 22, y + 18, x + 16, y + 20);
-          c.stroke();
+        for (let row = -1; row < 14; row++) {
+          const x = col * cw + cw / 2;
+          const y = row * rh + (col % 2) * 2;
+          for (const side of [-1, 1]) {
+            c.save();
+            c.translate(x + side * 13, y + 22);
+            c.rotate(side * -0.55);
+            const g = c.createRadialGradient(-4, -8, 2, 0, 0, 26);
+            g.addColorStop(0, "rgba(255,255,255,0.35)");
+            g.addColorStop(0.35, base);
+            g.addColorStop(1, dark);
+            c.fillStyle = g;
+            c.beginPath();
+            c.ellipse(0, 0, 13, 25, 0, 0, Math.PI * 2);
+            c.fill();
+            // ilmek içi iplik çizgileri
+            c.strokeStyle = "rgba(0,0,0,0.12)";
+            c.lineWidth = 1.2;
+            for (let k = -2; k <= 2; k++) {
+              c.beginPath();
+              c.moveTo(k * 4, -20);
+              c.quadraticCurveTo(k * 5, 0, k * 4, 20);
+              c.stroke();
+            }
+            c.restore();
+          }
         }
       }
-      fuzz(c, 256, 256, 0.12, 3);
+      fibers(c, 512, 512, 2600, "rgba(255,240,236,0.35)", "rgba(120,50,50,0.25)", 3);
     },
     repeat,
   );
 
+/** kareli yün kumaş: dokuma çizgileri + lifler */
 const plaidTex = (a: string, b: string, repeat: [number, number]) =>
   canvasTex(
-    256,
-    256,
+    512,
+    512,
     (c) => {
+      c.fillStyle = b;
+      c.fillRect(0, 0, 512, 512);
+      c.fillStyle = a;
+      c.globalAlpha = 0.65;
+      c.fillRect(0, 0, 512, 256);
+      c.fillRect(0, 0, 256, 512);
+      c.globalAlpha = 1;
       c.fillStyle = a;
       c.fillRect(0, 0, 256, 256);
-      c.globalAlpha = 0.7;
-      c.fillStyle = b;
-      c.fillRect(0, 80, 256, 64);
-      c.fillRect(80, 0, 64, 256);
-      c.globalAlpha = 0.5;
-      c.fillRect(0, 210, 256, 14);
-      c.fillRect(210, 0, 14, 256);
-      c.globalAlpha = 1;
-      fuzz(c, 256, 256, 0.14, 7);
+      // dokuma (çapraz ince çizgiler)
+      c.strokeStyle = "rgba(255,255,255,0.12)";
+      c.lineWidth = 2;
+      for (let k = -512; k < 512; k += 7) {
+        c.beginPath();
+        c.moveTo(k, 0);
+        c.lineTo(k + 512, 512);
+        c.stroke();
+      }
+      c.strokeStyle = "rgba(0,0,0,0.1)";
+      for (let k = -512; k < 512; k += 9) {
+        c.beginPath();
+        c.moveTo(k + 512, 0);
+        c.lineTo(k, 512);
+        c.stroke();
+      }
+      fibers(c, 512, 512, 2200, "rgba(255,255,255,0.3)", "rgba(10,30,90,0.25)", 7);
     },
     repeat,
   );
@@ -140,19 +191,19 @@ export type Bora3DPose = {
 
 export const Bora3D: React.FC<{ look?: Bora3DLook; pose?: Bora3DPose; blink?: number }> = ({ look = BORA3D_ORGU, pose = {}, blink = 0 }) => {
   const m = useMemo(() => {
-    const knit = knitTex(look.sweater, look.sweaterDark, [4, 3]);
-    const knitArm = knitTex(look.sweater, look.sweaterDark, [2.4, 1.6]);
-    const plaid = plaidTex(look.pants, look.plaid, [2.6, 3]);
+    const knit = knitTex(look.sweater, look.sweaterDark, [3.2, 2.2]);
+    const knitArm = knitTex(look.sweater, look.sweaterDark, [2, 1.2]);
+    const plaid = plaidTex(look.pants, look.plaid, [3.2, 3.6]);
     const rib = ribTex(look.beanie, [10, 1]);
     const sweaterRib = ribTex(look.sweater, [14, 1]);
     const pantsRib = ribTex(look.pants, [10, 1]);
     const std = (o: THREE.MeshStandardMaterialParameters) => new THREE.MeshStandardMaterial({ roughness: 0.92, metalness: 0, ...o });
     return {
       skin: std({ color: look.skin, roughness: 0.55 }),
-      sweater: std({ map: knit, bumpMap: knit, bumpScale: 4.5 }),
-      sleeve: std({ map: knitArm, bumpMap: knitArm, bumpScale: 4.5 }),
+      sweater: std({ map: knit, bumpMap: knit, bumpScale: 6, roughness: 1 }),
+      sleeve: std({ map: knitArm, bumpMap: knitArm, bumpScale: 6, roughness: 1 }),
       sweaterRib: std({ map: sweaterRib }),
-      pants: std({ map: plaid, bumpMap: plaid, bumpScale: 0.8 }),
+      pants: std({ map: plaid, bumpMap: plaid, bumpScale: 1.5, roughness: 1 }),
       pantsRib: std({ map: pantsRib }),
       beanie: std({ map: rib, bumpMap: rib, bumpScale: 2 }),
       shoe: std({ color: look.shoe, roughness: 0.8 }),

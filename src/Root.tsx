@@ -51,6 +51,7 @@ import { Bora3DDeneme } from "./compositions/Bora3DDeneme";
 import { BoraKiyafet } from "./compositions/BoraKiyafet";
 import { GECE_TAIL, GECE_TL, GeceYemek, type GeceYemekProps } from "./compositions/GeceYemek";
 import { GK_TAIL, GK_TL, GeceKilo, type GeceKiloProps } from "./compositions/GeceKilo";
+import { GY_TAIL, GY_TL, GobekYagi, type GobekYagiProps } from "./compositions/GobekYagi";
 import { ZAYIF_TAIL, ZAYIF_TL, Zayiflar, type ZayiflarProps } from "./compositions/Zayiflar";
 
 const FPS = 30;
@@ -307,6 +308,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={ZAYIF_TL.frames}
       defaultProps={{ audioName: "zayiflar", data: null } satisfies ZayiflarProps}
       calculateMetadata={({ props }) => withVoiceoverTail(ZAYIF_TAIL, props)}
+    />
+    <Composition
+      id="GobekYagi"
+      component={GobekYagi}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={GY_TL.frames}
+      defaultProps={{ audioName: "gobek-yagi", data: null } satisfies GobekYagiProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(GY_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="Bora3DDeneme" component={Bora3DDeneme} width={1080} height={1920} fps={FPS} durationInFrames={60} />

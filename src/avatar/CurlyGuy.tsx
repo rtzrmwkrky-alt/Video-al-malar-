@@ -117,7 +117,17 @@ const Hand: React.FC<{ at: P; type: CurlyHand; rot: number }> = ({ at, type, rot
   </g>
 );
 
-export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?: CurlyPose; expr?: CurlyExpr; item?: React.ReactNode; look?: CurlyLook }> = ({
+export const CurlyGuy: React.FC<{
+  id: string;
+  t?: number;
+  blink?: number;
+  pose?: CurlyPose;
+  expr?: CurlyExpr;
+  item?: React.ReactNode;
+  look?: CurlyLook;
+  /** göbek (0 yok, 1 belirgin): açık ceketin arasından kazak öne taşar */
+  belly?: number;
+}> = ({
   id,
   t = 0,
   blink = 0,
@@ -125,6 +135,7 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
   expr = "neutral",
   item,
   look: lk = {},
+  belly = 0,
 }) => {
   const look = { ...BORA_LOOK, ...lk };
   const long = look.hair === "long";
@@ -251,6 +262,32 @@ export const CurlyGuy: React.FC<{ id: string; t?: number; blink?: number; pose?:
             <path d="M236,352 Q254,312 238,282 Q218,266 206,292 L206,342 Z" fill={`url(#${id}-teddy)`} />
           </>
         ) : null}
+        {/* göbek: kazak öne taşar, ceketin ön kenarları yanlara açılır */}
+        {belly > 0.01
+          ? (() => {
+              const rx = 34 + 58 * belly;
+              const ry = 70 + 22 * belly;
+              const cy = 560;
+              return (
+                <g>
+                  <ellipse cx={200} cy={cy} rx={rx} ry={ry} fill={look.sweater} />
+                  {look.knit ? <ellipse cx={200} cy={cy} rx={rx} ry={ry} fill={`url(#${id}-knit)`} /> : null}
+                  <path d={`M${200 - rx * 0.9},${cy + ry * 0.35} Q200,${cy + ry * 1.05} ${200 + rx * 0.9},${cy + ry * 0.35}`} fill="none" stroke="#000" strokeWidth={8} opacity={0.08} />
+                  <ellipse cx={200 - rx * 0.35} cy={cy - ry * 0.35} rx={rx * 0.3} ry={ry * 0.22} fill="#fff" opacity={0.25} />
+                  {[-1, 1].map((s) => (
+                    <path
+                      key={s}
+                      d={`M${200 + s * 16},${cy - ry - 40} Q${200 + s * (rx + 14)},${cy - ry * 0.2} ${200 + s * (rx * 0.75 + 10)},${cy + ry + 6}`}
+                      fill="none"
+                      stroke={look.jacket[1]}
+                      strokeWidth={18}
+                      strokeLinecap="round"
+                    />
+                  ))}
+                </g>
+              );
+            })()
+          : null}
         {/* kafa */}
         <g transform={`rotate(${tilt},200,230)`}>
           {long ? null : (

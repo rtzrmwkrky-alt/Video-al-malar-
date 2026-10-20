@@ -361,6 +361,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kullanıcı ayrıca **cırcır böceği** (mutfak) ve **kapanıştaki "gönder" bildirim sesini** istemedi → çıkarıldı.
   **Her videoda ses efekti olsun** (kısık, pop/woosh yok). Kullanıcı "ana ses kısık" dedi → konuşma `volume={1.6}` (~+4 dB, müzik/efekt üstünde).
 
+- **GobekYagi** — "Göbek yağı için yaptığın en büyük hata" (~39 sn, kullanıcının metni hikâyeleştirildi). Kullanıcının kuralı
+  (her videoda): **önce acıya dokun → bilimsel açıklama → en son tavsiye → döngü (loop) ile başa dön**; göndermeden önce
+  kullanıcının 12 maddelik listesini kendin kontrol et (Neden izlesin: ilk saniye kanca, merak, tempo, his; Neden yorum:
+  taraf tutturan an, tartışma payı, söylenecek bir şey, kendini görmek; Neden paylaşsın: "bunu ona atmalıyım", akılda kalan
+  replik, "tam ben" hissi, kısa ve net). **Bora spor yapmaz** (mekik çekmez); mekik takvim/sayıyla, kasın şişmesi karnın kesit
+  animasyonuyla (üstte yağ hücreleri, altta kas lifleri) gösterilir. Döngü: son cümle "Çünkü bu…" → kanca karesi (son kare = ilk kare).
+  `CurlyGuy`'a `belly` (göbek 0-1) eklendi. Metin `icerik/gobek-yagi.seslendirme.txt`. Sessiz taslak (müzik + efekt var,
+  konuşma yok): `out/gobek-yagi-sessiz.mp4`. **Seslendirme bekliyor** (kullanıcı onayı + ses seçimi; ~640 karakter).
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

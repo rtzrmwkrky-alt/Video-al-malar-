@@ -497,7 +497,7 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
   // önceki sahne tamamen sönünce yenisi gelir (üst üste binen hayalet görüntü olmasın)
   const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - 0.02, L(b) + 0.02, 0.21);
   // döngü: son cümleden sonra kanca karesi geri gelir; son kare = ilk kare
-  const loopIn = sm(t, T - 0.5, T - 0.08);
+  const loopIn = sm(t, T - 0.3, T - 0.05);
 
   // ===== 0: kanca (+ döngü sonu)
   const s0 = Math.max(scene(0, 1), loopIn);
@@ -541,7 +541,7 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
   const lose = sm(t, W(10, 0), L(11) - 0.5);
   const fatPct = Math.round(28 - 12 * lose);
   // ===== 11: gönder → döngü
-  const s11 = win(t, L(11) - 0.02, T - 0.3, 0.21);
+  const s11 = win(t, L(11) - 0.02, T - 0.31, 0.2);
 
   // oda (gece): kanca, takvim, ayna, kameraya dönüş ve kapanışta ortak; içeri girişte Bora ile birlikte büyür
   const room = Math.max(scene(0, 4), win(t, L(11) - 0.02, T + 1, 0.21));
@@ -559,8 +559,6 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
     { at: W(4, 6) - 0.08, id: 2568, v: 0.18 }, // YAĞ etiketi
     { at: W(4, 8) - 0.08, id: 2568, v: 0.18 }, // KAS etiketi
     { at: W(5, 4), id: 1120, v: 0.3, lead: 0.1 }, // güçlenir ✓
-    { at: same - 0.05, id: 2299, v: 0.18, lead: 0.05 }, // dokunmaz
-    { at: W(6, 7), id: 2569, v: 0.14, dur: 0.8, fade: 0.3 }, // her yerden akış
     { at: myth - 1.0, id: 790, v: 0.16, lead: 0.61, dur: 1.0, fade: 0.2 }, // MİT öncesi gerilim
     { at: myth - 0.05, id: 2182, v: 0.3 }, // MİT mührü
     { at: W(8, 4) - 0.08, id: 2568, v: 0.18 }, // GENETİK

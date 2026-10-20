@@ -316,7 +316,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={GY_TL.frames}
-      defaultProps={{ audioName: "gobek-yagi", data: null } satisfies GobekYagiProps}
+      defaultProps={{ audioName: "gobek-yagi-kisa", data: null } satisfies GobekYagiProps}
       calculateMetadata={({ props }) => withVoiceoverTail(GY_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />

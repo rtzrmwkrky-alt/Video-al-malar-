@@ -367,8 +367,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   taraf tutturan an, tartışma payı, söylenecek bir şey, kendini görmek; Neden paylaşsın: "bunu ona atmalıyım", akılda kalan
   replik, "tam ben" hissi, kısa ve net). **Bora spor yapmaz** (mekik çekmez); mekik takvim/sayıyla, kasın şişmesi karnın kesit
   animasyonuyla (üstte yağ hücreleri, altta kas lifleri) gösterilir. Döngü: son cümle "Çünkü bu…" → kanca karesi (son kare = ilk kare).
-  `CurlyGuy`'a `belly` (göbek 0-1) eklendi. Metin `icerik/gobek-yagi.seslendirme.txt`. Sessiz taslak (müzik + efekt var,
-  konuşma yok): `out/gobek-yagi-sessiz.mp4`. **Seslendirme bekliyor** (kullanıcı onayı + ses seçimi; ~640 karakter).
+  `CurlyGuy`'a `belly` (göbek 0-1) eklendi. Metin `icerik/gobek-yagi.seslendirme.txt`. Sessiz taslak onaylandı →
+  **Manitam** ile seslendirildi (eleven_v4, tr, 0.4/0.35/1.05; ~640 karakter) → `public/audio/gobek-yagi` 45.2 sn çıktı
+  (Manitam yavaş konuşuyor) → kredi harcamadan sadece sessizlikler kısaltıldı (`sikistir-ses.py --max-pause 0.28`, hız yok)
+  → `gobek-yagi-kisa` (41.5 sn, video 42 sn). Daha kısa istenirse metni kısaltıp yeniden seslendir (onay al).
+  Son: `out/gobek-yagi-paylas.mp4` (-14 LUFS). Döngü geçişinde iki sahne üst üste binmesin (önce söner, sonra kanca gelir).
 
 ## Son durum (yeni oturumda buradan devam)
 

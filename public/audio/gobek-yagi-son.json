@@ -1,0 +1,466 @@
+{
+  "text": "Göbek yağı için yaptığın... en büyük hata...\nHer gece yüzlerce mekik. Haftalarca.\nAynaya bakıyorsun... göbek hâlâ orada.\nSuç sende değil. Sana yanlış anlatıldı.\nKarnında iki kat var: üstte yağ, altta kas.\nMekik çekince kas çalışır, güçlenir. Ama üstündeki yağa... dokunmaz.\nÇünkü vücut yağı tek bir yerden değil, her yerden yakar.\nBölgesel yağ yakımı... tamamen bir mit.\nYağın önce nereden gideceğine genetik karar verir. Ne kadar gideceğine ise... sen.\nKuvvet antrenmanı, doğru beslenme, ve sabır.\nGenel yağ oranın düştükçe, o inatçı göbek de sonunda gider.\nBunu, hâlâ mekikle göbek eritmeye çalışan birine gönder.",
+  "durationInSeconds": 40.5,
+  "words": [
+    {
+      "text": "Göbek",
+      "start": 0,
+      "end": 0.4
+    },
+    {
+      "text": "yağı",
+      "start": 0.48,
+      "end": 0.64
+    },
+    {
+      "text": "için",
+      "start": 0.68,
+      "end": 0.88
+    },
+    {
+      "text": "yaptığın...",
+      "start": 0.96,
+      "end": 2
+    },
+    {
+      "text": "en",
+      "start": 2.08,
+      "end": 2.16
+    },
+    {
+      "text": "büyük",
+      "start": 2.24,
+      "end": 2.48
+    },
+    {
+      "text": "hata...",
+      "start": 2.52,
+      "end": 3.221
+    },
+    {
+      "text": "Her",
+      "start": 3.341,
+      "end": 3.461
+    },
+    {
+      "text": "gece",
+      "start": 3.541,
+      "end": 3.781
+    },
+    {
+      "text": "yüzlerce",
+      "start": 3.861,
+      "end": 4.421
+    },
+    {
+      "text": "mekik.",
+      "start": 4.501,
+      "end": 5.044
+    },
+    {
+      "text": "Haftalarca.",
+      "start": 5.147,
+      "end": 5.947
+    },
+    {
+      "text": "Aynaya",
+      "start": 6.099,
+      "end": 6.419
+    },
+    {
+      "text": "bakıyorsun...",
+      "start": 6.499,
+      "end": 7.305
+    },
+    {
+      "text": "göbek",
+      "start": 7.345,
+      "end": 7.625
+    },
+    {
+      "text": "hâlâ",
+      "start": 7.665,
+      "end": 7.945
+    },
+    {
+      "text": "orada.",
+      "start": 8.025,
+      "end": 8.436
+    },
+    {
+      "text": "Suç",
+      "start": 8.557,
+      "end": 8.717
+    },
+    {
+      "text": "sende",
+      "start": 8.797,
+      "end": 9.037
+    },
+    {
+      "text": "değil.",
+      "start": 9.117,
+      "end": 9.437
+    },
+    {
+      "text": "Sana",
+      "start": 9.551,
+      "end": 9.791
+    },
+    {
+      "text": "yanlış",
+      "start": 9.871,
+      "end": 10.111
+    },
+    {
+      "text": "anlatıldı.",
+      "start": 10.191,
+      "end": 10.814
+    },
+    {
+      "text": "Karnında",
+      "start": 10.944,
+      "end": 11.424
+    },
+    {
+      "text": "iki",
+      "start": 11.504,
+      "end": 11.584
+    },
+    {
+      "text": "kat",
+      "start": 11.664,
+      "end": 11.824
+    },
+    {
+      "text": "var:",
+      "start": 11.904,
+      "end": 12.338
+    },
+    {
+      "text": "üstte",
+      "start": 12.458,
+      "end": 12.658
+    },
+    {
+      "text": "yağ,",
+      "start": 12.738,
+      "end": 13.218
+    },
+    {
+      "text": "altta",
+      "start": 13.298,
+      "end": 13.618
+    },
+    {
+      "text": "kas.",
+      "start": 13.698,
+      "end": 14.098
+    },
+    {
+      "text": "Mekik",
+      "start": 14.282,
+      "end": 14.522
+    },
+    {
+      "text": "çekince",
+      "start": 14.602,
+      "end": 15.002
+    },
+    {
+      "text": "kas",
+      "start": 15.082,
+      "end": 15.242
+    },
+    {
+      "text": "çalışır,",
+      "start": 15.322,
+      "end": 15.962
+    },
+    {
+      "text": "güçlenir.",
+      "start": 16.042,
+      "end": 16.602
+    },
+    {
+      "text": "Ama",
+      "start": 16.763,
+      "end": 16.923
+    },
+    {
+      "text": "üstündeki",
+      "start": 17.003,
+      "end": 17.563
+    },
+    {
+      "text": "yağa...",
+      "start": 17.643,
+      "end": 18.123
+    },
+    {
+      "text": "dokunmaz.",
+      "start": 18.176,
+      "end": 18.763
+    },
+    {
+      "text": "Çünkü",
+      "start": 18.953,
+      "end": 19.193
+    },
+    {
+      "text": "vücut",
+      "start": 19.233,
+      "end": 19.513
+    },
+    {
+      "text": "yağı",
+      "start": 19.673,
+      "end": 19.833
+    },
+    {
+      "text": "tek",
+      "start": 19.913,
+      "end": 20.073
+    },
+    {
+      "text": "bir",
+      "start": 20.113,
+      "end": 20.153
+    },
+    {
+      "text": "yerden",
+      "start": 20.233,
+      "end": 20.633
+    },
+    {
+      "text": "değil,",
+      "start": 20.713,
+      "end": 21.088
+    },
+    {
+      "text": "her",
+      "start": 21.208,
+      "end": 21.328
+    },
+    {
+      "text": "yerden",
+      "start": 21.408,
+      "end": 21.728
+    },
+    {
+      "text": "yakar.",
+      "start": 21.768,
+      "end": 22.14
+    },
+    {
+      "text": "Bölgesel",
+      "start": 22.218,
+      "end": 22.778
+    },
+    {
+      "text": "yağ",
+      "start": 22.858,
+      "end": 22.978
+    },
+    {
+      "text": "yakımı...",
+      "start": 23.018,
+      "end": 23.645
+    },
+    {
+      "text": "tamamen",
+      "start": 23.765,
+      "end": 24.205
+    },
+    {
+      "text": "bir",
+      "start": 24.285,
+      "end": 24.365
+    },
+    {
+      "text": "mit.",
+      "start": 24.525,
+      "end": 24.765
+    },
+    {
+      "text": "Yağın",
+      "start": 25.118,
+      "end": 25.358
+    },
+    {
+      "text": "önce",
+      "start": 25.438,
+      "end": 25.678
+    },
+    {
+      "text": "nereden",
+      "start": 25.758,
+      "end": 26.158
+    },
+    {
+      "text": "gideceğine",
+      "start": 26.238,
+      "end": 26.638
+    },
+    {
+      "text": "genetik",
+      "start": 26.718,
+      "end": 27.038
+    },
+    {
+      "text": "karar",
+      "start": 27.118,
+      "end": 27.358
+    },
+    {
+      "text": "verir.",
+      "start": 27.438,
+      "end": 27.882
+    },
+    {
+      "text": "Ne",
+      "start": 28.025,
+      "end": 28.105
+    },
+    {
+      "text": "kadar",
+      "start": 28.145,
+      "end": 28.345
+    },
+    {
+      "text": "gideceğine",
+      "start": 28.425,
+      "end": 28.905
+    },
+    {
+      "text": "ise...",
+      "start": 29.065,
+      "end": 29.545
+    },
+    {
+      "text": "sen.",
+      "start": 29.665,
+      "end": 29.865
+    },
+    {
+      "text": "Kuvvet",
+      "start": 29.928,
+      "end": 30.248
+    },
+    {
+      "text": "antrenmanı,",
+      "start": 30.328,
+      "end": 30.968
+    },
+    {
+      "text": "doğru",
+      "start": 31.208,
+      "end": 31.448
+    },
+    {
+      "text": "beslenme,",
+      "start": 31.568,
+      "end": 32.208
+    },
+    {
+      "text": "ve",
+      "start": 32.328,
+      "end": 32.408
+    },
+    {
+      "text": "sabır.",
+      "start": 32.488,
+      "end": 33.066
+    },
+    {
+      "text": "Genel",
+      "start": 33.346,
+      "end": 33.586
+    },
+    {
+      "text": "yağ",
+      "start": 33.666,
+      "end": 33.826
+    },
+    {
+      "text": "oranın",
+      "start": 33.946,
+      "end": 34.146
+    },
+    {
+      "text": "düştükçe,",
+      "start": 34.226,
+      "end": 35.026
+    },
+    {
+      "text": "o",
+      "start": 35.066,
+      "end": 35.106
+    },
+    {
+      "text": "inatçı",
+      "start": 35.186,
+      "end": 35.586
+    },
+    {
+      "text": "göbek",
+      "start": 35.626,
+      "end": 35.906
+    },
+    {
+      "text": "de",
+      "start": 35.986,
+      "end": 36.066
+    },
+    {
+      "text": "sonunda",
+      "start": 36.186,
+      "end": 36.466
+    },
+    {
+      "text": "gider.",
+      "start": 36.546,
+      "end": 36.946
+    },
+    {
+      "text": "Bunu,",
+      "start": 37.116,
+      "end": 37.476
+    },
+    {
+      "text": "hâlâ",
+      "start": 37.596,
+      "end": 37.996
+    },
+    {
+      "text": "mekikle",
+      "start": 38.116,
+      "end": 38.476
+    },
+    {
+      "text": "göbek",
+      "start": 38.516,
+      "end": 38.716
+    },
+    {
+      "text": "eritmeye",
+      "start": 38.796,
+      "end": 39.196
+    },
+    {
+      "text": "çalışan",
+      "start": 39.236,
+      "end": 39.596
+    },
+    {
+      "text": "birine",
+      "start": 39.676,
+      "end": 39.916
+    },
+    {
+      "text": "gönder.",
+      "start": 39.956,
+      "end": 40.4
+    }
+  ]
+}

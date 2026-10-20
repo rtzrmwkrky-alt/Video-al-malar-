@@ -372,6 +372,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (Manitam yavaş konuşuyor) → kredi harcamadan sadece sessizlikler kısaltıldı (`sikistir-ses.py --max-pause 0.28`, hız yok)
   → `gobek-yagi-kisa` (41.5 sn, video 42 sn). Daha kısa istenirse metni kısaltıp yeniden seslendir (onay al).
   Son: `out/gobek-yagi-paylas.mp4` (-14 LUFS). Döngü geçişinde iki sahne üst üste binmesin (önce söner, sonra kanca gelir).
+  Geri bildirim: **"Çünkü bu…" ile yarım bitmesin** → son cümle "…birine gönder." ile tamamlanır (ses sonundan kesildi:
+  `gobek-yagi-son`, 40.5 sn; kredi yok), ~0.6 sn bekler, sonra görüntü kancaya döner. **Müzik daha kısık** (0.03).
+  Genel: döngü videolarında konuşma yarım cümleyle bitmesin; döngüyü görüntüyle kur.
 
 ## Son durum (yeni oturumda buradan devam)
 

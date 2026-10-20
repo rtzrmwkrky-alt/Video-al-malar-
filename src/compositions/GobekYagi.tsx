@@ -2,7 +2,7 @@
  * "Göbek yağı için yaptığın en büyük hata" (~38 sn) — kullanıcının metni hikâyeleştirildi: önce acı (her gece yüzlerce mekik,
  * aynada göbek hâlâ orada), sonra bilim (karnın içi: üstte yağ, altta kas; mekik kası şişirir, yağa dokunmaz; yağ tüm vücuttan
  * yakılır; bölgesel yağ yakımı mit; sırayı genetik belirler), en son tavsiye (kuvvet, beslenme, sabır → göbek gider) ve döngü:
- * son cümle "Çünkü bu…" ile biter, video kancayla ("Göbek yağı için yaptığın en büyük hata") baştan başlar; son kare = ilk kare.
+ * son cümle "Bunu … birine gönder." ile tamamlanır (kullanıcı "Çünkü bu…" ile yarım bitmesini istemedi), sonra görüntü kancaya döner; video kancayla ("Göbek yağı için yaptığın en büyük hata") baştan başlar; son kare = ilk kare.
  * Bora (`CurlyGuy`) spor yapmaz (kullanıcı isteği); mekik takvimde/sayıda, kasın şişmesi kesit animasyonunda gösterilir.
  * Metin `icerik/gobek-yagi.seslendirme.txt` (kelime sayıları satır satır aynı olmalı). Ses yoksa zamanlar okuma hızından (sessiz taslak).
  */
@@ -32,14 +32,14 @@ export const GY_LINES: Line[] = [
   { text: "Yağın önce nereden gideceğine genetik karar verir. Ne kadar gideceğine ise sen.", hl: ["genetik", "sen."], hold: 0.3 },
   { text: "Kuvvet antrenmanı, doğru beslenme ve sabır.", hl: ["Kuvvet", "beslenme", "sabır."], hold: 0.3 },
   { text: "Genel yağ oranın düştükçe, o inatçı göbek de sonunda gider.", hl: ["düştükçe,", "gider."], hold: 0.3 },
-  { text: "Bunu hâlâ mekikle göbek eritmeye çalışan birine gönder. Çünkü bu…", hl: ["gönder."], hold: 0 },
+  { text: "Bunu hâlâ mekikle göbek eritmeye çalışan birine gönder.", hl: ["gönder."], hold: 0.6 },
 ];
 
 /** ekrandaki büyük yazıyla aynı olduğu için altyazısı gösterilmeyen satır (kanca) */
 const NO_CAPTION = [0];
 
 /** döngü: son cümleden sonra kısa bekleme, sonra kanca karesine yumuşak geçiş (son kare = ilk kare) */
-export const GY_TAIL = 0.5;
+export const GY_TAIL = 1.0;
 export const GY_TL = timeline(GY_LINES, GY_TAIL);
 
 type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
@@ -904,8 +904,8 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
         src={staticFile("music/623.mp3")}
         volume={(f) => {
           const mt = f / fps;
-          const base = interpolate(mt, [0, 0.4], [0.02, 0.04], { extrapolateRight: "clamp" });
-          return base * duck(mt) * interpolate(mt, [T - 0.6, T], [1, 0.4], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          const base = interpolate(mt, [0, 0.4], [0.015, 0.03], { extrapolateRight: "clamp" });
+          return base * duck(mt) * interpolate(mt, [T - 0.6, T], [1, 0.7], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
         }}
       />
     </AbsoluteFill>

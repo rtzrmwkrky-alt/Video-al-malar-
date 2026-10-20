@@ -546,7 +546,8 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
   // oda (gece): kanca, takvim, ayna, kameraya dönüş ve kapanışta ortak; içeri girişte Bora ile birlikte büyür
   const room = Math.max(scene(0, 4), win(t, L(11) - 0.02, T + 1, 0.21));
   const bellyPt: [number, number] = [540, FLOOR - (880 - 570) * 1.45];
-  const zoom = 1 + 0.05 * sm(t, L(3), L(4) - 0.5) + 2.6 * dive * dive;
+  // içeri giriş sadece 3. sahnenin sonunda; kapanışta oda yine normal ölçekte (döngüde ilk kareyle aynı)
+  const zoom = t > L(4) + 0.1 ? 1 : 1 + 0.05 * sm(t, L(3), L(4) - 0.5) + 2.6 * dive * dive;
   const diveT = `translate(${bellyPt[0]},${bellyPt[1]}) scale(${zoom}) translate(${-bellyPt[0]},${-bellyPt[1]})`;
 
   // ses efektleri (Mixkit, public/sfx): az, kısık, olay anında. Pop/woosh/komik efekt yok.

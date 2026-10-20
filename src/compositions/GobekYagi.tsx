@@ -28,7 +28,7 @@ export const GY_LINES: Line[] = [
   { text: "Karnında iki kat var: üstte yağ, altta kas.", hl: ["yağ,", "kas."], hold: 0.2 },
   { text: "Mekik çekince kas çalışır, güçlenir. Ama üstündeki yağa dokunmaz.", hl: ["güçlenir.", "dokunmaz."], hold: 0.4 },
   { text: "Çünkü vücut yağı tek bir yerden değil, her yerden yakar.", hl: ["her", "yerden", "yakar."], hold: 0.2 },
-  { text: "Bölgesel yağ yakımı tamamen bir mit.", hl: ["mit."], hold: 0.5 },
+  { text: "Bölgesel yağ yakımı olası bir şey değil.", hl: ["olası", "değil."], hold: 0.5 },
   { text: "Yağın önce nereden gideceğine genetik karar verir. Ne kadar gideceğine ise sen.", hl: ["genetik", "sen."], hold: 0.3 },
   { text: "Kuvvet antrenmanı, doğru beslenme ve sabır.", hl: ["Kuvvet", "beslenme", "sabır."], hold: 0.3 },
   { text: "Genel yağ oranın düştükçe, o inatçı göbek de sonunda gider.", hl: ["düştükçe,", "gider."], hold: 0.3 },
@@ -39,7 +39,7 @@ export const GY_LINES: Line[] = [
 const NO_CAPTION = [0];
 
 /** döngü: son cümleden sonra kısa bekleme, sonra kanca karesine yumuşak geçiş (son kare = ilk kare) */
-export const GY_TAIL = 1.0;
+export const GY_TAIL = 0.8;
 export const GY_TL = timeline(GY_LINES, GY_TAIL);
 
 type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
@@ -524,7 +524,7 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
   const all = sm(t, W(6, 7) - 0.1, W(6, 7) + 0.4);
   // ===== 7: MİT
   const s7 = scene(7, 8);
-  const myth = W(7, 5);
+  const myth = W(7, 3); // "olası bir şey değil" (kullanıcı "mit" kelimesini istemedi)
   // ===== 8: genetik sıra / ne kadar: sen
   const s8 = scene(8, 9);
   const melt = (i: number) => {
@@ -560,8 +560,8 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
     { at: W(4, 6) - 0.08, id: 2568, v: 0.18 }, // YAĞ etiketi
     { at: W(4, 8) - 0.08, id: 2568, v: 0.18 }, // KAS etiketi
     { at: W(5, 4), id: 1120, v: 0.3, lead: 0.1 }, // güçlenir ✓
-    { at: myth - 1.0, id: 790, v: 0.16, lead: 0.61, dur: 1.0, fade: 0.2 }, // MİT öncesi gerilim
-    { at: myth - 0.05, id: 2182, v: 0.3 }, // MİT mührü
+    { at: myth - 1.0, id: 790, v: 0.16, lead: 0.61, dur: 1.0, fade: 0.2 }, // damga öncesi gerilim
+    { at: myth - 0.05, id: 2182, v: 0.3 }, // OLASI DEĞİL mührü
     { at: W(8, 4) - 0.08, id: 2568, v: 0.18 }, // GENETİK
     { at: you - 0.05, id: 1143, v: 0.2, lead: 0.14, dur: 1.2, fade: 0.6 }, // "sen"
     { at: W(9, 0) - 0.08, id: 2568, v: 0.2 }, // kuvvet
@@ -765,7 +765,7 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
                     <Txt x={620} y={yy} size={56} fill={INK} sw={0} anchor="start">
                       {b as string}
                     </Txt>
-                    <line x1={170} y1={yy - 18} x2={900} y2={yy - 18} stroke={RED} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - sm(t, W(7, 3) + (k as number) * 0.12, W(7, 3) + 0.35 + (k as number) * 0.12)} />
+                    <line x1={170} y1={yy - 18} x2={900} y2={yy - 18} stroke={RED} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - sm(t, W(7, 2) + (k as number) * 0.12, W(7, 2) + 0.35 + (k as number) * 0.12)} />
                   </g>
                 );
               })}
@@ -773,10 +773,10 @@ export const GobekYagi: React.FC<GobekYagiProps> = ({ audioName, data }) => {
             {(() => {
               const p = sm(t, myth - 0.05, myth + 0.3);
               return p > 0 ? (
-                <g opacity={p} transform={`translate(400,1110) rotate(-10) scale(${1.15 - 0.15 * p})`}>
-                  <rect x={-190} y={-90} width={380} height={180} rx={26} fill="#ffffff" fillOpacity={0.6} stroke={RED} strokeWidth={16} />
-                  <text x={0} y={42} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={128} fill={RED} letterSpacing={8}>
-                    MİT
+                <g opacity={p} transform={`translate(420,1110) rotate(-8) scale(${1.15 - 0.15 * p})`}>
+                  <rect x={-300} y={-80} width={600} height={160} rx={26} fill="#ffffff" fillOpacity={0.6} stroke={RED} strokeWidth={14} />
+                  <text x={0} y={30} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={84} fill={RED} letterSpacing={3}>
+                    OLASI DEĞİL
                   </text>
                 </g>
               ) : null;

@@ -375,6 +375,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Geri bildirim: **"Çünkü bu…" ile yarım bitmesin** → son cümle "…birine gönder." ile tamamlanır (ses sonundan kesildi:
   `gobek-yagi-son`, 40.5 sn; kredi yok), ~0.6 sn bekler, sonra görüntü kancaya döner. **Müzik daha kısık** (0.03).
   Genel: döngü videolarında konuşma yarım cümleyle bitmesin; döngüyü görüntüyle kur.
+  Kullanıcı **"mit" kelimesini sevmedi** (İngilizce "meet" gibi duruyor) → "Bölgesel yağ yakımı… olası bir şey değil.",
+  damga "OLASI DEĞİL". Genel: yabancı kökenli/İngilizce gibi duyulan terimler yerine gündelik Türkçe kullan.
+  Yeniden seslendirildi (Manitam, speed 1.08, ~690 karakter) → `gobek-yagi-v2` 43.8 sn → sessizlik kısaltma →
+  `gobek-yagi-v2-kisa` 39.2 sn (video 40 sn, `GY_TAIL` 0.8).
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -380,13 +380,18 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Yeniden seslendirildi (Manitam, speed 1.08, ~690 karakter) → `gobek-yagi-v2` 43.8 sn → sessizlik kısaltma →
   `gobek-yagi-v2-kisa` 39.2 sn (video 40 sn, `GY_TAIL` 0.8).
 
-- **BeslenmeSpor** — "Beslenmene dikkat etmeden spor yaparsan ne olur?" (~38 sn, kullanıcının metni hikâyeleştirildi; 12 maddelik
-  liste + döngü kuralı). Kahraman Bora'nın tarzında sporcu genç (`CurlyGuy` + `SPORCU_LOOK`: koyu kıvırcık saç, kırmızı eşofman
-  ceketi; Bora spor yapmaz). Akış: kanca "HER GÜN SALONDA… KAS YOK?" → dambıl/tekrar → haftalar + ayna "HÂLÂ AYNI" → pazıya
-  yaklaşıp kasın içine giriş → lif demetlerinde hasar → "güçlen" sinyali → protein/enerji/uyku parçacıkları → evde öğün atlama
-  + gelişigüzel yemek → malzeme yok, TAMİR %34 → "daha çok çalışmak ≠ daha iyi sonuç" çubukları → sofra + yatak: tamir tamam,
-  lifler kalınlaşır → "bunu ona gönder" → kanca karesi (döngü). Metin `icerik/beslenme-spor.seslendirme.txt`.
-  **Sessiz taslak** `out/beslenme-spor-sessiz.mp4`; onay gelince Manitam ile seslendirilecek (~600 karakter, onay al).
+- **BeslenmeSpor** — "Beslenmene dikkat etmeden spor yaparsan ne olur?" (~39 sn). Kahraman Bora'nın tarzında sporcu genç
+  (`CurlyGuy` + `SPORCU_LOOK`: koyu kıvırcık saç, kırmızı eşofman ceketi; Bora spor yapmaz).
+  1. taslak (düz anlatım) yerine kullanıcı **örnek video** gösterdi (Voom "Mekik çekerek göbek erir mi?": izleyicinin kendi
+  sorusuyla kanca, beynin komut merkezinde iki görevlinin diyaloğu "yağları yakın!" → "yetkimiz yok", "varsayımsal benzetme"
+  etiketi, her bölüme kısa başlık, sakin anlatım, soruyla başa dönen döngü) → **anlatım böyle hikâyeleştirilsin; kopya değil, kendi
+  benzetmemiz.** v2: kanca soru "Her gün antrenman yapıyorum… neden hâlâ kas yapamıyorum?" → dambıl yaparken pazıya dalış →
+  liflerde hasar → **baretli tamir ekibi** (`Crew`, iki hücre) mesajı alır "Kol kası hasarlı! Hemen onarın…" → "Şefim, malzeme
+  gelmedi. Protein yok, enerji yok, uyku yok." (boş MALZEME kasası, omuz silkme) → 3 kart (protein/enerji/uyku) → evde öğün
+  atlama + TAMİR %34 → "daha çok ≠ daha iyi" çubukları → "kas salonda yorulur… sofrada ve yatakta büyür" (kasa dolar, ekip çalışır,
+  lifler kalınlaşır) → "bunu ona gönder" → kanca (döngü). Diyalog altyazıları açık mavi (`QUOTE`).
+  Metin `icerik/beslenme-spor.seslendirme.txt`. **Sessiz taslak** `out/beslenme-spor-sessiz-v2.mp4`; onay gelince Manitam ile
+  seslendirilecek (~580 karakter, onay al).
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -406,6 +406,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `BeslenmeSpor.tsx`'ten export. Sessiz taslak `out/beslenme-spor-v3-sessiz.mp4`; onay gelince Manitam %15 hızlı (speed 1.15)
   seslendirilecek, en fazla 35 sn.
 
+- **BeslenmeSpor4** — v3 sonrası kullanıcı: **"seslendirme olmadan da görüntüye bakarak anlamalıyım"** → GENEL KURAL: hikâyeyi
+  altyazı/etiket değil görüntü anlatsın (ses kapalı izleyen de anlamalı). v4: ters köşe kanca → pazıya dalış (köşede büyüteçli
+  mini genç "PAZI"), liflerde YIRTIK → tamir ekibi çalışır, yol boş "MALZEME ?" → **kötü gün 3 panel** (SABAH: esneyen genç + kahve
+  + boş tabak 08:00 ✕; ÖĞLE: tek poğaça ✕; GECE: telefon 03:00 ✕) → **malzeme kamyonu BOŞ gelir** (`Truck`), ekip omuz silker,
+  TAMİR YOK → ayna 8. HAFTA HÂLÂ AYNI → **iyi gün 3 panel** (yumurtalı kahvaltı ✓, dolu tabak ✓, 23:00 uyku z z ✓) → kamyon DOLU,
+  malzeme kasa akar, lifler kalınlaşır, KAS BÜYÜYOR → ayna 12. HAFTA, pazı belirgin (`Bulge`: üst kol kalınlaşır), FARK VAR →
+  gönder → döngü. Metin `icerik/beslenme-spor-v4.seslendirme.txt`. Sessiz taslak `out/beslenme-spor-v4-sessiz.mp4`; onay gelince
+  Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

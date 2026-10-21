@@ -138,7 +138,7 @@ const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
 const FLEX: CurlyPose = { r: { el: [340, 440], wr: [318, 318], hand: "fist" }, head: 4, lx: 6, ly: -2 };
 
 /** boy aynası; içindeki yansıma kırpılır */
-const Mirror: React.FC<{ x: number; y: number; w: number; h: number; uid: string; children: React.ReactNode }> = ({ x, y, w, h, uid, children }) => (
+export const Mirror: React.FC<{ x: number; y: number; w: number; h: number; uid: string; children: React.ReactNode }> = ({ x, y, w, h, uid, children }) => (
   <g>
     <defs>
       <clipPath id={`${uid}-clip`}>
@@ -160,7 +160,7 @@ const Mirror: React.FC<{ x: number; y: number; w: number; h: number; uid: string
 );
 
 /** boş tabak */
-const EmptyPlate: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const EmptyPlate: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g transform={`translate(${x},${y})`}>
     <ellipse cx={0} cy={0} rx={78} ry={30} fill="#ffffff" stroke={INK} strokeWidth={6} />
     <ellipse cx={0} cy={-3} rx={50} ry={17} fill="none" stroke={INK} strokeWidth={3} opacity={0.25} />
@@ -168,7 +168,7 @@ const EmptyPlate: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 /** tek poğaça */
-const Pogaca: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Pogaca: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g transform={`translate(${x},${y})`}>
     <path d="M-70,22 Q-78,-34 0,-40 Q78,-34 70,22 Q0,36 -70,22 Z" fill="#e8a24c" stroke={INK} strokeWidth={6} strokeLinejoin="round" />
     <path d="M-50,-14 Q0,-34 50,-14" fill="none" stroke="#f6c97a" strokeWidth={10} strokeLinecap="round" />

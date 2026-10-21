@@ -2,7 +2,7 @@
  * BeslenmeSpor v5 (~33 sn) — kullanıcı: "sessizken de anlaşılsın, örnek videodaki gibi vücudun içine girip göstersin, acıya dokunsun".
  * Örnek videonun dili (koyu lacivert kareli fon, her bölümde kısa başlık + el yazısı alt başlık, vücudun içi kendi şeklinin içinde
  * açılır, Kişi A / Kişi B) ile, çizgi film benzetmesi olmadan, gerçek fizyoloji:
- * 3 ay salon, kol mezurada hâlâ 32 cm → kolun içi (deri, yağ, pazı kası, kemik) → antrenman liflerde mikro yırtık → onarılan lif
+ * kanca "Spor yapıp kas yapamıyorsan… sorun salonda değil." (3 ay salon, kol mezurada hâlâ 32 cm) → kolun içi (deri, yağ, pazı kası, kemik) → antrenman liflerde mikro yırtık → onarılan lif
  * kalınlaşır → malzeme yolu: tabak → mide → kan → pazı (protein taneleri akar) → öğün atlanınca kan boş, yırtık açık → uyku:
  * 8 saat %100 onarım, gece 03:00 → 4 saat %50 → aynı antrenman, 3 ay sonra: Kişi A (yedi + uyudu) 36 cm, Kişi B (atladı) 32 cm →
  * "Kas salonda yorulur… sofrada ve yatakta büyür." → gönder → döngü.
@@ -30,7 +30,7 @@ const NAVY: [string, string] = ["#1b2a4e", "#0e1630"];
 const FLOOR = 1400;
 
 export const B5_LINES: Line[] = [
-  { text: "Üç aydır salondasın… ama kolun hâlâ aynı.", hl: ["hâlâ", "aynı."], hold: 0.5 },
+  { text: "Spor yapıp kas yapamıyorsan… sorun salonda değil.", hl: ["sorun", "değil."], hold: 0.5 },
   { text: "Gel, kolunun içine bakalım.", hl: ["içine"], hold: 0.3 },
   { text: "Her antrenmanda kas liflerinde minicik yırtıklar oluşur.", hl: ["minicik", "yırtıklar"], hold: 0.3 },
   { text: "Kası büyüten, bu yırtıkların onarılmasıdır.", hl: ["onarılmasıdır."], hold: 0.4 },
@@ -45,7 +45,7 @@ export const B5_LINES: Line[] = [
 
 /** her satırın ekrandaki başlığı + el yazısı alt başlığı (örnek videodaki gibi) */
 const TITLES: ([string, string] | null)[] = [
-  ["3 ay salon", "Ama kol hâlâ aynı."],
+  ["Spor var, kas yok?", "Sorun salonda değil."],
   ["Kolun içi", "Deri, kas, kemik."],
   ["Antrenman", "Liflerde minik yırtıklar."],
   ["Onarım = büyüme", "Tamir edilen lif kalınlaşır."],

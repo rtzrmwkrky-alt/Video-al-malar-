@@ -1,0 +1,41 @@
+{
+  "text": "Spor yapıp kas yapamıyorsan... sorun salonda değil.",
+  "durationInSeconds": 3.76,
+  "words": [
+    {
+      "text": "Spor",
+      "start": 0,
+      "end": 0.32
+    },
+    {
+      "text": "yapıp",
+      "start": 0.4,
+      "end": 0.72
+    },
+    {
+      "text": "kas",
+      "start": 0.8,
+      "end": 1.04
+    },
+    {
+      "text": "yapamıyorsan...",
+      "start": 1.08,
+      "end": 2.32
+    },
+    {
+      "text": "sorun",
+      "start": 2.36,
+      "end": 2.64
+    },
+    {
+      "text": "salonda",
+      "start": 2.72,
+      "end": 3.12
+    },
+    {
+      "text": "değil.",
+      "start": 3.2,
+      "end": 3.76
+    }
+  ]
+}

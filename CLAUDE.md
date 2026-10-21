@@ -425,6 +425,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Metin `icerik/beslenme-spor-v5.seslendirme.txt`. Sessiz taslak onaylandı → Manitam %15 hızlı (speed 1.15; 0.4/0.35) →
   `public/audio/beslenme-spor-v5` 35.5 sn → `--max-pause 0.35` → `beslenme-spor-v5-kisa` 33.4 sn (video ~34 sn).
   Son: `out/beslenme-spor-v5-paylas.mp4` (-14 LUFS).
+  Kullanıcı daha sağlam kanca istedi → seçilen: **"Spor yapıp kas yapamıyorsan… sorun salonda değil."** (başlık "Spor var, kas yok?" /
+  "Sorun salonda değil."). Sadece kanca cümlesi Manitam ile okutuldu (`bs5-kanca`, ~50 karakter), eski kancanın yerine eklendi
+  (`beslenme-spor-v5b`, geri kalan ses aynı) → `--max-pause 0.35` → `beslenme-spor-v5b-kisa` 33.7 sn. Son: `out/beslenme-spor-v5b-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

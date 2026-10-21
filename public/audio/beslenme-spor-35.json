@@ -1,486 +1,486 @@
 {
   "text": "Her gün antrenman yapıyorum... neden hâlâ kas yapamıyorum?\nSen ağırlığı kaldırırken, kasının içinde minicik hasarlar açılır.\nVe vücudundaki tamir ekibine şöyle bir mesaj gider:\n\"Kol kası hasarlı! Hemen onarın, daha güçlü yapın!\"\nEkip hazır... ama bir sorun var.\n\"Şefim, malzeme gelmedi. Protein yok, enerji yok, uyku yok.\"\nÇünkü onarım için üç şey lazım: protein, yeterli enerji ve uyku.\nÖğün atlayınca ya da gelişigüzel yiyince, tamir yarım kalır.\nYani daha çok çalışmak, her zaman daha iyi sonuç demek değil.\nKas salonda yorulur... ama sofrada ve yatakta büyür.\nBunu, her gün salona gidip hâlâ değişmeyen o arkadaşına gönder.",
-  "durationInSeconds": 34.399,
+  "durationInSeconds": 34.55,
   "words": [
     {
       "text": "Her",
       "start": 0.0,
-      "end": 0.233
+      "end": 0.24
     },
     {
       "text": "gün",
-      "start": 0.311,
-      "end": 0.388
+      "start": 0.32,
+      "end": 0.4
     },
     {
       "text": "antrenman",
-      "start": 0.505,
-      "end": 0.854
+      "start": 0.52,
+      "end": 0.88
     },
     {
       "text": "yapıyorum...",
-      "start": 0.893,
-      "end": 1.425
+      "start": 0.92,
+      "end": 1.428
     },
     {
       "text": "neden",
-      "start": 1.529,
-      "end": 1.736
+      "start": 1.535,
+      "end": 1.748
     },
     {
       "text": "hâlâ",
-      "start": 1.787,
-      "end": 2.046
+      "start": 1.801,
+      "end": 2.068
     },
     {
       "text": "kas",
-      "start": 2.163,
-      "end": 2.279
+      "start": 2.188,
+      "end": 2.308
     },
     {
       "text": "yapamıyorum?",
-      "start": 2.318,
-      "end": 2.882
+      "start": 2.348,
+      "end": 2.908
     },
     {
       "text": "Sen",
-      "start": 2.944,
-      "end": 3.177
+      "start": 2.952,
+      "end": 3.192
     },
     {
       "text": "ağırlığı",
-      "start": 3.255,
-      "end": 3.566
+      "start": 3.272,
+      "end": 3.592
     },
     {
       "text": "kaldırırken,",
-      "start": 3.604,
-      "end": 4.386
+      "start": 3.632,
+      "end": 4.409
     },
     {
       "text": "kasının",
-      "start": 4.502,
-      "end": 4.774
+      "start": 4.517,
+      "end": 4.797
     },
     {
       "text": "içinde",
-      "start": 4.852,
-      "end": 5.162
+      "start": 4.877,
+      "end": 5.197
     },
     {
       "text": "minicik",
-      "start": 5.24,
-      "end": 5.628
+      "start": 5.277,
+      "end": 5.677
     },
     {
       "text": "hasarlar",
-      "start": 5.706,
-      "end": 6.094
+      "start": 5.757,
+      "end": 6.157
     },
     {
       "text": "açılır.",
-      "start": 6.133,
-      "end": 6.59
+      "start": 6.197,
+      "end": 6.628
     },
     {
       "text": "Ve",
-      "start": 6.629,
-      "end": 6.668
+      "start": 6.668,
+      "end": 6.708
     },
     {
       "text": "vücudundaki",
-      "start": 6.745,
-      "end": 7.289
+      "start": 6.788,
+      "end": 7.348
     },
     {
       "text": "tamir",
-      "start": 7.367,
-      "end": 7.677
+      "start": 7.428,
+      "end": 7.748
     },
     {
       "text": "ekibine",
-      "start": 7.755,
-      "end": 8.066
+      "start": 7.828,
+      "end": 8.148
     },
     {
       "text": "şöyle",
-      "start": 8.143,
-      "end": 8.376
+      "start": 8.228,
+      "end": 8.468
     },
     {
       "text": "bir",
-      "start": 8.415,
-      "end": 8.454
+      "start": 8.508,
+      "end": 8.548
     },
     {
       "text": "mesaj",
-      "start": 8.532,
-      "end": 8.843
+      "start": 8.628,
+      "end": 8.948
     },
     {
       "text": "gider:",
-      "start": 8.881,
-      "end": 9.119
+      "start": 8.988,
+      "end": 9.212
     },
     {
       "text": "\"Kol",
-      "start": 9.159,
-      "end": 9.314
+      "start": 9.233,
+      "end": 9.393
     },
     {
       "text": "kası",
-      "start": 9.43,
-      "end": 9.586
+      "start": 9.513,
+      "end": 9.673
     },
     {
       "text": "hasarlı!",
-      "start": 9.625,
-      "end": 10.151
+      "start": 9.713,
+      "end": 10.235
     },
     {
       "text": "Hemen",
-      "start": 10.214,
-      "end": 10.447
+      "start": 10.281,
+      "end": 10.521
     },
     {
       "text": "onarın,",
-      "start": 10.525,
-      "end": 10.847
+      "start": 10.601,
+      "end": 10.912
     },
     {
       "text": "daha",
-      "start": 10.894,
-      "end": 11.05
+      "start": 10.941,
+      "end": 11.101
     },
     {
       "text": "güçlü",
-      "start": 11.127,
-      "end": 11.36
+      "start": 11.181,
+      "end": 11.421
     },
     {
       "text": "yapın!\"",
-      "start": 11.412,
-      "end": 11.653
+      "start": 11.474,
+      "end": 11.703
     },
     {
       "text": "Ekip",
-      "start": 11.68,
-      "end": 11.913
+      "start": 11.71,
+      "end": 11.95
     },
     {
       "text": "hazır...",
-      "start": 11.99,
-      "end": 12.453
+      "start": 12.03,
+      "end": 12.466
     },
     {
       "text": "ama",
-      "start": 12.569,
-      "end": 12.686
+      "start": 12.586,
+      "end": 12.706
     },
     {
       "text": "bir",
-      "start": 12.724,
-      "end": 12.763
+      "start": 12.746,
+      "end": 12.786
     },
     {
       "text": "sorun",
-      "start": 12.841,
-      "end": 13.074
+      "start": 12.866,
+      "end": 13.106
     },
     {
       "text": "var.",
-      "start": 13.19,
-      "end": 13.381
+      "start": 13.226,
+      "end": 13.402
     },
     {
       "text": "\"Şefim,",
-      "start": 13.433,
-      "end": 13.893
+      "start": 13.436,
+      "end": 13.87
     },
     {
       "text": "malzeme",
-      "start": 14.01,
-      "end": 14.282
+      "start": 13.99,
+      "end": 14.27
     },
     {
       "text": "gelmedi.",
-      "start": 14.359,
-      "end": 14.798
+      "start": 14.35,
+      "end": 14.782
     },
     {
       "text": "Protein",
-      "start": 14.863,
-      "end": 15.251
+      "start": 14.829,
+      "end": 15.229
     },
     {
       "text": "yok,",
-      "start": 15.329,
-      "end": 15.64
+      "start": 15.309,
+      "end": 15.629
     },
     {
       "text": "enerji",
-      "start": 15.795,
-      "end": 16.106
+      "start": 15.789,
+      "end": 16.109
     },
     {
       "text": "yok,",
-      "start": 16.157,
-      "end": 16.416
+      "start": 16.162,
+      "end": 16.429
     },
     {
       "text": "uyku",
-      "start": 16.494,
-      "end": 16.727
+      "start": 16.509,
+      "end": 16.749
     },
     {
       "text": "yok.\"",
-      "start": 16.766,
-      "end": 17.018
+      "start": 16.789,
+      "end": 17.028
     },
     {
       "text": "Çünkü",
-      "start": 17.063,
-      "end": 17.374
+      "start": 17.055,
+      "end": 17.375
     },
     {
       "text": "onarım",
-      "start": 17.451,
-      "end": 17.684
+      "start": 17.455,
+      "end": 17.695
     },
     {
       "text": "için",
-      "start": 17.762,
-      "end": 17.995
+      "start": 17.775,
+      "end": 18.015
     },
     {
       "text": "üç",
-      "start": 18.073,
-      "end": 18.189
+      "start": 18.095,
+      "end": 18.215
     },
     {
       "text": "şey",
-      "start": 18.228,
-      "end": 18.383
+      "start": 18.255,
+      "end": 18.415
     },
     {
       "text": "lazım:",
-      "start": 18.461,
-      "end": 18.835
+      "start": 18.495,
+      "end": 18.84
     },
     {
       "text": "protein,",
-      "start": 19.068,
-      "end": 19.399
+      "start": 19.08,
+      "end": 19.401
     },
     {
       "text": "yeterli",
-      "start": 19.453,
-      "end": 19.841
+      "start": 19.436,
+      "end": 19.836
     },
     {
       "text": "enerji",
-      "start": 19.919,
-      "end": 20.307
+      "start": 19.916,
+      "end": 20.316
     },
     {
       "text": "ve",
-      "start": 20.54,
-      "end": 20.618
+      "start": 20.556,
+      "end": 20.636
     },
     {
       "text": "uyku.",
-      "start": 20.695,
-      "end": 21.08
+      "start": 20.716,
+      "end": 21.072
     },
     {
       "text": "Öğün",
-      "start": 21.119,
-      "end": 21.313
+      "start": 21.112,
+      "end": 21.312
     },
     {
       "text": "atlayınca",
-      "start": 21.39,
-      "end": 21.934
+      "start": 21.392,
+      "end": 21.952
     },
     {
       "text": "ya",
-      "start": 22.089,
-      "end": 22.167
+      "start": 22.112,
+      "end": 22.192
     },
     {
       "text": "da",
-      "start": 22.245,
-      "end": 22.322
+      "start": 22.272,
+      "end": 22.352
     },
     {
       "text": "gelişigüzel",
-      "start": 22.374,
-      "end": 22.944
+      "start": 22.405,
+      "end": 22.992
     },
     {
       "text": "yiyince,",
-      "start": 22.983,
-      "end": 23.547
+      "start": 23.032,
+      "end": 23.574
     },
     {
       "text": "tamir",
-      "start": 23.664,
-      "end": 23.858
+      "start": 23.694,
+      "end": 23.894
     },
     {
       "text": "yarım",
-      "start": 23.936,
-      "end": 24.169
+      "start": 23.974,
+      "end": 24.214
     },
     {
       "text": "kalır.",
-      "start": 24.246,
-      "end": 24.557
+      "start": 24.294,
+      "end": 24.574
     },
     {
       "text": "Yani",
-      "start": 24.635,
-      "end": 24.79
+      "start": 24.654,
+      "end": 24.814
     },
     {
       "text": "daha",
-      "start": 24.829,
-      "end": 24.946
+      "start": 24.854,
+      "end": 24.974
     },
     {
       "text": "çok",
-      "start": 25.023,
-      "end": 25.179
+      "start": 25.054,
+      "end": 25.214
     },
     {
       "text": "çalışmak,",
-      "start": 25.256,
-      "end": 25.878
+      "start": 25.294,
+      "end": 25.934
     },
     {
       "text": "her",
-      "start": 25.955,
-      "end": 26.033
+      "start": 26.014,
+      "end": 26.094
     },
     {
       "text": "zaman",
-      "start": 26.111,
-      "end": 26.344
+      "start": 26.174,
+      "end": 26.414
     },
     {
       "text": "daha",
-      "start": 26.421,
-      "end": 26.577
+      "start": 26.494,
+      "end": 26.654
     },
     {
       "text": "iyi",
-      "start": 26.654,
-      "end": 26.732
+      "start": 26.734,
+      "end": 26.814
     },
     {
       "text": "sonuç",
-      "start": 26.81,
-      "end": 27.043
+      "start": 26.894,
+      "end": 27.134
     },
     {
       "text": "demek",
-      "start": 27.12,
-      "end": 27.353
+      "start": 27.214,
+      "end": 27.454
     },
     {
       "text": "değil.",
-      "start": 27.431,
-      "end": 27.619
+      "start": 27.534,
+      "end": 27.708
     },
     {
       "text": "Kas",
-      "start": 27.694,
-      "end": 27.927
+      "start": 27.764,
+      "end": 28.004
     },
     {
       "text": "salonda",
-      "start": 28.004,
-      "end": 28.393
+      "start": 28.084,
+      "end": 28.484
     },
     {
       "text": "yorulur...",
-      "start": 28.47,
-      "end": 28.897
+      "start": 28.564,
+      "end": 28.984
     },
     {
       "text": "ama",
-      "start": 29.01,
-      "end": 29.127
+      "start": 29.08,
+      "end": 29.2
     },
     {
       "text": "sofrada",
-      "start": 29.204,
-      "end": 29.826
+      "start": 29.28,
+      "end": 29.92
     },
     {
       "text": "ve",
-      "start": 29.864,
-      "end": 29.903
+      "start": 29.96,
+      "end": 30.0
     },
     {
       "text": "yatakta",
-      "start": 29.981,
-      "end": 30.369
+      "start": 30.08,
+      "end": 30.48
     },
     {
       "text": "büyür.",
-      "start": 30.447,
-      "end": 30.617
+      "start": 30.56,
+      "end": 30.716
     },
     {
       "text": "Bunu,",
-      "start": 30.645,
-      "end": 31.15
+      "start": 30.724,
+      "end": 31.244
     },
     {
       "text": "her",
-      "start": 31.227,
-      "end": 31.305
+      "start": 31.324,
+      "end": 31.404
     },
     {
       "text": "gün",
-      "start": 31.383,
-      "end": 31.538
+      "start": 31.484,
+      "end": 31.644
     },
     {
       "text": "salona",
-      "start": 31.616,
-      "end": 31.849
+      "start": 31.724,
+      "end": 31.964
     },
     {
       "text": "gidip",
-      "start": 31.926,
-      "end": 32.159
+      "start": 32.044,
+      "end": 32.284
     },
     {
       "text": "hâlâ",
-      "start": 32.237,
-      "end": 32.625
+      "start": 32.364,
+      "end": 32.764
     },
     {
       "text": "değişmeyen",
-      "start": 32.664,
-      "end": 33.091
+      "start": 32.804,
+      "end": 33.244
     },
     {
       "text": "o",
-      "start": 33.169,
-      "end": 33.247
+      "start": 33.324,
+      "end": 33.404
     },
     {
       "text": "arkadaşına",
-      "start": 33.324,
-      "end": 33.79
+      "start": 33.484,
+      "end": 33.964
     },
     {
       "text": "gönder.",
-      "start": 33.829,
-      "end": 34.399
+      "start": 34.004,
+      "end": 34.55
     }
   ]
 }

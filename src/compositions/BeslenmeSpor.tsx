@@ -43,7 +43,7 @@ export const BS_LINES: Line[] = [
 const QUOTE = [3, 5];
 
 /** döngü: son cümleden sonra kısa bekleme, sonra kanca karesine yumuşak geçiş (son kare = ilk kare) */
-export const BS_TAIL = 0.6;
+export const BS_TAIL = 0.5;
 export const BS_TL = timeline(BS_LINES, BS_TAIL);
 
 /** Bora'nın tarzında sporcu genç: koyu kıvırcık saç, gözlüksüz, kırmızı eşofman ceketi, beyaz tişört, siyah eşofman */
@@ -615,7 +615,7 @@ export const BeslenmeSpor: React.FC<BeslenmeSporProps> = ({ audioName, data }) =
   const T = tl.total;
   // önceki sahne tamamen sönünce yenisi gelir (üst üste binen hayalet görüntü olmasın)
   const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - 0.02, L(b) + 0.02, 0.21);
-  const loopIn = sm(t, T - 0.3, T - 0.05);
+  const loopIn = sm(t, T - 0.24, T - 0.03);
 
   // ===== 0-1: salonda dambıl; "kasının içinde" kelimesinde pazıya dalınır
   const enter = W(1, 3); // "kasının"
@@ -649,7 +649,7 @@ export const BeslenmeSpor: React.FC<BeslenmeSporProps> = ({ audioName, data }) =
   const full = interpolate(t, [W(9, 4), W(9, 7)], [0.34, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const grow = sm(t, W(9, 7) - 0.15, W(9, 7) + 0.6);
   // ===== 10: gönder → döngü
-  const s10 = win(t, L(10) - 0.02, T - 0.31, 0.2);
+  const s10 = win(t, L(10) - 0.02, T - 0.25, 0.18);
 
   // salon: kanca ve kapanışta ortak; içeri girişte kahramanla birlikte büyür
   const gym = Math.max(win(t, -1, enter + 0.02, 0.21), win(t, L(10) - 0.02, T + 1, 0.21));

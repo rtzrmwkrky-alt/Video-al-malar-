@@ -393,7 +393,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Metin `icerik/beslenme-spor.seslendirme.txt`. Sessiz taslak onaylandı → kullanıcı **Manitam'ı %15 hızlı** istedi →
   ElevenLabs'te doğrudan `--speed 1.15` ile seslendirildi (sonradan hızlandırma yok; eleven_v4, tr, 0.4/0.35/1.15) →
   `public/audio/beslenme-spor` 41.7 sn → sessizlikler kısaltıldı (`sikistir-ses.py --max-pause 0.28`) → `beslenme-spor-kisa`
-  39.0 sn (video ~39.8 sn). Son: `out/beslenme-spor-paylas.mp4` (-14 LUFS). Kullanıcı kuralı: **35-40 sn maksimum.**
+  39.0 sn → kullanıcı **"boşlukları kes, max 35 sn"** dedi → `--max-pause 0.1 --tempo 1.03` → `beslenme-spor-35` 34.4 sn
+  (`BS_TAIL` 0.6, video 35.0 sn). Son: `out/beslenme-spor-paylas.mp4` (-14 LUFS). Kullanıcı kuralı: **en fazla 35 sn.**
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -43,7 +43,7 @@ export const BS_LINES: Line[] = [
 const QUOTE = [3, 5];
 
 /** döngü: son cümleden sonra kısa bekleme, sonra kanca karesine yumuşak geçiş (son kare = ilk kare) */
-export const BS_TAIL = 0.8;
+export const BS_TAIL = 0.6;
 export const BS_TL = timeline(BS_LINES, BS_TAIL);
 
 /** Bora'nın tarzında sporcu genç: koyu kıvırcık saç, gözlüksüz, kırmızı eşofman ceketi, beyaz tişört, siyah eşofman */

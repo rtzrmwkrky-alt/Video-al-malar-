@@ -160,7 +160,7 @@ const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
 const blinkAt = (t: number) => ((t % 3.5) / 3.5 > 0.96 ? 1 : 0);
 
 /** sporcu: ayak ortası (x, y), s ölçek (~880 birim boy) */
-const HeroAt: React.FC<{ x: number; y?: number; s: number; pose?: CurlyPose; expr?: CurlyExpr; t: number; uid: string; item?: React.ReactNode }> = ({
+export const HeroAt: React.FC<{ x: number; y?: number; s: number; pose?: CurlyPose; expr?: CurlyExpr; t: number; uid: string; item?: React.ReactNode }> = ({
   x,
   y = FLOOR,
   s,
@@ -176,14 +176,14 @@ const HeroAt: React.FC<{ x: number; y?: number; s: number; pose?: CurlyPose; exp
 );
 
 /** elde dambıl (kol ucunda) */
-const DB = <Dumbbell x={0} y={0} s={0.5} />;
+export const DB = <Dumbbell x={0} y={0} s={0.5} />;
 
 const Drop: React.FC<{ x: number; y: number; o: number; fill?: string }> = ({ x, y, o, fill = "#9fd8ff" }) => (
   <path d={`M${x},${y - 16} Q${x + 12},${y} ${x},${y + 8} Q${x - 12},${y} ${x},${y - 16} Z`} fill={fill} stroke={INK} strokeWidth={3} opacity={o} />
 );
 
 /** alından süzülen ter */
-const Sweat: React.FC<{ t: number; pts: [number, number][]; o?: number }> = ({ t, pts, o = 1 }) => (
+export const Sweat: React.FC<{ t: number; pts: [number, number][]; o?: number }> = ({ t, pts, o = 1 }) => (
   <g>
     {pts.map(([x, y], k) => {
       const p = (((t * 0.8 + k * 0.45) % 1) + 1) % 1;
@@ -195,7 +195,7 @@ const Sweat: React.FC<{ t: number; pts: [number, number][]; o?: number }> = ({ t
 // ------------------------------------------------------------ salon
 
 /** duvardaki dambıl rafı */
-const Rack: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Rack: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g>
     <rect x={x} y={y + 70} width={420} height={22} rx={8} fill="#8b93a6" stroke={INK} strokeWidth={6} />
     <rect x={x + 20} y={y + 92} width={18} height={FLOOR - y - 92} fill="#6c7386" stroke={INK} strokeWidth={5} />
@@ -211,7 +211,7 @@ const Rack: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 /** duvar saati yerine salon panosu: "SALON" yazısı */
-const GymSign: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const GymSign: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g>
     <rect x={x} y={y} width={300} height={110} rx={20} fill="#2b2f45" stroke={INK} strokeWidth={7} />
     <text x={x + 150} y={y + 74} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={58} fill={Y} letterSpacing={6}>
@@ -221,7 +221,7 @@ const GymSign: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 /** yerde ağırlık plakaları */
-const Plates: React.FC<{ x: number }> = ({ x }) => (
+export const Plates: React.FC<{ x: number }> = ({ x }) => (
   <g>
     {[0, 1, 2].map((k) => (
       <ellipse key={k} cx={x} cy={FLOOR - 14 - k * 26} rx={92 - k * 14} ry={20} fill={k % 2 ? "#3b3f58" : "#2b2f45"} stroke={INK} strokeWidth={6} />
@@ -233,7 +233,7 @@ const Plates: React.FC<{ x: number }> = ({ x }) => (
 
 const MV = { x: 70, y: 250, w: 940, h: 860 };
 const ROWS = 6;
-const rowY = (r: number) => MV.y + 95 + r * 135;
+export const rowY = (r: number) => MV.y + 95 + r * 135;
 
 /** hasar noktaları (lif satırı, x) */
 const CRACKS: [number, number][] = [
@@ -246,7 +246,7 @@ const CRACKS: [number, number][] = [
 ];
 
 /** malzeme parçacıkları: 0 protein (mavi boncuk zinciri), 1 enerji (sarı şimşek), 2 uyku (mor ay) */
-const Particle: React.FC<{ x: number; y: number; kind: number; o: number; rot: number }> = ({ x, y, kind, o, rot }) => (
+export const Particle: React.FC<{ x: number; y: number; kind: number; o: number; rot: number }> = ({ x, y, kind, o, rot }) => (
   <g transform={`translate(${x},${y}) rotate(${rot})`} opacity={o}>
     {kind === 0 ? (
       <g>
@@ -268,7 +268,7 @@ const Particle: React.FC<{ x: number; y: number; kind: number; o: number; rot: n
 
 const N_PART = 18;
 
-const MuscleView: React.FC<{
+export const MuscleView: React.FC<{
   t: number;
   /** hasar (0-1, sırayla açılır) */
   dmg: number;
@@ -399,7 +399,7 @@ const MuscleView: React.FC<{
 };
 
 /** yatay ölçek çubuğu (etiket + doluluk) */
-const Bar: React.FC<{ x: number; y: number; w: number; label: string; v: number; color: string; o: number }> = ({ x, y, w, label, v, color, o }) =>
+export const Bar: React.FC<{ x: number; y: number; w: number; label: string; v: number; color: string; o: number }> = ({ x, y, w, label, v, color, o }) =>
   o <= 0 ? null : (
     <g opacity={o}>
       <text x={x} y={y - 22} fontFamily={SANS} fontWeight={800} fontSize={46} fill={INK}>
@@ -415,8 +415,8 @@ const Bar: React.FC<{ x: number; y: number; w: number; label: string; v: number;
 
 // ------------------------------------------------------------ tamir ekibi (benzetme): baretli minik hücreler
 
-type CrewPose = "idle" | "salute" | "shrug" | "talk" | "work";
-type CrewExpr = "happy" | "sad" | "alert";
+export type CrewPose = "idle" | "salute" | "shrug" | "talk" | "work";
+export type CrewExpr = "happy" | "sad" | "alert";
 
 const Wrench: React.FC<{ rot: number }> = ({ rot }) => (
   <g transform={`rotate(${rot})`}>
@@ -426,7 +426,7 @@ const Wrench: React.FC<{ rot: number }> = ({ rot }) => (
 );
 
 /** ayak ortası (x, y); ~170 birim boy */
-const Crew: React.FC<{ x: number; y: number; s?: number; t: number; pose?: CrewPose; expr?: CrewExpr; talk?: boolean; body?: string; flip?: boolean; o?: number }> = ({
+export const Crew: React.FC<{ x: number; y: number; s?: number; t: number; pose?: CrewPose; expr?: CrewExpr; talk?: boolean; body?: string; flip?: boolean; o?: number; chief?: boolean }> = ({
   x,
   y,
   s = 1,
@@ -437,6 +437,7 @@ const Crew: React.FC<{ x: number; y: number; s?: number; t: number; pose?: CrewP
   body = "#ffd2c4",
   flip = false,
   o = 1,
+  chief = false,
 }) => {
   if (o <= 0) return null;
   const bob = Math.sin(t * 3 + x) * 3;
@@ -508,16 +509,18 @@ const Crew: React.FC<{ x: number; y: number; s?: number; t: number; pose?: CrewP
       ) : (
         <path d="M-13,-76 Q0,-62 13,-76" fill="none" stroke={INK} strokeWidth={4} strokeLinecap="round" />
       )}
+      {/* şef: bıyık + beyaz baret */}
+      {chief ? <path d="M-24,-80 Q-12,-90 0,-82 Q12,-90 24,-80 Q12,-74 0,-79 Q-12,-74 -24,-80 Z" fill="#5a3518" stroke={INK} strokeWidth={3} /> : null}
       {/* baret */}
-      <path d="M-54,-136 Q-52,-188 0,-190 Q52,-188 54,-136 Z" fill={Y} stroke={INK} strokeWidth={6} strokeLinejoin="round" />
-      <rect x={-68} y={-140} width={136} height={14} rx={7} fill={Y} stroke={INK} strokeWidth={5} />
+      <path d="M-54,-136 Q-52,-188 0,-190 Q52,-188 54,-136 Z" fill={chief ? "#ffffff" : Y} stroke={INK} strokeWidth={6} strokeLinejoin="round" />
+      <rect x={-68} y={-140} width={136} height={14} rx={7} fill={chief ? "#ffffff" : Y} stroke={INK} strokeWidth={5} />
       <path d="M0,-188 L0,-140" stroke="#e0a320" strokeWidth={8} />
     </g>
   );
 };
 
 /** malzeme kasası (boş ya da dolu) */
-const Crate: React.FC<{ x: number; y: number; full: number; t: number; o: number }> = ({ x, y, full, t, o }) =>
+export const Crate: React.FC<{ x: number; y: number; full: number; t: number; o: number }> = ({ x, y, full, t, o }) =>
   o <= 0 ? null : (
     <g opacity={o} transform={`translate(${x},${y})`}>
       <rect x={-90} y={-70} width={180} height={70} rx={8} fill="#3a1f18" />

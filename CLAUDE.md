@@ -396,6 +396,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   39.0 sn → kullanıcı **"Manitam ElevenLabs'te tam %15 hızlı, toplam 35 sn, aradaki boşlukları kes"** dedi (ek hız yok) →
   `--max-pause 0.06` (tempo yok) → `beslenme-spor-35` 34.55 sn (`BS_TAIL` 0.5, video ~35 sn). Son: `out/beslenme-spor-paylas.mp4` (-14 LUFS). Kullanıcı kuralı: **en fazla 35 sn.**
 
+- **BeslenmeSpor3** — aynı konunun v3'ü (kullanıcı "anlatım daha güzel olsun" dedi, önerilerimizi onayladı): ders anlatır gibi
+  tekrar eden cümle ("onarım için üç şey lazım") atıldı; **ters köşe kanca** "Salonda kas yapmıyorsun. Kas, salondan çıkınca
+  yapılıyor."; tamir ekibi **karşılıklı konuşur** (çırak sarı baret, şef beyaz baret + bıyık, `chief`): "Şefim, kol kası yine
+  hasarlı!" / "Malzeme ne durumda?" / "Kahvaltı atlanmış, öğlen bir poğaça… adam gece üçte yatmış." (GÜNLÜK RAPOR kartı:
+  boş tabak ✕, poğaça, 03:00 saat) / "Tamam, bugün de tamir yok." → ayna (haftalar, HÂLÂ AYNI) → "Kas salonda yorulur… sofrada
+  ve yatakta büyür." → gönder → döngü. Ders: **yerel, gündelik detay (poğaça, gece üç) "tam ben" hissi ve yorum getirir; diyalog
+  tek kişiden iyi; komik anlarda nefes payı.** Metin `icerik/beslenme-spor-v3.seslendirme.txt` (~430 karakter), ortak parçalar
+  `BeslenmeSpor.tsx`'ten export. Sessiz taslak `out/beslenme-spor-v3-sessiz.mp4`; onay gelince Manitam %15 hızlı (speed 1.15)
+  seslendirilecek, en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

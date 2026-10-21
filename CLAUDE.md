@@ -422,7 +422,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   kemik etiketli) → liflerde MİKRO YIRTIK → büyüteçte tek lif onarılır, DAHA KALIN → tabak → mide → kan → pazı (protein taneleri
   akar) → öğün yok: kan boş, yırtık AÇIK KALDI → uyku: 23:00→07:00 %100, 03:00→07:00 %50 → Kişi A / Kişi B aynı antrenman,
   3 ay sonra A 36 cm (pazı büyür) B 32 cm → "Kas salonda yorulur… sofrada ve yatakta büyür." → gönder → döngü.
-  Metin `icerik/beslenme-spor-v5.seslendirme.txt`. Sessiz taslak `out/beslenme-spor-v5-sessiz.mp4`; onay gelince Manitam %15 hızlı.
+  Metin `icerik/beslenme-spor-v5.seslendirme.txt`. Sessiz taslak onaylandı → Manitam %15 hızlı (speed 1.15; 0.4/0.35) →
+  `public/audio/beslenme-spor-v5` 35.5 sn → `--max-pause 0.35` → `beslenme-spor-v5-kisa` 33.4 sn (video ~34 sn).
+  Son: `out/beslenme-spor-v5-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -1,0 +1,371 @@
+{
+  "text": "Üç aydır salondasın... ama kolun hâlâ aynı.\nGel, kolunun içine bakalım.\nHer antrenmanda kas liflerinde minicik yırtıklar oluşur.\nKası büyüten, bu yırtıkların onarılmasıdır.\nOnarım malzemesi tabağından gelir: protein, kana karışıp kasa taşınır.\nÖğün atlarsan kan boş akar, yırtıklar açık kalır.\nAsıl onarım uykuda olur. Gece üçte yatarsan, iş yarım kalır.\nAynı antrenman, üç ay sonra:\nBiri yiyip uyudu, biri atladı.\nKas salonda yorulur... sofrada ve yatakta büyür.\nBunu hâlâ değişmeyen o arkadaşına gönder.",
+  "durationInSeconds": 33.365,
+  "words": [
+    {
+      "text": "Üç",
+      "start": 0.0,
+      "end": 0.16
+    },
+    {
+      "text": "aydır",
+      "start": 0.24,
+      "end": 0.48
+    },
+    {
+      "text": "salondasın...",
+      "start": 0.6,
+      "end": 1.475
+    },
+    {
+      "text": "ama",
+      "start": 1.595,
+      "end": 1.715
+    },
+    {
+      "text": "kolun",
+      "start": 1.875,
+      "end": 2.115
+    },
+    {
+      "text": "hâlâ",
+      "start": 2.195,
+      "end": 2.595
+    },
+    {
+      "text": "aynı.",
+      "start": 2.675,
+      "end": 3.127
+    },
+    {
+      "text": "Gel,",
+      "start": 3.305,
+      "end": 3.777
+    },
+    {
+      "text": "kolunun",
+      "start": 3.857,
+      "end": 4.097
+    },
+    {
+      "text": "içine",
+      "start": 4.177,
+      "end": 4.337
+    },
+    {
+      "text": "bakalım.",
+      "start": 4.417,
+      "end": 4.899
+    },
+    {
+      "text": "Her",
+      "start": 5.054,
+      "end": 5.134
+    },
+    {
+      "text": "antrenmanda",
+      "start": 5.214,
+      "end": 5.934
+    },
+    {
+      "text": "kas",
+      "start": 6.094,
+      "end": 6.334
+    },
+    {
+      "text": "liflerinde",
+      "start": 6.374,
+      "end": 6.894
+    },
+    {
+      "text": "minicik",
+      "start": 6.974,
+      "end": 7.374
+    },
+    {
+      "text": "yırtıklar",
+      "start": 7.414,
+      "end": 7.854
+    },
+    {
+      "text": "oluşur.",
+      "start": 7.974,
+      "end": 8.473
+    },
+    {
+      "text": "Kası",
+      "start": 8.637,
+      "end": 8.877
+    },
+    {
+      "text": "büyüten,",
+      "start": 8.917,
+      "end": 9.437
+    },
+    {
+      "text": "bu",
+      "start": 9.517,
+      "end": 9.597
+    },
+    {
+      "text": "yırtıkların",
+      "start": 9.637,
+      "end": 10.157
+    },
+    {
+      "text": "onarılmasıdır.",
+      "start": 10.237,
+      "end": 11.197
+    },
+    {
+      "text": "Onarım",
+      "start": 11.368,
+      "end": 11.608
+    },
+    {
+      "text": "malzemesi",
+      "start": 11.688,
+      "end": 12.208
+    },
+    {
+      "text": "tabağından",
+      "start": 12.248,
+      "end": 12.808
+    },
+    {
+      "text": "gelir:",
+      "start": 12.888,
+      "end": 13.507
+    },
+    {
+      "text": "protein,",
+      "start": 13.747,
+      "end": 14.147
+    },
+    {
+      "text": "kana",
+      "start": 14.187,
+      "end": 14.387
+    },
+    {
+      "text": "karışıp",
+      "start": 14.467,
+      "end": 14.787
+    },
+    {
+      "text": "kasa",
+      "start": 14.867,
+      "end": 15.107
+    },
+    {
+      "text": "taşınır.",
+      "start": 15.187,
+      "end": 15.667
+    },
+    {
+      "text": "Öğün",
+      "start": 15.939,
+      "end": 16.099
+    },
+    {
+      "text": "atlarsan",
+      "start": 16.179,
+      "end": 16.739
+    },
+    {
+      "text": "kan",
+      "start": 16.819,
+      "end": 17.059
+    },
+    {
+      "text": "boş",
+      "start": 17.139,
+      "end": 17.299
+    },
+    {
+      "text": "akar,",
+      "start": 17.379,
+      "end": 17.859
+    },
+    {
+      "text": "yırtıklar",
+      "start": 17.899,
+      "end": 18.339
+    },
+    {
+      "text": "açık",
+      "start": 18.379,
+      "end": 18.579
+    },
+    {
+      "text": "kalır.",
+      "start": 18.659,
+      "end": 19.071
+    },
+    {
+      "text": "Asıl",
+      "start": 19.239,
+      "end": 19.479
+    },
+    {
+      "text": "onarım",
+      "start": 19.559,
+      "end": 19.879
+    },
+    {
+      "text": "uykuda",
+      "start": 19.959,
+      "end": 20.359
+    },
+    {
+      "text": "olur.",
+      "start": 20.399,
+      "end": 20.693
+    },
+    {
+      "text": "Gece",
+      "start": 20.844,
+      "end": 21.084
+    },
+    {
+      "text": "üçte",
+      "start": 21.124,
+      "end": 21.324
+    },
+    {
+      "text": "yatarsan,",
+      "start": 21.404,
+      "end": 22.124
+    },
+    {
+      "text": "iş",
+      "start": 22.244,
+      "end": 22.364
+    },
+    {
+      "text": "yarım",
+      "start": 22.444,
+      "end": 22.604
+    },
+    {
+      "text": "kalır.",
+      "start": 22.684,
+      "end": 23.094
+    },
+    {
+      "text": "Aynı",
+      "start": 23.279,
+      "end": 23.519
+    },
+    {
+      "text": "antrenman,",
+      "start": 23.639,
+      "end": 24.319
+    },
+    {
+      "text": "üç",
+      "start": 24.359,
+      "end": 24.479
+    },
+    {
+      "text": "ay",
+      "start": 24.559,
+      "end": 24.639
+    },
+    {
+      "text": "sonra:",
+      "start": 24.719,
+      "end": 25.311
+    },
+    {
+      "text": "Biri",
+      "start": 25.391,
+      "end": 25.551
+    },
+    {
+      "text": "yiyip",
+      "start": 25.631,
+      "end": 25.871
+    },
+    {
+      "text": "uyudu,",
+      "start": 25.951,
+      "end": 26.511
+    },
+    {
+      "text": "biri",
+      "start": 26.591,
+      "end": 26.751
+    },
+    {
+      "text": "atladı.",
+      "start": 26.831,
+      "end": 27.553
+    },
+    {
+      "text": "Kas",
+      "start": 27.633,
+      "end": 27.793
+    },
+    {
+      "text": "salonda",
+      "start": 27.873,
+      "end": 28.273
+    },
+    {
+      "text": "yorulur...",
+      "start": 28.353,
+      "end": 29.001
+    },
+    {
+      "text": "sofrada",
+      "start": 29.081,
+      "end": 29.481
+    },
+    {
+      "text": "ve",
+      "start": 29.521,
+      "end": 29.561
+    },
+    {
+      "text": "yatakta",
+      "start": 29.641,
+      "end": 30.041
+    },
+    {
+      "text": "büyür.",
+      "start": 30.121,
+      "end": 30.467
+    },
+    {
+      "text": "Bunu",
+      "start": 30.645,
+      "end": 30.805
+    },
+    {
+      "text": "hâlâ",
+      "start": 30.885,
+      "end": 31.205
+    },
+    {
+      "text": "değişmeyen",
+      "start": 31.285,
+      "end": 31.845
+    },
+    {
+      "text": "o",
+      "start": 31.925,
+      "end": 32.005
+    },
+    {
+      "text": "arkadaşına",
+      "start": 32.085,
+      "end": 32.645
+    },
+    {
+      "text": "gönder.",
+      "start": 32.725,
+      "end": 33.365
+    }
+  ]
+}

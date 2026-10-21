@@ -360,7 +360,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={B5_TL.frames}
-      defaultProps={{ audioName: "beslenme-spor-v5", data: null } satisfies BeslenmeSpor5Props}
+      defaultProps={{ audioName: "beslenme-spor-v5-kisa", data: null } satisfies BeslenmeSpor5Props}
       calculateMetadata={({ props }) => withVoiceoverTail(B5_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />

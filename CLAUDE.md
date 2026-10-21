@@ -390,8 +390,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   gelmedi. Protein yok, enerji yok, uyku yok." (boş MALZEME kasası, omuz silkme) → 3 kart (protein/enerji/uyku) → evde öğün
   atlama + TAMİR %34 → "daha çok ≠ daha iyi" çubukları → "kas salonda yorulur… sofrada ve yatakta büyür" (kasa dolar, ekip çalışır,
   lifler kalınlaşır) → "bunu ona gönder" → kanca (döngü). Diyalog altyazıları açık mavi (`QUOTE`).
-  Metin `icerik/beslenme-spor.seslendirme.txt`. **Sessiz taslak** `out/beslenme-spor-sessiz-v2.mp4`; onay gelince Manitam ile
-  seslendirilecek (~580 karakter, onay al).
+  Metin `icerik/beslenme-spor.seslendirme.txt`. Sessiz taslak onaylandı → kullanıcı **Manitam'ı %15 hızlı** istedi →
+  ElevenLabs'te doğrudan `--speed 1.15` ile seslendirildi (sonradan hızlandırma yok; eleven_v4, tr, 0.4/0.35/1.15) →
+  `public/audio/beslenme-spor` 41.7 sn → sessizlikler kısaltıldı (`sikistir-ses.py --max-pause 0.28`) → `beslenme-spor-kisa`
+  39.0 sn (video ~39.8 sn). Son: `out/beslenme-spor-paylas.mp4` (-14 LUFS). Kullanıcı kuralı: **35-40 sn maksimum.**
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -141,7 +141,7 @@ const FLEX: CurlyPose = { r: { el: [340, 440], wr: [318, 318], hand: "fist" }, h
 const FLEX_MIRROR: CurlyPose = { l: { el: [60, 440], wr: [82, 318], hand: "fist" }, head: -4, lx: -6, ly: -2 };
 
 /** kasılmış pazı: kahramanın koordinatlarında (ayak ortası x,y; ölçek s), kolun üst yanında şişkinlik */
-const Bulge: React.FC<{ x: number; y?: number; s: number; side: "r" | "l"; k: number }> = ({ x, y = FLOOR, s, side, k }) =>
+export const Bulge: React.FC<{ x: number; y?: number; s: number; side: "r" | "l"; k: number }> = ({ x, y = FLOOR, s, side, k }) =>
   k <= 0.01 ? null : (
     <g transform={`translate(${x},${y}) scale(${s}) translate(-200,-880)`}>
       {(() => {
@@ -170,7 +170,7 @@ const Cup: React.FC = () => (
 );
 
 /** yumurtalı kahvaltı tabağı */
-const Breakfast: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Breakfast: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g transform={`translate(${x},${y})`}>
     <ellipse cx={0} cy={0} rx={92} ry={36} fill="#ffffff" stroke={INK} strokeWidth={6} />
     {[-30, 26].map((dx) => (
@@ -185,7 +185,7 @@ const Breakfast: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 /** dolu öğle tabağı: pilav, tavuk, salata */
-const Lunch: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Lunch: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g transform={`translate(${x},${y})`}>
     <ellipse cx={0} cy={0} rx={96} ry={38} fill="#ffffff" stroke={INK} strokeWidth={6} />
     <ellipse cx={-34} cy={-10} rx={34} ry={18} fill="#fffaf0" stroke={INK} strokeWidth={4} />

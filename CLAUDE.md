@@ -415,6 +415,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   gönder → döngü. Metin `icerik/beslenme-spor-v4.seslendirme.txt`. Sessiz taslak `out/beslenme-spor-v4-sessiz.mp4`; onay gelince
   Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
 
+- **BeslenmeSpor5** — v4 de beğenilmedi: "kamyonet çizgi film gibi, okumadan/ses olmadan amaç anlaşılmıyor; örnek videodaki gibi
+  vücudun içine girip göstersin, acıya dokunsun". **DERS: benzetme/çizgi film metaforu (kamyon, tamir ekibi) değil, gerçek fizyoloji
+  şeması; örnek videonun görsel dili.** v5: koyu lacivert kareli fon, her satırda beyaz başlık + turkuaz el yazısı alt başlık (`TITLES`),
+  sade gölgeli altyazı. Akış: 3 ay salon, mezura "1.→3. AY · 32 CM", AYNI → kola dalış, kolun kesiti (`ArmCut`: deri, yağ, pazı kası,
+  kemik etiketli) → liflerde MİKRO YIRTIK → büyüteçte tek lif onarılır, DAHA KALIN → tabak → mide → kan → pazı (protein taneleri
+  akar) → öğün yok: kan boş, yırtık AÇIK KALDI → uyku: 23:00→07:00 %100, 03:00→07:00 %50 → Kişi A / Kişi B aynı antrenman,
+  3 ay sonra A 36 cm (pazı büyür) B 32 cm → "Kas salonda yorulur… sofrada ve yatakta büyür." → gönder → döngü.
+  Metin `icerik/beslenme-spor-v5.seslendirme.txt`. Sessiz taslak `out/beslenme-spor-v5-sessiz.mp4`; onay gelince Manitam %15 hızlı.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

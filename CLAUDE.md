@@ -429,6 +429,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "Sorun salonda değil."). Sadece kanca cümlesi Manitam ile okutuldu (`bs5-kanca`, ~50 karakter), eski kancanın yerine eklendi
   (`beslenme-spor-v5b`, geri kalan ses aynı) → `--max-pause 0.35` → `beslenme-spor-v5b-kisa` 33.7 sn. Son: `out/beslenme-spor-v5b-paylas.mp4`.
 
+- **BeslenmeTekGun** — kullanıcı v5 için "çok karmaşık, anlaşılmaz; baştan düşün, bu videodan dönüştürme; basit, akıcı, herkes
+  anlasın, izleyen kendini görsün, gerekirse kolun içine gir" dedi. **DERS: 30 sn'de tek fikir; çok sahne/etiket (kesit, büyüteç, akış
+  şeması, çubuklar, A/B) karmaşık geliyor.** Yeni fikir **"Tek gün, iki son"**: aynı genç (sporcu, `SPORCU_LOOK`) aynı günü iki kez yaşar.
+  Kanca salonda "SPOR VAR, KAS YOK?" → "SORUN SALONDA DEĞİL." → SENİN GÜNÜN: 08:00 sadece kahve ✕, 13:00 tek poğaça ✕, 18:00 salon ✓,
+  03:00 telefon ✕ → ertesi sabah ayna 32 CM AYNI → saat GERİ SAR → AYNI GÜN · DOĞRU HALİ: kahvaltı ✓, dolu tabak ✓, salon ✓, 23:00
+  yatakta uyku ✓ → kısa an kolun içi (yırtıklar YEMEK + UYKU ile onarılır, KAS BÜYÜYOR) → 3 AY SONRA ayna 36 CM +4 CM → gönder → döngü.
+  Ekranda yazı az: bölüm etiketi + saat rozeti + büyük ✓/✕. Metin `icerik/tek-gun.seslendirme.txt` (~400 karakter, ~29 sn sessiz).
+  Sessiz taslak `out/tek-gun-sessiz.mp4`; onay gelince Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

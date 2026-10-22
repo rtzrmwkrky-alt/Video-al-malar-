@@ -180,7 +180,7 @@ const Tag: React.FC<{ x: number; y: number; to?: [number, number]; text: string;
 };
 
 /** bilgi rozeti (pill) koyu fonda */
-const Chip: React.FC<{ x: number; y: number; text: string; o: number; bg: string; fg?: string; size?: number }> = ({ x, y, text, o, bg, fg = "#ffffff", size = 46 }) => {
+export const Chip: React.FC<{ x: number; y: number; text: string; o: number; bg: string; fg?: string; size?: number }> = ({ x, y, text, o, bg, fg = "#ffffff", size = 46 }) => {
   if (o <= 0) return null;
   const w = text.length * size * 0.6 + 50;
   return (
@@ -194,7 +194,7 @@ const Chip: React.FC<{ x: number; y: number; text: string; o: number; bg: string
 };
 
 /** kolun etrafındaki mezura (kahramanın koordinatlarında, sağ kol pazı kasma pozunda) */
-const Tape: React.FC<{ x: number; y?: number; s: number; k: number; o: number }> = ({ x, y = FLOOR, s, k, o }) => {
+export const Tape: React.FC<{ x: number; y?: number; s: number; k: number; o: number }> = ({ x, y = FLOOR, s, k, o }) => {
   if (o <= 0) return null;
   const half = 33 + 17 * k;
   return (
@@ -209,8 +209,8 @@ const Tape: React.FC<{ x: number; y?: number; s: number; k: number; o: number }>
   );
 };
 
-const FLEX: CurlyPose = { r: { el: [340, 440], wr: [318, 318], hand: "fist" }, head: 4, lx: 6, ly: -2 };
-const curl = (rep: number): CurlyPose => ({ r: { el: [298, 530], wr: [306 - 20 * rep, 690 - 270 * rep] }, head: -2 });
+export const FLEX: CurlyPose = { r: { el: [340, 440], wr: [318, 318], hand: "fist" }, head: 4, lx: 6, ly: -2 };
+export const curl = (rep: number): CurlyPose => ({ r: { el: [298, 530], wr: [306 - 20 * rep, 690 - 270 * rep] }, head: -2 });
 
 // ------------------------------------------------------------ kolun içi (kesit)
 
@@ -227,7 +227,7 @@ const TEARS: [number, number][] = [
 ];
 
 /** yakın plan kol: üst kol yatay (omuz solda), dirsekten yukarı ön kol ve yumruk. cut: kolun içi açılır */
-const ArmCut: React.FC<{ t: number; cut: number; dmg: number; heal: number; grow: number; pulse: number; labels: number }> = ({ t, cut, dmg, heal, grow, pulse, labels }) => {
+export const ArmCut: React.FC<{ t: number; cut: number; dmg: number; heal: number; grow: number; pulse: number; labels: number }> = ({ t, cut, dmg, heal, grow, pulse, labels }) => {
   const T = 300 + 60 * grow;
   const top = Y0 - T / 2;
   const cap = (inset: number) => `M${AX0 + inset},${top + inset} L${AX1 - inset},${top + inset} A${T / 2 - inset},${T / 2 - inset} 0 0 1 ${AX1 - inset},${Y0 + T / 2 - inset} L${AX0 + inset},${Y0 + T / 2 - inset} Z`;

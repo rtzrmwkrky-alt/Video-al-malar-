@@ -25,7 +25,7 @@ const GREEN = "#2fbf62";
 const FLOOR = 1400;
 
 export const TD_LINES: Line[] = [
-  { text: "Her gün salona gidip istikrarla çalışmana rağmen aynada tek bir kas çizgisi bile göremiyorsun, değil mi?", hl: ["tek", "kas", "çizgisi"], hold: 0.15 },
+  { text: "Her gün salona gidip istikrarla çalışmana rağmen aynada hiçbir değişiklik göremiyorsun, değil mi?", hl: ["hiçbir", "değişiklik"], hold: 0.15 },
   { text: "1 yılını tamamen çöpe attın.", hl: ["1", "yılını", "çöpe"], hold: 0.2 },
   { text: "Suçu hep antrenman programında aradın, daha ağır kaldırdın.", hl: ["programında", "ağır"], hold: 0.1 },
   { text: "Ama kendine söylediğin dev bir yalan var: beslenmen tam bir felaket.", hl: ["yalan", "felaket."], hold: 0.2 },
@@ -148,6 +148,25 @@ const BigText: React.FC<{ a: string; b: string; o: number; y?: number; size?: nu
       </text>
     </g>
   );
+
+/** aynaya yapıştırılmış HEDEF fotoğrafı: kocaman pazılı kol */
+const GoalPhoto: React.FC<{ x: number; y: number; rot?: number; glow?: number }> = ({ x, y, rot = 6, glow = 0 }) => (
+  <g transform={`translate(${x},${y}) rotate(${rot})`}>
+    {glow > 0 ? <rect x={-140} y={-170} width={280} height={340} rx={24} fill={Y} opacity={0.35 * glow} /> : null}
+    <rect x={-120} y={-150} width={240} height={300} rx={14} fill="#ffffff" stroke={INK} strokeWidth={6} />
+    <rect x={-104} y={-134} width={208} height={210} rx={8} fill="#cfe7ff" />
+    {/* güçlü kol: üst kol + kocaman pazı + ön kol + yumruk */}
+    <path d="M-90,40 L10,40" stroke="#d9a07e" strokeWidth={56} strokeLinecap="round" />
+    <ellipse cx={-30} cy={14} rx={58} ry={44} fill="#e8b48f" />
+    <ellipse cx={-44} cy={0} rx={22} ry={12} fill="#f8d6bd" />
+    <path d="M10,40 L44,-60" stroke="#d9a07e" strokeWidth={46} strokeLinecap="round" />
+    <circle cx={48} cy={-80} r={30} fill="#e8b48f" />
+    <text x={0} y={122} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={46} fill={GREEN}>
+      HEDEF
+    </text>
+    <rect x={-40} y={-166} width={80} height={28} rx={4} fill="#f6e7a6" opacity={0.85} transform="rotate(-4)" />
+  </g>
+);
 
 /** çöp kutusu */
 const Bin: React.FC<{ x: number; y: number; lid: number }> = ({ x, y, lid }) => (
@@ -311,6 +330,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   const mirrorAt = W(0, 7); // "aynada"
   const hookA = end ? loopIn : 1 - sm(t, mirrorAt - 0.2, mirrorAt);
   const hookB = end ? 0 : sm(t, mirrorAt - 0.05, mirrorAt + 0.15);
+  const flexNow = !end && t > mirrorAt - 0.1;
   const s1 = scene(1, 2);
   const s2 = scene(2, 3);
   const s3 = scene(3, 4);
@@ -381,38 +401,16 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
         {s0 > 0 ? (
           <g opacity={s0}>
             <Ground />
-            {/* 0a: 365 gün antrenman — 0 kas çizgisi (ilk kare; döngüde son kare) */}
-            <g opacity={hookA}>
-              <g opacity={0.28}>
-                <Rack x={600} y={700} />
-                <HeroAt uid="td-h0a" x={330} s={1} t={t} pose={curl(rep)} item={DB} expr={rep > 0.5 ? "ouch" : "neutral"} />
-                <Sweat t={t} pts={[[260, 700], [400, 690]]} />
-              </g>
-              <text x={540} y={420} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={230} fill="#ffffff" stroke={INK} strokeWidth={20} paintOrder="stroke">
-                365
-              </text>
-              <text x={540} y={520} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={66} fill="#ffffff" stroke={INK} strokeWidth={12} paintOrder="stroke">
-                GÜN ANTRENMAN
-              </text>
-              <g opacity={0.85 + 0.15 * Math.sin(t * 6)}>
-                <text x={540} y={1180} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={260} fill={RED} stroke={INK} strokeWidth={20} paintOrder="stroke">
-                  0
-                </text>
-              </g>
-              <text x={540} y={1290} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={70} fill={RED} stroke={INK} strokeWidth={12} paintOrder="stroke">
-                KAS ÇİZGİSİ
-              </text>
-            </g>
-            {/* 0b: ayna */}
-            <g opacity={hookB}>
-              <Mirror x={600} y={520} w={400} h={860} uid="td-m">
-                <HeroAt uid="td-mr" x={800} y={1430} s={0.9} t={t} pose={mirrorFlex} expr={t > W(0, 13) ? "ouch" : "grin"} />
-                <rect x={600} y={520} width={400} height={860} fill="#bcd3e8" opacity={0.25} />
-              </Mirror>
-              <HeroAt uid="td-h0" x={300} s={1} t={t} pose={FLEX} expr={t > W(0, 13) ? "ouch" : "grin"} />
-              <Chip x={800} y={440} text="KAS ÇİZGİSİ: 0" o={sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={46} />
-              <BigText a="1 YIL SALON…" b="AYNADA HİÇBİR ŞEY YOK" o={sm(t, W(0, 13) - 0.1, W(0, 13) + 0.2)} y={250} size={84} />
-            </g>
+            <Mirror x={600} y={560} w={400} h={820} uid="td-m">
+              <HeroAt uid="td-mr" x={760} y={1430} s={0.9} t={t} pose={flexNow ? { l: { el: [60, 440], wr: [82, 318], hand: "fist" }, head: -4, lx: -6, ly: -2 } : { l: { el: [102, 530], wr: [94 + 20 * rep, 690 - 270 * rep] }, head: 2 }} expr={flexNow ? "ouch" : rep > 0.5 ? "ouch" : "neutral"} />
+              <rect x={600} y={560} width={400} height={820} fill="#bcd3e8" opacity={0.25} />
+            </Mirror>
+            <g transform="translate(930,650) scale(0.75) translate(-930,-650)"><GoalPhoto x={930} y={650} glow={flexNow ? sm(t, mirrorAt, mirrorAt + 0.4) * (0.6 + 0.4 * Math.sin(t * 5)) : 0} /></g>
+            <HeroAt uid="td-h0" x={300} s={1} t={t} pose={flexNow ? FLEX : curl(rep)} item={flexNow ? undefined : DB} expr={flexNow ? "ouch" : rep > 0.5 ? "ouch" : "neutral"} />
+            {!flexNow ? <Sweat t={t} pts={[[230, 700], [370, 690]]} /> : null}
+            <BigText a="12 AY ANTRENMAN" b="SONUÇ: SIFIR" o={hookA} y={260} size={100} />
+            <BigText a="HEDEF BU…" b="AYNADAKİ BU" o={hookB} y={260} size={100} />
+            <Chip x={300} y={560} text="HİÇ DEĞİŞMEDİ" o={hookB * sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={46} />
           </g>
         ) : null}
 
@@ -465,15 +463,13 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
             <rect x={120} y={1100} width={30} height={300} fill="#a86e44" stroke={INK} strokeWidth={6} />
             <rect x={930} y={1100} width={30} height={300} fill="#a86e44" stroke={INK} strokeWidth={6} />
             <g opacity={sm(t, L(3), L(3) + 0.3)}>
-              <Chips x={230} y={1060} />
-              <Soda x={420} y={1060} />
-              <g transform="translate(640,1040) scale(1.3) translate(-640,-1040)">
-                <EmptyPlate x={640} y={1040} />
-              </g>
-              <g transform="translate(860,1000) scale(1.2) translate(-860,-1000)">
-                <Pogaca x={860} y={1000} />
+              <Chips x={470} y={1060} />
+              <Soda x={650} y={1060} />
+              <g transform="translate(850,1040) scale(1.3) translate(-850,-1040)">
+                <EmptyPlate x={850} y={1040} />
               </g>
             </g>
+            <HeroAt uid="td-h3" x={210} y={1400} s={0.95} t={t} pose={{ r: { el: [300, 560], wr: [262, 420 + 12 * Math.sin(t * 6)] }, head: 3 }} item={<g transform="translate(0,-30) scale(0.55)"><Pogaca x={0} y={0} /></g>} expr="chew" />
             <BigText a="DEV BİR" b="YALAN" o={sm(t, W(3, 3) - 0.1, W(3, 3) + 0.2) * (1 - sm(t, W(3, 7) - 0.2, W(3, 7)))} y={330} />
             {(() => {
               const p = sm(t, W(3, 10) - 0.08, W(3, 10) + 0.25);

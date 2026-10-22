@@ -466,6 +466,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (`BrickArm`: soluk hedef pazı silueti, poğaçadan az tuğla → KAS YARIM KALDI; tabak değişince tuğlalar yağar → KAS TAMAMLANDI);
   her satırda kamera yavaşça yaklaşır (`push`). DERS: soyut kutu/oyun ekranı gibi görseller yerine benzetmeyi doğrudan vücut
   üzerinde göster. Sessiz taslak `out/tabagini-degistir-sessiz-v2.mp4`.
+  Geri bildirim: **"kas çizgisi" çok saçma/zayıf**, karakter kolunu gösterip hiçbir şey yapmıyor; **ses olmadan anlam katmalı, izleyeni
+  tutmalı; gerekirse elinde dambılla çalışsın; göndermeden önce "bunu izler miyim, sıkılır mıyım?" diye kendine sor; 12 maddelik
+  listeyi tik atıp gönder.** v3: kanca aynada dambıl çalışan genç + aynaya yapıştırılmış **HEDEF fotoğrafı** (kocaman pazı, `GoalPhoto`),
+  "12 AY ANTRENMAN / SONUÇ: SIFIR" → "aynada" kelimesinde durup kolunu kasar: "HEDEF BU… AYNADAKİ BU", HİÇ DEĞİŞMEDİ. Seslendirme
+  1. cümle "…aynada hiçbir değişiklik göremiyorsun, değil mi?" ("kas çizgisi" çıkarıldı). Mutfakta genç poğaça yiyerek durur.
+  Sessiz taslak `out/tabagini-degistir-sessiz-v3.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

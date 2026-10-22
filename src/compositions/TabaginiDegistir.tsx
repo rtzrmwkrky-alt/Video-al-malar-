@@ -488,21 +488,18 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
         {/* ===== 4: kasın içi — açlıktan ölüyor ===== */}
         {s4 > 0 ? (
           <g opacity={s4}>
-            <Chip x={540} y={300} text="KASININ İÇİ" o={1} bg="#ffffff" fg={INK} size={50} />
-            {(() => {
-              const pale = sm(t, W(4, 3), W(4, 5) + 0.3);
-              const h = 150 * (1 - 0.3 * pale);
-              return (
-                <g>
-                  <MuscleBg pale={pale} />
-                  <path d={`M200,870 Q540,${870 - 2 * h} 880,870 Q540,${870 + 2 * h} 200,870 Z`} fill={interpolateColors(pale, [0, 1], ["#d9443c", "#c9a8a2"])} stroke="#7a1f1c" strokeWidth={6} />
-                  {[-0.6, -0.3, 0, 0.3, 0.6].map((f) => (
-                    <path key={f} d={`M230,870 Q540,${870 + 2 * h * f} 850,870`} fill="none" stroke="#7a1f1c" strokeWidth={3} opacity={0.35} />
-                  ))}
-                  <Chip x={540} y={1210} text="AÇ KALIYOR" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} bg={RED} size={56} />
-                </g>
-              );
-            })()}
+            <Chip x={340} y={230} text="KASININ İÇİ" o={1} bg="#ffffff" fg={INK} size={56} />
+            {/* kas açlıktan erir: tuğlalar teker teker kaybolur */}
+            <g transform="translate(470,1000) scale(1.12) translate(-470,-1000)">
+              <BrickArm uid="td-ba4" fill={0.34 - 0.26 * sm(t, W(4, 3), W(4, 5) + 0.4)} t={t} flying={0} src={[230, 520]} />
+            </g>
+            <circle cx={230} cy={520} r={110} fill="#ffffff" stroke={INK} strokeWidth={7} />
+            <g transform="translate(230,520) scale(1.25)">
+              <EmptyPlate x={0} y={10} />
+            </g>
+            <Cross x={230} y={520} s={40} p={sm(t, W(4, 3) - 0.1, W(4, 3) + 0.3)} />
+            <Chip x={230} y={670} text="MUTFAK" o={1} bg={RED} size={40} />
+            <Chip x={470} y={1370} text="KAS ERİYOR" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} bg={RED} size={56} />
           </g>
         ) : null}
 
@@ -564,7 +561,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
             ].map(({ x, label, k, icon }) => {
               const on = sm(t, W(8, k) - 0.1, W(8, k) + 0.2);
               return (
-                <g key={label} opacity={0.35 + 0.65 * on}>
+                <g key={label} opacity={0.35 + 0.65 * on} transform={`translate(${x},790) scale(${1 + 0.03 * on * Math.sin(t * 4 + x)}) translate(${-x},-790)`}>
                   <rect x={x - 220} y={560} width={440} height={460} rx={40} fill="#ffffff" stroke={INK} strokeWidth={8} />
                   <g transform={`translate(${x},740)`}>{icon}</g>
                   <text x={x} y={960} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={58} fill={INK}>
@@ -576,7 +573,9 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
             <text x={540} y={830} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={70} fill="#ffffff" stroke={INK} strokeWidth={12} paintOrder="stroke">
               mı?
             </text>
-            <Chip x={540} y={1200} text="YORUMLARA YAZ" o={sm(t, W(8, 14) - 0.1, W(8, 14) + 0.2)} bg={Y} fg={INK} size={60} />
+            <Chip x={540} y={1090} text="YORUMLARA YAZ" o={sm(t, W(8, 14) - 0.1, W(8, 14) + 0.2)} bg={Y} fg={INK} size={60} />
+            {/* düşünen genç: bir karta bir ötekine bakar */}
+            <HeroAt uid="td-h8" x={540} y={1560} s={0.44} t={t} pose={{ r: { el: [300, 520], wr: [300, 430] }, head: Math.sin(t * 2.2) * 8, lx: Math.sin(t * 2.2) * 8 }} expr="think" />
           </g>
         ) : null}
 

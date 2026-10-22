@@ -472,6 +472,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "12 AY ANTRENMAN / SONUÇ: SIFIR" → "aynada" kelimesinde durup kolunu kasar: "HEDEF BU… AYNADAKİ BU", HİÇ DEĞİŞMEDİ. Seslendirme
   1. cümle "…aynada hiçbir değişiklik göremiyorsun, değil mi?" ("kas çizgisi" çıkarıldı). Mutfakta genç poğaça yiyerek durur.
   Sessiz taslak `out/tabagini-degistir-sessiz-v3.mp4`.
+  Göndermeden önce "izler miyim?" kontrolüyle düzeltildi: "kas açlıktan ölüyor" sahnesindeki pembe kutu kaldırıldı → aynı tuğlalı kol,
+  boş tabak ✕, tuğlalar teker teker kaybolur (KAS ERİYOR); kapanış kartları nabız gibi atar, aralarında düşünen genç bir karta bir
+  ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

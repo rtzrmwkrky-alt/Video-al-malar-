@@ -450,6 +450,17 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   MERT'İN KOLU / EMRE'NİN KOLU, kapanış **"Sen hangisisin, Emre mi, Mert mi?"** (yorum sorusu). Satır beklemeleri kısa (hold 0.1-0.3);
   seslendirmede boşluklar sıkı kesilecek. Sessiz taslak `out/kas-neden-v2-sessiz.mp4`.
 
+- **TabaginiDegistir** — kullanıcının yeni metni ("Her gün salona gidip… aynada tek bir kas çizgisi bile göremiyorsun, değil mi?" →
+  "1 yılını çöpe attın" → program/ağırlık → "beslenmen tam bir felaket" → "kasların mutfakta açlıktan ölüyor" → "tuğla vermeden saray
+  inşa etmeye çalışıyorsun" → "ter mutfakta yok olup gidiyor" → "ağırlıkları değil, tabağını değiştir" → "sorun antrenmanında mı,
+  tabağında mı? Yorumlara yaz."). Metin neredeyse aynen (sadece "attın", "salonda döktüğün o ter"); "1" seslendirmede "Bir".
+  Her cümleye tek görüntü: ayna KAS ÇİZGİSİ: 0 → 365 GÜN takvim çöpe → PROGRAM A/B/C çizilir, 20→50 KG → mutfak cips/kola/poğaça/boş
+  tabak + FELAKET mührü → kasın içi solar, AÇ KALIYOR → **kasın içinde tuğla saray** (kullanıcı istedi; `Palace`: soluk hedef siluet +
+  kubbe/bayrak, tuğla = protein, poğaçadan az tuğla → SARAY YARIM) → ter damlaları salondan mutfaktaki boş tabağa akıp YOK OLDU →
+  dambıla ✕, TABAK DEĞİŞTİ, dolu tabaktan tuğlalar yağar, saray tamam → "ANTRENMAN mı? TABAK mı?" kartları + YORUMLARA YAZ → döngü.
+  Metin `icerik/tabagini-degistir.seslendirme.txt` (~600 karakter; %15 hızlı Manitam ile ~38 sn ham → boşluklar kesilip ≤35 sn).
+  Sessiz taslak `out/tabagini-degistir-sessiz.mp4`.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

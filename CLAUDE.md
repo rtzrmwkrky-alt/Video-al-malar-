@@ -482,6 +482,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   atışı 490, takvim buruşur 2996, program çizgileri kalem 2998, mutfakta kola kutusu açılır 116, FELAKET mührü 2182, kolun içi 1143,
   KAS ERİYOR derin vuruş 498, ter damlaları tabağa düştükçe damla 3179 (damla animasyonuna senkron), dolu tabak konur 2933, tuğlalar
   dökülür 388, kas tamam 1120, yorumlara yaz 2568. DERS: soyut/tekrar eden vuruş ve ortam sesi yerine görünen nesnenin sesi.
+  2. geri bildirim: efektlerde **"güm" (alçak bas vuruş: 2299, 490, 1143, 498) ve "sis" (hışırtı: kalem 2998, damla 3179, kola 116,
+  tuğla 388) sesleri kulağa hoş gelmedi** → hepsi silindi; sadece 4 olay anı: FELAKET mührü 2182, dolu tabak 2933, kas büyüdü 1120,
+  yorumlara yaz 2568 (kısa, orta frekans). GENEL: alçak "güm" ve hışırtılı efekt kullanma; az ve temiz.
+  Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
+  mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
+  küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak
+  değişince protein akar, yırtıklar kapanır, kas hedefe büyür (KAS BÜYÜDÜ). Ter sahnesi: üst yarı salon, alt yarı mutfak; ter boş
+  tabağa düşüp buhar olur. Son: `out/tabagini-degistir-v2-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -220,88 +220,228 @@ const Soda: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   </g>
 );
 
-/** kasın içi zemini: lif dokusu */
-const MuscleBg: React.FC<{ pale: number }> = ({ pale }) => (
-  <g>
-    <rect x={60} y={420} width={960} height={900} rx={48} fill={interpolateColors(pale, [0, 1], ["#f7c3b4", "#e9dcd8"])} stroke={INK} strokeWidth={8} />
-    {Array.from({ length: 8 }).map((_, r) => (
-      <path key={r} d={`M80,${480 + r * 110} Q540,${450 + r * 110} 1000,${480 + r * 110}`} fill="none" stroke={interpolateColors(pale, [0, 1], ["#e08a7e", "#cbbab5"])} strokeWidth={6} opacity={0.5} />
-    ))}
-  </g>
-);
+// ---------- kolun içi (anatomik): kemik, pazı kası lif demetleri, mikro yırtıklar, kan damarı, protein (amino asit zinciri)
 
+const SH = [70, 1112] as const; // omuz başı
+const EL = [812, 1112] as const; // dirsek
+const WR = [742, 590] as const; // bilek
+const BX0 = 250; // pazı karnı başlangıcı
+const BX1 = 720; // pazı karnı sonu
+const BCY = 1062; // pazı taban ekseni
+const HMIN = 70;
+const HMAX = 250;
+const NF = 6; // lif demeti sayısı
+/** mikro yırtıklar: (demet, konum 0-1); sıra = onarılma sırası */
+const TEARS: [number, number][] = [
+  [2, 0.5],
+  [4, 0.36],
+  [1, 0.66],
+  [3, 0.24],
+  [0, 0.44],
+  [5, 0.58],
+  [3, 0.72],
+  [1, 0.3],
+];
+/** protein molekülünün damardan çıktığı nokta (pazının üstü) */
+const VEND: [number, number] = [470, 0];
 
-// ---------- kasılmış kolun içi: pazı kası tuğla tuğla örülür (tuğla = protein)
+const bulge = (u: number) => Math.pow(Math.sin(Math.PI * Math.min(1, Math.max(0, u))), 0.85);
+const bTop = (u: number, H: number) => BCY - H * bulge(u);
+const bBot = (u: number) => BCY + 24 * bulge(u);
+const bx = (u: number) => BX0 + (BX1 - BX0) * u;
+/** demet j içindeki v (0 alt, 1 üst) yüksekliğinde nokta */
+const fy = (u: number, v: number, H: number) => bBot(u) + (bTop(u, H) - bBot(u)) * v;
+const US = Array.from({ length: 25 }, (_, k) => k / 24);
 
-const AY = 1080; // üst kol ekseni
-const MX0 = 170;
-const MX1 = 770;
-const MCY = AY - 40; // pazının ekseni
-const MH = 175; // tam pazının yarı yüksekliği
-const KBW = 44;
-const KBH = 30;
-/** pazının içindeki tuğla yerleri; ortadan dışa doğru dolar */
-const MBRICKS: [number, number][] = (() => {
-  const out: [number, number, number][] = [];
-  for (let r = -6; r <= 6; r++) {
-    const y = MCY + r * KBH;
-    for (let x = MX0 + 10; x + KBW < MX1 - 10; x += KBW) {
-      const xc = x + KBW / 2 + (r % 2 ? KBW / 2 : 0);
-      if (xc + KBW / 2 > MX1 - 10) continue;
-      const half = MH * Math.sin((Math.PI * (xc - MX0)) / (MX1 - MX0));
-      if (Math.abs(y - MCY) + KBH / 2 <= half) out.push([xc - KBW / 2, y - KBH / 2, Math.abs(y - MCY) / half + Math.abs(xc - (MX0 + MX1) / 2) / 1200]);
-    }
-  }
-  return out.sort((a, b) => a[2] - b[2]).map(([x, y]) => [x, y]);
-})();
+const bellyPath = (H: number) =>
+  `M${bx(0)},${BCY} ` + US.map((u) => `L${bx(u)},${bTop(u, H)}`).join(" ") + " " + [...US].reverse().map((u) => `L${bx(u)},${bBot(u)}`).join(" ") + " Z";
 
-const KBrick: React.FC<{ x: number; y: number; o?: number }> = ({ x, y, o = 1 }) => (
-  <g opacity={o}>
-    <rect x={x + 2} y={y + 2} width={KBW - 4} height={KBH - 4} rx={8} fill="#d9443c" stroke="#7a1f1c" strokeWidth={3} />
-    <path d={`M${x + 8},${y + 9} L${x + KBW - 10},${y + 9}`} stroke="#ff9a8c" strokeWidth={4} strokeLinecap="round" opacity={0.7} />
-  </g>
-);
+const strandPath = (j: number, H: number) => {
+  const a = (j + 0.06) / NF;
+  const b = (j + 0.94) / NF;
+  return "M" + US.map((u) => `${bx(u)},${fy(u, b, H)}`).join(" L") + " L" + [...US].reverse().map((u) => `${bx(u)},${fy(u, a, H)}`).join(" L") + " Z";
+};
 
-const BrickArm: React.FC<{ fill: number; t: number; flying: number; src: [number, number]; uid: string }> = ({ fill, t, flying, src, uid }) => {
-  const n = Math.floor(fill * MBRICKS.length);
-  const T2 = 330;
-  const top = AY - T2 / 2;
-  const cap = `M40,${top} L${MX1 + 60},${top} A${T2 / 2},${T2 / 2} 0 0 1 ${MX1 + 60},${AY + T2 / 2} L40,${AY + T2 / 2} Z`;
-  const target = `M${MX0},${MCY} Q${(MX0 + MX1) / 2},${MCY - 2 * MH} ${MX1},${MCY} Q${(MX0 + MX1) / 2},${MCY + 2 * MH} ${MX0},${MCY} Z`;
+const strandMid = (j: number, H: number) => "M" + US.map((u) => `${bx(u)},${fy(u, (j + 0.5) / NF, H)}`).join(" L");
+
+/** protein: renkli amino asit boncuklarından kısa zincir */
+const Amino: React.FC<{ x: number; y: number; o?: number; rot?: number; s?: number }> = ({ x, y, o = 1, rot = 0, s = 1 }) =>
+  o <= 0.01 ? null : (
+    <g opacity={o} transform={`translate(${x},${y}) rotate(${rot}) scale(${s})`}>
+      <path d="M-20,4 L0,-6 L20,4" fill="none" stroke="#ffffff" strokeWidth={4} opacity={0.8} />
+      {[
+        [-20, 4, "#ffd23f"],
+        [0, -6, "#45c4d9"],
+        [20, 4, "#a98bff"],
+      ].map(([cx, cy, c]) => (
+        <g key={String(cx)}>
+          <circle cx={cx as number} cy={cy as number} r={10} fill={c as string} stroke={INK} strokeWidth={3} />
+          <circle cx={(cx as number) - 3} cy={(cy as number) - 3} r={3} fill="#ffffff" opacity={0.7} />
+        </g>
+      ))}
+    </g>
+  );
+
+const tearPos = (i: number, H: number): [number, number] => {
+  const [j, u] = TEARS[i];
+  return [bx(u), fy(u, (j + 0.5) / NF, H)];
+};
+
+const Label: React.FC<{ x: number; y: number; tx: number; ty: number; text: string; o: number }> = ({ x, y, tx, ty, text, o }) =>
+  o <= 0.01 ? null : (
+    <g opacity={o}>
+      <line x1={tx} y1={ty} x2={x} y2={y} stroke="#ffffff" strokeWidth={3} opacity={0.85} />
+      <circle cx={x} cy={y} r={6} fill="#ffffff" />
+      <text x={tx} y={ty - 12} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={26} fill="#ffffff" stroke="#0e1630" strokeWidth={6} paintOrder="stroke" letterSpacing={1}>
+        {text}
+      </text>
+    </g>
+  );
+
+/**
+ * size: pazının hacmi (0 küçük – 1 hedef), pale: açlıktan solma, repaired: onarılan yırtık oranı,
+ * inflow: damardan gelen protein akışı (0-1), outflow: kastan çıkıp giden protein (yıkım), labels: anatomi etiketleri
+ */
+const MuscleView: React.FC<{ t: number; uid: string; size: number; pale: number; repaired: number; inflow: number; outflow: number; target: number; labels?: number }> = ({
+  t,
+  uid,
+  size,
+  pale,
+  repaired,
+  inflow,
+  outflow,
+  target,
+  labels = 0,
+}) => {
+  const H = HMIN + (HMAX - HMIN) * size;
+  const top = bTop(0.5, H);
+  const vend: [number, number] = [VEND[0], top + 6];
+  const red = interpolateColors(pale, [0, 1], ["#d8443d", "#b98b88"]);
+  const redHi = interpolateColors(pale, [0, 1], ["#f07a66", "#d4b1ac"]);
+  const redLo = interpolateColors(pale, [0, 1], ["#8f1f22", "#7e5d5c"]);
+  const nRep = repaired * TEARS.length;
+  // damar: tabaktan (sol üst) pazının üstüne
+  const vessel = `M345,729 C345,860 ${vend[0] - 160},${vend[1] - 170} ${vend[0]},${vend[1]}`;
+  const vp = (u: number): [number, number] => {
+    const p0 = [345, 729];
+    const p1 = [345, 860];
+    const p2 = [vend[0] - 160, vend[1] - 170];
+    const p3 = vend;
+    const m = 1 - u;
+    return [
+      m ** 3 * p0[0] + 3 * m * m * u * p1[0] + 3 * m * u * u * p2[0] + u ** 3 * p3[0],
+      m ** 3 * p0[1] + 3 * m * m * u * p1[1] + 3 * m * u * u * p2[1] + u ** 3 * p3[1],
+    ];
+  };
+  // kol silueti (yarı saydam deri): üst kol kası ve kemiği sarar
+  const armW = SH[1] + 50 - (BCY - H) + 40;
+  const armY = (SH[1] + 50 + BCY - H) / 2;
+  const skin = `M-60,${armY} L${EL[0]},${armY + 10} L${WR[0] + 10},${WR[1] - 40}`;
   return (
-    <g>
+    <g transform="translate(440,1120) scale(1.55) translate(-480,-1000)">
       <defs>
-        <clipPath id={`${uid}-c`}>
-          <path d={cap} />
+        <linearGradient id={`${uid}-bone`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fbf4e4" />
+          <stop offset="1" stopColor="#d8ccb0" />
+        </linearGradient>
+        <linearGradient id={`${uid}-belly`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={redHi} />
+          <stop offset="0.55" stopColor={red} />
+          <stop offset="1" stopColor={redLo} />
+        </linearGradient>
+        <clipPath id={`${uid}-bc`}>
+          <path d={bellyPath(H)} />
         </clipPath>
       </defs>
-      {/* ön kol + yumruk (dışı) */}
-      <path d={`M${MX1 + 50},${AY + 20} L${MX1 - 40},${AY - 500}`} stroke="#b8302a" strokeWidth={250} strokeLinecap="round" />
-      <path d={`M${MX1 + 50},${AY + 20} L${MX1 - 40},${AY - 500}`} stroke="#e8463c" strokeWidth={236} strokeLinecap="round" />
-      <ellipse cx={MX1 - 50} cy={AY - 640} rx={95} ry={104} fill="#f6d3c0" />
-      <ellipse cx={MX1 - 78} cy={AY - 672} rx={34} ry={22} fill="#fde4d6" opacity={0.7} />
-      {/* üst kol: içi açık */}
-      <path d={cap} fill="#f6d3c0" />
-      <g clipPath={`url(#${uid}-c)`}>
-        <path d={cap} fill="#f2b8a8" transform={`translate(0,0)`} />
-        <rect x={60} y={AY + 95} width={MX1 + 40} height={44} rx={22} fill="#efe6d2" stroke="#c9bda2" strokeWidth={4} />
-        {/* olması gereken pazı: soluk siluet */}
-        <path d={target} fill="#ffffff" fillOpacity={0.35} stroke="#7a1f1c" strokeWidth={4} strokeDasharray="12 10" />
-        {MBRICKS.slice(0, n).map(([x, y], i) => (
-          <KBrick key={i} x={x} y={y} />
-        ))}
+      {/* deri: yarı saydam röntgen gibi */}
+      <path d={skin} fill="none" stroke="#f6d3c0" strokeOpacity={0.07} strokeWidth={armW} strokeLinecap="round" strokeLinejoin="round" />
+      {/* kemikler: pazı kemiği (humerus), ön kol kemikleri */}
+      <g stroke="#8a7d62" strokeWidth={4}>
+        <line x1={SH[0] + 30} y1={SH[1]} x2={EL[0] - 20} y2={EL[1]} stroke="#efe6d2" strokeWidth={48} strokeLinecap="round" />
+        <line x1={SH[0] + 40} y1={SH[1] - 10} x2={EL[0] - 30} y2={EL[1] - 10} stroke="#fffaf0" strokeWidth={10} strokeLinecap="round" opacity={0.8} />
+        <path d={`M${SH[0] + 30},${SH[1] - 24} L${EL[0] - 20},${EL[1] - 24} M${SH[0] + 30},${SH[1] + 24} L${EL[0] - 20},${EL[1] + 24}`} fill="none" />
+        <ellipse cx={SH[0] + 24} cy={SH[1] - 4} rx={52} ry={50} fill={`url(#${uid}-bone)`} />
+        <ellipse cx={EL[0]} cy={EL[1]} rx={46} ry={40} fill={`url(#${uid}-bone)`} />
+        <line x1={EL[0] + 4} y1={EL[1] - 20} x2={WR[0] - 22} y2={WR[1] + 10} stroke="#8a7d62" strokeWidth={38} strokeLinecap="round" />
+        <line x1={EL[0] + 4} y1={EL[1] - 20} x2={WR[0] - 22} y2={WR[1] + 10} stroke={`url(#${uid}-bone)`} strokeWidth={30} strokeLinecap="round" />
+        <line x1={EL[0] + 40} y1={EL[1] - 10} x2={WR[0] + 24} y2={WR[1] + 4} stroke="#8a7d62" strokeWidth={34} strokeLinecap="round" />
+        <line x1={EL[0] + 40} y1={EL[1] - 10} x2={WR[0] + 24} y2={WR[1] + 4} stroke={`url(#${uid}-bone)`} strokeWidth={26} strokeLinecap="round" />
       </g>
-      <path d={cap} fill="none" stroke={INK} strokeWidth={7} opacity={0.6} />
-      {/* uçan tuğlalar: tabaktan sıradaki boşluğa */}
-      {flying > 0.01
-        ? [0, 1, 2, 3, 4].map((k) => {
-            const [tx, ty] = MBRICKS[Math.min(MBRICKS.length - 1, n + k)];
-            const u = (((t * 1.3 + k / 5) % 1) + 1) % 1;
-            const px = src[0] + (tx - src[0]) * u;
-            const py = src[1] + (ty - src[1]) * u - Math.sin(u * Math.PI) * 120;
-            return <KBrick key={`f${k}`} x={px} y={py} o={flying * Math.min(1, Math.sin(u * Math.PI) * 3)} />;
+      {/* kan damarı (arka) */}
+      <path d={vessel} fill="none" stroke="#5c1230" strokeWidth={40} strokeLinecap="round" />
+      <path d={vessel} fill="none" stroke="#a3243f" strokeWidth={30} strokeLinecap="round" />
+      <path d={vessel} fill="none" stroke="#e0566c" strokeWidth={8} strokeLinecap="round" opacity={0.5} transform="translate(-6,-4)" />
+      {/* hedef pazı: kesikli siluet */}
+      {target > 0.01 ? <path d={bellyPath(HMAX)} fill="#ffffff" fillOpacity={0.06 * target} stroke="#ffffff" strokeOpacity={0.7 * target} strokeWidth={4} strokeDasharray="14 12" /> : null}
+      {/* tendonlar */}
+      <path d={`M${SH[0] + 60},${SH[1] - 52} Q170,${BCY - 6} ${BX0 + 20},${BCY}`} fill="none" stroke="#e9e3d6" strokeWidth={22} strokeLinecap="round" />
+      <path d={`M${BX1 - 20},${BCY} Q790,${BCY - 4} ${EL[0] + 18},${EL[1] - 70}`} fill="none" stroke="#e9e3d6" strokeWidth={24} strokeLinecap="round" />
+      <path d={`M${BX1 - 10},${BCY - 4} Q785,${BCY - 10} ${EL[0] + 12},${EL[1] - 76}`} fill="none" stroke="#ffffff" strokeWidth={6} strokeLinecap="round" opacity={0.7} />
+      {/* pazı kası: kas zarı + lif demetleri */}
+      <path d={bellyPath(H)} fill={`url(#${uid}-belly)`} />
+      <g clipPath={`url(#${uid}-bc)`}>
+        {Array.from({ length: NF }).map((_, j) => (
+          <g key={j}>
+            <path d={strandPath(j, H)} fill={j % 2 ? red : redHi} fillOpacity={0.55} stroke={redLo} strokeWidth={3} />
+            {/* çizgili kas: enine bantlar */}
+            <path d={strandMid(j, H)} fill="none" stroke="#ffffff" strokeOpacity={0.22} strokeWidth={(H / NF) * 0.7} strokeDasharray="3 9" />
+            <path d={strandMid(j, H)} fill="none" stroke="#ffffff" strokeOpacity={0.35} strokeWidth={2} />
+          </g>
+        ))}
+        {/* parlaklık */}
+        <path d={bellyPath(H)} fill="none" stroke="#ffffff" strokeOpacity={0.35} strokeWidth={10} transform="translate(0,10)" />
+      </g>
+      <path d={bellyPath(H)} fill="none" stroke={INK} strokeWidth={6} opacity={0.8} />
+      {/* mikro yırtıklar: onarılınca kapanır, kısa bir parıltı */}
+      {TEARS.map((_, i) => {
+        const r = Math.min(1, Math.max(0, nRep - i));
+        const [x, y] = tearPos(i, H);
+        const h = (H / NF) * 0.75 * bulge(TEARS[i][1]);
+        const open = 1 - r;
+        const flash = r > 0 && r < 1 ? Math.sin(r * Math.PI) : 0;
+        return (
+          <g key={i}>
+            {open > 0.02 ? (
+              <path
+                d={`M${x - 3},${y - h / 2} L${x + 6},${y - h / 4} L${x - 5},${y} L${x + 6},${y + h / 4} L${x - 3},${y + h / 2} L${x + 13},${y + h / 2} L${x + 24},${y + h / 4} L${x + 11},${y} L${x + 24},${y - h / 4} L${x + 13},${y - h / 2} Z`}
+                fill="#2a070b"
+                opacity={0.85 * open}
+                transform={`translate(${x},${y}) scale(${0.4 + 0.6 * open}) translate(${-x},${-y})`}
+              />
+            ) : null}
+            {flash > 0 ? <circle cx={x + 6} cy={y} r={14 + 22 * r} fill="none" stroke="#ffe27a" strokeWidth={6} opacity={flash} /> : null}
+          </g>
+        );
+      })}
+      {/* protein akışı: damar boyunca, sonra sıradaki yırtığa */}
+      {inflow > 0.01
+        ? [0, 1, 2, 3, 4, 5].map((k) => {
+            const u = (((t * 0.55 + k / 6) % 1) + 1) % 1;
+            const tgt = tearPos(Math.min(TEARS.length - 1, Math.floor(nRep) + (k % 3)), H);
+            let p: [number, number];
+            if (u < 0.7) p = vp(u / 0.7);
+            else {
+              const w = (u - 0.7) / 0.3;
+              p = [vend[0] + (tgt[0] - vend[0]) * w, vend[1] + (tgt[1] - vend[1]) * w];
+            }
+            const o = inflow * Math.min(1, u * 8) * (u > 0.9 ? (1 - u) * 10 : 1);
+            return <Amino key={k} x={p[0]} y={p[1]} o={o} rot={t * 90 + k * 60} s={0.9} />;
           })
         : null}
+      {/* yıkım: açken kasın proteini sökülüp damara geri gider */}
+      {outflow > 0.01
+        ? [0, 1, 2, 3].map((k) => {
+            const u = (((t * 0.45 + k / 4) % 1) + 1) % 1;
+            const [sx, sy] = tearPos(k * 2, H);
+            const w = Math.min(1, u / 0.3);
+            const q = u < 0.3 ? [sx + (vend[0] - sx) * w, sy + (vend[1] - sy) * w] : vp(1 - (u - 0.3) / 0.7);
+            const o = outflow * Math.min(1, u * 6) * (u > 0.85 ? (1 - u) * 6.6 : 1);
+            return <Amino key={k} x={q[0]} y={q[1]} o={o * 0.8} rot={-t * 80 + k * 50} s={0.8} />;
+          })
+        : null}
+      <Label x={bx(0.38)} y={fy(0.38, 0.75, H)} tx={640} ty={830} text="KAS LİFLERİ" o={labels * 1} />
+      <Label x={tearPos(0, H)[0] + 6} y={tearPos(0, H)[1]} tx={600} ty={1175} text="MİKRO YIRTIK" o={labels} />
+      <Label x={420} y={SH[1] + 20} tx={300} ty={1175} text="KEMİK" o={labels} />
     </g>
   );
 };
@@ -340,9 +480,9 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   const s7 = scene(7, 8);
   const s8 = win(t, L(8) - 0.02, T - 0.25, 0.18);
 
-  // saray: 5'te az tuğla gelir, yarım kalır; 7'de tabak değişince tamamlanır
-  const fill5 = 0.22 * sm(t, W(5, 0), W(5, 6));
-  const fill7 = 0.22 + 0.78 * sm(t, W(7, 6), W(7, 7) + 0.9);
+  // kolun içi: 4'te protein yok → kas erir; 5'te poğaçadan az protein → yarım; 7'de tabak değişir → yırtıklar kapanır, kas büyür
+  const melt = sm(t, W(4, 3), W(4, 5) + 0.4);
+  const grow7 = sm(t, W(7, 6), W(7, 7) + 0.45);
 
   const GYM: [string, string] = ["#5b6b8f", "#3f4b6c"];
   const INSIDE: [string, string] = ["#1b2a4e", "#0e1630"];
@@ -366,27 +506,12 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   bgTop = interpolateColors(loopIn, [0, 1], [bgTop, GYM[0]]);
   bgBot = interpolateColors(loopIn, [0, 1], [bgBot, GYM[1]]);
 
-  // ter damlalarının tabağa düştüğü anlar (damla döngüsü: t*0.6 + k/5, u≈0.9'da tabağa iner)
-  const drips: number[] = [];
-  for (let m = 0; m < 400; m += 2) {
-    const d = (m / 5 + 0.9) / 0.6;
-    if (d > L(6) + 0.3 && d < L(7) - 0.3) drips.push(d);
-  }
-  // Gerçek nesne sesleri, olay anında ve kısık (UI tıkı / bas vuruş tekrarı yok)
-  const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number; fin?: number }[] = [
-    { at: 0, id: 2299, v: 0.26, lead: 0.05 }, // kanca: tek bas vuruş
-    { at: W(0, 10) - 0.03, id: 490, v: 0.3 }, // "değişiklik": tek kalp atışı
-    { at: W(1, 4) - 0.1, id: 2996, v: 0.22, lead: 0.1 }, // takvim buruşup çöpe
-    ...[0, 1, 2].map((k) => ({ at: L(2) + 0.15 + k * 0.45, id: 2998, v: 0.2, dur: 0.4, fade: 0.1 })), // program A/B/C kalemle çizilir
-    { at: L(3) + 0.35, id: 116, v: 0.12 }, // mutfak: kola kutusu açılır
-    { at: W(3, 10) - 0.05, id: 2182, v: 0.24 }, // FELAKET mührü
-    { at: L(4) + 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kolun içi
-    { at: W(4, 4) - 0.05, id: 498, v: 0.16, lead: 0.05, dur: 1.2, fade: 0.5 }, // KAS ERİYOR: derin, yavaş vuruş
-    ...drips.map((d) => ({ at: d, id: 3179, v: 0.3, dur: 0.5, fade: 0.2 })), // ter tabağa damlar
-    { at: L(7) + 0.1, id: 2933, v: 0.2 }, // dolu tabak masaya konur
-    { at: W(7, 6), id: 388, v: 0.08, lead: 0.07, dur: 1.2, fade: 0.5 }, // tuğlalar dökülür
-    { at: W(7, 7), id: 1120, v: 0.28, lead: 0.1 }, // kas tamam
-    { at: W(8, 14), id: 2568, v: 0.18 }, // yorumlara yaz
+  // Az ve yerinde: sadece birkaç olay anı, tok/alçak vuruş ve hışırtı yok
+  const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
+    { at: W(3, 10) - 0.05, id: 2182, v: 0.2 }, // FELAKET mührü
+    { at: W(7, 6), id: 2933, v: 0.2 }, // dolu tabak konur
+    { at: W(7, 7) + 0.25, id: 1120, v: 0.24 }, // kas büyüdü
+    { at: W(8, 14), id: 2568, v: 0.16 }, // yorumlara yaz
   ];
   const duck = (mt: number) => 1 - 0.35 * win(mt, L(3), L(4) + 0.3, 0.3);
 
@@ -399,6 +524,10 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           <linearGradient id="td-bg" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor={bgTop} />
             <stop offset="1" stopColor={bgBot} />
+          </linearGradient>
+          <linearGradient id="td-kit" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#fff4e2" stopOpacity={0.5} />
+            <stop offset="1" stopColor="#b49a7a" stopOpacity={0.5} />
           </linearGradient>
           <radialGradient id="td-vig" cx="50%" cy="45%" r="75%">
             <stop offset="0.6" stopColor="#000" stopOpacity={0} />
@@ -496,68 +625,129 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           </g>
         ) : null}
 
-        {/* ===== 4: kasın içi — açlıktan ölüyor ===== */}
+        {/* ===== 4: kolun içi — açlıktan eriyor ===== */}
         {s4 > 0 ? (
           <g opacity={s4}>
-            <Chip x={340} y={230} text="KASININ İÇİ" o={1} bg="#ffffff" fg={INK} size={56} />
-            {/* kas açlıktan erir: tuğlalar teker teker kaybolur */}
-            <g transform="translate(470,1000) scale(1.12) translate(-470,-1000)">
-              <BrickArm uid="td-ba4" fill={0.34 - 0.26 * sm(t, W(4, 3), W(4, 5) + 0.4)} t={t} flying={0} src={[230, 520]} />
-            </g>
+            <Chip x={540} y={230} text="KOLUNUN İÇİ" o={1} bg="#ffffff" fg={INK} size={56} />
+            <MuscleView
+              uid="td-mv4"
+              t={t}
+              size={0.3 - 0.2 * melt}
+              pale={0.1 + 0.65 * melt}
+              repaired={0}
+              inflow={0}
+              outflow={sm(t, W(4, 3) - 0.1, W(4, 3) + 0.3)}
+              target={0}
+              labels={sm(t, L(4) + 0.1, L(4) + 0.4) * (1 - sm(t, W(4, 3), W(4, 4) - 0.1))}
+            />
             <circle cx={230} cy={520} r={110} fill="#ffffff" stroke={INK} strokeWidth={7} />
             <g transform="translate(230,520) scale(1.25)">
               <EmptyPlate x={0} y={10} />
             </g>
             <Cross x={230} y={520} s={40} p={sm(t, W(4, 3) - 0.1, W(4, 3) + 0.3)} />
             <Chip x={230} y={670} text="MUTFAK" o={1} bg={RED} size={40} />
-            <Chip x={470} y={1370} text="KAS ERİYOR" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} bg={RED} size={56} />
+            <Chip x={540} y={1460} text="KAS ERİYOR" o={sm(t, W(4, 4) - 0.1, W(4, 4) + 0.2)} bg={RED} size={56} />
           </g>
         ) : null}
 
-        {/* ===== 5 ve 7: kasın içinde tuğla saray ===== */}
+        {/* ===== 5 ve 7: protein = kasın tuğlası ===== */}
         {Math.max(s5, s7) > 0 ? (
           <g opacity={Math.max(s5, s7)}>
-            <Chip x={340} y={230} text={s7 > s5 ? "TABAK DEĞİŞTİ" : "TUĞLA = PROTEİN"} o={1} bg={s7 > s5 ? GREEN : Y} fg={s7 > s5 ? "#ffffff" : INK} size={56} />
-            <g transform="translate(470,1000) scale(1.12) translate(-470,-1000)">
-            <BrickArm uid="td-ba" fill={s7 > s5 ? fill7 : fill5} t={t} flying={s7 > s5 ? sm(t, W(7, 6), W(7, 6) + 0.2) * (1 - sm(t, W(7, 7) + 0.8, W(7, 7) + 1.0)) : 0.3 * (1 - sm(t, W(5, 7), W(5, 9)))} src={[230, 520]} />
-            </g>
-            {/* tuğlanın geldiği tabak */}
+            {s7 > s5 ? (
+              <Chip x={540} y={230} text="TABAK DEĞİŞTİ" o={1} bg={GREEN} size={56} />
+            ) : (
+              <g>
+                <Chip x={590} y={230} text="PROTEİN = KASIN TUĞLASI" o={1} bg={Y} fg={INK} size={46} />
+                <Amino x={150} y={232} s={1.6} />
+              </g>
+            )}
+            <MuscleView
+              uid="td-mv"
+              t={t}
+              size={s7 > s5 ? 0.18 + 0.82 * grow7 : 0.1 + 0.08 * sm(t, W(5, 1), W(5, 8))}
+              pale={s7 > s5 ? 0.4 * (1 - grow7) : 0.75 - 0.35 * sm(t, W(5, 1), W(5, 8))}
+              repaired={s7 > s5 ? 0.25 + 0.75 * grow7 : 0.25 * sm(t, W(5, 1), W(5, 8))}
+              inflow={s7 > s5 ? sm(t, W(7, 6) - 0.1, W(7, 6) + 0.2) * (1 - sm(t, W(7, 7) + 0.35, W(7, 7) + 0.6)) : 0.35 * sm(t, L(5), W(5, 1)) * (1 - sm(t, W(5, 6), W(5, 8)))}
+              outflow={0}
+              target={s7 > s5 ? 1 : sm(t, W(5, 6) - 0.1, W(5, 6) + 0.3)}
+            />
+            {/* proteinin geldiği tabak */}
             <circle cx={230} cy={520} r={110} fill="#ffffff" stroke={INK} strokeWidth={7} />
-            <g transform="translate(230,520) scale(0.95)">{s7 > s5 ? <Lunch x={0} y={0} /> : <Pogaca x={0} y={0} />}</g>
-            <Chip x={230} y={670} text={s7 > s5 ? "PROTEİN" : "POĞAÇA"} o={1} bg={s7 > s5 ? GREEN : RED} size={40} />
-            <Chip x={470} y={1370} text={s7 > s5 ? "KAS TAMAMLANDI" : "KAS YARIM KALDI"} o={s7 > s5 ? sm(t, W(7, 7) + 0.5, W(7, 7) + 0.8) : sm(t, W(5, 7) - 0.1, W(5, 7) + 0.2)} bg={s7 > s5 ? GREEN : RED} size={54} />
+            <g transform="translate(230,520) scale(0.95)">{s7 > s5 && t > W(7, 6) - 0.05 ? <Lunch x={0} y={0} /> : s7 > s5 ? <EmptyPlate x={0} y={10} /> : <Pogaca x={0} y={0} />}</g>
+            <Chip x={230} y={670} text={s7 > s5 ? (t > W(7, 6) - 0.05 ? "PROTEİN" : "MUTFAK") : "POĞAÇA"} o={1} bg={s7 > s5 && t > W(7, 6) - 0.05 ? GREEN : RED} size={40} />
+            <Chip x={540} y={1460} text={s7 > s5 ? "KAS BÜYÜDÜ" : "KAS YARIM KALDI"} o={s7 > s5 ? sm(t, W(7, 7) + 0.2, W(7, 7) + 0.45) : sm(t, W(5, 7) - 0.1, W(5, 7) + 0.2)} bg={s7 > s5 ? GREEN : RED} size={54} />
             {s7 > s5 ? (
               <g opacity={sm(t, L(7), L(7) + 0.3) * (1 - sm(t, W(7, 6) - 0.2, W(7, 6)))}>
-                <g transform="translate(560,600)">
-                  <circle r={120} fill="#ffffff" fillOpacity={0.9} stroke={INK} strokeWidth={6} />
+                <g transform="translate(600,560)">
+                  <circle r={120} fill="#ffffff" fillOpacity={0.92} stroke={INK} strokeWidth={6} />
                   <Dumbbell x={0} y={0} s={1.0} rot={-10} />
                 </g>
-                <Cross x={560} y={600} s={70} p={sm(t, W(7, 4), W(7, 5))} />
+                <Cross x={600} y={560} s={70} p={sm(t, W(7, 4), W(7, 5))} />
               </g>
             ) : null}
           </g>
         ) : null}
 
-        {/* ===== 6: ter mutfakta yok olur ===== */}
+        {/* ===== 6: salonda dökülen ter, mutfakta buhar olup gider ===== */}
         {s6 > 0 ? (
           <g opacity={s6}>
-            <Ground />
-            <HeroAt uid="td-h6" x={260} s={0.9} t={t} pose={curl(rep)} item={DB} expr="ouch" />
-            <Sweat t={t} pts={[[210, 740], [320, 730]]} />
-            <path d="M340,700 C520,520 760,560 820,980" fill="none" stroke="#9fd8ff" strokeWidth={6} strokeDasharray="14 14" strokeDashoffset={-t * 40} opacity={0.6} />
-            {[0, 1, 2, 3, 4].map((k) => {
-              const u = (((t * 0.6 + k / 5) % 1) + 1) % 1;
-              const x = (1 - u) ** 3 * 340 + 3 * (1 - u) ** 2 * u * 520 + 3 * (1 - u) * u * u * 760 + u ** 3 * 820;
-              const y = (1 - u) ** 3 * 700 + 3 * (1 - u) ** 2 * u * 520 + 3 * (1 - u) * u * u * 560 + u ** 3 * 980;
-              return <path key={k} d={`M${x},${y - 22} Q${x + 16},${y} ${x},${y + 10} Q${x - 16},${y} ${x},${y - 22} Z`} fill="#9fd8ff" stroke={INK} strokeWidth={3} opacity={Math.sin(u * Math.PI) * (u > 0.85 ? (1 - u) * 6 : 1)} />;
-            })}
-            <rect x={640} y={1030} width={380} height={30} rx={12} fill="#c98b5a" stroke={INK} strokeWidth={7} />
-            <g transform="translate(820,1010) scale(1.3) translate(-820,-1010)">
-              <EmptyPlate x={820} y={1010} />
+            {/* üst: salon */}
+            {[0, 1, 2].map((k) => (
+              <ellipse key={k} cx={880} cy={986 - k * 24} rx={88 - k * 14} ry={18} fill={k % 2 ? "#3b3f58" : "#2b2f45"} stroke={INK} strokeWidth={6} />
+            ))}
+            <Dumbbell x={660} y={975} s={0.7} />
+            <Dumbbell x={700} y={940} s={0.7} rot={-8} />
+            <rect x={0} y={1000} width={1080} height={10} fill={INK} opacity={0.5} />
+            <HeroAt uid="td-h6" x={300} y={1000} s={0.85} t={t} pose={curl(rep)} item={DB} expr="ouch" />
+            <Sweat t={t} pts={[[252, 377], [385, 368]]} />
+            {/* alt: mutfak */}
+            <rect x={0} y={1010} width={1080} height={910} fill="#e8d9c4" />
+            <rect x={0} y={1010} width={1080} height={910} fill="url(#td-kit)" />
+            {Array.from({ length: 6 }).map((_, k) => (
+              <line key={k} x1={0} y1={1090 + k * 80} x2={1080} y2={1090 + k * 80} stroke="#cdb89c" strokeWidth={3} opacity={0.6} />
+            ))}
+            <rect x={0} y={1006} width={1080} height={10} fill={INK} opacity={0.6} />
+            <rect x={360} y={1390} width={690} height={36} rx={12} fill="#c98b5a" stroke={INK} strokeWidth={7} />
+            <rect x={400} y={1426} width={26} height={140} fill="#a86e44" stroke={INK} strokeWidth={6} />
+            <rect x={990} y={1426} width={26} height={140} fill="#a86e44" stroke={INK} strokeWidth={6} />
+            <g transform="translate(470,1390) scale(0.75) translate(-470,-1390)">
+              <Chips x={470} y={1390} />
             </g>
-            <Chip x={260} y={420} text="SALON" o={1} bg="#ffffff" fg={INK} size={48} />
-            <Chip x={820} y={420} text="MUTFAK" o={1} bg="#ffffff" fg={INK} size={48} />
-            <Chip x={820} y={1180} text="YOK OLDU" o={sm(t, W(6, 5) - 0.1, W(6, 5) + 0.2)} bg={RED} size={50} />
+            <g transform="translate(960,1390) scale(0.8) translate(-960,-1390)">
+              <Soda x={960} y={1390} />
+            </g>
+            <g transform="translate(720,1372) scale(1.4) translate(-720,-1372)">
+              <EmptyPlate x={720} y={1372} />
+            </g>
+            {/* ter damlaları salondan düşer, boş tabağa varınca buhar olur */}
+            {[0, 1, 2, 3, 4].map((k) => {
+              const u = (((t * 0.55 + k / 5) % 1) + 1) % 1;
+              const P = [[400, 380], [620, 200], [790, 760], [720, 1350]];
+              const m = 1 - u;
+              const x = m ** 3 * P[0][0] + 3 * m * m * u * P[1][0] + 3 * m * u * u * P[2][0] + u ** 3 * P[3][0];
+              const y = m ** 3 * P[0][1] + 3 * m * m * u * P[1][1] + 3 * m * u * u * P[2][1] + u ** 3 * P[3][1];
+              const o = Math.min(1, u * 6) * (u > 0.9 ? (1 - u) * 10 : 1);
+              return <path key={k} d={`M${x},${y - 24} Q${x + 17},${y} ${x},${y + 11} Q${x - 17},${y} ${x},${y - 24} Z`} fill="#9fd8ff" stroke={INK} strokeWidth={3} opacity={o} />;
+            })}
+            {[0, 1, 2].map((k) => {
+              const u = (((t * 0.7 + k / 3) % 1) + 1) % 1;
+              const x = 690 + k * 30;
+              const y = 1340 - u * 190;
+              return (
+                <path
+                  key={k}
+                  d={`M${x},${y} q-18,-25 0,-50 q18,-25 0,-50`}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth={10}
+                  strokeLinecap="round"
+                  opacity={Math.sin(u * Math.PI) * 0.75 * sm(t, L(6) + 0.3, L(6) + 0.6)}
+                />
+              );
+            })}
+            <Chip x={160} y={250} text="SALON" o={1} bg="#ffffff" fg={INK} size={48} />
+            <Chip x={170} y={1090} text="MUTFAK" o={1} bg="#ffffff" fg={INK} size={48} />
+            <Chip x={720} y={1110} text="YOK OLDU" o={sm(t, W(6, 5) - 0.1, W(6, 5) + 0.2)} bg={RED} size={50} />
           </g>
         ) : null}
 
@@ -601,7 +791,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           <Audio
             src={staticFile(`sfx/${f.id}.mp3`)}
             startFrom={Math.round((f.lead ?? 0) * fps)}
-            volume={(q) => (f.dur && f.fade ? f.v * interpolate(q / fps, [0, f.fin ?? 0.001, f.dur - f.fade, f.dur], [f.fin ? 0 : 1, 1, 1, 0], { extrapolateRight: "clamp" }) : f.v)}
+            volume={(q) => (f.dur && f.fade ? f.v * interpolate(q / fps, [0, 0.001, f.dur - f.fade, f.dur], [1, 1, 1, 0], { extrapolateRight: "clamp" }) : f.v)}
           />
         </Sequence>
       ))}

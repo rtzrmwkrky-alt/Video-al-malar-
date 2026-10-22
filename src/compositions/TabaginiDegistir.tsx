@@ -211,69 +211,76 @@ const MuscleBg: React.FC<{ pale: number }> = ({ pale }) => (
   </g>
 );
 
-// ---------- tuğla saray (kas): tuğlalar alttan yukarı örülür
 
-const BW = 64;
-const BH = 44;
-const BX0 = 540 - 7 * BW;
-const BY0 = 1300;
-/** saray silueti: sütun c (0-13), sıra r (0 = en alt) */
-const inPalace = (c: number, r: number) => {
-  if (r <= 4) return c >= 1 && c <= 12;
-  if (r <= 7) return (c >= 1 && c <= 3) || (c >= 10 && c <= 12) || (c >= 5 && c <= 8);
-  if (r <= 9) return c >= 6 && c <= 7;
-  if (r === 8) return c === 1 || c === 3 || c === 10 || c === 12;
-  return false;
-};
-const BRICKS: [number, number][] = (() => {
-  const out: [number, number][] = [];
-  for (let r = 0; r < 11; r++) for (let c = 0; c < 14; c++) if (inPalace(c, r) || (r === 8 && (c === 1 || c === 3 || c === 10 || c === 12))) out.push([c, r]);
-  return out;
+// ---------- kasılmış kolun içi: pazı kası tuğla tuğla örülür (tuğla = protein)
+
+const AY = 1080; // üst kol ekseni
+const MX0 = 170;
+const MX1 = 770;
+const MCY = AY - 40; // pazının ekseni
+const MH = 175; // tam pazının yarı yüksekliği
+const KBW = 44;
+const KBH = 30;
+/** pazının içindeki tuğla yerleri; ortadan dışa doğru dolar */
+const MBRICKS: [number, number][] = (() => {
+  const out: [number, number, number][] = [];
+  for (let r = -6; r <= 6; r++) {
+    const y = MCY + r * KBH;
+    for (let x = MX0 + 10; x + KBW < MX1 - 10; x += KBW) {
+      const xc = x + KBW / 2 + (r % 2 ? KBW / 2 : 0);
+      if (xc + KBW / 2 > MX1 - 10) continue;
+      const half = MH * Math.sin((Math.PI * (xc - MX0)) / (MX1 - MX0));
+      if (Math.abs(y - MCY) + KBH / 2 <= half) out.push([xc - KBW / 2, y - KBH / 2, Math.abs(y - MCY) / half + Math.abs(xc - (MX0 + MX1) / 2) / 1200]);
+    }
+  }
+  return out.sort((a, b) => a[2] - b[2]).map(([x, y]) => [x, y]);
 })();
-const brickXY = (c: number, r: number): [number, number] => [BX0 + c * BW + (r % 2 ? BW / 2 : 0) - BW / 4, BY0 - (r + 1) * BH];
 
-const Brick: React.FC<{ x: number; y: number; o?: number }> = ({ x, y, o = 1 }) => (
+const KBrick: React.FC<{ x: number; y: number; o?: number }> = ({ x, y, o = 1 }) => (
   <g opacity={o}>
-    <rect x={x} y={y} width={BW - 4} height={BH - 4} rx={5} fill="#d9443c" stroke="#7a1f1c" strokeWidth={3} />
-    <rect x={x + 5} y={y + 4} width={BW - 20} height={6} rx={3} fill="#ff9a8c" opacity={0.6} />
+    <rect x={x + 2} y={y + 2} width={KBW - 4} height={KBH - 4} rx={8} fill="#d9443c" stroke="#7a1f1c" strokeWidth={3} />
+    <path d={`M${x + 8},${y + 9} L${x + KBW - 10},${y + 9}`} stroke="#ff9a8c" strokeWidth={4} strokeLinecap="round" opacity={0.7} />
   </g>
 );
 
-const Palace: React.FC<{ fill: number; t: number; flying: number; src: [number, number] }> = ({ fill, t, flying, src }) => {
-  const n = Math.floor(fill * BRICKS.length);
+const BrickArm: React.FC<{ fill: number; t: number; flying: number; src: [number, number]; uid: string }> = ({ fill, t, flying, src, uid }) => {
+  const n = Math.floor(fill * MBRICKS.length);
+  const T2 = 330;
+  const top = AY - T2 / 2;
+  const cap = `M40,${top} L${MX1 + 60},${top} A${T2 / 2},${T2 / 2} 0 0 1 ${MX1 + 60},${AY + T2 / 2} L40,${AY + T2 / 2} Z`;
+  const target = `M${MX0},${MCY} Q${(MX0 + MX1) / 2},${MCY - 2 * MH} ${MX1},${MCY} Q${(MX0 + MX1) / 2},${MCY + 2 * MH} ${MX0},${MCY} Z`;
   return (
     <g>
-      {/* hedef siluet (kesik çizgi) */}
-      {BRICKS.map(([c, r], i) => {
-        const [x, y] = brickXY(c, r);
-        return <rect key={`o${i}`} x={x} y={y} width={BW - 4} height={BH - 4} rx={5} fill="#ffffff" fillOpacity={0.35} stroke="#7a1f1c" strokeWidth={3} strokeDasharray="8 6" opacity={0.7} />;
-      })}
-      {/* kubbe + bayraklar (sarayın tepesi, tamamlanınca dolar) */}
-      {(() => {
-        const [dx, dy] = brickXY(6, 9);
-        const cx = dx + BW;
-        const done = fill > 0.97;
-        return (
-          <g>
-            <path d={`M${cx - 70},${dy} A70,70 0 0 1 ${cx + 70},${dy} Z`} fill={done ? "#d9443c" : "#ffffff"} fillOpacity={done ? 1 : 0.35} stroke="#7a1f1c" strokeWidth={3} strokeDasharray={done ? undefined : "8 6"} />
-            <line x1={cx} y1={dy - 70} x2={cx} y2={dy - 130} stroke={INK} strokeWidth={5} opacity={done ? 1 : 0.4} />
-            <path d={`M${cx},${dy - 130} L${cx + 50},${dy - 115} L${cx},${dy - 100} Z`} fill={done ? Y : "#ffffff"} opacity={done ? 1 : 0.4} />
-          </g>
-        );
-      })()}
-      {BRICKS.slice(0, n).map(([c, r], i) => {
-        const [x, y] = brickXY(c, r);
-        return <Brick key={i} x={x} y={y} />;
-      })}
+      <defs>
+        <clipPath id={`${uid}-c`}>
+          <path d={cap} />
+        </clipPath>
+      </defs>
+      {/* ön kol + yumruk (dışı) */}
+      <path d={`M${MX1 + 50},${AY + 20} L${MX1 - 40},${AY - 500}`} stroke="#b8302a" strokeWidth={250} strokeLinecap="round" />
+      <path d={`M${MX1 + 50},${AY + 20} L${MX1 - 40},${AY - 500}`} stroke="#e8463c" strokeWidth={236} strokeLinecap="round" />
+      <ellipse cx={MX1 - 50} cy={AY - 640} rx={95} ry={104} fill="#f6d3c0" />
+      <ellipse cx={MX1 - 78} cy={AY - 672} rx={34} ry={22} fill="#fde4d6" opacity={0.7} />
+      {/* üst kol: içi açık */}
+      <path d={cap} fill="#f6d3c0" />
+      <g clipPath={`url(#${uid}-c)`}>
+        <path d={cap} fill="#f2b8a8" transform={`translate(0,0)`} />
+        <rect x={60} y={AY + 95} width={MX1 + 40} height={44} rx={22} fill="#efe6d2" stroke="#c9bda2" strokeWidth={4} />
+        {/* olması gereken pazı: soluk siluet */}
+        <path d={target} fill="#ffffff" fillOpacity={0.35} stroke="#7a1f1c" strokeWidth={4} strokeDasharray="12 10" />
+        {MBRICKS.slice(0, n).map(([x, y], i) => (
+          <KBrick key={i} x={x} y={y} />
+        ))}
+      </g>
+      <path d={cap} fill="none" stroke={INK} strokeWidth={7} opacity={0.6} />
       {/* uçan tuğlalar: tabaktan sıradaki boşluğa */}
       {flying > 0.01
-        ? [0, 1, 2, 3].map((k) => {
-            const target = BRICKS[Math.min(BRICKS.length - 1, n + k)];
-            const [tx, ty] = brickXY(target[0], target[1]);
-            const u = (((t * 1.2 + k / 4) % 1) + 1) % 1;
+        ? [0, 1, 2, 3, 4].map((k) => {
+            const [tx, ty] = MBRICKS[Math.min(MBRICKS.length - 1, n + k)];
+            const u = (((t * 1.3 + k / 5) % 1) + 1) % 1;
             const px = src[0] + (tx - src[0]) * u;
-            const py = src[1] + (ty - src[1]) * u - Math.sin(u * Math.PI) * 160;
-            return <Brick key={`f${k}`} x={px} y={py} o={flying * Math.min(1, Math.sin(u * Math.PI) * 3)} />;
+            const py = src[1] + (ty - src[1]) * u - Math.sin(u * Math.PI) * 120;
+            return <KBrick key={`f${k}`} x={px} y={py} o={flying * Math.min(1, Math.sin(u * Math.PI) * 3)} />;
           })
         : null}
     </g>
@@ -295,9 +302,15 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   const scene = (a: number, b: number) => win(t, a === 0 ? -1 : L(a) - 0.02, L(b) + 0.02, 0.18);
   const loopIn = sm(t, T - 0.24, T - 0.03);
   const end = t > L(8);
+  // her satırda yavaş yaklaşma (hiçbir kare durmasın)
+  const li = Math.max(0, tl.idx(t));
+  const push = end && t > T - 0.3 ? 1 : 1 + 0.06 * Math.min(1, Math.max(0, (t - L(li)) / Math.max(0.5, L(li + 1) - L(li))));
   const rep = 0.5 - 0.5 * Math.cos((end ? t - T : t) * 4.2);
 
   const s0 = Math.max(scene(0, 1), loopIn);
+  const mirrorAt = W(0, 7); // "aynada"
+  const hookA = end ? loopIn : 1 - sm(t, mirrorAt - 0.2, mirrorAt);
+  const hookB = end ? 0 : sm(t, mirrorAt - 0.05, mirrorAt + 0.15);
   const s1 = scene(1, 2);
   const s2 = scene(2, 3);
   const s3 = scene(3, 4);
@@ -362,18 +375,44 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           </radialGradient>
         </defs>
         <rect width={1080} height={1920} fill="url(#td-bg)" />
+        <g transform={`translate(540,900) scale(${push}) translate(-540,-900)`}>
 
         {/* ===== 0: ayna — tek kas çizgisi yok ===== */}
         {s0 > 0 ? (
           <g opacity={s0}>
             <Ground />
-            <Mirror x={600} y={520} w={400} h={860} uid="td-m">
-              <HeroAt uid="td-mr" x={800} y={1430} s={0.9} t={t} pose={mirrorFlex} expr={!end && t > W(0, 13) ? "ouch" : "grin"} />
-              <rect x={600} y={520} width={400} height={860} fill="#bcd3e8" opacity={0.25} />
-            </Mirror>
-            <HeroAt uid="td-h0" x={300} s={1} t={t} pose={FLEX} expr={!end && t > W(0, 13) ? "ouch" : "grin"} />
-            <BigText a="HER GÜN SALON…" b="KAS ÇİZGİSİ YOK?" o={end ? loopIn : 1 - sm(t, L(1) - 0.2, L(1))} />
-            <Chip x={800} y={470} text="KAS ÇİZGİSİ: 0" o={end ? 0 : sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={44} />
+            {/* 0a: 365 gün antrenman — 0 kas çizgisi (ilk kare; döngüde son kare) */}
+            <g opacity={hookA}>
+              <g opacity={0.28}>
+                <Rack x={600} y={700} />
+                <HeroAt uid="td-h0a" x={330} s={1} t={t} pose={curl(rep)} item={DB} expr={rep > 0.5 ? "ouch" : "neutral"} />
+                <Sweat t={t} pts={[[260, 700], [400, 690]]} />
+              </g>
+              <text x={540} y={420} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={230} fill="#ffffff" stroke={INK} strokeWidth={20} paintOrder="stroke">
+                365
+              </text>
+              <text x={540} y={520} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={66} fill="#ffffff" stroke={INK} strokeWidth={12} paintOrder="stroke">
+                GÜN ANTRENMAN
+              </text>
+              <g opacity={0.85 + 0.15 * Math.sin(t * 6)}>
+                <text x={540} y={1180} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={260} fill={RED} stroke={INK} strokeWidth={20} paintOrder="stroke">
+                  0
+                </text>
+              </g>
+              <text x={540} y={1290} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={70} fill={RED} stroke={INK} strokeWidth={12} paintOrder="stroke">
+                KAS ÇİZGİSİ
+              </text>
+            </g>
+            {/* 0b: ayna */}
+            <g opacity={hookB}>
+              <Mirror x={600} y={520} w={400} h={860} uid="td-m">
+                <HeroAt uid="td-mr" x={800} y={1430} s={0.9} t={t} pose={mirrorFlex} expr={t > W(0, 13) ? "ouch" : "grin"} />
+                <rect x={600} y={520} width={400} height={860} fill="#bcd3e8" opacity={0.25} />
+              </Mirror>
+              <HeroAt uid="td-h0" x={300} s={1} t={t} pose={FLEX} expr={t > W(0, 13) ? "ouch" : "grin"} />
+              <Chip x={800} y={440} text="KAS ÇİZGİSİ: 0" o={sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={46} />
+              <BigText a="1 YIL SALON…" b="AYNADA HİÇBİR ŞEY YOK" o={sm(t, W(0, 13) - 0.1, W(0, 13) + 0.2)} y={250} size={84} />
+            </g>
           </g>
         ) : null}
 
@@ -474,20 +513,22 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
         {/* ===== 5 ve 7: kasın içinde tuğla saray ===== */}
         {Math.max(s5, s7) > 0 ? (
           <g opacity={Math.max(s5, s7)}>
-            <MuscleBg pale={0} />
-            <Chip x={540} y={300} text={s7 > s5 ? "TABAK DEĞİŞTİ" : "TUĞLA = PROTEİN"} o={1} bg={s7 > s5 ? GREEN : Y} fg={s7 > s5 ? "#ffffff" : INK} size={52} />
+            <Chip x={340} y={230} text={s7 > s5 ? "TABAK DEĞİŞTİ" : "TUĞLA = PROTEİN"} o={1} bg={s7 > s5 ? GREEN : Y} fg={s7 > s5 ? "#ffffff" : INK} size={56} />
+            <g transform="translate(470,1000) scale(1.12) translate(-470,-1000)">
+            <BrickArm uid="td-ba" fill={s7 > s5 ? fill7 : fill5} t={t} flying={s7 > s5 ? sm(t, W(7, 6), W(7, 6) + 0.2) * (1 - sm(t, W(7, 7) + 0.8, W(7, 7) + 1.0)) : 0.3 * (1 - sm(t, W(5, 7), W(5, 9)))} src={[230, 520]} />
+            </g>
             {/* tuğlanın geldiği tabak */}
-            <circle cx={180} cy={560} r={92} fill="#ffffff" stroke={INK} strokeWidth={6} />
-            <g transform="translate(180,560) scale(0.8)">{s7 > s5 ? <Lunch x={0} y={0} /> : <Pogaca x={0} y={0} />}</g>
-            <Palace fill={s7 > s5 ? fill7 : fill5} t={t} flying={s7 > s5 ? sm(t, W(7, 6), W(7, 6) + 0.2) * (1 - sm(t, W(7, 7) + 0.8, W(7, 7) + 1.0)) : 0.35 * (1 - sm(t, W(5, 7), W(5, 9)))} src={[180, 560]} />
-            {s5 > s7 ? <Chip x={760} y={560} text="SARAY YARIM" o={sm(t, W(5, 7) - 0.1, W(5, 7) + 0.2)} bg={RED} size={46} /> : null}
-            {s7 > s5 ? <Chip x={760} y={560} text="SARAY TAMAM" o={sm(t, W(7, 7) + 0.5, W(7, 7) + 0.8)} bg={GREEN} size={46} /> : null}
+            <circle cx={230} cy={520} r={110} fill="#ffffff" stroke={INK} strokeWidth={7} />
+            <g transform="translate(230,520) scale(0.95)">{s7 > s5 ? <Lunch x={0} y={0} /> : <Pogaca x={0} y={0} />}</g>
+            <Chip x={230} y={670} text={s7 > s5 ? "PROTEİN" : "POĞAÇA"} o={1} bg={s7 > s5 ? GREEN : RED} size={40} />
+            <Chip x={470} y={1370} text={s7 > s5 ? "KAS TAMAMLANDI" : "KAS YARIM KALDI"} o={s7 > s5 ? sm(t, W(7, 7) + 0.5, W(7, 7) + 0.8) : sm(t, W(5, 7) - 0.1, W(5, 7) + 0.2)} bg={s7 > s5 ? GREEN : RED} size={54} />
             {s7 > s5 ? (
               <g opacity={sm(t, L(7), L(7) + 0.3) * (1 - sm(t, W(7, 6) - 0.2, W(7, 6)))}>
-                <g transform="translate(540,1400)">
-                  <Dumbbell x={0} y={0} s={1.3} rot={-10} />
+                <g transform="translate(560,600)">
+                  <circle r={120} fill="#ffffff" fillOpacity={0.9} stroke={INK} strokeWidth={6} />
+                  <Dumbbell x={0} y={0} s={1.0} rot={-10} />
                 </g>
-                <Cross x={540} y={1400} s={70} p={sm(t, W(7, 4), W(7, 5))} />
+                <Cross x={560} y={600} s={70} p={sm(t, W(7, 4), W(7, 5))} />
               </g>
             ) : null}
           </g>
@@ -543,6 +584,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           </g>
         ) : null}
 
+        </g>
         <rect width={1080} height={1920} fill="url(#td-vig)" />
       </svg>
 

@@ -460,6 +460,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   dambıla ✕, TABAK DEĞİŞTİ, dolu tabaktan tuğlalar yağar, saray tamam → "ANTRENMAN mı? TABAK mı?" kartları + YORUMLARA YAZ → döngü.
   Metin `icerik/tabagini-degistir.seslendirme.txt` (~600 karakter; %15 hızlı Manitam ile ~38 sn ham → boşluklar kesilip ≤35 sn).
   Sessiz taslak `out/tabagini-degistir-sessiz.mp4`.
+  Geri bildirim: **"görselde çok zayıfsın"** — pembe kutudaki tuğla duvar/saray **çok saçma** bulundu; kanca çarpıcı olmalı, acıya
+  dokunmalı, **her saniye hareket** olsun ki sıkılmasın. v2: kanca ilk karede dev "365 GÜN ANTRENMAN" / kırmızı "0 KAS ÇİZGİSİ"
+  (arkada silik genç dambıl çalışır), "aynada" kelimesinde ayna sahnesi; tuğlalar artık **kasılmış kolun içinde pazıyı örüyor**
+  (`BrickArm`: soluk hedef pazı silueti, poğaçadan az tuğla → KAS YARIM KALDI; tabak değişince tuğlalar yağar → KAS TAMAMLANDI);
+  her satırda kamera yavaşça yaklaşır (`push`). DERS: soyut kutu/oyun ekranı gibi görseller yerine benzetmeyi doğrudan vücut
+  üzerinde göster. Sessiz taslak `out/tabagini-degistir-sessiz-v2.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

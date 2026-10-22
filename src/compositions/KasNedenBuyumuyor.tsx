@@ -1,5 +1,6 @@
 /**
- * "Kasım neden büyümüyor?" (~28 sn) — kullanıcının kurgusu: bir adam (SEN, kırmızı) sürekli spor yapıyor ama gelişmiyor; yanındaki
+ * "Kasım neden büyümüyor?" (~30 sn) — v2: isimli hikâye (EMRE = SEN, kırmızı; MERT = O, mavi), boşluklar kısa, kapanış "Sen hangisisin?".
+ * İlk hâli — kullanıcının kurgusu: bir adam (SEN, kırmızı) sürekli spor yapıyor ama gelişmiyor; yanındaki
  * (O, mavi) aynı antrenmanla büyüyor ve SEN buna salonda şahit oluyor → koluna bakıp "?" → iki kolun içi alt alta: O'na protein akar,
  * yırtıklar onarılır, lifler kalınlaşır; SEN'e neredeyse hiçbir şey gelmez, yırtıklar açık kalır → aynı antrenman, fark tabakta →
  * "Kas salonda yorulur… sofrada büyür." → gönder → döngü (son kare = ilk kare).
@@ -12,8 +13,8 @@ import { SANS, loadFonts } from "../fonts";
 import { type Line, sm, timeline, win } from "../ornek/common";
 import { INK } from "../anime/AnimeTeen";
 import { CurlyGuy, type CurlyExpr, type CurlyLook, type CurlyPose } from "../avatar/CurlyGuy";
-import { Dumbbell, PhoneItem } from "./GeceYemek";
-import { DB, GymSign, Particle, Plates, Rack, SPORCU_LOOK, Sweat } from "./BeslenmeSpor";
+import { Dumbbell } from "./GeceYemek";
+import { DB, Particle, Plates, SPORCU_LOOK, Sweat } from "./BeslenmeSpor";
 import { EmptyPlate, Pogaca } from "./BeslenmeSpor3";
 import { Lunch } from "./BeslenmeSpor4";
 import { Chip, FLEX, Tape, curl } from "./BeslenmeSpor5";
@@ -27,15 +28,15 @@ const GREEN = "#2fbf62";
 const FLOOR = 1400;
 
 export const KN_LINES: Line[] = [
-  { text: "Aynı salon, aynı ağırlık… ama o büyüyor, sen büyümüyorsun.", hl: ["o", "büyüyor,", "büyümüyorsun."], hold: 0.3 },
-  { text: "Haftalar geçiyor. Yanındakiler değişiyor, sen hâlâ aynısın.", hl: ["değişiyor,", "aynısın."], hold: 0.4 },
-  { text: "Ve kendine soruyorsun: benim kasım neden büyümüyor?", hl: ["neden", "büyümüyor?"], hold: 0.5 },
-  { text: "Gel, iki kolun içine bakalım.", hl: ["içine"], hold: 0.2 },
-  { text: "Onunkine sürekli protein geliyor; yırtıklar onarılıyor, lifler kalınlaşıyor.", hl: ["protein", "kalınlaşıyor."], hold: 0.3 },
-  { text: "Seninkine ise neredeyse hiçbir şey gelmiyor.", hl: ["hiçbir", "gelmiyor."], hold: 0.5 },
-  { text: "Antrenman aynı… fark tabakta.", hl: ["fark", "tabakta."], hold: 0.5 },
-  { text: "Kas salonda yorulur… sofrada büyür.", hl: ["sofrada", "büyür."], hold: 0.5 },
-  { text: "Bunu hâlâ aynı kolla gezen o arkadaşına gönder.", hl: ["gönder."], hold: 0.6 },
+  { text: "Bu Emre. Altı aydır her gün salonda… ama kolu hâlâ aynı.", hl: ["Altı", "aynı."], hold: 0.15 },
+  { text: "Yanındaki Mert ise iki ay önce başladı. Şimdiden fark ediliyor.", hl: ["iki", "fark"], hold: 0.15 },
+  { text: "Emre bir gün dayanamıyor ve soruyor: ben neyi yanlış yapıyorum?", hl: ["yanlış"], hold: 0.25 },
+  { text: "Cevap salonda değil… kolun içinde.", hl: ["kolun", "içinde."], hold: 0.1 },
+  { text: "Mert'in kasına her öğünden protein geliyor; yırtıklar kapanıyor, kas büyüyor.", hl: ["protein", "büyüyor."], hold: 0.15 },
+  { text: "Emre'ninkine ise sadece bir poğaça geliyor. Yırtıklar açık kalıyor.", hl: ["poğaça", "açık"], hold: 0.2 },
+  { text: "Aynı ağırlık, aynı ter… farkı tabak yapıyor.", hl: ["tabak"], hold: 0.2 },
+  { text: "Kas salonda yorulur… sofrada büyür.", hl: ["sofrada", "büyür."], hold: 0.3 },
+  { text: "Sen hangisisin, Emre mi, Mert mi?", hl: ["Emre", "Mert"], hold: 0.6 },
 ];
 
 export const KN_TAIL = 0.6;
@@ -287,7 +288,7 @@ const MusclePanel: React.FC<{
       <circle cx={src[0]} cy={src[1] - 20} r={95} fill="#ffffff" stroke={INK} strokeWidth={6} />
       <g transform={`translate(${src[0]},${src[1] - 20}) scale(${rival ? 0.78 : 0.9})`}>{rival ? <Lunch x={0} y={0} /> : <Pogaca x={0} y={0} />}</g>
       {/* kimin kolu */}
-      <Chip x={rival ? 250 : 270} y={y + 2} text={rival ? "ONUN KOLU" : "SENİN KOLUN"} o={1} bg={color} size={50} />
+      <Chip x={rival ? 250 : 270} y={y + 2} text={rival ? "MERT\u0027İN KOLU" : "EMRE\u0027NİN KOLU"} o={1} bg={color} size={50} />
     </g>
   );
 };
@@ -312,19 +313,21 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
 
   // ===== 0-1: salon — ikisi yan yana; haftalar geçtikçe O büyür, SEN aynı
   const s01 = Math.max(scene(0, 2), loopIn);
-  const weeks = end ? 1 : Math.max(1, Math.min(8, 1 + Math.floor(interpolate(t, [L(1), W(1, 4)], [0, 7.99], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))));
-  const flex01 = !end && t > W(1, 3);
-  const grow01 = end ? 0 : sm(t, W(1, 3), W(1, 5));
+  const flexE = !end && t > W(0, 7) - 0.1; // Emre kolunu kasar ("ama")
+  const mertIn = end ? 0 : sm(t, L(1) - 0.05, L(1) + 0.4); // Mert gelir, Emre sola kayar
+  const flexM = !end && t > W(1, 7) - 0.1;
+  const grow01 = end ? 0 : sm(t, W(1, 7), W(1, 9) + 0.3);
+  const ex = 540 - 290 * mertIn;
   // ===== 2: soru
   const s2 = scene(2, 3);
-  const q = sm(t, W(2, 5) - 0.15, W(2, 5) + 0.2);
+  const q = sm(t, W(2, 6) - 0.15, W(2, 6) + 0.2);
   // ===== 3-5: kolların içi
   const s35 = scene(3, 6);
   const dmg = sm(t, W(3, 3) - 0.1, W(3, 4) + 0.3);
-  const supO = sm(t, W(4, 1), W(4, 2) + 0.3);
-  const healO = sm(t, W(4, 4), W(4, 5) + 0.4);
-  const growO = sm(t, W(4, 6), W(4, 7) + 0.5);
-  const supS = sm(t, W(5, 0), W(5, 1)) * 0.12;
+  const supO = sm(t, W(4, 3), W(4, 4) + 0.3);
+  const healO = sm(t, W(4, 6), W(4, 7) + 0.4);
+  const growO = sm(t, W(4, 8), W(4, 9) + 0.5);
+  const supS = sm(t, W(5, 2), W(5, 4)) * 0.12;
   const dimS = win(t, L(4), L(5) + 0.1, 0.25);
   const dimO = win(t, L(5), L(6) + 0.1, 0.25);
   // ===== 6: tabaklar
@@ -352,22 +355,24 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
 
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
     { at: 0, id: 2299, v: 0.28, lead: 0.05 }, // kanca
-    { at: W(1, 4), id: 2568, v: 0.16 }, // ölçü
-    { at: W(2, 5) - 0.05, id: 2299, v: 0.18, lead: 0.05 }, // ?
-    { at: L(3) + 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kolun içi
-    { at: W(4, 7), id: 1120, v: 0.24, lead: 0.1 }, // O kalınlaştı
-    { at: W(5, 5) - 0.05, id: 2299, v: 0.16, lead: 0.05 }, // SEN: gelmiyor
-    { at: W(6, 2), id: 2568, v: 0.18 }, // fark tabakta
+    { at: W(0, 10) - 0.05, id: 2299, v: 0.16, lead: 0.05 }, // "aynı"
+    { at: W(1, 8), id: 2568, v: 0.16 }, // Mert büyüdü
+    { at: W(2, 6) - 0.05, id: 2299, v: 0.18, lead: 0.05 }, // ?
+    { at: W(3, 3) - 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kolun içi
+    { at: W(4, 9), id: 1120, v: 0.24, lead: 0.1 }, // Mert: kas büyüdü
+    { at: W(5, 7) - 0.05, id: 2299, v: 0.16, lead: 0.05 }, // Emre: açık kaldı
+    { at: W(6, 4), id: 2568, v: 0.18 }, // tabak
+    { at: W(8, 1), id: 2568, v: 0.16 }, // sen hangisisin
   ];
   const duck = (mt: number) => 1 - 0.35 * win(mt, L(5), L(6) + 0.3, 0.3);
 
   const Hook = (
     <>
       <text x={540} y={290} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={92} fill="#ffffff" stroke={INK} strokeWidth={16} paintOrder="stroke">
-        AYNI ANTRENMAN
+        6 AY SALON…
       </text>
       <text x={540} y={410} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={116} fill={Y} stroke={INK} strokeWidth={18} paintOrder="stroke">
-        FARKLI SONUÇ?
+        KOL HÂLÂ AYNI?
       </text>
     </>
   );
@@ -391,22 +396,23 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
         {s01 > 0 ? (
           <g opacity={s01}>
             <Ground />
-            <Rack x={330} y={760} />
             <Plates x={540} />
             <g opacity={end ? loopIn : 1 - sm(t, L(1) - 0.15, L(1) + 0.2)}>{Hook}</g>
-            <Chip x={540} y={330} text={`${weeks}. HAFTA`} o={end ? 0 : sm(t, L(1), L(1) + 0.3)} bg="#ffffff" fg={INK} size={56} />
-            {/* SEN (solda) */}
-            <Guy uid="kn-sen" x={250} s={0.88} t={t} pose={flex01 ? FLEX : curl(rep)} item={flex01 ? undefined : DB} expr={flex01 ? "ouch" : rep > 0.55 ? "ouch" : "neutral"} />
-            {flex01 ? <Tape x={250} s={0.88} k={0} o={1} /> : null}
-            <Sweat t={t} pts={[[190, 760], [300, 750]]} />
-            {/* O (sağda) */}
-            <Guy uid="kn-o" rival x={830} s={0.88} t={t} pose={flex01 ? FLEX : curl((rep + 0.15) % 1)} item={flex01 ? undefined : DB} expr={flex01 ? "laugh" : "neutral"} />
-            {flex01 ? <Pump x={830} s={0.88} k={grow01} rival /> : null}
-            {flex01 ? <Tape x={830} s={0.88} k={grow01} o={1} /> : null}
-            <Chip x={250} y={1470} text="SEN" o={1} bg={RED} size={50} />
-            <Chip x={830} y={1470} text="O" o={1} bg={BLUE} size={50} />
-            <Chip x={250} y={600} text="32 CM" o={flex01 ? sm(t, W(1, 4), W(1, 4) + 0.3) : 0} bg={Y} fg={INK} size={50} />
-            <Chip x={830} y={600} text={`${Math.round(32 + 4 * grow01)} CM`} o={flex01 ? sm(t, W(1, 4), W(1, 4) + 0.3) : 0} bg={grow01 > 0.6 ? GREEN : Y} fg={grow01 > 0.6 ? "#ffffff" : INK} size={50} />
+            {/* EMRE */}
+            <Guy uid="kn-sen" x={ex} s={0.88} t={t} pose={flexE ? FLEX : curl(rep)} item={flexE ? undefined : DB} expr={flexE ? "ouch" : rep > 0.55 ? "ouch" : "neutral"} />
+            {flexE ? <Tape x={ex} s={0.88} k={0} o={1} /> : null}
+            <Sweat t={t} pts={[[ex - 60, 760], [ex + 50, 750]]} />
+            <Chip x={ex} y={1470} text="EMRE · 6. AY" o={end ? 0 : sm(t, W(0, 1) - 0.1, W(0, 1) + 0.2)} bg={RED} size={46} />
+            <Chip x={ex} y={600} text="32 CM" o={end ? 0 : sm(t, W(0, 8), W(0, 8) + 0.3)} bg={Y} fg={INK} size={50} />
+            <Chip x={ex} y={500} text="AYNI" o={end ? 0 : sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2) * (1 - mertIn)} bg={RED} size={46} />
+            {/* MERT */}
+            <g opacity={mertIn}>
+              <Guy uid="kn-o" rival x={830} s={0.88} t={t} pose={flexM ? FLEX : curl((rep + 0.15) % 1)} item={flexM ? undefined : DB} expr={flexM ? "laugh" : "neutral"} />
+              {flexM ? <Pump x={830} s={0.88} k={grow01} rival /> : null}
+              {flexM ? <Tape x={830} s={0.88} k={grow01} o={1} /> : null}
+              <Chip x={830} y={1470} text="MERT · 2. AY" o={1} bg={BLUE} size={46} />
+              <Chip x={830} y={600} text={`${Math.round(32 + 4 * grow01)} CM`} o={flexM ? 1 : 0} bg={grow01 > 0.6 ? GREEN : Y} fg={grow01 > 0.6 ? "#ffffff" : INK} size={50} />
+            </g>
           </g>
         ) : null}
 
@@ -421,6 +427,7 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
             <Guy uid="kn-sen2" x={460} s={1.2} t={t} pose={{ ...FLEX, head: 10, lx: 8, ly: 4 }} expr="think" />
             <Tape x={460} s={1.2} k={0} o={1} />
             <Chip x={300} y={560} text="32 CM" o={1} bg={Y} fg={INK} size={56} />
+            <Chip x={460} y={1470} text="EMRE" o={1} bg={RED} size={50} />
             <Question x={760} y={620} o={q} t={t} />
           </g>
         ) : null}
@@ -429,12 +436,12 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
         {s35 > 0 ? (
           <g opacity={s35}>
             <text x={540} y={230} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={64} fill="#ffffff">
-              KOLUN İÇİ
+              CEVAP KOLUN İÇİNDE
             </text>
             <MusclePanel uid="kn-po" y={330} o={sm(t, L(3), L(3) + 0.3)} dim={dimO} rival dmg={dmg} supply={supO} heal={healO} grow={growO} t={t} />
             <MusclePanel uid="kn-ps" y={860} o={sm(t, L(3) + 0.15, L(3) + 0.45)} dim={dimS} rival={false} dmg={dmg} supply={supS} heal={0} grow={0} t={t} />
-            <Chip x={810} y={332} text="KALINLAŞTI" o={sm(t, W(4, 7) - 0.1, W(4, 7) + 0.2)} bg={GREEN} size={44} />
-            <Chip x={810} y={862} text="ONARILMADI" o={sm(t, W(5, 5) - 0.1, W(5, 5) + 0.2)} bg={RED} size={44} />
+            <Chip x={810} y={332} text="KAS BÜYÜDÜ" o={sm(t, W(4, 9) - 0.1, W(4, 9) + 0.2)} bg={GREEN} size={44} />
+            <Chip x={810} y={862} text="AÇIK KALDI" o={sm(t, W(5, 7) - 0.1, W(5, 7) + 0.2)} bg={RED} size={44} />
           </g>
         ) : null}
 
@@ -442,8 +449,8 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
         {s6 > 0 ? (
           <g opacity={s6}>
             <Ground />
-            <Chip x={540} y={230} text="AYNI ANTRENMAN" o={1} bg="#ffffff" fg={INK} size={52} />
-            <Chip x={540} y={350} text="FARK TABAKTA" o={sm(t, W(6, 2) - 0.1, W(6, 2) + 0.2)} bg={Y} fg={INK} size={60} />
+            <Chip x={540} y={230} text="AYNI AĞIRLIK · AYNI TER" o={1} bg="#ffffff" fg={INK} size={52} />
+            <Chip x={540} y={350} text="FARKI TABAK YAPIYOR" o={sm(t, W(6, 4) - 0.1, W(6, 4) + 0.2)} bg={Y} fg={INK} size={60} />
             {/* SEN: poğaça / boş tabak */}
             <g transform="translate(250,600)">
               <circle r={120} fill="#ffffff" fillOpacity={0.12} stroke="#ffffff" strokeOpacity={0.3} strokeWidth={4} />
@@ -463,8 +470,8 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
             <Guy uid="kn-o6" rival x={830} s={0.8} t={t} pose={FLEX} expr="laugh" />
             <Pump x={830} s={0.8} k={1} rival />
             <Tape x={830} s={0.8} k={1} o={1} />
-            <Chip x={250} y={1470} text="SEN · 32 CM" o={1} bg={RED} size={46} />
-            <Chip x={830} y={1470} text="O · 36 CM" o={1} bg={BLUE} size={46} />
+            <Chip x={250} y={1470} text="EMRE · 32 CM" o={1} bg={RED} size={46} />
+            <Chip x={830} y={1470} text="MERT · 36 CM" o={1} bg={BLUE} size={46} />
           </g>
         ) : null}
 
@@ -496,16 +503,29 @@ export const KasNedenBuyumuyor: React.FC<KasNedenBuyumuyorProps> = ({ audioName,
         {s8 > 0 ? (
           <g opacity={s8}>
             <Ground />
-            <GymSign x={90} y={460} />
-            <Guy uid="kn-send" x={480} s={0.95} t={t} pose={{ r: { el: [290, 560], wr: [252, 440] }, head: 5, ly: 4 }} expr="grin" item={<PhoneItem />} />
-            <g opacity={sm(t, L(8) + 0.15, L(8) + 0.45)}>
-              <text x={540} y={290} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={96} fill="#ffffff" stroke={INK} strokeWidth={16} paintOrder="stroke">
-                BUNU ONA
+            <g opacity={sm(t, L(8) + 0.05, L(8) + 0.35)}>
+              <text x={540} y={290} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={100} fill="#ffffff" stroke={INK} strokeWidth={16} paintOrder="stroke">
+                SEN
               </text>
-              <text x={540} y={410} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={116} fill={Y} stroke={INK} strokeWidth={18} paintOrder="stroke">
-                GÖNDER
+              <text x={540} y={410} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={112} fill={Y} stroke={INK} strokeWidth={18} paintOrder="stroke">
+                HANGİSİSİN?
               </text>
             </g>
+            {[
+              { x: 270, rival: false, k: 2, name: "EMRE" },
+              { x: 810, rival: true, k: 4, name: "MERT" },
+            ].map(({ x, rival, k, name }) => {
+              const on = sm(t, W(8, k) - 0.1, W(8, k) + 0.2);
+              return (
+                <g key={name}>
+                  <circle cx={x} cy={1060} r={250} fill={rival ? BLUE : RED} opacity={0.18 * on} />
+                  <Guy uid={rival ? "kn-e8m" : "kn-e8e"} rival={rival} x={x} s={0.85} t={t} pose={FLEX} expr={rival ? "laugh" : "ouch"} />
+                  {rival ? <Pump x={x} s={0.85} k={1} rival /> : null}
+                  <Tape x={x} s={0.85} k={rival ? 1 : 0} o={1} />
+                  <Chip x={x} y={1470} text={`${name} · ${rival ? 36 : 32} CM`} o={1} bg={rival ? BLUE : RED} size={46} />
+                </g>
+              );
+            })}
           </g>
         ) : null}
 

@@ -445,6 +445,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   → AYNI ANTRENMAN / FARK TABAKTA (32 cm ↔ 36 cm) → "Kas salonda yorulur… sofrada büyür." → gönder → döngü (kanca "AYNI ANTRENMAN
   FARKLI SONUÇ?"). Metin `icerik/kas-neden.seslendirme.txt` (~380 karakter, ~27 sn sessiz). Sessiz taslak `out/kas-neden-sessiz.mp4`;
   onay gelince Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
+  Geri bildirim "idare eder; boşlukları kısalt, anlatımı hikâyeleştir" → v2: **isimli kahramanlar** EMRE (kırmızı, 6. ay, 32 cm) ve
+  MERT (mavi, 2. ay, 36 cm); kanca "6 AY SALON… KOL HÂLÂ AYNI?" (Emre tek başına, sonra Mert gelir), "CEVAP KOLUN İÇİNDE",
+  MERT'İN KOLU / EMRE'NİN KOLU, kapanış **"Sen hangisisin, Emre mi, Mert mi?"** (yorum sorusu). Satır beklemeleri kısa (hold 0.1-0.3);
+  seslendirmede boşluklar sıkı kesilecek. Sessiz taslak `out/kas-neden-v2-sessiz.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

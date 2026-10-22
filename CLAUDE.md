@@ -438,6 +438,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Ekranda yazı az: bölüm etiketi + saat rozeti + büyük ✓/✕. Metin `icerik/tek-gun.seslendirme.txt` (~400 karakter, ~29 sn sessiz).
   Sessiz taslak `out/tek-gun-sessiz.mp4`; onay gelince Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
 
+- **KasNedenBuyumuyor** — beslenme/spor konusunda **kullanıcının kendi kurgusu** (birkaç senaryo sunuldu, kullanıcı kendi hikâyesini
+  verdi): bir adam (SEN, kırmızı `SPORCU_LOOK`) sürekli spor yapıyor ama gelişmiyor; yanındaki (O, mavi `RIVAL_LOOK`) aynı antrenmanla
+  büyüyor, SEN salonda buna şahit oluyor → "benim kasım neden büyümüyor?" (büyük ?) → iki kolun içi alt alta (`MusclePanel`:
+  ONUN KOLU dolu tabak → protein akar, yırtıklar onarılır, KALINLAŞTI; SENİN KOLUN poğaça → neredeyse hiçbir şey gelmez, ONARILMADI)
+  → AYNI ANTRENMAN / FARK TABAKTA (32 cm ↔ 36 cm) → "Kas salonda yorulur… sofrada büyür." → gönder → döngü (kanca "AYNI ANTRENMAN
+  FARKLI SONUÇ?"). Metin `icerik/kas-neden.seslendirme.txt` (~380 karakter, ~27 sn sessiz). Sessiz taslak `out/kas-neden-sessiz.mp4`;
+  onay gelince Manitam %15 hızlı (speed 1.15), en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

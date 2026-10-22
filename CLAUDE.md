@@ -477,6 +477,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
   Sessiz taslak onaylandı → Manitam %15 hızlı (speed 1.15; 0.4/0.35) → `public/audio/tabagini-degistir` 38.2 sn →
   `--max-pause 0.12` → `tabagini-degistir-kisa` 33.5 sn (video ~34 sn). Son: `out/tabagini-degistir-paylas.mp4` (-14 LUFS).
+  Efektler zenginleştirildi (kısık, gerçekçi): uzakta dambıl 2102 (`public/sfx`), duvar saati 1060, program çizgisi tıkları 2568,
+  halter, mutfakta buzdolabı uğultusu 1837, mühür öncesi gerilim 790, KAS ERİYOR / YARIM KALDI / YOK OLDU tok vuruş 2299, dambıl bırakılır.
 
 ## Son durum (yeni oturumda buradan devam)
 

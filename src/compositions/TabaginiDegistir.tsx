@@ -366,14 +366,22 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   bgTop = interpolateColors(loopIn, [0, 1], [bgTop, GYM[0]]);
   bgBot = interpolateColors(loopIn, [0, 1], [bgBot, GYM[1]]);
 
-  const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
-    { at: 0, id: 2299, v: 0.28, lead: 0.05 },
+  const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number; fin?: number }[] = [
+    { at: 0, id: 2299, v: 0.28, lead: 0.05 }, // kanca
+    { at: 0.35, id: 2102, v: 0.07, dur: 1.2, fade: 0.4 }, // salon: dambıl sesi, uzakta
+    { at: L(1), id: 1060, v: 0.06, dur: 1.4, fade: 0.5 }, // duvar saati: günler geçiyor
     { at: W(1, 3), id: 2299, v: 0.2, lead: 0.05 }, // çöpe
-    { at: W(2, 6), id: 2568, v: 0.16 }, // ağırlık
+    ...[0, 1, 2].map((k) => ({ at: L(2) + 0.15 + k * 0.45, id: 2568, v: 0.1 })), // program A/B/C üstü çizilir
+    { at: W(2, 6), id: 2102, v: 0.12, dur: 1.2, fade: 0.4 }, // daha ağır: halter
+    { at: L(3), id: 1837, v: 0.6, lead: 0.22, dur: L(4) - L(3), fade: 0.4, fin: 0.4 }, // mutfak: buzdolabı uğultusu
+    { at: W(3, 10) - 1.2, id: 790, v: 0.14, lead: 0.61, dur: 1.15, fade: 0.25 }, // mühür öncesi hafif gerilim
     { at: W(3, 10) - 0.05, id: 2182, v: 0.24 }, // FELAKET mührü
     { at: L(4) + 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kasın içi
+    { at: W(4, 4) - 0.05, id: 2299, v: 0.14, lead: 0.05 }, // KAS ERİYOR
     { at: W(5, 6), id: 2568, v: 0.16 }, // saray
-    { at: W(7, 5), id: 2568, v: 0.18 }, // ✕ ağırlık
+    { at: W(5, 7) - 0.05, id: 2299, v: 0.12, lead: 0.05 }, // KAS YARIM KALDI
+    { at: W(6, 5) - 0.05, id: 2299, v: 0.14, lead: 0.05 }, // ter YOK OLDU
+    { at: W(7, 4), id: 2102, v: 0.12, dur: 1.2, fade: 0.4 }, // ✕ ağırlık: dambıl bırakılır
     { at: W(7, 7), id: 1120, v: 0.28, lead: 0.1 }, // saray tamam
     { at: W(8, 14), id: 2568, v: 0.18 }, // yorumlara yaz
   ];
@@ -590,7 +598,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
           <Audio
             src={staticFile(`sfx/${f.id}.mp3`)}
             startFrom={Math.round((f.lead ?? 0) * fps)}
-            volume={(q) => (f.dur && f.fade ? f.v * interpolate(q / fps, [0, 0.001, f.dur - f.fade, f.dur], [1, 1, 1, 0], { extrapolateRight: "clamp" }) : f.v)}
+            volume={(q) => (f.dur && f.fade ? f.v * interpolate(q / fps, [0, f.fin ?? 0.001, f.dur - f.fade, f.dur], [f.fin ? 0 : 1, 1, 1, 0], { extrapolateRight: "clamp" }) : f.v)}
           />
         </Sequence>
       ))}

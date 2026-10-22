@@ -366,23 +366,26 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   bgTop = interpolateColors(loopIn, [0, 1], [bgTop, GYM[0]]);
   bgBot = interpolateColors(loopIn, [0, 1], [bgBot, GYM[1]]);
 
+  // ter damlalarının tabağa düştüğü anlar (damla döngüsü: t*0.6 + k/5, u≈0.9'da tabağa iner)
+  const drips: number[] = [];
+  for (let m = 0; m < 400; m += 2) {
+    const d = (m / 5 + 0.9) / 0.6;
+    if (d > L(6) + 0.3 && d < L(7) - 0.3) drips.push(d);
+  }
+  // Gerçek nesne sesleri, olay anında ve kısık (UI tıkı / bas vuruş tekrarı yok)
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number; fin?: number }[] = [
-    { at: 0, id: 2299, v: 0.28, lead: 0.05 }, // kanca
-    { at: 0.35, id: 2102, v: 0.07, dur: 1.2, fade: 0.4 }, // salon: dambıl sesi, uzakta
-    { at: L(1), id: 1060, v: 0.06, dur: 1.4, fade: 0.5 }, // duvar saati: günler geçiyor
-    { at: W(1, 3), id: 2299, v: 0.2, lead: 0.05 }, // çöpe
-    ...[0, 1, 2].map((k) => ({ at: L(2) + 0.15 + k * 0.45, id: 2568, v: 0.1 })), // program A/B/C üstü çizilir
-    { at: W(2, 6), id: 2102, v: 0.12, dur: 1.2, fade: 0.4 }, // daha ağır: halter
-    { at: L(3), id: 1837, v: 0.6, lead: 0.22, dur: L(4) - L(3), fade: 0.4, fin: 0.4 }, // mutfak: buzdolabı uğultusu
-    { at: W(3, 10) - 1.2, id: 790, v: 0.14, lead: 0.61, dur: 1.15, fade: 0.25 }, // mühür öncesi hafif gerilim
+    { at: 0, id: 2299, v: 0.26, lead: 0.05 }, // kanca: tek bas vuruş
+    { at: W(0, 10) - 0.03, id: 490, v: 0.3 }, // "değişiklik": tek kalp atışı
+    { at: W(1, 4) - 0.1, id: 2996, v: 0.22, lead: 0.1 }, // takvim buruşup çöpe
+    ...[0, 1, 2].map((k) => ({ at: L(2) + 0.15 + k * 0.45, id: 2998, v: 0.2, dur: 0.4, fade: 0.1 })), // program A/B/C kalemle çizilir
+    { at: L(3) + 0.35, id: 116, v: 0.12 }, // mutfak: kola kutusu açılır
     { at: W(3, 10) - 0.05, id: 2182, v: 0.24 }, // FELAKET mührü
-    { at: L(4) + 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kasın içi
-    { at: W(4, 4) - 0.05, id: 2299, v: 0.14, lead: 0.05 }, // KAS ERİYOR
-    { at: W(5, 6), id: 2568, v: 0.16 }, // saray
-    { at: W(5, 7) - 0.05, id: 2299, v: 0.12, lead: 0.05 }, // KAS YARIM KALDI
-    { at: W(6, 5) - 0.05, id: 2299, v: 0.14, lead: 0.05 }, // ter YOK OLDU
-    { at: W(7, 4), id: 2102, v: 0.12, dur: 1.2, fade: 0.4 }, // ✕ ağırlık: dambıl bırakılır
-    { at: W(7, 7), id: 1120, v: 0.28, lead: 0.1 }, // saray tamam
+    { at: L(4) + 0.05, id: 1143, v: 0.22, lead: 0.14, dur: 1.4, fade: 0.7 }, // kolun içi
+    { at: W(4, 4) - 0.05, id: 498, v: 0.16, lead: 0.05, dur: 1.2, fade: 0.5 }, // KAS ERİYOR: derin, yavaş vuruş
+    ...drips.map((d) => ({ at: d, id: 3179, v: 0.3, dur: 0.5, fade: 0.2 })), // ter tabağa damlar
+    { at: L(7) + 0.1, id: 2933, v: 0.2 }, // dolu tabak masaya konur
+    { at: W(7, 6), id: 388, v: 0.08, lead: 0.07, dur: 1.2, fade: 0.5 }, // tuğlalar dökülür
+    { at: W(7, 7), id: 1120, v: 0.28, lead: 0.1 }, // kas tamam
     { at: W(8, 14), id: 2568, v: 0.18 }, // yorumlara yaz
   ];
   const duck = (mt: number) => 1 - 0.35 * win(mt, L(3), L(4) + 0.3, 0.3);

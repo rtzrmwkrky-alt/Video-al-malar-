@@ -477,8 +477,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
   Sessiz taslak onaylandı → Manitam %15 hızlı (speed 1.15; 0.4/0.35) → `public/audio/tabagini-degistir` 38.2 sn →
   `--max-pause 0.12` → `tabagini-degistir-kisa` 33.5 sn (video ~34 sn). Son: `out/tabagini-degistir-paylas.mp4` (-14 LUFS).
-  Efektler zenginleştirildi (kısık, gerçekçi): uzakta dambıl 2102 (`public/sfx`), duvar saati 1060, program çizgisi tıkları 2568,
-  halter, mutfakta buzdolabı uğultusu 1837, mühür öncesi gerilim 790, KAS ERİYOR / YARIM KALDI / YOK OLDU tok vuruş 2299, dambıl bırakılır.
+  1. efekt denemesi (dambıl şıngırtısı, duvar saati, buzdolabı uğultusu, gerilim, art arda bas vuruşlar) **"saçma ve kötü"** bulundu →
+  sadece **ekrandaki nesnenin gerçek sesi**, olay anında, kısık (Mixkit, `public/sfx`): kanca bas 2299 (tek), "değişiklik"te tek kalp
+  atışı 490, takvim buruşur 2996, program çizgileri kalem 2998, mutfakta kola kutusu açılır 116, FELAKET mührü 2182, kolun içi 1143,
+  KAS ERİYOR derin vuruş 498, ter damlaları tabağa düştükçe damla 3179 (damla animasyonuna senkron), dolu tabak konur 2933, tuğlalar
+  dökülür 388, kas tamam 1120, yorumlara yaz 2568. DERS: soyut/tekrar eden vuruş ve ortam sesi yerine görünen nesnenin sesi.
 
 ## Son durum (yeni oturumda buradan devam)
 

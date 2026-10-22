@@ -475,6 +475,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Göndermeden önce "izler miyim?" kontrolüyle düzeltildi: "kas açlıktan ölüyor" sahnesindeki pembe kutu kaldırıldı → aynı tuğlalı kol,
   boş tabak ✕, tuğlalar teker teker kaybolur (KAS ERİYOR); kapanış kartları nabız gibi atar, aralarında düşünen genç bir karta bir
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
+  Sessiz taslak onaylandı → Manitam %15 hızlı (speed 1.15; 0.4/0.35) → `public/audio/tabagini-degistir` 38.2 sn →
+  `--max-pause 0.12` → `tabagini-degistir-kisa` 33.5 sn (video ~34 sn). Son: `out/tabagini-degistir-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)
 

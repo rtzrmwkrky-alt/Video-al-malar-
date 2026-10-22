@@ -1,0 +1,431 @@
+{
+  "text": "Her gün salona gidip istikrarla çalışmana rağmen aynada hiçbir değişiklik göremiyorsun, değil mi?\nBir yılını tamamen çöpe attın.\nSuçu hep antrenman programında aradın, daha ağır kaldırdın.\nAma kendine söylediğin dev bir yalan var: beslenmen tam bir felaket.\nKasların salonda değil, mutfakta açlıktan ölüyor.\nYeterli protein almadan, vücuduna tuğla vermeden saray inşa etmeye çalışıyorsun.\nSalonda döktüğün o ter, mutfakta yok olup gidiyor.\nArtık bahaneleri bırakma zamanı. Ağırlıkları değil, tabağını değiştirmelisin.\nEğer sen de bir yılını kaybetmek istemiyorsan dürüst ol: sorun antrenmanında mı, tabağında mı? Yorumlara yaz.",
+  "durationInSeconds": 38.16,
+  "words": [
+    {
+      "text": "Her",
+      "start": 0,
+      "end": 0.24
+    },
+    {
+      "text": "gün",
+      "start": 0.32,
+      "end": 0.4
+    },
+    {
+      "text": "salona",
+      "start": 0.48,
+      "end": 0.8
+    },
+    {
+      "text": "gidip",
+      "start": 0.88,
+      "end": 1.12
+    },
+    {
+      "text": "istikrarla",
+      "start": 1.2,
+      "end": 1.76
+    },
+    {
+      "text": "çalışmana",
+      "start": 1.84,
+      "end": 2.32
+    },
+    {
+      "text": "rağmen",
+      "start": 2.36,
+      "end": 2.72
+    },
+    {
+      "text": "aynada",
+      "start": 2.96,
+      "end": 3.36
+    },
+    {
+      "text": "hiçbir",
+      "start": 3.4,
+      "end": 3.68
+    },
+    {
+      "text": "değişiklik",
+      "start": 3.72,
+      "end": 4.16
+    },
+    {
+      "text": "göremiyorsun,",
+      "start": 4.2,
+      "end": 4.76
+    },
+    {
+      "text": "değil",
+      "start": 4.8,
+      "end": 4.96
+    },
+    {
+      "text": "mi?",
+      "start": 5.04,
+      "end": 5.52
+    },
+    {
+      "text": "Bir",
+      "start": 5.573,
+      "end": 5.68
+    },
+    {
+      "text": "yılını",
+      "start": 5.76,
+      "end": 6
+    },
+    {
+      "text": "tamamen",
+      "start": 6.08,
+      "end": 6.56
+    },
+    {
+      "text": "çöpe",
+      "start": 6.6,
+      "end": 6.88
+    },
+    {
+      "text": "attın.",
+      "start": 7,
+      "end": 7.6
+    },
+    {
+      "text": "Suçu",
+      "start": 7.68,
+      "end": 7.84
+    },
+    {
+      "text": "hep",
+      "start": 7.92,
+      "end": 8.08
+    },
+    {
+      "text": "antrenman",
+      "start": 8.16,
+      "end": 8.56
+    },
+    {
+      "text": "programında",
+      "start": 8.72,
+      "end": 9.12
+    },
+    {
+      "text": "aradın,",
+      "start": 9.16,
+      "end": 9.76
+    },
+    {
+      "text": "daha",
+      "start": 9.8,
+      "end": 10
+    },
+    {
+      "text": "ağır",
+      "start": 10.08,
+      "end": 10.32
+    },
+    {
+      "text": "kaldırdın.",
+      "start": 10.36,
+      "end": 11.2
+    },
+    {
+      "text": "Ama",
+      "start": 11.24,
+      "end": 11.44
+    },
+    {
+      "text": "kendine",
+      "start": 11.48,
+      "end": 11.84
+    },
+    {
+      "text": "söylediğin",
+      "start": 11.88,
+      "end": 12.32
+    },
+    {
+      "text": "dev",
+      "start": 12.48,
+      "end": 12.72
+    },
+    {
+      "text": "bir",
+      "start": 12.76,
+      "end": 12.8
+    },
+    {
+      "text": "yalan",
+      "start": 12.88,
+      "end": 13.12
+    },
+    {
+      "text": "var:",
+      "start": 13.2,
+      "end": 13.76
+    },
+    {
+      "text": "beslenmen",
+      "start": 13.88,
+      "end": 14.4
+    },
+    {
+      "text": "tam",
+      "start": 14.48,
+      "end": 14.72
+    },
+    {
+      "text": "bir",
+      "start": 14.76,
+      "end": 14.8
+    },
+    {
+      "text": "felaket.",
+      "start": 14.88,
+      "end": 15.76
+    },
+    {
+      "text": "Kasların",
+      "start": 15.813,
+      "end": 16.16
+    },
+    {
+      "text": "salonda",
+      "start": 16.24,
+      "end": 16.64
+    },
+    {
+      "text": "değil,",
+      "start": 16.72,
+      "end": 17.04
+    },
+    {
+      "text": "mutfakta",
+      "start": 17.12,
+      "end": 17.52
+    },
+    {
+      "text": "açlıktan",
+      "start": 17.56,
+      "end": 18
+    },
+    {
+      "text": "ölüyor.",
+      "start": 18.08,
+      "end": 18.72
+    },
+    {
+      "text": "Yeterli",
+      "start": 18.827,
+      "end": 19.12
+    },
+    {
+      "text": "protein",
+      "start": 19.32,
+      "end": 19.52
+    },
+    {
+      "text": "almadan,",
+      "start": 19.6,
+      "end": 20.24
+    },
+    {
+      "text": "vücuduna",
+      "start": 20.28,
+      "end": 20.72
+    },
+    {
+      "text": "tuğla",
+      "start": 20.8,
+      "end": 21.04
+    },
+    {
+      "text": "vermeden",
+      "start": 21.12,
+      "end": 21.6
+    },
+    {
+      "text": "saray",
+      "start": 21.68,
+      "end": 21.92
+    },
+    {
+      "text": "inşa",
+      "start": 22,
+      "end": 22.24
+    },
+    {
+      "text": "etmeye",
+      "start": 22.32,
+      "end": 22.56
+    },
+    {
+      "text": "çalışıyorsun.",
+      "start": 22.6,
+      "end": 23.52
+    },
+    {
+      "text": "Salonda",
+      "start": 23.6,
+      "end": 23.92
+    },
+    {
+      "text": "döktüğün",
+      "start": 23.96,
+      "end": 24.32
+    },
+    {
+      "text": "o",
+      "start": 24.4,
+      "end": 24.48
+    },
+    {
+      "text": "ter,",
+      "start": 24.64,
+      "end": 24.96
+    },
+    {
+      "text": "mutfakta",
+      "start": 25.04,
+      "end": 25.44
+    },
+    {
+      "text": "yok",
+      "start": 25.48,
+      "end": 25.68
+    },
+    {
+      "text": "olup",
+      "start": 25.72,
+      "end": 25.92
+    },
+    {
+      "text": "gidiyor.",
+      "start": 26,
+      "end": 26.64
+    },
+    {
+      "text": "Artık",
+      "start": 26.72,
+      "end": 26.96
+    },
+    {
+      "text": "bahaneleri",
+      "start": 27.04,
+      "end": 27.44
+    },
+    {
+      "text": "bırakma",
+      "start": 27.48,
+      "end": 27.84
+    },
+    {
+      "text": "zamanı.",
+      "start": 27.88,
+      "end": 28.64
+    },
+    {
+      "text": "Ağırlıkları",
+      "start": 28.68,
+      "end": 29.28
+    },
+    {
+      "text": "değil,",
+      "start": 29.32,
+      "end": 29.84
+    },
+    {
+      "text": "tabağını",
+      "start": 29.92,
+      "end": 30.24
+    },
+    {
+      "text": "değiştirmelisin.",
+      "start": 30.28,
+      "end": 31.36
+    },
+    {
+      "text": "Eğer",
+      "start": 31.4,
+      "end": 31.6
+    },
+    {
+      "text": "sen",
+      "start": 31.68,
+      "end": 31.84
+    },
+    {
+      "text": "de",
+      "start": 31.92,
+      "end": 32
+    },
+    {
+      "text": "bir",
+      "start": 32.04,
+      "end": 32.08
+    },
+    {
+      "text": "yılını",
+      "start": 32.16,
+      "end": 32.4
+    },
+    {
+      "text": "kaybetmek",
+      "start": 32.44,
+      "end": 32.88
+    },
+    {
+      "text": "istemiyorsan",
+      "start": 32.96,
+      "end": 33.6
+    },
+    {
+      "text": "dürüst",
+      "start": 33.84,
+      "end": 34.16
+    },
+    {
+      "text": "ol:",
+      "start": 34.24,
+      "end": 34.72
+    },
+    {
+      "text": "sorun",
+      "start": 34.76,
+      "end": 35.04
+    },
+    {
+      "text": "antrenmanında",
+      "start": 35.16,
+      "end": 35.76
+    },
+    {
+      "text": "mı,",
+      "start": 35.84,
+      "end": 36.16
+    },
+    {
+      "text": "tabağında",
+      "start": 36.28,
+      "end": 36.72
+    },
+    {
+      "text": "mı?",
+      "start": 36.76,
+      "end": 37.2
+    },
+    {
+      "text": "Yorumlara",
+      "start": 37.28,
+      "end": 37.6
+    },
+    {
+      "text": "yaz.",
+      "start": 37.68,
+      "end": 38.16
+    }
+  ]
+}

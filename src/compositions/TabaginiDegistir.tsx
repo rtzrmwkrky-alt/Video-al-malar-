@@ -471,6 +471,14 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
   const hookA = end ? loopIn : 1 - sm(t, mirrorAt - 0.2, mirrorAt);
   const hookB = end ? 0 : sm(t, mirrorAt - 0.05, mirrorAt + 0.15);
   const flexNow = !end && t > mirrorAt - 0.1;
+  // açılış kamerası: yüze yakın başlar, geriye açılıp aynayı gösterir; "aynada" kelimesinde aynaya doğru hafifçe yaklaşır.
+  // Döngü sonunda (end) yine yakın kareye döner, böylece son kare = ilk kare.
+  const introP = end ? 0 : sm(t, 0.05, 1.5);
+  const mirZ = end ? 0 : sm(t, mirrorAt - 0.25, mirrorAt + 0.6);
+  const camS = 1.45 - 0.45 * introP + 0.1 * mirZ;
+  const camX = 330 + 210 * introP + 80 * mirZ;
+  const camY = 720 + 180 * introP + 20 * mirZ;
+  const cam0 = `translate(540,900) scale(${camS}) translate(${-camX},${-camY})`;
   const s1 = scene(1, 2);
   const s2 = scene(2, 3);
   const s3 = scene(3, 4);
@@ -541,6 +549,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
         {/* ===== 0: ayna — tek kas çizgisi yok ===== */}
         {s0 > 0 ? (
           <g opacity={s0}>
+            <g transform={cam0}>
             <Ground />
             <Mirror x={600} y={560} w={400} h={820} uid="td-m">
               <HeroAt uid="td-mr" x={760} y={1430} s={0.9} t={t} pose={flexNow ? { l: { el: [60, 440], wr: [82, 318], hand: "fist" }, head: -4, lx: -6, ly: -2 } : { l: { el: [102, 530], wr: [94 + 20 * rep, 690 - 270 * rep] }, head: 2 }} expr={flexNow ? "ouch" : rep > 0.5 ? "ouch" : "neutral"} />
@@ -549,9 +558,10 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
             <g transform="translate(930,650) scale(0.75) translate(-930,-650)"><GoalPhoto x={930} y={650} glow={flexNow ? sm(t, mirrorAt, mirrorAt + 0.4) * (0.6 + 0.4 * Math.sin(t * 5)) : 0} /></g>
             <HeroAt uid="td-h0" x={300} s={1} t={t} pose={flexNow ? FLEX : curl(rep)} item={flexNow ? undefined : DB} expr={flexNow ? "ouch" : rep > 0.5 ? "ouch" : "neutral"} />
             {!flexNow ? <Sweat t={t} pts={[[230, 700], [370, 690]]} /> : null}
+            <Chip x={300} y={560} text="HİÇ DEĞİŞMEDİ" o={hookB * sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={46} />
+            </g>
             <BigText a="12 AY ANTRENMAN" b="SONUÇ: SIFIR" o={hookA} y={260} size={100} />
             <BigText a="HEDEF BU…" b="AYNADAKİ BU" o={hookB} y={260} size={100} />
-            <Chip x={300} y={560} text="HİÇ DEĞİŞMEDİ" o={hookB * sm(t, W(0, 10) - 0.1, W(0, 10) + 0.2)} bg={RED} size={46} />
           </g>
         ) : null}
 

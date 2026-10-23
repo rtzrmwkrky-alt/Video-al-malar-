@@ -490,6 +490,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   girişinden başlıyordu (ritim 15.5. saniyede giriyor). Düzeltme (kredi yok): ses `dynaudnorm` ile eşitlendi → `tabagini-degistir-esit`
   (aynı süre, json kopya), müzik `startFrom` 15.45 sn (ilk kareden ritimli), seviye baştan 0.03. GENEL: her videoda açılışın ilk
   2 saniyesi en dolu an olsun; müziği sessiz girişinden başlatma, seslendirmeyi cümleler arası eşitle.
+  "Giriş çok duruk" → açılış kamerası (`cam0`): yüze yakın (1.45x) başlar, 1.5 sn içinde geriye açılıp aynayı gösterir, "aynada"
+  kelimesinde aynaya hafifçe yaklaşır; yazılar kameradan bağımsız sabit. Döngü sonunda yine yakın kare (son kare = ilk kare).
+  GENEL: her videonun ilk saniyesinde kamera hareketi olsun (yakından geniş plana açılma gibi), açılış asla durağan olmasın.
   Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
   mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
   küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak

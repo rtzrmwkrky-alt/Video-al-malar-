@@ -493,6 +493,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "Giriş çok duruk" → açılış kamerası (`cam0`): yüze yakın (1.45x) başlar, 1.5 sn içinde geriye açılıp aynayı gösterir, "aynada"
   kelimesinde aynaya hafifçe yaklaşır; yazılar kameradan bağımsız sabit. Döngü sonunda yine yakın kare (son kare = ilk kare).
   GENEL: her videonun ilk saniyesinde kamera hareketi olsun (yakından geniş plana açılma gibi), açılış asla durağan olmasın.
+  "İlk cümleyi yüksek söylesin" → kredi harcamadan ilk cümle (0-5.05 sn) +5 dB, tüm ses limiter (0.6) ile tepe kırpılmadan →
+  `tabagini-degistir-guclu` (varsayılan). İlk cümle artık geri kalandan ~3-4 dB yüksek.
   Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
   mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
   küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak

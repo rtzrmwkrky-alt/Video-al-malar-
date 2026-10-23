@@ -798,9 +798,11 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
       ))}
       <Audio
         src={staticFile("music/623.mp3")}
+        // müzik sessiz girişinden değil, ritmin girdiği yerden (15.45 sn) başlar: ilk kareden dolu
+        startFrom={Math.round(15.45 * fps)}
         volume={(f) => {
           const mt = f / fps;
-          const base = interpolate(mt, [0, 0.4], [0.015, 0.03], { extrapolateRight: "clamp" });
+          const base = 0.03;
           return base * duck(mt) * interpolate(mt, [T - 0.6, T], [1, 0.7], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
         }}
       />

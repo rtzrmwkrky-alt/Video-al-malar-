@@ -486,6 +486,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   tuğla 388) sesleri kulağa hoş gelmedi** → hepsi silindi; sadece 4 olay anı: FELAKET mührü 2182, dolu tabak 2933, kas büyüdü 1120,
   yorumlara yaz 2568 (kısa, orta frekans). GENEL: alçak "güm" ve hışırtılı efekt kullanma; az ve temiz.
   Kullanıcı isteği: takvim çöpe düşünce minik ses → kapak kapanırken plastik tık 486 (Mixkit "Plastic CD cover close").
+  "Giriş sesi kısık / dikkat çekmiyor" → iki sebep: seslendirmenin ilk cümlesi diğerlerinden ~4 dB kısık ve müzik 623 kendi sessiz
+  girişinden başlıyordu (ritim 15.5. saniyede giriyor). Düzeltme (kredi yok): ses `dynaudnorm` ile eşitlendi → `tabagini-degistir-esit`
+  (aynı süre, json kopya), müzik `startFrom` 15.45 sn (ilk kareden ritimli), seviye baştan 0.03. GENEL: her videoda açılışın ilk
+  2 saniyesi en dolu an olsun; müziği sessiz girişinden başlatma, seslendirmeyi cümleler arası eşitle.
   Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
   mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
   küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak

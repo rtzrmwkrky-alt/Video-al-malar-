@@ -393,7 +393,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={TD_TL.frames}
-      defaultProps={{ audioName: "tabagini-degistir-kisa", data: null } satisfies TabaginiDegistirProps}
+      defaultProps={{ audioName: "tabagini-degistir-esit", data: null } satisfies TabaginiDegistirProps}
       calculateMetadata={({ props }) => withVoiceoverTail(TD_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />

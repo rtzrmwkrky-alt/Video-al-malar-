@@ -485,6 +485,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   2. geri bildirim: efektlerde **"güm" (alçak bas vuruş: 2299, 490, 1143, 498) ve "sis" (hışırtı: kalem 2998, damla 3179, kola 116,
   tuğla 388) sesleri kulağa hoş gelmedi** → hepsi silindi; sadece 4 olay anı: FELAKET mührü 2182, dolu tabak 2933, kas büyüdü 1120,
   yorumlara yaz 2568 (kısa, orta frekans). GENEL: alçak "güm" ve hışırtılı efekt kullanma; az ve temiz.
+  Kullanıcı isteği: takvim çöpe düşünce minik ses → kapak kapanırken plastik tık 486 (Mixkit "Plastic CD cover close").
   Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
   mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
   küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak

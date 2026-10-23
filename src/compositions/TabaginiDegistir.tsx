@@ -508,6 +508,7 @@ export const TabaginiDegistir: React.FC<TabaginiDegistirProps> = ({ audioName, d
 
   // Az ve yerinde: sadece birkaç olay anı, tok/alçak vuruş ve hışırtı yok
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
+    { at: W(1, 4) + 0.33, id: 486, v: 0.25, lead: 0.34 }, // takvim çöpe düşer, kapak kapanır (minik plastik tık)
     { at: W(3, 10) - 0.05, id: 2182, v: 0.2 }, // FELAKET mührü
     { at: W(7, 6), id: 2933, v: 0.2 }, // dolu tabak konur
     { at: W(7, 7) + 0.25, id: 1120, v: 0.24 }, // kas büyüdü

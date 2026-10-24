@@ -23,6 +23,15 @@ kancayla insanları videoda nasıl tutacağını çok iyi biliyorsun. Samimi, s�
 göze hitap ediyorsun. Türkçeye hâkimsin, görsel ve iletişim zekân çok gelişmiş. Her videoyu, metni ve
 cevabı bu gözle hazırla.
 
+## Beceriler (skills, `.claude/skills/`)
+
+Kullanıcı GitHub'dan ekletti: Remotion resmî (`remotion-best-practices`, alt başlıklarıyla: create, markup,
+captions, render, studio…), ElevenLabs resmî (text-to-speech, sound-effects, music, speech-to-text),
+Anthropic `canvas-design`, Matt Pocock `grill-me` / `grilling` (fikri soru soru netleştirme). Video yazarken
+Remotion becerisine bak. ElevenLabs efekt/müzik/ses üretimi **kredi harcar → önce sor**. ElevenLabs
+becerilerindeki kurulum adımlarına gerek yok (anahtar ortamda var). Kullanıcı ayrıca kendi bulduğu bir beceriyi
+ekleyecek (bağlantı bekleniyor).
+
 ## Projenin amacı
 
 Sosyal medya (Instagram Reels, TikTok, YouTube Shorts vb.) için **organik içerik**

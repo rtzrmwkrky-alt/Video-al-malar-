@@ -482,7 +482,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "0 ₺ / ÜSTELİK BEDAVA" → kanepede telefon, saat 07:00→23:00, kafada düşünce yumağı → 1.000+ deney, 128.000 kişi (insan ızgarası) →
   DEPRESYON/KAYGI göstergeleri orta düzeye iner → terazi ilaç+terapi ↔ ayakkabı dengelenir (EŞİT → HATTA DAHA İYİ) → ikiye bölünmüş ekran
   KAYGI yoga / DEPRESYON ağırlık + grup → terledikçe tempo ve ETKİ artar → YERİNE ✕ / YANINDA ✓ → açık kapı, 10 DK YÜRÜ, "Seni ne
-  rahatlatıyor? Yorumlara yaz" → döngü. Metin `icerik/spor-ruh.seslendirme.txt`. Sessiz taslak `out/spor-ruh-sessiz.mp4`; onay gelince
+  rahatlatıyor? Yorumlara yaz" → döngü. Metin `icerik/spor-ruh.seslendirme.txt`. Kullanıcı isteği: **fon krem tonları** (sahneye göre hafif ton farkı; beyaz rozetler koyu zemine çevrildi).
+  Sessiz taslak `out/spor-ruh-sessiz-krem.mp4`; onay gelince
   seslendirilecek (ses seçimini ve kredi kullanımını sor), en fazla 35 sn.
 
 ## Son durum (yeni oturumda buradan devam)

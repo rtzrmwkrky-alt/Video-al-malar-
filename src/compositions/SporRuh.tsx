@@ -411,16 +411,17 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
   const s7 = scene(7, 8);
   const s8 = win(t, L(8) - 0.02, T - 0.25, 0.18);
 
-  const HOOK: [string, string] = ["#26335c", "#141c38"];
+  // krem tonları (kullanıcı isteği); sahneler arasında hafif ton farkı
+  const HOOK: [string, string] = ["#f6efe2", "#e9dcc6"];
   const bgAt: [number, string, string][] = [
     [0, ...HOOK],
-    [L(1), "#5d6b86", "#353f57"],
-    [L(2), "#1f7a83", "#12505a"],
-    [L(4), "#3f5b8f", "#253a66"],
-    [L(5), "#1f7a83", "#12505a"],
-    [L(6), "#e0703f", "#a8432a"],
-    [L(7), "#33405f", "#1d2740"],
-    [L(8), "#ffb27a", "#f07a5a"],
+    [L(1), "#ece4d6", "#d9ccb6"],
+    [L(2), "#f4eedf", "#e6dcc4"],
+    [L(4), "#f7efe0", "#eadcc3"],
+    [L(5), "#f4eedf", "#e6dcc4"],
+    [L(6), "#f8ead8", "#ecd4b8"],
+    [L(7), "#efe8dc", "#ddd2c0"],
+    [L(8), "#fbefdc", "#f0dcbc"],
   ];
   let bgTop = bgAt[0][1];
   let bgBot = bgAt[0][2];
@@ -489,8 +490,8 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
             <stop offset="1" stopColor="#000" stopOpacity={0.22} />
           </radialGradient>
           <radialGradient id="sr-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stopColor="#fff4c2" stopOpacity={0.55} />
-            <stop offset="1" stopColor="#fff4c2" stopOpacity={0} />
+            <stop offset="0" stopColor="#ffc27a" stopOpacity={0.45} />
+            <stop offset="1" stopColor="#ffc27a" stopOpacity={0} />
           </radialGradient>
         </defs>
         <rect width={1080} height={1920} fill="url(#sr-bg)" />
@@ -508,7 +509,7 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
               </g>
               <BigText a="İLAÇ KADAR" b="ETKİLİ Mİ?" o={1} y={300} size={110} />
               <Tag x={800} y={1160} text="0 ₺" o={end ? 1 : sm(t, W(0, 7) - 0.1, W(0, 7) + 0.25)} color={GREEN} />
-              <Chip x={540} y={1330} text="ÜSTELİK BEDAVA" o={end ? 1 : sm(t, W(0, 7) - 0.1, W(0, 7) + 0.25)} bg="#ffffff" fg={INK} size={56} />
+              <Chip x={540} y={1330} text="ÜSTELİK BEDAVA" o={end ? 1 : sm(t, W(0, 7) - 0.1, W(0, 7) + 0.25)} bg={INK} fg="#ffffff" size={56} />
             </g>
           ) : null}
 
@@ -554,9 +555,9 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
                 const c = i % COLS;
                 const order = (r * COLS + c) / (ROWS * COLS);
                 const o = sm(fillP, order - 0.03, order + 0.02);
-                return <Person key={i} x={130 + c * 74} y={620 + r * 66} o={o} c={(r * 7 + c * 3) % 5 === 0 ? Y : "#ffffff"} />;
+                return <Person key={i} x={130 + c * 74} y={620 + r * 66} o={o} c={(r * 7 + c * 3) % 5 === 0 ? "#e8a23e" : "#5b6478"} />;
               })}
-              <Chip x={540} y={1500} text="Br J Sports Med · 2023" o={sm(t, L(2) + 0.3, L(2) + 0.6)} bg="#0e3a42" size={36} />
+              <Chip x={540} y={1500} text="Br J Sports Med · 2023" o={sm(t, L(2) + 0.3, L(2) + 0.6)} bg="#8a7a62" size={36} />
             </g>
           ) : null}
 
@@ -567,8 +568,8 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
               <Gauge x={780} label="KAYGI" v={0.84 - 0.34 * drop} color={interpolateColors(drop, [0, 1], [RED, "#ffb15a"])} />
               {[300, 780].map((x) => (
                 <g key={x} opacity={drop}>
-                  <path d={`M${x + 120},${720} L${x + 120},${880}`} stroke="#ffffff" strokeWidth={14} strokeLinecap="round" />
-                  <path d={`M${x + 92},${850} L${x + 120},${890} L${x + 148},${850}`} fill="none" stroke="#ffffff" strokeWidth={14} strokeLinecap="round" strokeLinejoin="round" />
+                  <path d={`M${x + 120},${720} L${x + 120},${880}`} stroke={INK} strokeWidth={14} strokeLinecap="round" />
+                  <path d={`M${x + 92},${850} L${x + 120},${890} L${x + 148},${850}`} fill="none" stroke={INK} strokeWidth={14} strokeLinecap="round" strokeLinejoin="round" />
                 </g>
               ))}
               <BigText a="SPOR SONRASI" b="ORTA DÜZEY ↓" o={1} bo={drop} y={240} size={100} />
@@ -588,21 +589,21 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
                 }
                 right={<Sneaker x={0} y={-50} s={0.65} rot={-4} />}
               />
-              <Chip x={250} y={430} text="İLAÇ + TERAPİ" o={1} bg="#ffffff" fg={INK} size={46} />
+              <Chip x={250} y={430} text="İLAÇ + TERAPİ" o={1} bg={INK} fg="#ffffff" size={46} />
               <Chip x={830} y={430} text="EGZERSİZ" o={1} bg={Y} fg={INK} size={46} />
               <BigText a="" b={t < W(4, 8) ? "EŞİT" : "HATTA DAHA İYİ"} o={sm(t, W(4, 7) - 0.1, W(4, 7) + 0.2)} y={170} size={96} />
-              <Chip x={540} y={1400} text="2026 çalışması" o={sm(t, L(4) + 0.3, L(4) + 0.6)} bg="#1d2b52" size={36} />
+              <Chip x={540} y={1400} text="2026 çalışması" o={sm(t, L(4) + 0.3, L(4) + 0.6)} bg="#8a7a62" size={36} />
             </g>
           ) : null}
 
           {/* ===== 5: kaygı = yoga · depresyon = ağırlık + grup ===== */}
           {s5 > 0 ? (
             <g opacity={s5}>
-              <rect x={0} y={0} width={540} height={1920} fill="#7b6fd0" opacity={0.55} />
-              <rect x={540} y={0} width={540} height={1920} fill="#e0703f" opacity={0.75 * right5} />
-              <line x1={540} y1={180} x2={540} y2={1500} stroke="#ffffff" strokeWidth={6} opacity={0.5} />
+              <rect x={0} y={0} width={540} height={1920} fill="#e6e0f2" opacity={0.9} />
+              <rect x={540} y={0} width={540} height={1920} fill="#f6dcc6" opacity={0.9 * right5} />
+              <line x1={540} y1={180} x2={540} y2={1500} stroke={INK} strokeWidth={5} opacity={0.25} />
               {/* sol: nefesle açılan halka + esneme */}
-              <circle cx={270} cy={900} r={190 + 40 * Math.sin(t * 1.6)} fill="none" stroke="#ffffff" strokeWidth={6} opacity={0.35} />
+              <circle cx={270} cy={900} r={190 + 40 * Math.sin(t * 1.6)} fill="none" stroke="#8a7fc0" strokeWidth={6} opacity={0.5} />
               <Mat x={270} w={380} color="#8fe0c8" />
               <Guy
                 uid="sr-h5a"
@@ -615,8 +616,8 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
               <text x={270} y={300} textAnchor="middle" fontFamily={SANS} fontWeight={800} fontSize={84} fill="#ffffff" stroke={INK} strokeWidth={14} paintOrder="stroke">
                 KAYGI
               </text>
-              <Chip x={270} y={410} text="YOGA" o={sm(t, W(5, 2) - 0.1, W(5, 2) + 0.2)} bg="#ffffff" fg={INK} size={44} />
-              <Chip x={270} y={500} text="HAFİF, KISA" o={sm(t, W(5, 4) - 0.1, W(5, 4) + 0.2)} bg="#ffffff" fg={INK} size={44} />
+              <Chip x={270} y={410} text="YOGA" o={sm(t, W(5, 2) - 0.1, W(5, 2) + 0.2)} bg={INK} fg="#ffffff" size={44} />
+              <Chip x={270} y={500} text="HAFİF, KISA" o={sm(t, W(5, 4) - 0.1, W(5, 4) + 0.2)} bg={INK} fg="#ffffff" size={44} />
               {/* sağ: ağırlık + arkadaş */}
               <g opacity={right5}>
                 <Guy uid="sr-h5b" x={720} s={0.58} t={t} pose={curl(rep5)} item={DB} expr={rep5 > 0.5 ? "grin" : "smile"} />
@@ -664,7 +665,7 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
               </text>
               <BigText a="AĞIR DEPRESYONDA" b="" o={1} y={260} size={96} />
               <g opacity={push7 * (1 - back7)}>
-                <Chip x={540} y={520} text="YERİNE" o={1} bg="#ffffff" fg={INK} size={64} />
+                <Chip x={540} y={520} text="YERİNE" o={1} bg={INK} fg="#ffffff" size={64} />
                 <Cross x={540} y={700} s={70} p={sm(t, W(7, 4), W(7, 5) + 0.1)} />
               </g>
               <g opacity={back7}>

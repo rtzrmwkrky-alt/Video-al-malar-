@@ -497,6 +497,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   boş tabak ✕, tuğlalar teker teker kaybolur (KAS ERİYOR); kapanış kartları nabız gibi atar, aralarında düşünen genç bir karta bir
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
 
+- **SuIcmedenSpor (beklemede, kullanıcı konuyu değiştirdi)** — "Susadıysan geç kaldın" fikri konuşuldu: sporcu genç, sabah 2 kahve +
+  "susamadım ki", kilonun %2'si kadar su kaybı → güç düşer; öneri: antrenman öncesi 1-2 bardak, her çeyrek saatte birkaç yudum, idrar rengi
+  "açık limonata gibi" testi; yorum sorusu "kaç yudum içiyorsun?"; döngü. Karakter: kullanıcının başka hesaptan gösterdiği sade el çizimi
+  aile figürleri (yuvarlak kafa, kabarık omuzlu tişört, bej oda) **tarzında ama kendimize özgü** genç (kopya değil; `Doodle.tsx` temel).
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

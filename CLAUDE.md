@@ -31,6 +31,11 @@ Anthropic `canvas-design`, Matt Pocock `grill-me` / `grilling` (fikri soru soru 
 Remotion becerisine bak. ElevenLabs efekt/müzik/ses üretimi **kredi harcar → önce sor**. ElevenLabs
 becerilerindeki kurulum adımlarına gerek yok (anahtar ortamda var). Kullanıcı ayrıca kendi bulduğu bir beceriyi
 ekletti: `find-skills` (skills.sh beceri arama; bulut oturumunda skills.sh sitesine ağ izni yok, beceriler GitHub üzerinden alınır).
+Pazarlama paketinden (coreyhaines31/marketingskills): `social` (kanca, Reels/Shorts senaryosu), `video`, `copywriting`,
+`marketing-psychology`, `content-strategy`.
+**PARA KURALI (kullanıcı tekrar vurguladı): para/kredi harcayan HER şeyden önce kullanıcıya sor** — ElevenLabs (ses, efekt,
+müzik, yazıya dökme), Apify, ücretli yapay zekâ video/görsel araçları (HeyGen, Sora, Veo, Runway, Kling vb.), ücretli
+abonelik/API. Becerinin önerisi olsa bile önce ne yapılacağını ve yaklaşık maliyeti söyle, onay gelmeden çalıştırma.
 
 ## Projenin amacı
 

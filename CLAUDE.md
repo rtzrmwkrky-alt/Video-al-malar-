@@ -476,6 +476,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   boş tabak ✕, tuğlalar teker teker kaybolur (KAS ERİYOR); kapanış kartları nabız gibi atar, aralarında düşünen genç bir karta bir
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
 
+- **SporRuh** — "Spor depresyon ve kaygıya iyi geliyor mu?" (~34 sn Shorts). Kullanıcı önce 9 dk YouTube + 60 sn Shorts senaryosu
+  istedi (`icerik/spor-depresyon-senaryo.md`; sadece verdiği 5 bulgu: BJSM 2023, BMJ 2024, 2026 çalışması, kaygı/depresyon farkı,
+  kanıt sınırı), sonra **35 sn** kısa sürüm. Sporcu genç (`SPORCU_LOOK`; evde gri kapüşonlu `HOME_LOOK`). Akış: ilaç kutusu = ayakkabı,
+  "0 ₺ / ÜSTELİK BEDAVA" → kanepede telefon, saat 07:00→23:00, kafada düşünce yumağı → 1.000+ deney, 128.000 kişi (insan ızgarası) →
+  DEPRESYON/KAYGI göstergeleri orta düzeye iner → terazi ilaç+terapi ↔ ayakkabı dengelenir (EŞİT → HATTA DAHA İYİ) → ikiye bölünmüş ekran
+  KAYGI yoga / DEPRESYON ağırlık + grup → terledikçe tempo ve ETKİ artar → YERİNE ✕ / YANINDA ✓ → açık kapı, 10 DK YÜRÜ, "Seni ne
+  rahatlatıyor? Yorumlara yaz" → döngü. Metin `icerik/spor-ruh.seslendirme.txt`. Sessiz taslak `out/spor-ruh-sessiz.mp4`; onay gelince
+  seslendirilecek (ses seçimini ve kredi kullanımını sor), en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

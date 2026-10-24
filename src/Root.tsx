@@ -59,6 +59,7 @@ import { B5_TAIL, B5_TL, BeslenmeSpor5, type BeslenmeSpor5Props } from "./compos
 import { TG_TAIL, TG_TL, BeslenmeTekGun, type BeslenmeTekGunProps } from "./compositions/BeslenmeTekGun";
 import { KN_TAIL, KN_TL, KasNedenBuyumuyor, type KasNedenBuyumuyorProps } from "./compositions/KasNedenBuyumuyor";
 import { TD_TAIL, TD_TL, TabaginiDegistir, type TabaginiDegistirProps } from "./compositions/TabaginiDegistir";
+import { SR_TAIL, SR_TL, SporRuh, type SporRuhProps } from "./compositions/SporRuh";
 import { ZAYIF_TAIL, ZAYIF_TL, Zayiflar, type ZayiflarProps } from "./compositions/Zayiflar";
 
 const FPS = 30;
@@ -395,6 +396,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={TD_TL.frames}
       defaultProps={{ audioName: "tabagini-degistir", data: null } satisfies TabaginiDegistirProps}
       calculateMetadata={({ props }) => withVoiceoverTail(TD_TAIL, props)}
+    />
+    <Composition
+      id="SporRuh"
+      component={SporRuh}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={SR_TL.frames}
+      defaultProps={{ audioName: "spor-ruh", data: null } satisfies SporRuhProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(SR_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />
     <Composition id="Bora3DDeneme" component={Bora3DDeneme} width={1080} height={1920} fps={FPS} durationInFrames={60} />

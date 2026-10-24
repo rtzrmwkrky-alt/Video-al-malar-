@@ -30,7 +30,7 @@ captions, render, studio…), ElevenLabs resmî (text-to-speech, sound-effects, 
 Anthropic `canvas-design`, Matt Pocock `grill-me` / `grilling` (fikri soru soru netleştirme). Video yazarken
 Remotion becerisine bak. ElevenLabs efekt/müzik/ses üretimi **kredi harcar → önce sor**. ElevenLabs
 becerilerindeki kurulum adımlarına gerek yok (anahtar ortamda var). Kullanıcı ayrıca kendi bulduğu bir beceriyi
-ekleyecek (bağlantı bekleniyor).
+ekletti: `find-skills` (skills.sh beceri arama; bulut oturumunda skills.sh sitesine ağ izni yok, beceriler GitHub üzerinden alınır).
 
 ## Projenin amacı
 

@@ -404,7 +404,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={SR_TL.frames}
-      defaultProps={{ audioName: "spor-ruh", data: null } satisfies SporRuhProps}
+      defaultProps={{ audioName: "spor-ruh-kisa", data: null } satisfies SporRuhProps}
       calculateMetadata={({ props }) => withVoiceoverTail(SR_TAIL, props)}
     />
     <Composition id="BoraKiyafet" component={BoraKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={30} />

@@ -37,7 +37,7 @@ export const SR_LINES: Line[] = [
   { text: "Bugün on dakika yürü. Seni kötü bir günde ne rahatlatıyor? Yorumlara yaz.", hl: ["on", "dakika", "rahatlatıyor?", "Yorumlara"], hold: 0.5 },
 ];
 
-export const SR_TAIL = 0.5;
+export const SR_TAIL = 0.35;
 export const SR_TL = timeline(SR_LINES, SR_TAIL);
 
 type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
@@ -475,7 +475,9 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
 
   // ---- 8: kapı + soru
   const open8 = sm(t, L(8), L(8) + 0.8);
-  const ask = sm(t, W(8, 4) - 0.1, W(8, 4) + 0.25);
+  // önce "10 DK YÜRÜ" söner, sonra soru gelir (üst üste binmesin)
+  const walkOut = sm(t, W(8, 4) - 0.32, W(8, 4) - 0.1);
+  const ask = sm(t, W(8, 4) - 0.08, W(8, 4) + 0.2);
 
   return (
     <AbsoluteFill lang="tr" style={{ background: bgTop, overflow: "hidden" }}>
@@ -688,8 +690,8 @@ export const SporRuh: React.FC<SporRuhProps> = ({ audioName, data }) => {
                 pose={ask > 0.5 ? { r: { el: [300, 520], wr: [300, 430] }, head: Math.sin(t * 2) * 6 } : { r: { el: [320, 470], wr: [330, 380], hand: "thumb" }, head: 4 }}
                 expr={ask > 0.5 ? "think" : "smile"}
               />
-              <Timer x={880} y={640} p={sm(t, L(8) + 0.2, W(8, 4))} o={sm(t, L(8) + 0.1, L(8) + 0.35) * (1 - ask)} />
-              <BigText a="BUGÜN" b="10 DK YÜRÜ" o={1 - ask} y={250} size={110} bColor="#ffffff" />
+              <Timer x={880} y={640} p={sm(t, L(8) + 0.2, W(8, 4))} o={sm(t, L(8) + 0.1, L(8) + 0.35) * (1 - walkOut)} />
+              <BigText a="BUGÜN" b="10 DK YÜRÜ" o={1 - walkOut} y={250} size={110} bColor="#ffffff" />
               <BigText a="SENİ NE" b="RAHATLATIYOR?" o={ask} y={250} size={104} />
               <Chip x={540} y={1470} text="YORUMLARA YAZ" o={sm(t, W(8, 10) - 0.1, W(8, 10) + 0.2)} bg={Y} fg={INK} size={56} />
             </g>

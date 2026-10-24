@@ -483,8 +483,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   DEPRESYON/KAYGI göstergeleri orta düzeye iner → terazi ilaç+terapi ↔ ayakkabı dengelenir (EŞİT → HATTA DAHA İYİ) → ikiye bölünmüş ekran
   KAYGI yoga / DEPRESYON ağırlık + grup → terledikçe tempo ve ETKİ artar → YERİNE ✕ / YANINDA ✓ → açık kapı, 10 DK YÜRÜ, "Seni ne
   rahatlatıyor? Yorumlara yaz" → döngü. Metin `icerik/spor-ruh.seslendirme.txt`. Kullanıcı isteği: **fon krem tonları** (sahneye göre hafif ton farkı; beyaz rozetler koyu zemine çevrildi).
-  Sessiz taslak `out/spor-ruh-sessiz-krem.mp4`; onay gelince
-  seslendirilecek (ses seçimini ve kredi kullanımını sor), en fazla 35 sn.
+  Sessiz taslak onaylandı → **Manitam** %15 hızlı (eleven_v4, tr, 0.4/0.35/1.15; 650 karakter) → `public/audio/spor-ruh` 40.3 sn →
+  `sikistir-ses.py --max-pause 0.06 --db -40` (hız yok) → `spor-ruh-kisa` 35.0 sn (`SR_TAIL` 0.35). Kapanışta "10 DK YÜRÜ" önce söner,
+  sonra soru gelir. Son: `out/spor-ruh-paylas.mp4` (-14 LUFS, ~35.5 sn).
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -484,6 +484,24 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   atışı 490, takvim buruşur 2996, program çizgileri kalem 2998, mutfakta kola kutusu açılır 116, FELAKET mührü 2182, kolun içi 1143,
   KAS ERİYOR derin vuruş 498, ter damlaları tabağa düştükçe damla 3179 (damla animasyonuna senkron), dolu tabak konur 2933, tuğlalar
   dökülür 388, kas tamam 1120, yorumlara yaz 2568. DERS: soyut/tekrar eden vuruş ve ortam sesi yerine görünen nesnenin sesi.
+  2. geri bildirim: efektlerde **"güm" (alçak bas vuruş: 2299, 490, 1143, 498) ve "sis" (hışırtı: kalem 2998, damla 3179, kola 116,
+  tuğla 388) sesleri kulağa hoş gelmedi** → hepsi silindi; sadece 4 olay anı: FELAKET mührü 2182, dolu tabak 2933, kas büyüdü 1120,
+  yorumlara yaz 2568 (kısa, orta frekans). GENEL: alçak "güm" ve hışırtılı efekt kullanma; az ve temiz.
+  Kullanıcı isteği: takvim çöpe düşünce minik ses → kapak kapanırken plastik tık 486 (Mixkit "Plastic CD cover close").
+  "Giriş sesi kısık / dikkat çekmiyor" → iki sebep: seslendirmenin ilk cümlesi diğerlerinden ~4 dB kısık ve müzik 623 kendi sessiz
+  girişinden başlıyordu (ritim 15.5. saniyede giriyor). Düzeltme (kredi yok): ses `dynaudnorm` ile eşitlendi → `tabagini-degistir-esit`
+  (aynı süre, json kopya), müzik `startFrom` 15.45 sn (ilk kareden ritimli), seviye baştan 0.03. GENEL: her videoda açılışın ilk
+  2 saniyesi en dolu an olsun; müziği sessiz girişinden başlatma, seslendirmeyi cümleler arası eşitle.
+  "Giriş çok duruk" → açılış kamerası (`cam0`): yüze yakın (1.45x) başlar, 1.5 sn içinde geriye açılıp aynayı gösterir, "aynada"
+  kelimesinde aynaya hafifçe yaklaşır; yazılar kameradan bağımsız sabit. Döngü sonunda yine yakın kare (son kare = ilk kare).
+  GENEL: her videonun ilk saniyesinde kamera hareketi olsun (yakından geniş plana açılma gibi), açılış asla durağan olmasın.
+  "İlk cümleyi yüksek söylesin" → kredi harcamadan ilk cümle (0-5.05 sn) +5 dB, tüm ses limiter (0.6) ile tepe kırpılmadan →
+  `tabagini-degistir-guclu` (varsayılan). İlk cümle artık geri kalandan ~3-4 dB yüksek.
+  Görsel: tuğla/kırmızı çubuk kol "çok zayıf" → `MuscleView` (anatomik kol kesiti: kemik, tendonlar, pazı kası lif demetleri çizgili,
+  mikro yırtıklar, tabaktan gelen kan damarı, protein = renkli amino asit zinciri). Aç kalınca protein kastan sökülüp gider, kas
+  küçülür ve solar (KAS ERİYOR); poğaçayla az protein, yırtıkların çeyreği kapanır (KAS YARIM KALDI, hedef kesikli siluet); tabak
+  değişince protein akar, yırtıklar kapanır, kas hedefe büyür (KAS BÜYÜDÜ). Ter sahnesi: üst yarı salon, alt yarı mutfak; ter boş
+  tabağa düşüp buhar olur. Son: `out/tabagini-degistir-v2-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

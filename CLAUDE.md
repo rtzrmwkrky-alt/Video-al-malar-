@@ -497,10 +497,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   boş tabak ✕, tuğlalar teker teker kaybolur (KAS ERİYOR); kapanış kartları nabız gibi atar, aralarında düşünen genç bir karta bir
   ötekine bakar. Sessiz taslak `out/tabagini-degistir-sessiz-v4.mp4`.
 
+- **CizimFigur** — kullanıcı yeni video için figürün Instagram "azamaoz23" videosundaki gibi olmasını istedi (kurşun kalem +
+  kuru boya, sıcak şeftali tonlu salon, büyük yuvarlak açık tenli kafa, nokta göz, C kulak, renkli tişört). Kendi çizimimiz:
+  `src/sketch/SketchPerson.tsx` (pozlar: oturma `sit` + `legSide`, kollar `l/r` açı+dirsek, elde çay/telefon, ifadeler,
+  konuşurken ağız; kadro `SKETCH_CAST`: sarı saçlı, siyah saçlı, dede, kız; kalem titremesi + gren filtresi `SketchDefs`)
+  ve `src/sketch/SketchRoom.tsx` (salon: bayrak süsü, gece penceresi, aile resimleri, lamba, kitaplık, bitki, kanepe).
+  Önizleme `out/cizim-figur.png`. **Figür onayı ve video konusu bekleniyor.**
 - **SuIcmedenSpor (beklemede, kullanıcı konuyu değiştirdi)** — "Susadıysan geç kaldın" fikri konuşuldu: sporcu genç, sabah 2 kahve +
   "susamadım ki", kilonun %2'si kadar su kaybı → güç düşer; öneri: antrenman öncesi 1-2 bardak, her çeyrek saatte birkaç yudum, idrar rengi
-  "açık limonata gibi" testi; yorum sorusu "kaç yudum içiyorsun?"; döngü. Karakter: kullanıcının başka hesaptan gösterdiği sade el çizimi
-  aile figürleri (yuvarlak kafa, kabarık omuzlu tişört, bej oda) **tarzında ama kendimize özgü** genç (kopya değil; `Doodle.tsx` temel).
+  "açık limonata gibi" testi; yorum sorusu "kaç yudum içiyorsun?"; döngü. Karakter: CizimFigur kadrosundan (kendi çizimimiz,
+  `SketchPerson`) — azamaoz23 tarzından ilham, kopya değil; kendimize özgü kalsın.
 
 ## Son durum (yeni oturumda buradan devam)
 

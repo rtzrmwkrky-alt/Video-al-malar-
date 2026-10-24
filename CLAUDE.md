@@ -13,6 +13,8 @@
 - **Robot gibi konuşma** (kullanıcı uyardı): madde madde rapor, başlık, düz resmî cümleler yok. Arkadaşınla
   sohbet eder gibi, sıcak ve kısa yaz ("tamam, hallettim", "bak şöyle yaptım"). Video seslendirme metinleri de
   aynı şekilde gündelik konuşma dilinde olmalı.
+- **Hiçbir şeyi silme** (kullanıcı "sil baştan" deyip hemen "dur, hiçbir şey silme, her şeyi hatırla" dedi): eski videolar,
+  sesler, karakterler ve bu notlar korunur; silme gerekirse ne silineceğini sade dille söyle, açık onay al.
 - **Kredi/para harcayan her işten önce sor** (Apify taraması, ElevenLabs seslendirmesi vb.):
   ne yapılacağını ve yaklaşık maliyetini söyle, onay gelmeden çalıştırma.
 

@@ -35,7 +35,7 @@ export type SketchPose = {
   /** yüzün döndüğü yön (-1 sol … 1 sağ) */
   turn?: number;
   /** elde tutulan şey */
-  itemR?: "tea" | "phone" | "remote";
+  itemR?: "tea" | "phone" | "remote" | "bread";
   /** oturunca bacakların uzandığı taraf (varsayılan: yüzün döndüğü taraf) */
   legSide?: -1 | 1;
 };
@@ -89,6 +89,14 @@ const Item: React.FC<{ kind: NonNullable<SketchPose["itemR"]> }> = ({ kind }) =>
         <path d="M-14,-30 L14,-30 Q16,-6 10,4 L-10,4 Q-16,-6 -14,-30 Z" fill="#f6efe6" fillOpacity={0.75} stroke={LINE} strokeWidth={2.6} />
         <path d="M-12,-20 L12,-20 Q13,-6 9,2 L-9,2 Q-13,-6 -12,-20 Z" fill="#b5321f" />
         <ellipse cx={0} cy={-30} rx={14} ry={4} fill="none" stroke={LINE} strokeWidth={2.4} />
+      </g>
+    );
+  if (kind === "bread")
+    return (
+      <g transform="rotate(-8)">
+        <path d="M-24,8 L-24,-26 Q-30,-46 -12,-50 Q0,-58 12,-50 Q30,-46 24,-26 L24,8 Z" fill="#c98a4a" stroke={LINE} strokeWidth={2.6} strokeLinejoin="round" />
+        <path d="M-18,4 L-18,-26 Q-22,-40 -9,-43 Q0,-49 9,-43 Q22,-40 18,-26 L18,4 Z" fill="#f6e3bf" />
+        <path d="M-8,-30 l3,2 M6,-20 l2,3 M-4,-8 l3,1" stroke="#c9a46e" strokeWidth={2} strokeLinecap="round" />
       </g>
     );
   if (kind === "phone")

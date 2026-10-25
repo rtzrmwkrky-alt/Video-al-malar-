@@ -40,6 +40,7 @@ import { EFE_VAR_FRAMES, EfeVaryant } from "./compositions/EfeVaryant";
 import { FIGUR_FRAMES, FigurSecim } from "./compositions/FigurSecim";
 import { FIGUR_UC_FRAMES, FigurUc } from "./compositions/FigurUc";
 import { CIZIM_FIGUR_FRAMES, CizimFigur } from "./compositions/CizimFigur";
+import { EB_TAIL, EB_TL, EkmekBirak, type EkmekBirakProps } from "./compositions/EkmekBirak";
 import { ORGU_FRAMES, OrguKiyafet } from "./compositions/OrguKiyafet";
 import { BORA_FRAMES, BoraTanitim } from "./compositions/BoraTanitim";
 import { KIVIRCIK_FRAMES, KivircikGenc } from "./compositions/KivircikGenc";
@@ -408,6 +409,16 @@ export const RemotionRoot: React.FC = () => {
     <Composition id="AvatarSecim" component={AvatarSecim} width={1080} height={1920} fps={FPS} durationInFrames={AVATAR_FRAMES} />
     <Composition id="EfeVaryant" component={EfeVaryant} width={1080} height={1920} fps={FPS} durationInFrames={EFE_VAR_FRAMES} />
     <Composition id="FigurSecim" component={FigurSecim} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_FRAMES} />
+    <Composition
+      id="EkmekBirak"
+      component={EkmekBirak}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={EB_TL.frames}
+      defaultProps={{ audioName: "ekmek-birak", data: null } satisfies EkmekBirakProps}
+      calculateMetadata={({ props }) => withVoiceoverTail(EB_TAIL, props)}
+    />
     <Composition id="CizimFigur" component={CizimFigur} width={1080} height={1920} fps={FPS} durationInFrames={CIZIM_FIGUR_FRAMES} />
     <Composition id="FigurUc" component={FigurUc} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_UC_FRAMES} />
     <Composition id="OrguKiyafet" component={OrguKiyafet} width={1080} height={1920} fps={FPS} durationInFrames={ORGU_FRAMES} />

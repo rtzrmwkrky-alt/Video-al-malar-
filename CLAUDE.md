@@ -508,6 +508,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   "açık limonata gibi" testi; yorum sorusu "kaç yudum içiyorsun?"; döngü. Karakter: CizimFigur kadrosundan (kendi çizimimiz,
   `SketchPerson`) — azamaoz23 tarzından ilham, kopya değil; kendimize özgü kalsın.
 
+- **EkmekBirak** — "Ekmeği bırakırsan zayıflarsın… derler." (grilling ile kullanıcıyla netleştirildi). Kalem çizimi salon
+  (`SketchRoom`), **tek kahraman siyah saçlı genç** (`SKETCH_CAST.siyah`), **hiç konuşmaz; arkadan anlatıcı** (Manitam %15 hızlı, ≤35 sn).
+  Kullanıcı kuralı: **tek konuşan karakter; sahnede başkası varsa sessiz.** Bilimsel destek istendi: glikojen 1 gr ≈ 3 gr su (ilk hafta
+  giden kilo çoğu su) + Stanford DIETFITS (Gardner ve ark., JAMA 2018; 609 kişi, 1 yıl; düşük karbonhidrat −6,0 / düşük yağ −5,3 kg).
+  Akış: tartıda −2 kg → üstünden damlalar SU kovasına → kart 1 gr ≈ 3 gr su → ekmek yer, su geri, +2 → Stanford ikiye bölünmüş ekran
+  (sağda sessiz sarı saçlı) → sofra: 1-2 dilim ✓, tam buğday ✓, tabağı ekmekle silmek ✕ → "Ekmeği bırakan arkadaşına gönder" → döngü.
+  Metin `icerik/ekmek-birak.seslendirme.txt` (ekran satırlarıyla kelime sayısı aynı; "609" rakamla). Sessiz taslak `out/ekmek-birak-sessiz.mp4`.
+  Bu bulut oturumunda Mixkit'e erişim yok → müzik (623) sessiz taslakta yok; efektler `public/sfx`.
+  Tarayıcı: `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

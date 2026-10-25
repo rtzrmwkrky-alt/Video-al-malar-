@@ -524,7 +524,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ekmeği kesince boşalır → damlalar lavaboya; yiyince geri dolar, +2 KG), 3 çalışma odası (mantar panoda Stanford, takvim, iki kâğıt
   −6,0 / −5,3, sarı not "NEREDEYSE AYNI"), 4 yemek odası (dede + kız sessiz, genç ortada; 1-2 dilim ✓ tam buğday ✓, tabağı silmek ✕,
   telefon). Sonda kamera evin tamamını gösterir, sonra banyoya dalar (döngü). Kamera `camAt` anahtarları kelime zamanlarına bağlı.
-  Aynı ses dosyası (`ekmek-birak`), kuyruk `EV_TAIL` 2.6. Sessiz taslak `out/ekmek-ev-sessiz.mp4`.
+  Kuyruk `EV_TAIL` 2.6. Sessiz taslak `out/ekmek-ev-sessiz.mp4`.
+  Kullanıcı "anlatım zayıf" dedi → **yeni akıcı metin** (`EV_LINES`, `icerik/ekmek-ev.seslendirme.txt`, ~580 karakter; "su da peşinden gider",
+  "Ama sevinme…", "ama tabağı ekmekle silmek yok!"; "su da çeker gider" sevilmedi; "Hadi deneyelim" 35 sn için çıkarıldı). Ses adı `ekmek-ev`.
+  **Seslendirme onaylandı ama yapılamadı:** bu oturumda `ELEVENLABS_API_KEY` yok ve `api.elevenlabs.io` / `assets.mixkit.co` ağ izni kapalı;
+  kullanıcıya ortam ayarlarından eklemesi söylendi. Yeni oturumda: Manitam (eleven_v4, tr, 0.4/0.35, speed 1.15) → `sikistir-ses.py
+  --max-pause ~0.3` → ≤35 sn → müzik 623 + -14 LUFS.
 
 ## Son durum (yeni oturumda buradan devam)
 

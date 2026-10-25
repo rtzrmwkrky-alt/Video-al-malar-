@@ -533,7 +533,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sonuç dosyaları `storage.googleapis.com` üzerinden indirilebiliyor (ağ izni var). `sikistir-ses.py --max-pause 0.26` →
   `ekmek-ev-kisa` 32.8 sn. Kullanıcı **%15 hızlı** istedi (bağlantıda hız ayarı yok) → kredisiz, perde bozulmadan
   `sikistir-ses.py ekmek-ev ekmek-ev-hizli --max-pause 0.3 --tempo 1.15` → 29.2 sn, `EV_TAIL` 2.6 → video ~32 sn.
-  Bu durumda (bağlantıda hız yoksa) Manitam'ın %15'i sonradan `--tempo 1.15` ile verilir. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
+  Bu durumda (bağlantıda hız yoksa) Manitam'ın %15'i sonradan `--tempo 1.15` ile verilir.
+  Müziksiz teslim edildi (kullanıcı istedi). **Kullanıcı "çok beğendim" dedi** → bu ev kesiti + kamera süzülmesi + Manitam %15 tarzı işe yarıyor. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
   Son: `out/ekmek-ev-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)

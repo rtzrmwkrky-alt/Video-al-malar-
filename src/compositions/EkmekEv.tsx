@@ -583,7 +583,7 @@ const camAt = (t: number, raw: CamKey[]) => {
 
 // ------------------------------------------------------------ kompozisyon
 
-export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
+export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audioName, data, music = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -703,6 +703,18 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
 
       <Captions t={t} tl={tl} lines={EV_LINES} end={T - EV_TAIL + 0.6} />
       {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} /> : null}
+      {/* konuşmanın altında kısık müzik (623, git'te yok: curl ile indir); kapanışta biraz yükselir, sonda söner */}
+      {data && music ? (
+        <Audio
+          src={staticFile("music/623.mp3")}
+          volume={(f) => {
+            const mt = f / fps;
+            const end = data.durationInSeconds;
+            const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.04, 0.04, 0.08], { extrapolateRight: "clamp" });
+            return base * interpolate(mt, [T - 0.9, T - 0.1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          }}
+        />
+      ) : null}
       {FX.map((f, k) => (
         <Sequence key={`fx${k}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">
           <Audio

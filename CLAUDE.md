@@ -534,7 +534,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `ekmek-ev-kisa` 32.8 sn. Kullanıcı **%15 hızlı** istedi (bağlantıda hız ayarı yok) → kredisiz, perde bozulmadan
   `sikistir-ses.py ekmek-ev ekmek-ev-hizli --max-pause 0.3 --tempo 1.15` → 29.2 sn, `EV_TAIL` 2.6 → video ~32 sn.
   Bu durumda (bağlantıda hız yoksa) Manitam'ın %15'i sonradan `--tempo 1.15` ile verilir.
-  Müziksiz teslim edildi (kullanıcı istedi). **Kullanıcı "çok beğendim" dedi** → bu ev kesiti + kamera süzülmesi + Manitam %15 tarzı işe yarıyor. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
+  Müziksiz teslim edildi. **Bekleyen: müzik ekle (kullanıcı bedava yolu seçti).** Yeni oturumda (ortamda `assets.mixkit.co` izni açılınca):
+  `curl -o public/music/623.mp3 https://assets.mixkit.co/music/623/623.mp3` → render
+  `npx remotion render EkmekEv out/ekmek-ev-sesli.mp4 --props='{"audioName":"ekmek-ev-hizli","data":null,"music":true}' --concurrency=4 --browser-executable=...`
+  (~45 dk) → -14 LUFS → `out/ekmek-ev-paylas.mp4`. Müzik 0.04, kapanışta 0.08, sonda söner (`music` prop). **Kullanıcı "çok beğendim" dedi** → bu ev kesiti + kamera süzülmesi + Manitam %15 tarzı işe yarıyor. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
   Son: `out/ekmek-ev-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)

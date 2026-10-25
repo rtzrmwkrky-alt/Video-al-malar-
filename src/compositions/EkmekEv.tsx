@@ -8,7 +8,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { SANS, loadFonts } from "../fonts";
-import { sm, timeline, win } from "../ornek/common";
+import { type Line, sm, timeline, win } from "../ornek/common";
 import { LINE, type SketchPose, SketchDefs, SketchPerson, SKETCH_CAST } from "../sketch/SketchPerson";
 import {
   BreadSlice,
@@ -18,7 +18,6 @@ import {
   Check,
   Cross,
   Drop,
-  EB_LINES,
   type EkmekBirakProps,
   GREEN,
   type Key,
@@ -40,8 +39,18 @@ import {
 
 loadFonts();
 
+export const EV_LINES: Line[] = [
+  { text: "Ekmeği bırakırsan zayıflarsın… derler. Hadi deneyelim.", hl: ["zayıflarsın…"], hold: 0.2 },
+  { text: "Bir hafta sonra tartıdasın: iki kilo gitmiş! Ama sevinme… giden yağ değil, su.", hl: ["iki", "kilo", "su."], hold: 0.2 },
+  { text: "Vücut, sakladığı her gram karbonhidratı üç gram suyla tutar. Ekmeği kesince depo boşalır… su da peşinden gider.", hl: ["üç", "gram", "suyla"], hold: 0.1 },
+  { text: "İlk dilimde mi? Su geri gelir, kilolar da.", hl: ["geri", "kilolar"], hold: 0.1 },
+  { text: "Stanford'da 609 kişi bir yıl izlendi. Ekmeği azaltan da, yağı azaltan da… aşağı yukarı aynı kiloyu verdi.", hl: ["609", "aynı", "kiloyu"], hold: 0.1 },
+  { text: "Yani mesele ekmek değil, ne kadar yediğin. Günde bir iki dilim tam buğday yeter… ama tabağı ekmekle silmek yok!", hl: ["ne", "kadar", "tam", "buğday"], hold: 0.1 },
+  { text: "Ekmeği bırakan arkadaşına bunu gönder.", hl: ["arkadaşına"], hold: 0.4 },
+];
+
 export const EV_TAIL = 2.6;
-export const EV_TL = timeline(EB_LINES, EV_TAIL);
+export const EV_TL = timeline(EV_LINES, EV_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
 
@@ -123,7 +132,7 @@ const Banyo: React.FC<Ctx> = ({ t, L, W }) => {
   const reset = t > L(6);
   const kgDrop = sm(t, W(1, 3), W(1, 6) + 0.2);
   const kg = reset ? 72 : 72 - 2 * kgDrop;
-  const drainA = W(1, 9);
+  const drainA = W(1, 10);
   const level = reset ? 0 : sm(t, drainA, drainA + 1.3);
   const bucketO = reset ? 0 : sm(t, drainA - 0.4, drainA - 0.1);
   const BREAD: SketchPose = { r: { a: 30, e: -100 }, l: { a: 14, e: 6 }, itemR: "bread", turn: 0.25 };
@@ -131,10 +140,10 @@ const Banyo: React.FC<Ctx> = ({ t, L, W }) => {
     { at: -1, pose: BREAD },
     { at: W(1, 0), pose: { r: { a: 14, e: 6 }, l: { a: 14, e: 6 }, turn: 0.2 } },
     { at: W(1, 6), pose: { r: { a: 150, e: -20 }, l: { a: 150, e: -20 }, turn: 0.1 } },
-    { at: W(1, 9), pose: { r: { a: 20, e: -20 }, l: { a: 30, e: -60 }, turn: -0.4 } },
+    { at: W(1, 8), pose: { r: { a: 20, e: -20 }, l: { a: 30, e: -60 }, turn: -0.4 } },
   ];
   const pose = reset ? BREAD : poseAt(t, keys);
-  const expr = reset || t < W(0, 3) ? "think" : t < W(1, 6) ? "smile" : t < W(1, 9) ? "grin" : "surprise";
+  const expr = reset || t < W(0, 3) ? "think" : t < W(1, 6) ? "smile" : t < W(1, 8) ? "grin" : "surprise";
   // damlalar gövdeden kovaya
   const pts: [number, number][] = [[480, 780], [600, 820], [520, 920], [590, 970], [470, 1040], [600, 1080], [540, 860], [500, 1150], [585, 1190]];
   const drops: React.ReactNode[] = [];
@@ -323,14 +332,14 @@ const Mutfak: React.FC<Ctx> = ({ t, L, W }) => {
 
 const Calisma: React.FC<Ctx> = ({ t, L, W }) => {
   const on = (k: number) => sm(t, W(4, k) - 0.1, W(4, k) + 0.25);
-  const months = Math.max(1, Math.round(1 + 11 * sm(t, W(4, 3), W(4, 13))));
-  const lossA = 6.0 * sm(t, W(4, 7), W(4, 15));
-  const lossB = 5.3 * sm(t, W(4, 11), W(4, 15));
+  const months = Math.max(1, Math.round(1 + 11 * sm(t, W(4, 3), W(4, 12))));
+  const lossA = 6.0 * sm(t, W(4, 6), W(4, 15));
+  const lossB = 5.3 * sm(t, W(4, 9), W(4, 15));
   const same = on(14);
   const pose: SketchPose = poseAt(t, [
     { at: -1, pose: { r: { a: 14, e: 6 }, l: { a: 14, e: 6 }, turn: 0.4 } },
     { at: L(4) + 0.6, pose: { r: { a: 120, e: -10 }, l: { a: 14, e: 6 }, turn: 0.4 } },
-    { at: Math.max(L(4) + 0.7, W(4, 11)), pose: { r: { a: 140, e: -10 }, l: { a: 14, e: 6 }, turn: 0.5 } },
+    { at: Math.max(L(4) + 0.7, W(4, 9)), pose: { r: { a: 140, e: -10 }, l: { a: 14, e: 6 }, turn: 0.5 } },
   ]);
   return (
     <g>
@@ -367,8 +376,8 @@ const Calisma: React.FC<Ctx> = ({ t, L, W }) => {
       </g>
       {/* iki grup */}
       {[
-        { x: 130, k: 7, icon: <BreadSlice x={0} y={0} s={0.8} />, label: "EKMEK, MAKARNA ↓", v: lossA, rot: -2 },
-        { x: 570, k: 11, icon: <OilBottle x={0} y={0} s={1.0} />, label: "YAĞ ↓", v: lossB, rot: 1.5 },
+        { x: 130, k: 6, icon: <BreadSlice x={0} y={0} s={0.8} />, label: "EKMEK ↓", v: lossA, rot: -2 },
+        { x: 570, k: 9, icon: <OilBottle x={0} y={0} s={1.0} />, label: "YAĞ ↓", v: lossB, rot: 1.5 },
       ].map((g) => (
         <g key={g.x} opacity={on(g.k)} transform={`rotate(${g.rot},${g.x + 190},700)`}>
           <rect x={g.x} y={450} width={380} height={470} fill="#fff" {...st} />
@@ -416,13 +425,13 @@ const Calisma: React.FC<Ctx> = ({ t, L, W }) => {
 // ------------------------------------------------------------ 4 · yemek odası (aile sofrası)
 
 const Yemek: React.FC<Ctx> = ({ t, L, W }) => {
-  const wipe = win(t, W(5, 11) - 0.1, L(6) + 0.1, 0.2);
-  const noWipe = sm(t, W(5, 13) - 0.1, W(5, 13) + 0.35);
-  const tick1 = sm(t, W(5, 5) - 0.05, W(5, 5) + 0.3);
-  const tick2 = sm(t, W(5, 8) - 0.05, W(5, 8) + 0.3);
+  const wipe = win(t, W(5, 15) - 0.1, L(6) + 0.1, 0.2);
+  const noWipe = sm(t, W(5, 17) - 0.1, W(5, 17) + 0.35);
+  const tick1 = sm(t, W(5, 10) - 0.05, W(5, 10) + 0.3);
+  const tick2 = sm(t, W(5, 11) - 0.05, W(5, 11) + 0.3);
   const heroPose: SketchPose = poseAt(t, [
     { at: -1, pose: { sit: true, r: { a: 20, e: -60 }, l: { a: 20, e: -60 }, turn: 0.1 } },
-    { at: W(5, 4), pose: { sit: true, r: { a: 30, e: -100 }, l: { a: 20, e: -60 }, itemR: "bread", turn: 0.2 } },
+    { at: W(5, 7), pose: { sit: true, r: { a: 30, e: -100 }, l: { a: 20, e: -60 }, itemR: "bread", turn: 0.2 } },
     { at: L(6) - 0.2, pose: { sit: true, r: { a: 30, e: -110 }, l: { a: 20, e: -60 }, itemR: "phone", turn: 0.3 } },
   ]);
   const side = (seed: number) => ({ sit: true, r: { a: 20 + Math.sin(t * 1.2 + seed) * 4, e: -70 }, l: { a: 20, e: -60 } });
@@ -578,11 +587,11 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const base: TL = data ? voiceTimeline(data) : EV_TL;
+  const base: TL = data ? voiceTimeline(data, EV_LINES) : EV_TL;
   const T = data ? data.durationInSeconds + EV_TAIL : EV_TL.total;
   const tl: TL = { ...base, total: T };
   const L = tl.at;
-  const W = (line: number, k: number) => wordTime(tl, line, k);
+  const W = (line: number, k: number) => wordTime(tl, line, k, EV_LINES);
   const ctx: Ctx = { t, L, W, T };
 
   const [b1x, b1y] = center(ROOMS.banyo);
@@ -595,7 +604,7 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
     [-1, ...hook],
     [W(1, 2), ...hook],
     [W(1, 4) + 0.15, ROOMS.banyo.x + 660, ROOMS.banyo.y + 1300, 1.45], // tartı + okunuş
-    [W(1, 8), b1x, b1y + 60, 1.04],
+    [W(1, 9), b1x, b1y + 60, 1.04],
     [L(2) - 0.15, b1x, b1y + 40, 1.0],
     [L(2) + 0.35, (b1x + m2x) / 2, b1y + 40, 0.6],
     [L(2) + 0.85, m2x, m2y, 1.0],
@@ -605,17 +614,17 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
     [L(4) - 0.15, m2x, m2y, 1.0],
     [L(4) + 0.4, WW / 2, 2400, 0.5],
     [L(4) + 0.95, c3x, c3y, 1.0],
-    [W(4, 7), ROOMS.calisma.x + 330, ROOMS.calisma.y + 700, 1.3], // sol kâğıt
-    [W(4, 11), ROOMS.calisma.x + 760, ROOMS.calisma.y + 700, 1.3], // sağ kâğıt
+    [W(4, 6), ROOMS.calisma.x + 330, ROOMS.calisma.y + 700, 1.3], // sol kâğıt
+    [W(4, 9), ROOMS.calisma.x + 760, ROOMS.calisma.y + 700, 1.3], // sağ kâğıt
     [W(4, 14), c3x, ROOMS.calisma.y + 760, 1.08],
     [L(5) - 0.15, c3x, c3y, 1.0],
     [L(5) + 0.35, WW / 2, c3y, 0.6],
     [L(5) + 0.85, y4x, y4y, 1.0],
-    [W(5, 10), y4x, y4y, 1.02],
-    [W(5, 11) + 0.15, ROOMS.yemek.x + 540, ROOMS.yemek.y + 1150, 1.4], // tabak
+    [W(5, 13), y4x, y4y, 1.02],
+    [W(5, 15) + 0.15, ROOMS.yemek.x + 540, ROOMS.yemek.y + 1150, 1.4], // tabak
     [L(6), y4x, y4y - 40, 1.06],
-    [W(6, 3) + 0.35, y4x, y4y - 40, 1.08],
-    [W(6, 3) + 1.35, ...ov],
+    [W(6, 4) + 0.35, y4x, y4y - 40, 1.08],
+    [W(6, 4) + 1.35, ...ov],
     [T - 0.95, ...ov],
     [T, ...hook],
   ];
@@ -625,12 +634,12 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
     { at: 0, id: 2299, v: 0.24, lead: 0.05 },
     { at: W(1, 4), id: 2568, v: 0.14 },
-    { at: W(1, 11) - 0.05, id: 1120, v: 0.18, lead: 0.1 },
+    { at: W(1, 12) - 0.05, id: 1120, v: 0.18, lead: 0.1 },
     { at: W(2, 12), id: 1120, v: 0.14, lead: 0.1 },
     { at: W(3, 5), id: 2568, v: 0.14 },
     { at: W(4, 14), id: 1120, v: 0.2, lead: 0.1 },
-    { at: W(5, 13), id: 2568, v: 0.14 },
-    { at: W(6, 3) + 0.4, id: 1143, v: 0.16, lead: 0.14, dur: 1.6, fade: 0.8 }, // evin tamamı
+    { at: W(5, 17), id: 2568, v: 0.14 },
+    { at: W(6, 4) + 0.4, id: 1143, v: 0.16, lead: 0.14, dur: 1.6, fade: 0.8 }, // evin tamamı
   ];
 
   const room = (r: { x: number; y: number }, id: string, el: React.ReactNode) => (
@@ -666,7 +675,7 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
             ZAYIFLARSIN?
           </Txt>
         </Card>
-        <Card x={560} y={280} w={640} h={170} o={win(t, W(1, 8) - 0.1, L(2) - 0.1, 0.25)} tilt={1}>
+        <Card x={560} y={280} w={640} h={170} o={win(t, W(1, 9) - 0.1, L(2) - 0.1, 0.25)} tilt={1}>
           <Txt x={0} y={22} size={62}>
             <tspan>YAĞ DEĞİL… </tspan>
             <tspan fill={WATER}>SU</tspan>
@@ -677,9 +686,9 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
             SU GERİ GELDİ
           </Txt>
         </Card>
-        <Card x={540} y={280} w={760} h={160} o={win(t, L(5) + 0.7, W(5, 10), 0.25)}>
+        <Card x={540} y={280} w={760} h={160} o={win(t, L(5) + 0.4, W(5, 7), 0.25)}>
           <Txt x={0} y={22} size={64}>
-            SORUN EKMEK DEĞİL
+            MESELE EKMEK DEĞİL
           </Txt>
         </Card>
         <Card x={540} y={300} w={900} h={210} o={win(t, L(6), T - 0.6, 0.3)}>
@@ -692,7 +701,7 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
         </Card>
       </svg>
 
-      <Captions t={t} tl={tl} />
+      <Captions t={t} tl={tl} lines={EV_LINES} />
       {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} /> : null}
       {FX.map((f, k) => (
         <Sequence key={`fx${k}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">

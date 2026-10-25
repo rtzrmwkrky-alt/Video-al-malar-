@@ -38,10 +38,10 @@ export type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: numb
 
 const words = (l: Line) => l.text.split(/\s+/);
 
-export const voiceTimeline = (data: VoiceoverData): TL => {
+export const voiceTimeline = (data: VoiceoverData, lines: Line[] = EB_LINES): TL => {
   const offs: number[] = [];
   let o = 0;
-  for (const l of EB_LINES) {
+  for (const l of lines) {
     offs.push(o);
     o += words(l).length;
   }
@@ -63,11 +63,11 @@ export const voiceTimeline = (data: VoiceoverData): TL => {
   };
 };
 
-export const wordTime = (tl: TL, line: number, k: number) => {
+export const wordTime = (tl: TL, line: number, k: number, lines: Line[] = EB_LINES) => {
   if (tl.wordAt) return tl.wordAt(line, k);
-  const n = words(EB_LINES[line]).length;
+  const n = words(lines[line]).length;
   const s = tl.at(line);
-  const e = tl.at(line + 1) - (EB_LINES[line].hold ?? 0);
+  const e = tl.at(line + 1) - (lines[line].hold ?? 0);
   return s + ((e - s) * k) / n;
 };
 
@@ -75,12 +75,12 @@ export const wordTime = (tl: TL, line: number, k: number) => {
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-export const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
+export const Captions: React.FC<{ t: number; tl: TL; lines?: Line[] }> = ({ t, tl, lines = EB_LINES }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
   const out = 1 - sm(t, tl.total - 0.45, tl.total - 0.15);
   if (out <= 0) return null;
-  const line = EB_LINES[i];
+  const line = lines[i];
   const ws = words(line);
   const chunks: number[] = [];
   for (let k = 0; k < ws.length; ) {
@@ -88,14 +88,14 @@ export const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
     k += ws.length - k === 4 ? 2 : Math.min(3, ws.length - k);
   }
   let c = 0;
-  while (c + 1 < chunks.length && t >= wordTime(tl, i, chunks[c + 1]) - 0.04) c++;
+  while (c + 1 < chunks.length && t >= wordTime(tl, i, chunks[c + 1], lines) - 0.04) c++;
   const from = chunks[c];
   const to = c + 1 < chunks.length ? chunks[c + 1] : ws.length;
   const hl = (line.hl ?? []).map(norm);
   return (
     <div style={{ position: "absolute", left: 40, right: 40, top: 1600, textAlign: "center", opacity: out }}>
       {ws.slice(from, to).map((w, k) => {
-        const wt = tl.wordAt ? wordTime(tl, i, from + k) - 0.06 : wordTime(tl, i, from) + k * 0.05;
+        const wt = tl.wordAt ? wordTime(tl, i, from + k, lines) - 0.06 : wordTime(tl, i, from, lines) + k * 0.05;
         const p = sm(t, wt, wt + 0.16);
         return (
           <span

@@ -40,7 +40,7 @@ import {
 loadFonts();
 
 export const EV_LINES: Line[] = [
-  { text: "Ekmeği bırakırsan zayıflarsın… derler. Hadi deneyelim.", hl: ["zayıflarsın…"], hold: 0.2 },
+  { text: "Ekmeği bırakırsan zayıflarsın… derler.", hl: ["zayıflarsın…"], hold: 0.2 },
   { text: "Bir hafta sonra tartıdasın: iki kilo gitmiş! Ama sevinme… giden yağ değil, su.", hl: ["iki", "kilo", "su."], hold: 0.2 },
   { text: "Vücut, sakladığı her gram karbonhidratı üç gram suyla tutar. Ekmeği kesince depo boşalır… su da peşinden gider.", hl: ["üç", "gram", "suyla"], hold: 0.1 },
   { text: "İlk dilimde mi? Su geri gelir, kilolar da.", hl: ["geri", "kilolar"], hold: 0.1 },

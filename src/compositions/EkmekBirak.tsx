@@ -15,11 +15,11 @@ import { SketchRoom, SofaFront } from "../sketch/SketchRoom";
 
 loadFonts();
 
-const PAPER = "#fbf3e6";
-const WATER = "#5aa8d8";
-const RED = "#d9453b";
-const GREEN = "#3f9a4c";
-const Y = "#ffd45a";
+export const PAPER = "#fbf3e6";
+export const WATER = "#5aa8d8";
+export const RED = "#d9453b";
+export const GREEN = "#3f9a4c";
+export const Y = "#ffd45a";
 
 export const EB_LINES: Line[] = [
   { text: "Ekmeği bırakırsan zayıflarsın… derler.", hl: ["zayıflarsın…"], hold: 0.2 },
@@ -34,11 +34,11 @@ export const EB_LINES: Line[] = [
 export const EB_TAIL = 0.6;
 export const EB_TL = timeline(EB_LINES, EB_TAIL);
 
-type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
+export type TL = ReturnType<typeof timeline> & { wordAt?: (line: number, k: number) => number };
 
 const words = (l: Line) => l.text.split(/\s+/);
 
-const voiceTimeline = (data: VoiceoverData): TL => {
+export const voiceTimeline = (data: VoiceoverData): TL => {
   const offs: number[] = [];
   let o = 0;
   for (const l of EB_LINES) {
@@ -63,7 +63,7 @@ const voiceTimeline = (data: VoiceoverData): TL => {
   };
 };
 
-const wordTime = (tl: TL, line: number, k: number) => {
+export const wordTime = (tl: TL, line: number, k: number) => {
   if (tl.wordAt) return tl.wordAt(line, k);
   const n = words(EB_LINES[line]).length;
   const s = tl.at(line);
@@ -75,7 +75,7 @@ const wordTime = (tl: TL, line: number, k: number) => {
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
+export const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
   const out = 1 - sm(t, tl.total - 0.45, tl.total - 0.15);
@@ -125,10 +125,10 @@ const Captions: React.FC<{ t: number; tl: TL }> = ({ t, tl }) => {
 
 // ------------------------------------------------------------ çizim parçaları (kalem tarzı)
 
-const st = { stroke: LINE, strokeWidth: 3.4, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
+export const st = { stroke: LINE, strokeWidth: 3.4, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
 /** banyo tartısı; üstünde rakam penceresi */
-const Scale: React.FC<{ x: number; y: number; kg: number }> = ({ x, y, kg }) => (
+export const Scale: React.FC<{ x: number; y: number; kg: number }> = ({ x, y, kg }) => (
   <g transform={`translate(${x},${y})`}>
     <ellipse cx={0} cy={44} rx={190} ry={16} fill="#5a3a26" opacity={0.13} />
     <path d="M-170,0 Q-176,30 -150,40 L150,40 Q176,30 170,0 Z" fill="#cfd3d6" {...st} />
@@ -141,7 +141,7 @@ const Scale: React.FC<{ x: number; y: number; kg: number }> = ({ x, y, kg }) => 
 );
 
 /** tartının büyük okunuşu (izleyici rakamı rahat okusun) */
-const Readout: React.FC<{ x: number; y: number; kg: number; o: number; delta: number }> = ({ x, y, kg, o, delta }) => {
+export const Readout: React.FC<{ x: number; y: number; kg: number; o: number; delta: number }> = ({ x, y, kg, o, delta }) => {
   if (o <= 0) return null;
   return (
     <g opacity={o} transform={`translate(${x},${y})`}>
@@ -166,7 +166,7 @@ const Readout: React.FC<{ x: number; y: number; kg: number; o: number; delta: nu
   );
 };
 
-const Drop: React.FC<{ x: number; y: number; s?: number; o?: number }> = ({ x, y, s = 1, o = 1 }) => (
+export const Drop: React.FC<{ x: number; y: number; s?: number; o?: number }> = ({ x, y, s = 1, o = 1 }) => (
   <path
     transform={`translate(${x},${y}) scale(${s})`}
     d="M0,-22 Q14,-2 12,8 Q10,20 0,20 Q-10,20 -12,8 Q-14,-2 0,-22 Z"
@@ -178,7 +178,7 @@ const Drop: React.FC<{ x: number; y: number; s?: number; o?: number }> = ({ x, y
 );
 
 /** kova; level 0-1 */
-const Bucket: React.FC<{ x: number; y: number; level: number; o: number }> = ({ x, y, level, o }) => {
+export const Bucket: React.FC<{ x: number; y: number; level: number; o: number }> = ({ x, y, level, o }) => {
   if (o <= 0) return null;
   const h = 150;
   const top = y - h;
@@ -202,7 +202,7 @@ const Bucket: React.FC<{ x: number; y: number; level: number; o: number }> = ({ 
   );
 };
 
-const BreadSlice: React.FC<{ x: number; y: number; s?: number; dark?: boolean }> = ({ x, y, s = 1, dark }) => (
+export const BreadSlice: React.FC<{ x: number; y: number; s?: number; dark?: boolean }> = ({ x, y, s = 1, dark }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <path d="M-48,40 L-48,-24 Q-60,-66 -24,-74 Q0,-90 24,-74 Q60,-66 48,-24 L48,40 Z" fill={dark ? "#8a5a34" : "#c98a4a"} {...st} />
     <path d="M-38,32 L-38,-24 Q-46,-56 -18,-62 Q0,-74 18,-62 Q46,-56 38,-24 L38,32 Z" fill={dark ? "#c99a6a" : "#f6e3bf"} />
@@ -212,7 +212,7 @@ const BreadSlice: React.FC<{ x: number; y: number; s?: number; dark?: boolean }>
   </g>
 );
 
-const Cross: React.FC<{ x: number; y: number; r: number; o: number }> = ({ x, y, r, o }) =>
+export const Cross: React.FC<{ x: number; y: number; r: number; o: number }> = ({ x, y, r, o }) =>
   o <= 0 ? null : (
     <g opacity={o} stroke={RED} strokeWidth={r * 0.22} strokeLinecap="round">
       <path d={`M${x - r},${y - r} L${x - r + 2 * r * Math.min(1, o * 1.6)},${y - r + 2 * r * Math.min(1, o * 1.6)}`} />
@@ -220,13 +220,13 @@ const Cross: React.FC<{ x: number; y: number; r: number; o: number }> = ({ x, y,
     </g>
   );
 
-const Check: React.FC<{ x: number; y: number; r: number; o: number }> = ({ x, y, r, o }) =>
+export const Check: React.FC<{ x: number; y: number; r: number; o: number }> = ({ x, y, r, o }) =>
   o <= 0 ? null : (
     <path d={`M${x - r},${y} L${x - r * 0.3},${y + r * 0.7} L${x + r},${y - r * 0.7}`} fill="none" stroke={GREEN} strokeWidth={r * 0.24} strokeLinecap="round" strokeLinejoin="round" opacity={o} />
   );
 
 /** el yazısı gibi kâğıt kart */
-const Card: React.FC<{ x: number; y: number; w: number; h: number; o: number; tilt?: number; children?: React.ReactNode }> = ({ x, y, w, h, o, tilt = -1.2, children }) => {
+export const Card: React.FC<{ x: number; y: number; w: number; h: number; o: number; tilt?: number; children?: React.ReactNode }> = ({ x, y, w, h, o, tilt = -1.2, children }) => {
   if (o <= 0) return null;
   return (
     <g opacity={o} transform={`translate(${x},${y + (1 - o) * 14}) rotate(${tilt})`}>
@@ -237,13 +237,13 @@ const Card: React.FC<{ x: number; y: number; w: number; h: number; o: number; ti
   );
 };
 
-const Txt: React.FC<{ x: number; y: number; size: number; children: React.ReactNode; fill?: string; w?: number; o?: number }> = ({ x, y, size, children, fill = LINE, w = 800, o = 1 }) => (
+export const Txt: React.FC<{ x: number; y: number; size: number; children: React.ReactNode; fill?: string; w?: number; o?: number }> = ({ x, y, size, children, fill = LINE, w = 800, o = 1 }) => (
   <text x={x} y={y} textAnchor="middle" fontFamily={SANS} fontWeight={w} fontSize={size} fill={fill} opacity={o} letterSpacing={-1}>
     {children}
   </text>
 );
 
-const Pill: React.FC<{ x: number; y: number; text: string; o: number; bg: string; fg?: string; size?: number }> = ({ x, y, text, o, bg, fg = "#fff", size = 44 }) => {
+export const Pill: React.FC<{ x: number; y: number; text: string; o: number; bg: string; fg?: string; size?: number }> = ({ x, y, text, o, bg, fg = "#fff", size = 44 }) => {
   if (o <= 0) return null;
   const w = text.length * size * 0.6 + 56;
   return (
@@ -256,7 +256,7 @@ const Pill: React.FC<{ x: number; y: number; text: string; o: number; bg: string
   );
 };
 
-const OilBottle: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const OilBottle: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <path d="M-10,-70 L10,-70 L10,-50 Q30,-30 30,0 L30,50 Q30,60 20,60 L-20,60 Q-30,60 -30,50 L-30,0 Q-30,-30 -10,-50 Z" fill="#f2d24a" {...st} />
     <rect x={-12} y={-84} width={24} height={16} rx={4} fill={GREEN} {...st} strokeWidth={2.6} />
@@ -264,7 +264,7 @@ const OilBottle: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1
   </g>
 );
 
-const Plate: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Plate: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g transform={`translate(${x},${y})`}>
     <ellipse cx={0} cy={10} rx={150} ry={46} fill="#5a3a26" opacity={0.12} />
     <ellipse cx={0} cy={0} rx={150} ry={46} fill="#fbfbf7" {...st} />
@@ -290,9 +290,9 @@ const Table: React.FC<{ y: number }> = ({ y }) => (
 
 // ------------------------------------------------------------ poz harmanı
 
-type Key = { at: number; pose: SketchPose };
-const mix = (a: number, b: number, k: number) => a + (b - a) * k;
-const poseAt = (t: number, keys: Key[], blend = 0.35): SketchPose => {
+export type Key = { at: number; pose: SketchPose };
+export const mix = (a: number, b: number, k: number) => a + (b - a) * k;
+export const poseAt = (t: number, keys: Key[], blend = 0.35): SketchPose => {
   let i = 0;
   while (i + 1 < keys.length && t >= keys[i + 1].at) i++;
   const cur = keys[i].pose;

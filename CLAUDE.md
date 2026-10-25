@@ -518,6 +518,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Bu bulut oturumunda Mixkit'e erişim yok → müzik (623) sessiz taslakta yok; efektler `public/sfx`.
   Tarayıcı: `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`.
 
+- **EkmekEv** — EkmekBirak'ın **ev kesiti** sürümü (kullanıcı isteği: video tek büyük resim, 4 bölme; kamera 1→2→3→4 kesmeden
+  süzülür, gereken yerde yakınlaşır, çevreye detay). Önü açık iki katlı ev (`src/compositions/EkmekEv.tsx`, dünya 2600x4400):
+  1 banyo (tartı, havlu, ayna, lavabo; −2 kg, damlalar kovaya), 2 mutfak (DEPO kavanozu: karbonhidrat küpleri + su, not "1 gr ≈ 3 gr su";
+  ekmeği kesince boşalır → damlalar lavaboya; yiyince geri dolar, +2 KG), 3 çalışma odası (mantar panoda Stanford, takvim, iki kâğıt
+  −6,0 / −5,3, sarı not "NEREDEYSE AYNI"), 4 yemek odası (dede + kız sessiz, genç ortada; 1-2 dilim ✓ tam buğday ✓, tabağı silmek ✕,
+  telefon). Sonda kamera evin tamamını gösterir, sonra banyoya dalar (döngü). Kamera `camAt` anahtarları kelime zamanlarına bağlı.
+  Aynı ses dosyası (`ekmek-birak`), kuyruk `EV_TAIL` 2.6. Sessiz taslak `out/ekmek-ev-sessiz.mp4`.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

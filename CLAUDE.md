@@ -531,7 +531,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ile Manitam, eleven_v4 (orada hız ayarı yok, normal hızda; 2 okuma ~1060 hak). 2. okuma seçildi → `public/audio/ekmek-ev` (37.9 sn).
   Kelime zamanları Scribe yazıya dökme ile (~210 hak; dosya GCS'ye yüklenip), metindeki kelimelerle eşlenip JSON'a yazıldı.
   Sonuç dosyaları `storage.googleapis.com` üzerinden indirilebiliyor (ağ izni var). `sikistir-ses.py --max-pause 0.26` →
-  `ekmek-ev-kisa` 32.8 sn, `EV_TAIL` 2.1 → video ~35 sn. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
+  `ekmek-ev-kisa` 32.8 sn. Kullanıcı **%15 hızlı** istedi (bağlantıda hız ayarı yok) → kredisiz, perde bozulmadan
+  `sikistir-ses.py ekmek-ev ekmek-ev-hizli --max-pause 0.3 --tempo 1.15` → 29.2 sn, `EV_TAIL` 2.6 → video ~32 sn.
+  Bu durumda (bağlantıda hız yoksa) Manitam'ın %15'i sonradan `--tempo 1.15` ile verilir. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
   Son: `out/ekmek-ev-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)

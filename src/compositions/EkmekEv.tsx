@@ -701,7 +701,7 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
         </Card>
       </svg>
 
-      <Captions t={t} tl={tl} lines={EV_LINES} />
+      <Captions t={t} tl={tl} lines={EV_LINES} end={T - EV_TAIL + 0.6} />
       {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} /> : null}
       {FX.map((f, k) => (
         <Sequence key={`fx${k}`} from={Math.max(0, Math.round(f.at * fps))} durationInFrames={f.dur ? Math.round(f.dur * fps) : undefined} layout="none">

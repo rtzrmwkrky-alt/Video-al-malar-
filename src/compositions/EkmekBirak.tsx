@@ -75,10 +75,12 @@ export const wordTime = (tl: TL, line: number, k: number, lines: Line[] = EB_LIN
 
 const norm = (w: string) => w.toLocaleLowerCase("tr-TR").replace(/[.,!?…:;"“”'’]/g, "");
 
-export const Captions: React.FC<{ t: number; tl: TL; lines?: Line[] }> = ({ t, tl, lines = EB_LINES }) => {
+/** `end`: altyazının sönüp bittiği an (varsayılan: video sonu) */
+export const Captions: React.FC<{ t: number; tl: TL; lines?: Line[]; end?: number }> = ({ t, tl, lines = EB_LINES, end }) => {
   const i = tl.idx(t);
   if (i < 0) return null;
-  const out = 1 - sm(t, tl.total - 0.45, tl.total - 0.15);
+  const e = end ?? tl.total - 0.15;
+  const out = 1 - sm(t, e - 0.3, e);
   if (out <= 0) return null;
   const line = lines[i];
   const ws = words(line);

@@ -1,0 +1,421 @@
+{
+ "text": "Ekmeği bırakırsan zayıflarsın… derler.\nBir hafta sonra tartıdasın: iki kilo gitmiş! Ama sevinme… giden yağ değil, su.\nVücut, sakladığı her gram karbonhidratı üç gram suyla tutar. Ekmeği kesince depo boşalır… su da peşinden gider.\nİlk dilimde mi? Su geri gelir, kilolar da.\nStanford'da 609 kişi bir yıl izlendi. Ekmeği azaltan da, yağı azaltan da… aşağı yukarı aynı kiloyu verdi.\nYani mesele ekmek değil, ne kadar yediğin. Günde bir iki dilim tam buğday yeter… ama tabağı ekmekle silmek yok!\nEkmeği bırakan arkadaşına bunu gönder.",
+ "durationInSeconds": 37.956,
+ "words": [
+  {
+   "text": "Ekmeği",
+   "start": 0.1,
+   "end": 0.46
+  },
+  {
+   "text": "bırakırsan",
+   "start": 0.5,
+   "end": 1.04
+  },
+  {
+   "text": "zayıflarsın…",
+   "start": 1.12,
+   "end": 1.8
+  },
+  {
+   "text": "derler.",
+   "start": 2.22,
+   "end": 2.7
+  },
+  {
+   "text": "Bir",
+   "start": 3.22,
+   "end": 3.32
+  },
+  {
+   "text": "hafta",
+   "start": 3.34,
+   "end": 3.58
+  },
+  {
+   "text": "sonra",
+   "start": 3.64,
+   "end": 3.88
+  },
+  {
+   "text": "tartıdasın:",
+   "start": 3.92,
+   "end": 4.52
+  },
+  {
+   "text": "iki",
+   "start": 4.88,
+   "end": 5.04
+  },
+  {
+   "text": "kilo",
+   "start": 5.1,
+   "end": 5.28
+  },
+  {
+   "text": "gitmiş!",
+   "start": 5.32,
+   "end": 5.7
+  },
+  {
+   "text": "Ama",
+   "start": 6.22,
+   "end": 6.38
+  },
+  {
+   "text": "sevinme…",
+   "start": 6.42,
+   "end": 6.84
+  },
+  {
+   "text": "giden",
+   "start": 7.26,
+   "end": 7.54
+  },
+  {
+   "text": "yağ",
+   "start": 7.6,
+   "end": 7.76
+  },
+  {
+   "text": "değil,",
+   "start": 7.84,
+   "end": 8.1
+  },
+  {
+   "text": "su.",
+   "start": 8.48,
+   "end": 8.62
+  },
+  {
+   "text": "Vücut,",
+   "start": 9.42,
+   "end": 9.7
+  },
+  {
+   "text": "sakladığı",
+   "start": 9.92,
+   "end": 10.4
+  },
+  {
+   "text": "her",
+   "start": 10.46,
+   "end": 10.6
+  },
+  {
+   "text": "gram",
+   "start": 10.7,
+   "end": 10.9
+  },
+  {
+   "text": "karbonhidratı",
+   "start": 10.96,
+   "end": 11.84
+  },
+  {
+   "text": "üç",
+   "start": 11.9,
+   "end": 12.0
+  },
+  {
+   "text": "gram",
+   "start": 12.08,
+   "end": 12.28
+  },
+  {
+   "text": "suyla",
+   "start": 12.38,
+   "end": 12.64
+  },
+  {
+   "text": "tutar.",
+   "start": 12.68,
+   "end": 13.04
+  },
+  {
+   "text": "Ekmeği",
+   "start": 13.6,
+   "end": 13.88
+  },
+  {
+   "text": "kesince",
+   "start": 13.92,
+   "end": 14.34
+  },
+  {
+   "text": "depo",
+   "start": 14.4,
+   "end": 14.62
+  },
+  {
+   "text": "boşalır…",
+   "start": 14.66,
+   "end": 15.08
+  },
+  {
+   "text": "su",
+   "start": 15.56,
+   "end": 15.62
+  },
+  {
+   "text": "da",
+   "start": 15.68,
+   "end": 15.74
+  },
+  {
+   "text": "peşinden",
+   "start": 15.8,
+   "end": 16.219
+  },
+  {
+   "text": "gider.",
+   "start": 16.26,
+   "end": 16.56
+  },
+  {
+   "text": "İlk",
+   "start": 17.18,
+   "end": 17.3
+  },
+  {
+   "text": "dilimde",
+   "start": 17.36,
+   "end": 17.7
+  },
+  {
+   "text": "mi?",
+   "start": 17.76,
+   "end": 17.82
+  },
+  {
+   "text": "Su",
+   "start": 18.28,
+   "end": 18.36
+  },
+  {
+   "text": "geri",
+   "start": 18.42,
+   "end": 18.6
+  },
+  {
+   "text": "gelir,",
+   "start": 18.66,
+   "end": 18.92
+  },
+  {
+   "text": "kilolar",
+   "start": 19.28,
+   "end": 19.66
+  },
+  {
+   "text": "da.",
+   "start": 19.72,
+   "end": 19.82
+  },
+  {
+   "text": "Stanford'da",
+   "start": 20.66,
+   "end": 21.36
+  },
+  {
+   "text": "609",
+   "start": 21.6,
+   "end": 22.14
+  },
+  {
+   "text": "kişi",
+   "start": 22.16,
+   "end": 22.38
+  },
+  {
+   "text": "bir",
+   "start": 22.5,
+   "end": 22.64
+  },
+  {
+   "text": "yıl",
+   "start": 22.7,
+   "end": 22.8
+  },
+  {
+   "text": "izlendi.",
+   "start": 22.86,
+   "end": 23.3
+  },
+  {
+   "text": "Ekmeği",
+   "start": 23.74,
+   "end": 24.08
+  },
+  {
+   "text": "azaltan",
+   "start": 24.14,
+   "end": 24.62
+  },
+  {
+   "text": "da,",
+   "start": 24.68,
+   "end": 24.84
+  },
+  {
+   "text": "yağı",
+   "start": 25.06,
+   "end": 25.28
+  },
+  {
+   "text": "azaltan",
+   "start": 25.34,
+   "end": 25.82
+  },
+  {
+   "text": "da…",
+   "start": 25.88,
+   "end": 26.0
+  },
+  {
+   "text": "aşağı",
+   "start": 26.4,
+   "end": 26.64
+  },
+  {
+   "text": "yukarı",
+   "start": 26.68,
+   "end": 26.96
+  },
+  {
+   "text": "aynı",
+   "start": 27.04,
+   "end": 27.22
+  },
+  {
+   "text": "kiloyu",
+   "start": 27.28,
+   "end": 27.54
+  },
+  {
+   "text": "verdi.",
+   "start": 27.58,
+   "end": 27.9
+  },
+  {
+   "text": "Yani",
+   "start": 28.44,
+   "end": 28.66
+  },
+  {
+   "text": "mesele",
+   "start": 28.7,
+   "end": 29.02
+  },
+  {
+   "text": "ekmek",
+   "start": 29.06,
+   "end": 29.38
+  },
+  {
+   "text": "değil,",
+   "start": 29.44,
+   "end": 29.7
+  },
+  {
+   "text": "ne",
+   "start": 30.02,
+   "end": 30.08
+  },
+  {
+   "text": "kadar",
+   "start": 30.14,
+   "end": 30.42
+  },
+  {
+   "text": "yediğin.",
+   "start": 30.48,
+   "end": 30.82
+  },
+  {
+   "text": "Günde",
+   "start": 31.4,
+   "end": 31.66
+  },
+  {
+   "text": "bir",
+   "start": 31.68,
+   "end": 31.8
+  },
+  {
+   "text": "iki",
+   "start": 31.84,
+   "end": 31.98
+  },
+  {
+   "text": "dilim",
+   "start": 32.02,
+   "end": 32.28
+  },
+  {
+   "text": "tam",
+   "start": 32.32,
+   "end": 32.5
+  },
+  {
+   "text": "buğday",
+   "start": 32.54,
+   "end": 32.84
+  },
+  {
+   "text": "yeter…",
+   "start": 32.9,
+   "end": 33.28
+  },
+  {
+   "text": "ama",
+   "start": 33.66,
+   "end": 33.82
+  },
+  {
+   "text": "tabağı",
+   "start": 33.86,
+   "end": 34.18
+  },
+  {
+   "text": "ekmekle",
+   "start": 34.22,
+   "end": 34.6
+  },
+  {
+   "text": "silmek",
+   "start": 34.66,
+   "end": 35.0
+  },
+  {
+   "text": "yok!",
+   "start": 35.06,
+   "end": 35.28
+  },
+  {
+   "text": "Ekmeği",
+   "start": 35.86,
+   "end": 36.16
+  },
+  {
+   "text": "bırakan",
+   "start": 36.18,
+   "end": 36.48
+  },
+  {
+   "text": "arkadaşına",
+   "start": 36.54,
+   "end": 37.06
+  },
+  {
+   "text": "bunu",
+   "start": 37.1,
+   "end": 37.24
+  },
+  {
+   "text": "gönder.",
+   "start": 37.28,
+   "end": 37.72
+  }
+ ]
+}

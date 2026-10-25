@@ -527,9 +527,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kuyruk `EV_TAIL` 2.6. Sessiz taslak `out/ekmek-ev-sessiz.mp4`.
   Kullanıcı "anlatım zayıf" dedi → **yeni akıcı metin** (`EV_LINES`, `icerik/ekmek-ev.seslendirme.txt`, ~580 karakter; "su da peşinden gider",
   "Ama sevinme…", "ama tabağı ekmekle silmek yok!"; "su da çeker gider" sevilmedi; "Hadi deneyelim" 35 sn için çıkarıldı). Ses adı `ekmek-ev`.
-  **Seslendirme onaylandı ama yapılamadı:** bu oturumda `ELEVENLABS_API_KEY` yok ve `api.elevenlabs.io` / `assets.mixkit.co` ağ izni kapalı;
-  kullanıcıya ortam ayarlarından eklemesi söylendi. Yeni oturumda: Manitam (eleven_v4, tr, 0.4/0.35, speed 1.15) → `sikistir-ses.py
-  --max-pause ~0.3` → ≤35 sn → müzik 623 + -14 LUFS.
+  **Seslendirildi (Ekim 2026):** bu oturumda anahtar/ağ yoktu → hesaba bağlı **ElevenLabs bağlantısı** (MCP, `creative_generate_speech`)
+  ile Manitam, eleven_v4 (orada hız ayarı yok, normal hızda; 2 okuma ~1060 hak). 2. okuma seçildi → `public/audio/ekmek-ev` (37.9 sn).
+  Kelime zamanları Scribe yazıya dökme ile (~210 hak; dosya GCS'ye yüklenip), metindeki kelimelerle eşlenip JSON'a yazıldı.
+  Sonuç dosyaları `storage.googleapis.com` üzerinden indirilebiliyor (ağ izni var). `sikistir-ses.py --max-pause 0.26` →
+  `ekmek-ev-kisa` 32.8 sn, `EV_TAIL` 2.1 → video ~35 sn. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
+  Son: `out/ekmek-ev-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)
 

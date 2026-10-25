@@ -1,0 +1,421 @@
+{
+  "text": "Ekmeği bırakırsan zayıflarsın… derler.\nBir hafta sonra tartıdasın: iki kilo gitmiş! Ama sevinme… giden yağ değil, su.\nVücut, sakladığı her gram karbonhidratı üç gram suyla tutar. Ekmeği kesince depo boşalır… su da peşinden gider.\nİlk dilimde mi? Su geri gelir, kilolar da.\nStanford'da 609 kişi bir yıl izlendi. Ekmeği azaltan da, yağı azaltan da… aşağı yukarı aynı kiloyu verdi.\nYani mesele ekmek değil, ne kadar yediğin. Günde bir iki dilim tam buğday yeter… ama tabağı ekmekle silmek yok!\nEkmeği bırakan arkadaşına bunu gönder.",
+  "durationInSeconds": 32.813,
+  "words": [
+    {
+      "text": "Ekmeği",
+      "start": 0.1,
+      "end": 0.46
+    },
+    {
+      "text": "bırakırsan",
+      "start": 0.5,
+      "end": 1.04
+    },
+    {
+      "text": "zayıflarsın…",
+      "start": 1.12,
+      "end": 1.8
+    },
+    {
+      "text": "derler.",
+      "start": 2.115,
+      "end": 2.595
+    },
+    {
+      "text": "Bir",
+      "start": 2.886,
+      "end": 2.986
+    },
+    {
+      "text": "hafta",
+      "start": 3.006,
+      "end": 3.246
+    },
+    {
+      "text": "sonra",
+      "start": 3.306,
+      "end": 3.546
+    },
+    {
+      "text": "tartıdasın:",
+      "start": 3.586,
+      "end": 4.186
+    },
+    {
+      "text": "iki",
+      "start": 4.429,
+      "end": 4.589
+    },
+    {
+      "text": "kilo",
+      "start": 4.649,
+      "end": 4.829
+    },
+    {
+      "text": "gitmiş!",
+      "start": 4.869,
+      "end": 5.249
+    },
+    {
+      "text": "Ama",
+      "start": 5.533,
+      "end": 5.693
+    },
+    {
+      "text": "sevinme…",
+      "start": 5.733,
+      "end": 6.153
+    },
+    {
+      "text": "giden",
+      "start": 6.4,
+      "end": 6.68
+    },
+    {
+      "text": "yağ",
+      "start": 6.74,
+      "end": 6.9
+    },
+    {
+      "text": "değil,",
+      "start": 6.98,
+      "end": 7.24
+    },
+    {
+      "text": "su.",
+      "start": 7.499,
+      "end": 7.639
+    },
+    {
+      "text": "Vücut,",
+      "start": 7.918,
+      "end": 8.198
+    },
+    {
+      "text": "sakladığı",
+      "start": 8.418,
+      "end": 8.898
+    },
+    {
+      "text": "her",
+      "start": 8.958,
+      "end": 9.098
+    },
+    {
+      "text": "gram",
+      "start": 9.198,
+      "end": 9.398
+    },
+    {
+      "text": "karbonhidratı",
+      "start": 9.458,
+      "end": 10.338
+    },
+    {
+      "text": "üç",
+      "start": 10.398,
+      "end": 10.498
+    },
+    {
+      "text": "gram",
+      "start": 10.578,
+      "end": 10.778
+    },
+    {
+      "text": "suyla",
+      "start": 10.878,
+      "end": 11.138
+    },
+    {
+      "text": "tutar.",
+      "start": 11.178,
+      "end": 11.538
+    },
+    {
+      "text": "Ekmeği",
+      "start": 11.813,
+      "end": 12.093
+    },
+    {
+      "text": "kesince",
+      "start": 12.133,
+      "end": 12.553
+    },
+    {
+      "text": "depo",
+      "start": 12.613,
+      "end": 12.833
+    },
+    {
+      "text": "boşalır…",
+      "start": 12.873,
+      "end": 13.293
+    },
+    {
+      "text": "su",
+      "start": 13.569,
+      "end": 13.629
+    },
+    {
+      "text": "da",
+      "start": 13.689,
+      "end": 13.749
+    },
+    {
+      "text": "peşinden",
+      "start": 13.809,
+      "end": 14.228
+    },
+    {
+      "text": "gider.",
+      "start": 14.269,
+      "end": 14.569
+    },
+    {
+      "text": "İlk",
+      "start": 14.738,
+      "end": 14.858
+    },
+    {
+      "text": "dilimde",
+      "start": 14.918,
+      "end": 15.258
+    },
+    {
+      "text": "mi?",
+      "start": 15.318,
+      "end": 15.378
+    },
+    {
+      "text": "Su",
+      "start": 15.671,
+      "end": 15.751
+    },
+    {
+      "text": "geri",
+      "start": 15.811,
+      "end": 15.991
+    },
+    {
+      "text": "gelir,",
+      "start": 16.051,
+      "end": 16.311
+    },
+    {
+      "text": "kilolar",
+      "start": 16.512,
+      "end": 16.892
+    },
+    {
+      "text": "da.",
+      "start": 16.952,
+      "end": 17.052
+    },
+    {
+      "text": "Stanford'da",
+      "start": 17.392,
+      "end": 18.092
+    },
+    {
+      "text": "609",
+      "start": 18.332,
+      "end": 18.872
+    },
+    {
+      "text": "kişi",
+      "start": 18.892,
+      "end": 19.112
+    },
+    {
+      "text": "bir",
+      "start": 19.232,
+      "end": 19.372
+    },
+    {
+      "text": "yıl",
+      "start": 19.432,
+      "end": 19.532
+    },
+    {
+      "text": "izlendi.",
+      "start": 19.592,
+      "end": 20.032
+    },
+    {
+      "text": "Ekmeği",
+      "start": 20.28,
+      "end": 20.62
+    },
+    {
+      "text": "azaltan",
+      "start": 20.68,
+      "end": 21.16
+    },
+    {
+      "text": "da,",
+      "start": 21.22,
+      "end": 21.38
+    },
+    {
+      "text": "yağı",
+      "start": 21.6,
+      "end": 21.82
+    },
+    {
+      "text": "azaltan",
+      "start": 21.88,
+      "end": 22.36
+    },
+    {
+      "text": "da…",
+      "start": 22.42,
+      "end": 22.54
+    },
+    {
+      "text": "aşağı",
+      "start": 22.892,
+      "end": 23.132
+    },
+    {
+      "text": "yukarı",
+      "start": 23.172,
+      "end": 23.452
+    },
+    {
+      "text": "aynı",
+      "start": 23.532,
+      "end": 23.712
+    },
+    {
+      "text": "kiloyu",
+      "start": 23.772,
+      "end": 24.032
+    },
+    {
+      "text": "verdi.",
+      "start": 24.072,
+      "end": 24.392
+    },
+    {
+      "text": "Yani",
+      "start": 24.545,
+      "end": 24.765
+    },
+    {
+      "text": "mesele",
+      "start": 24.805,
+      "end": 25.125
+    },
+    {
+      "text": "ekmek",
+      "start": 25.165,
+      "end": 25.485
+    },
+    {
+      "text": "değil,",
+      "start": 25.545,
+      "end": 25.805
+    },
+    {
+      "text": "ne",
+      "start": 26.07,
+      "end": 26.13
+    },
+    {
+      "text": "kadar",
+      "start": 26.19,
+      "end": 26.47
+    },
+    {
+      "text": "yediğin.",
+      "start": 26.53,
+      "end": 26.87
+    },
+    {
+      "text": "Günde",
+      "start": 27.066,
+      "end": 27.326
+    },
+    {
+      "text": "bir",
+      "start": 27.346,
+      "end": 27.466
+    },
+    {
+      "text": "iki",
+      "start": 27.506,
+      "end": 27.646
+    },
+    {
+      "text": "dilim",
+      "start": 27.686,
+      "end": 27.946
+    },
+    {
+      "text": "tam",
+      "start": 27.986,
+      "end": 28.166
+    },
+    {
+      "text": "buğday",
+      "start": 28.206,
+      "end": 28.506
+    },
+    {
+      "text": "yeter…",
+      "start": 28.566,
+      "end": 28.946
+    },
+    {
+      "text": "ama",
+      "start": 29.189,
+      "end": 29.349
+    },
+    {
+      "text": "tabağı",
+      "start": 29.389,
+      "end": 29.709
+    },
+    {
+      "text": "ekmekle",
+      "start": 29.749,
+      "end": 30.129
+    },
+    {
+      "text": "silmek",
+      "start": 30.189,
+      "end": 30.529
+    },
+    {
+      "text": "yok!",
+      "start": 30.589,
+      "end": 30.809
+    },
+    {
+      "text": "Ekmeği",
+      "start": 30.971,
+      "end": 31.271
+    },
+    {
+      "text": "bırakan",
+      "start": 31.291,
+      "end": 31.591
+    },
+    {
+      "text": "arkadaşına",
+      "start": 31.651,
+      "end": 32.171
+    },
+    {
+      "text": "bunu",
+      "start": 32.211,
+      "end": 32.351
+    },
+    {
+      "text": "gönder.",
+      "start": 32.391,
+      "end": 32.813
+    }
+  ]
+}

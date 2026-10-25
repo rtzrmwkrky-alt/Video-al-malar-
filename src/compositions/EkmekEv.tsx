@@ -49,7 +49,7 @@ export const EV_LINES: Line[] = [
   { text: "Ekmeği bırakan arkadaşına bunu gönder.", hl: ["arkadaşına"], hold: 0.4 },
 ];
 
-export const EV_TAIL = 2.6;
+export const EV_TAIL = 2.1;
 export const EV_TL = timeline(EV_LINES, EV_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
@@ -624,7 +624,7 @@ export const EkmekEv: React.FC<EkmekBirakProps> = ({ audioName, data }) => {
     [W(5, 15) + 0.15, ROOMS.yemek.x + 540, ROOMS.yemek.y + 1150, 1.4], // tabak
     [L(6), y4x, y4y - 40, 1.06],
     [W(6, 4) + 0.35, y4x, y4y - 40, 1.08],
-    [W(6, 4) + 1.35, ...ov],
+    [W(6, 4) + 1.1, ...ov],
     [T - 0.95, ...ov],
     [T, ...hook],
   ];

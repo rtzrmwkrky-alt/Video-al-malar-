@@ -1,0 +1,431 @@
+{
+  "text": "Her gün salona gidiyorsun… ama aynadaki sen hiç değişmiyor, değil mi?\nÇünkü emeğini sessizce çalan üç hırsız var.\nBirincisi: aynı yük. Aylardır aynı dambıl… Vücut alışınca değişmek için bir sebep bulamaz.\nİkincisi: boş tabak. Kas antrenmanda yıpranır, onarmak için protein ister. Tabak boşsa tamir de yok.\nÜçüncüsü: gece üç. Kas en çok uyurken onarılır… Sen telefondaysan o iş yarım kalır.\nÇözüm basit: her hafta bir tekrar ya da bir kilo fazlası, her öğünde protein, gece yedi sekiz saat uyku.\nSende hangi hırsız var? Yorumlara yaz.",
+  "durationInSeconds": 31.752,
+  "words": [
+    {
+      "word": "Her",
+      "start": 0.0,
+      "end": 0.163
+    },
+    {
+      "word": "gün",
+      "start": 0.163,
+      "end": 0.327
+    },
+    {
+      "word": "salona",
+      "start": 0.327,
+      "end": 0.725
+    },
+    {
+      "word": "gidiyorsun…",
+      "start": 0.725,
+      "end": 1.239
+    },
+    {
+      "word": "ama",
+      "start": 1.469,
+      "end": 1.768
+    },
+    {
+      "word": "aynadaki",
+      "start": 2.002,
+      "end": 2.553
+    },
+    {
+      "word": "sen",
+      "start": 2.553,
+      "end": 2.728
+    },
+    {
+      "word": "hiç",
+      "start": 2.913,
+      "end": 3.125
+    },
+    {
+      "word": "değişmiyor,",
+      "start": 3.125,
+      "end": 3.792
+    },
+    {
+      "word": "değil",
+      "start": 4.049,
+      "end": 4.278
+    },
+    {
+      "word": "mi?",
+      "start": 4.278,
+      "end": 4.411
+    },
+    {
+      "word": "Çünkü",
+      "start": 4.574,
+      "end": 4.854
+    },
+    {
+      "word": "emeğini",
+      "start": 4.854,
+      "end": 5.365
+    },
+    {
+      "word": "sessizce",
+      "start": 5.365,
+      "end": 5.761
+    },
+    {
+      "word": "çalan",
+      "start": 5.761,
+      "end": 6.041
+    },
+    {
+      "word": "üç",
+      "start": 6.041,
+      "end": 6.203
+    },
+    {
+      "word": "hırsız",
+      "start": 6.203,
+      "end": 6.482
+    },
+    {
+      "word": "var.",
+      "start": 6.482,
+      "end": 6.646
+    },
+    {
+      "word": "Birincisi:",
+      "start": 6.886,
+      "end": 7.439
+    },
+    {
+      "word": "aynı",
+      "start": 7.687,
+      "end": 7.902
+    },
+    {
+      "word": "yük.",
+      "start": 7.902,
+      "end": 8.029
+    },
+    {
+      "word": "Aylardır",
+      "start": 8.489,
+      "end": 8.974
+    },
+    {
+      "word": "aynı",
+      "start": 8.974,
+      "end": 9.316
+    },
+    {
+      "word": "dambıl…",
+      "start": 9.316,
+      "end": 9.658
+    },
+    {
+      "word": "Vücut",
+      "start": 9.916,
+      "end": 10.174
+    },
+    {
+      "word": "alışınca",
+      "start": 10.174,
+      "end": 10.647
+    },
+    {
+      "word": "değişmek",
+      "start": 10.647,
+      "end": 11.013
+    },
+    {
+      "word": "için",
+      "start": 11.013,
+      "end": 11.27
+    },
+    {
+      "word": "bir",
+      "start": 11.27,
+      "end": 11.42
+    },
+    {
+      "word": "sebep",
+      "start": 11.42,
+      "end": 11.679
+    },
+    {
+      "word": "bulamaz.",
+      "start": 11.679,
+      "end": 12.044
+    },
+    {
+      "word": "İkincisi:",
+      "start": 12.289,
+      "end": 12.835
+    },
+    {
+      "word": "boş",
+      "start": 13.023,
+      "end": 13.2
+    },
+    {
+      "word": "tabak.",
+      "start": 13.2,
+      "end": 13.501
+    },
+    {
+      "word": "Kas",
+      "start": 13.86,
+      "end": 14.074
+    },
+    {
+      "word": "antrenmanda",
+      "start": 14.074,
+      "end": 14.746
+    },
+    {
+      "word": "yıpranır,",
+      "start": 14.746,
+      "end": 15.266
+    },
+    {
+      "word": "onarmak",
+      "start": 15.425,
+      "end": 15.816
+    },
+    {
+      "word": "için",
+      "start": 15.816,
+      "end": 16.092
+    },
+    {
+      "word": "protein",
+      "start": 16.092,
+      "end": 16.483
+    },
+    {
+      "word": "ister.",
+      "start": 16.483,
+      "end": 16.759
+    },
+    {
+      "word": "Tabak",
+      "start": 16.974,
+      "end": 17.291
+    },
+    {
+      "word": "boşsa",
+      "start": 17.291,
+      "end": 17.609
+    },
+    {
+      "word": "tamir",
+      "start": 17.772,
+      "end": 17.997
+    },
+    {
+      "word": "de",
+      "start": 17.997,
+      "end": 18.128
+    },
+    {
+      "word": "yok.",
+      "start": 18.128,
+      "end": 18.259
+    },
+    {
+      "word": "Üçüncüsü:",
+      "start": 18.5,
+      "end": 19.049
+    },
+    {
+      "word": "gece",
+      "start": 19.262,
+      "end": 19.559
+    },
+    {
+      "word": "üç.",
+      "start": 19.559,
+      "end": 19.732
+    },
+    {
+      "word": "Kas",
+      "start": 19.732,
+      "end": 19.905
+    },
+    {
+      "word": "en",
+      "start": 20.148,
+      "end": 20.286
+    },
+    {
+      "word": "çok",
+      "start": 20.286,
+      "end": 20.423
+    },
+    {
+      "word": "uyurken",
+      "start": 20.529,
+      "end": 21.063
+    },
+    {
+      "word": "onarılır…",
+      "start": 21.063,
+      "end": 21.755
+    },
+    {
+      "word": "Sen",
+      "start": 22.012,
+      "end": 22.203
+    },
+    {
+      "word": "telefondaysan",
+      "start": 22.203,
+      "end": 22.944
+    },
+    {
+      "word": "o",
+      "start": 23.039,
+      "end": 23.187
+    },
+    {
+      "word": "iş",
+      "start": 23.187,
+      "end": 23.334
+    },
+    {
+      "word": "yarım",
+      "start": 23.334,
+      "end": 23.587
+    },
+    {
+      "word": "kalır.",
+      "start": 23.587,
+      "end": 23.841
+    },
+    {
+      "word": "Çözüm",
+      "start": 24.055,
+      "end": 24.361
+    },
+    {
+      "word": "basit:",
+      "start": 24.361,
+      "end": 24.666
+    },
+    {
+      "word": "her",
+      "start": 24.91,
+      "end": 25.08
+    },
+    {
+      "word": "hafta",
+      "start": 25.08,
+      "end": 25.37
+    },
+    {
+      "word": "bir",
+      "start": 25.37,
+      "end": 25.54
+    },
+    {
+      "word": "tekrar",
+      "start": 25.54,
+      "end": 25.83
+    },
+    {
+      "word": "ya",
+      "start": 25.83,
+      "end": 25.999
+    },
+    {
+      "word": "da",
+      "start": 25.999,
+      "end": 26.168
+    },
+    {
+      "word": "bir",
+      "start": 26.168,
+      "end": 26.338
+    },
+    {
+      "word": "kilo",
+      "start": 26.338,
+      "end": 26.628
+    },
+    {
+      "word": "fazlası,",
+      "start": 26.628,
+      "end": 27.04
+    },
+    {
+      "word": "her",
+      "start": 27.283,
+      "end": 27.441
+    },
+    {
+      "word": "öğünde",
+      "start": 27.441,
+      "end": 27.827
+    },
+    {
+      "word": "protein,",
+      "start": 27.827,
+      "end": 28.212
+    },
+    {
+      "word": "gece",
+      "start": 28.408,
+      "end": 28.649
+    },
+    {
+      "word": "yedi",
+      "start": 28.649,
+      "end": 28.891
+    },
+    {
+      "word": "sekiz",
+      "start": 28.891,
+      "end": 29.132
+    },
+    {
+      "word": "saat",
+      "start": 29.132,
+      "end": 29.373
+    },
+    {
+      "word": "uyku.",
+      "start": 29.373,
+      "end": 29.615
+    },
+    {
+      "word": "Sende",
+      "start": 30.008,
+      "end": 30.266
+    },
+    {
+      "word": "hangi",
+      "start": 30.266,
+      "end": 30.525
+    },
+    {
+      "word": "hırsız",
+      "start": 30.525,
+      "end": 30.784
+    },
+    {
+      "word": "var?",
+      "start": 30.784,
+      "end": 30.936
+    },
+    {
+      "word": "Yorumlara",
+      "start": 31.182,
+      "end": 31.615
+    },
+    {
+      "word": "yaz.",
+      "start": 31.615,
+      "end": 31.752
+    }
+  ]
+}

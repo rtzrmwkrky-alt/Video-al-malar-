@@ -551,8 +551,12 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   2 mutfak (tek poğaça, kas kartında yırtıklar, PROTEİN ?, TAMİR YOK), 3 yatak odası (03:00 telefon, TOPARLANMA %50, YARIM KALDI) →
   ÇÖZÜM: oda oda düzelir (12 KG + 1 TEKRAR, dolu tabak, 23:00 uyku z z), hırsızlar kaçar → 4 salon: ARANIYOR afişleri 1-2-3, genç
   "Bende 2. hırsız var…" yazar → ev → spor odası (döngü). Kapanış yorum sorusu "Sende hangi hırsız var? Yorumlara yaz."
-  Metin `icerik/uc-hirsiz.seslendirme.txt` (onaylandı). Sessiz taslak `out/uc-hirsiz-sessiz.mp4`; onay gelince Manitam (%15 hızlı) ile
-  seslendirilecek (ses adı `uc-hirsiz`), en fazla 35 sn. `SketchPerson`'a `dumbbell`/`pogaca` eşyası ve `sleep` ifadesi eklendi.
+  Metin `icerik/uc-hirsiz.seslendirme.txt` (onaylandı). Sessiz taslak `out/uc-hirsiz-sessiz.mp4` onaylandı → **seslendirildi**: ortamda
+  anahtar yoktu → ElevenLabs bağlantısı (MCP) ile Manitam, eleven_v4, tek okuma (533 kredi) → `public/audio/uc-hirsiz` (38.6 sn).
+  Kelime zamanları **kredisiz**: `python3 scripts/hizala-ses.py uc-hirsiz icerik/uc-hirsiz.seslendirme.txt` (sessizlik aralıklarına
+  hece sayısıyla dağıtır; Scribe gerekmez, sonuç iyi oturdu) → `sikistir-ses.py uc-hirsiz uc-hirsiz-hizli --max-pause 0.3 --tempo 1.15`
+  → 31.8 sn, video ~34 sn. Bu oturumda Mixkit kapalı → müziksiz `out/uc-hirsiz-paylas.mp4`; müzik için 623 indirilip `music: true` ile render.
+  `SketchPerson`'a `dumbbell`/`pogaca` eşyası ve `sleep` ifadesi eklendi.
 
 ## Son durum (yeni oturumda buradan devam)
 

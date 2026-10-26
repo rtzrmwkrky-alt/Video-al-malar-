@@ -101,9 +101,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 4. **Paylaşım kopyası (ses yüksekliği):** ElevenLabs sesi sosyal medya için kısık kalır
    (~-18 LUFS). Paylaşmadan önce -14 LUFS'a çek:
    ```bash
-   ffmpeg -i out/x.mp4 -c:v libx264 -crf 20 -preset slow -af "loudnorm=I=-14:TP=-1:LRA=11" \
-     -c:a aac -b:a 192k -ar 48000 -ac 2 -movflags +faststart out/x-paylas.mp4
+   ffmpeg -i out/x.mp4 -c:v libx264 -crf 23 -preset slow -maxrate 8M -bufsize 16M -pix_fmt yuv420p \
+     -af "loudnorm=I=-14:TP=-1:LRA=11" -c:a aac -b:a 192k -ar 48000 -ac 2 -movflags +faststart out/x-paylas.mp4
    ```
+   **Bit hızı sınırı şart:** kalem/gren dokulu videolar sınırsız `-crf 20` ile ~24 Mbps çıkıyordu → kullanıcı telefonda
+   "sürekli donma" yaşadı. `-maxrate 8M` ile ~8 Mbps, görüntü farkı yok.
 
 ## Mevcut kompozisyonlar
 
@@ -539,6 +541,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `npx remotion render EkmekEv out/ekmek-ev-sesli.mp4 --props='{"audioName":"ekmek-ev-hizli","data":null,"music":true}' --concurrency=4 --browser-executable=...`
   (~45 dk) → -14 LUFS → `out/ekmek-ev-paylas.mp4`. Müzik 0.04, kapanışta 0.08, sonda söner (`music` prop). **Kullanıcı "çok beğendim" dedi** → bu ev kesiti + kamera süzülmesi + Manitam %15 tarzı işe yarıyor. Müzik 623 bu oturumda indirilemedi (Mixkit kapalı) → müziksiz.
   Son: `out/ekmek-ev-paylas.mp4` (-14 LUFS).
+  Müzikli hâl "Video Deneme" ortamındaki oturumda yapıldı (Mixkit orada açık). Geri bildirim: **ekmek elin içine girmiş** →
+  `SketchPerson` ekmeği alt kenarından tutuyor (ekmek ele göre yukarıda), tişört kırışık çizgisi artık eşyanın altında.
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -308,13 +308,15 @@ export const SketchPerson: React.FC<{
           strokeWidth={SW}
           strokeLinejoin="round"
         />
+        {/* kırışık çizgileri (eldeki eşyanın altında kalsın) */}
+        <path d="M170,330 q8,30 0,60 M232,350 q-6,24 2,50" fill="none" stroke={LINE} strokeWidth={2} opacity={0.35} />
         {/* kollar (kol derisi) */}
         <Limb pts={[[150, SY], leftE, leftH]} fill={look.skin} w={22} />
         <Limb pts={[[250, SY], rightE, rightH]} fill={look.skin} w={22} />
         <Hand x={leftH[0]} y={leftH[1]} ang={L.ang} skin={look.skin} flip />
         <g>
           {pose.itemR ? (
-            <g transform={`translate(${rightH[0] + 2},${rightH[1] + 14})`}>
+            <g transform={`translate(${rightH[0] + 2},${rightH[1] + (pose.itemR === "bread" ? -2 : 14)})`}>
               <Item kind={pose.itemR} />
             </g>
           ) : null}
@@ -338,7 +340,6 @@ export const SketchPerson: React.FC<{
         })}
         {/* yaka + kırışık çizgileri */}
         <path d="M178,258 Q200,276 222,258" fill="none" stroke={LINE} strokeWidth={3} strokeLinecap="round" />
-        <path d="M170,330 q8,30 0,60 M232,350 q-6,24 2,50" fill="none" stroke={LINE} strokeWidth={2} opacity={0.35} />
         {/* boyun */}
         <path d="M186,226 L186,262 Q200,270 214,262 L214,226 Z" fill={look.skin} stroke={LINE} strokeWidth={SW} strokeLinejoin="round" />
         {/* kafa */}

@@ -42,6 +42,7 @@ import { FIGUR_UC_FRAMES, FigurUc } from "./compositions/FigurUc";
 import { CIZIM_FIGUR_FRAMES, CizimFigur } from "./compositions/CizimFigur";
 import { EB_TAIL, EB_TL, EkmekBirak, type EkmekBirakProps } from "./compositions/EkmekBirak";
 import { EV_TAIL, EV_TL, EkmekEv } from "./compositions/EkmekEv";
+import { UH_TAIL, UH_TL, UcHirsiz } from "./compositions/UcHirsiz";
 import { ORGU_FRAMES, OrguKiyafet } from "./compositions/OrguKiyafet";
 import { BORA_FRAMES, BoraTanitim } from "./compositions/BoraTanitim";
 import { KIVIRCIK_FRAMES, KivircikGenc } from "./compositions/KivircikGenc";
@@ -429,6 +430,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={EV_TL.frames}
       defaultProps={{ audioName: "ekmek-ev-hizli", data: null } satisfies EkmekBirakProps}
       calculateMetadata={({ props }) => withVoiceoverTail(EV_TAIL, props)}
+    />
+    <Composition
+      id="UcHirsiz"
+      component={UcHirsiz}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={UH_TL.frames}
+      defaultProps={{ audioName: "uc-hirsiz", data: null, music: false } satisfies EkmekBirakProps & { music: boolean }}
+      calculateMetadata={({ props }) => withVoiceoverTail(UH_TAIL, props)}
     />
     <Composition id="CizimFigur" component={CizimFigur} width={1080} height={1920} fps={FPS} durationInFrames={CIZIM_FIGUR_FRAMES} />
     <Composition id="FigurUc" component={FigurUc} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_UC_FRAMES} />

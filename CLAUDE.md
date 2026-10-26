@@ -544,6 +544,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Müzikli hâl "Video Deneme" ortamındaki oturumda yapıldı (Mixkit orada açık). Geri bildirim: **ekmek elin içine girmiş** →
   `SketchPerson` ekmeği alt kenarından tutuyor (ekmek ele göre yukarıda), tişört kırışık çizgisi artık eşyanın altında.
 
+- **UcHirsiz** — "Sürekli spor yapıyorsun ama sonuç alamıyorsun" (kullanıcı seçti: "üç gizli hırsız" fikri + EkmekEv'in ev kesiti tarzı).
+  Aynı siyah saçlı kalem çizimi genç, önü açık iki katlı ev, kamera odadan odaya süzülür (`src/compositions/UcHirsiz.tsx`; EkmekEv'in
+  parçaları oradan export). Spor odasında her dambıl tekrarında "EMEK" kavanozuna altın boncuk düşer; üç hırsız (çizgili tişört, maske,
+  bere, etiketli çuval: AYNI YÜK / BOŞ TABAK / GECE 03:00) boncukları aşırır. 1 spor odası (takvim 1→9. AY, hep 10 KG, VÜCUT ALIŞTI),
+  2 mutfak (tek poğaça, kas kartında yırtıklar, PROTEİN ?, TAMİR YOK), 3 yatak odası (03:00 telefon, TOPARLANMA %50, YARIM KALDI) →
+  ÇÖZÜM: oda oda düzelir (12 KG + 1 TEKRAR, dolu tabak, 23:00 uyku z z), hırsızlar kaçar → 4 salon: ARANIYOR afişleri 1-2-3, genç
+  "Bende 2. hırsız var…" yazar → ev → spor odası (döngü). Kapanış yorum sorusu "Sende hangi hırsız var? Yorumlara yaz."
+  Metin `icerik/uc-hirsiz.seslendirme.txt` (onaylandı). Sessiz taslak `out/uc-hirsiz-sessiz.mp4`; onay gelince Manitam (%15 hızlı) ile
+  seslendirilecek (ses adı `uc-hirsiz`), en fazla 35 sn. `SketchPerson`'a `dumbbell`/`pogaca` eşyası ve `sleep` ifadesi eklendi.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,

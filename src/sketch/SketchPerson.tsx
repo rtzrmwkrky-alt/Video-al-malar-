@@ -23,7 +23,7 @@ export type SketchLook = {
   lashes?: boolean;
 };
 
-export type SketchExpr = "smile" | "grin" | "surprise" | "worry" | "think" | "flat";
+export type SketchExpr = "smile" | "grin" | "surprise" | "worry" | "think" | "flat" | "sleep";
 
 /** kol: omuzdan aşağıya göre açı (derece, + = dışa), dirsek bükümü (derece) */
 export type Arm = { a: number; e: number };
@@ -35,7 +35,7 @@ export type SketchPose = {
   /** yüzün döndüğü yön (-1 sol … 1 sağ) */
   turn?: number;
   /** elde tutulan şey */
-  itemR?: "tea" | "phone" | "remote" | "bread";
+  itemR?: "tea" | "phone" | "remote" | "bread" | "dumbbell" | "pogaca";
   /** oturunca bacakların uzandığı taraf (varsayılan: yüzün döndüğü taraf) */
   legSide?: -1 | 1;
 };
@@ -97,6 +97,28 @@ const Item: React.FC<{ kind: NonNullable<SketchPose["itemR"]> }> = ({ kind }) =>
         <path d="M-24,8 L-24,-26 Q-30,-46 -12,-50 Q0,-58 12,-50 Q30,-46 24,-26 L24,8 Z" fill="#c98a4a" stroke={LINE} strokeWidth={2.6} strokeLinejoin="round" />
         <path d="M-18,4 L-18,-26 Q-22,-40 -9,-43 Q0,-49 9,-43 Q22,-40 18,-26 L18,4 Z" fill="#f6e3bf" />
         <path d="M-8,-30 l3,2 M6,-20 l2,3 M-4,-8 l3,1" stroke="#c9a46e" strokeWidth={2} strokeLinecap="round" />
+      </g>
+    );
+  if (kind === "dumbbell")
+    return (
+      <g transform="translate(0,-14)">
+        <rect x={-30} y={-4} width={60} height={8} rx={3} fill="#8d8e92" stroke={LINE} strokeWidth={2.4} />
+        {[-1, 1].map((d) => (
+          <g key={d}>
+            <rect x={d * 30 - 10} y={-22} width={20} height={44} rx={5} fill="#3a3a40" stroke={LINE} strokeWidth={2.6} />
+            <rect x={d * 44 - 6} y={-15} width={12} height={30} rx={4} fill="#3a3a40" stroke={LINE} strokeWidth={2.4} />
+          </g>
+        ))}
+      </g>
+    );
+  if (kind === "pogaca")
+    return (
+      <g transform="translate(0,-16)">
+        <path d="M-26,8 Q-30,-18 0,-22 Q30,-18 26,8 Q0,14 -26,8 Z" fill="#e2a95a" stroke={LINE} strokeWidth={2.6} strokeLinejoin="round" />
+        <path d="M-14,-8 q14,-8 28,0" fill="none" stroke="#b97a35" strokeWidth={2.4} strokeLinecap="round" />
+        {[[-10, -14], [4, -16], [14, -10]].map(([a, b], i) => (
+          <ellipse key={i} cx={a} cy={b} rx={2.4} ry={1.4} fill="#2b2420" />
+        ))}
       </g>
     );
   if (kind === "phone")
@@ -169,7 +191,7 @@ const Hair: React.FC<{ look: SketchLook; turn: number }> = ({ look, turn }) => {
 };
 
 const Face: React.FC<{ look: SketchLook; t: number; seed: number; talk: number; expr: SketchExpr; turn: number }> = ({ look, t, seed, talk, expr, turn }) => {
-  const shut = blink(t, seed) > 0.4;
+  const shut = expr === "sleep" || blink(t, seed) > 0.4;
   const fx = HX + turn * 18;
   const ey = HY + 4;
   const eyeR = expr === "surprise" ? 7.5 : 6;
@@ -199,6 +221,8 @@ const Face: React.FC<{ look: SketchLook; t: number; seed: number; talk: number; 
     mouth = <ellipse cx={fx} cy={my + 6} rx={8} ry={11} fill="#7a2f2a" stroke={LINE} strokeWidth={2.8} />;
   } else if (expr === "worry") {
     mouth = <path d={`M${fx - 14},${my + 8} q14,-10 28,0`} fill="none" stroke={LINE} strokeWidth={3} strokeLinecap="round" />;
+  } else if (expr === "sleep") {
+    mouth = <ellipse cx={fx} cy={my + 4} rx={5} ry={4 + Math.sin(t * 1.6 + seed) * 1.2} fill="#7a2f2a" stroke={LINE} strokeWidth={2.4} />;
   } else if (expr === "flat" || expr === "think") {
     mouth = <path d={`M${fx - 12},${my + 4} q14,${expr === "think" ? -4 : 0} 26,2`} fill="none" stroke={LINE} strokeWidth={3} strokeLinecap="round" />;
   } else if (expr === "grin") {

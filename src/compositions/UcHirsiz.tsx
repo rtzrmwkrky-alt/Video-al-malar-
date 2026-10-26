@@ -634,7 +634,8 @@ export const UcHirsiz: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audi
   const keys: CamKey[] = [
     [-1, ...hook],
     [W(0, 6) - 0.1, sx, sy + 20, 1.12], // salonda yavaş yaklaşma
-    [W(0, 9) + 0.25, ...ov], // "evinde": kamera geri çekilir, bütün ev
+    [W(0, 9) - 0.1, sx, sy + 20, 1.16],
+    [W(0, 9) + 0.75, ...ov], // "evinde": kamera geri çekilir, bütün ev
     [L(2) - 0.15, ...ov],
     [L(2) + 0.6, sx, sy, 1.0],
     [W(2, 4), sx - 60, sy + 40, 1.1],
@@ -702,12 +703,12 @@ export const UcHirsiz: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audi
             HİÇ DEĞİŞİM YOK?
           </Txt>
         </Card>
-        <Card x={540} y={250} w={760} h={170} o={win(t, W(0, 9) - 0.15, L(1) + 0.25, 0.25)} tilt={-1}>
+        <Card x={540} y={250} w={760} h={170} o={win(t, W(0, 9), W(1, 3), 0.25)} tilt={-1}>
           <Txt x={0} y={24} size={70}>
             SORUN <tspan fill={RED}>EVİNDE</tspan>
           </Txt>
         </Card>
-        <Card x={540} y={250} w={760} h={170} o={win(t, L(1) + 0.4, L(2) + 0.1, 0.25)} tilt={1}>
+        <Card x={540} y={250} w={760} h={170} o={win(t, W(1, 3) + 0.1, L(2) + 0.1, 0.25)} tilt={1}>
           <Txt x={0} y={24} size={70}>
             <tspan fill={RED}>3</tspan> GİZLİ HIRSIZ
           </Txt>

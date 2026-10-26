@@ -557,6 +557,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   hece sayısıyla dağıtır; Scribe gerekmez, sonuç iyi oturdu) → `sikistir-ses.py uc-hirsiz uc-hirsiz-hizli --max-pause 0.3 --tempo 1.15`
   → 31.8 sn, video ~34 sn. Bu oturumda Mixkit kapalı → müziksiz `out/uc-hirsiz-paylas.mp4`; müzik için 623 indirilip `music: true` ile render.
   `SketchPerson`'a `dumbbell`/`pogaca` eşyası ve `sleep` ifadesi eklendi.
+  **Yeni kanca (kullanıcı seçti, 4 seçenekten 2.):** "Her gün spor yapıp hiç değişmiyorsan… sorun salonda değil, evinde." Ekran kartı
+  "HER GÜN SPOR… HİÇ DEĞİŞİM YOK?" → kamera salonda yaklaşır, "evinde"de bütün eve çekilir + "SORUN EVİNDE" kartı. Sadece kanca okutuldu
+  (`uh-kanca`, 66 kredi), eski sesin "Çünkü…" kısmının başına eklendi → `uc-hirsiz-v2` → hizala + sıkıştır → `uc-hirsiz-v2-hizli` (31.2 sn).
+  Kullanıcı kancanın **çok sağlam** olmasını istiyor: kancada merak + "bu benim" + cevabı beklet.
 
 ## Son durum (yeni oturumda buradan devam)
 

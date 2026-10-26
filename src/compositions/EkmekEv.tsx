@@ -49,7 +49,7 @@ export const EV_LINES: Line[] = [
   { text: "Ekmeği bırakan arkadaşına bunu gönder.", hl: ["arkadaşına"], hold: 0.4 },
 ];
 
-export const EV_TAIL = 1.9;
+export const EV_TAIL = 0.8;
 export const EV_TL = timeline(EV_LINES, EV_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
@@ -623,9 +623,9 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
     [W(5, 13), y4x, y4y, 1.02],
     [W(5, 15) + 0.15, ROOMS.yemek.x + 540, ROOMS.yemek.y + 1150, 1.4], // tabak
     [L(6), y4x, y4y - 40, 1.06],
-    [W(6, 4) + 0.25, y4x, y4y - 40, 1.08],
-    // döngü: duraksamadan geri çekil → banyoya dal; son kare = ilk kare
-    [W(6, 4) + 0.95, ...ov],
+    // döngü: son cümle sürerken geri çekil → konuşma biter bitmez banyoya dal; son kare = ilk kare
+    [W(6, 2), y4x, y4y - 40, 1.08],
+    [T - 0.95, ...ov],
     [T, ...hook],
   ];
   const [, cx, cy, z] = camAt(t, keys);
@@ -639,7 +639,7 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
     { at: W(3, 5), id: 2568, v: 0.14 },
     { at: W(4, 14), id: 1120, v: 0.2, lead: 0.1 },
     { at: W(5, 17), id: 2568, v: 0.14 },
-    { at: W(6, 4) + 0.4, id: 1143, v: 0.16, lead: 0.14, dur: 1.6, fade: 0.8 }, // evin tamamı
+    { at: W(6, 4), id: 1143, v: 0.16, lead: 0.14, dur: 1.0, fade: 0.6 }, // evin tamamı
   ];
 
   const room = (r: { x: number; y: number }, id: string, el: React.ReactNode) => (
@@ -711,7 +711,7 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
             const mt = f / fps;
             const end = data.durationInSeconds;
             // döngü: başta hemen 0.04, sonda tekrar 0.04'e iner (susmaz) → başa bağlanırken boşluk olmaz
-            return interpolate(mt, [0, 0.08, end, end + 0.4, T - 0.6, T], [0.03, 0.04, 0.04, 0.07, 0.07, 0.04], {
+            return interpolate(mt, [0, 0.08, end - 1.2, end - 0.6, T - 0.3, T], [0.03, 0.04, 0.04, 0.06, 0.06, 0.04], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             });

@@ -564,6 +564,11 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 
 ## Son durum (yeni oturumda buradan devam)
 
+- **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan
+  oturumda (ör. "Video Deneme"): `curl -o public/music/623.mp3 https://assets.mixkit.co/music/623/623.mp3` →
+  `npx remotion render UcHirsiz out/uc-hirsiz-muzikli.mp4 --props='{"audioName":"uc-hirsiz-v2-hizli","data":null,"music":true}' --concurrency=4 --browser-executable=...`
+  → -14 LUFS → `out/uc-hirsiz-muzikli-paylas.mp4`. Müziksiz son hâl: `out/uc-hirsiz-v2-paylas.mp4`.
+
 - **Bora artık `CurlyGuy` (kıvırcık saç, gözlük, koyu kuzu yünü ceket, bej fon).** CurlyGuy'a pozlar eklendi (`pose.r/l` kol: dirsek/bilek,
   el fist/point/thumb/open, elde `item`; `expr`: neutral/smile/grin/chew/surprise/think/ouch/yawn/happy/laugh; `head`), tablo **KivircikPozlar**.
   **GeceYemek v2 (35 sn kuralı):** kısa metin `icerik/gece-yemek-v2.seslendirme.txt` (Chris, ~500 karakter) → `public/audio/gece-yemek-v2`

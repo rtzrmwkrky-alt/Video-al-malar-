@@ -35,7 +35,7 @@ import { type CamKey, Floor, Frame, Outside, Person, Plant, Window, camAt, thin 
 loadFonts();
 
 export const UH_LINES: Line[] = [
-  { text: "Her gün salona gidiyorsun… ama aynadaki sen hiç değişmiyor, değil mi?", hl: ["değişmiyor,"], hold: 0.2 },
+  { text: "Her gün spor yapıp hiç değişmiyorsan… sorun salonda değil, evinde.", hl: ["değişmiyorsan…", "evinde."], hold: 0.3 },
   { text: "Çünkü emeğini sessizce çalan üç hırsız var.", hl: ["üç", "hırsız"], hold: 0.3 },
   { text: "Birincisi: aynı yük. Aylardır aynı dambıl… Vücut alışınca değişmek için bir sebep bulamaz.", hl: ["aynı", "yük.", "alışınca"], hold: 0.1 },
   { text: "İkincisi: boş tabak. Kas antrenmanda yıpranır, onarmak için protein ister. Tabak boşsa tamir de yok.", hl: ["boş", "tabak.", "protein"], hold: 0.1 },
@@ -633,10 +633,8 @@ export const UcHirsiz: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audi
   ];
   const keys: CamKey[] = [
     [-1, ...hook],
-    [W(0, 4), ...hook],
-    [W(0, 5) + 0.3, ROOMS.spor.x + 840, ROOMS.spor.y + 880, 1.3], // ayna
-    [L(1) - 0.1, ROOMS.spor.x + 800, ROOMS.spor.y + 900, 1.24],
-    [L(1) + 0.75, ...ov],
+    [W(0, 6) - 0.1, sx, sy + 20, 1.12], // salonda yavaş yaklaşma
+    [W(0, 9) + 0.25, ...ov], // "evinde": kamera geri çekilir, bütün ev
     [L(2) - 0.15, ...ov],
     [L(2) + 0.6, sx, sy, 1.0],
     [W(2, 4), sx - 60, sy + 40, 1.1],
@@ -696,12 +694,17 @@ export const UcHirsiz: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audi
         </g>
 
         {/* ekran kartları */}
-        <Card x={540} y={300} w={860} h={250} o={Math.max(win(t, -1, W(1, 0), 0.25), loopIn)}>
+        <Card x={540} y={300} w={860} h={250} o={Math.max(win(t, -1, W(0, 6), 0.25), loopIn)}>
           <Txt x={0} y={-22} size={76}>
             HER GÜN SPOR…
           </Txt>
-          <Txt x={0} y={72} size={92} fill={RED}>
-            SONUÇ YOK?
+          <Txt x={0} y={72} size={80} fill={RED}>
+            HİÇ DEĞİŞİM YOK?
+          </Txt>
+        </Card>
+        <Card x={540} y={250} w={760} h={170} o={win(t, W(0, 9) - 0.15, L(1) + 0.25, 0.25)} tilt={-1}>
+          <Txt x={0} y={24} size={70}>
+            SORUN <tspan fill={RED}>EVİNDE</tspan>
           </Txt>
         </Card>
         <Card x={540} y={250} w={760} h={170} o={win(t, L(1) + 0.4, L(2) + 0.1, 0.25)} tilt={1}>

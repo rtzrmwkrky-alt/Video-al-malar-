@@ -73,9 +73,9 @@ type Ctx = { t: number; L: (i: number) => number; W: (l: number, k: number) => n
 
 // ------------------------------------------------------------ ortak oda parçaları
 
-const thin = { stroke: LINE, strokeWidth: 2, fill: "none", opacity: 0.55 };
+export const thin = { stroke: LINE, strokeWidth: 2, fill: "none", opacity: 0.55 };
 
-const Floor: React.FC<{ y: number; a: string; b: string; checker?: boolean }> = ({ y, a, b, checker }) => (
+export const Floor: React.FC<{ y: number; a: string; b: string; checker?: boolean }> = ({ y, a, b, checker }) => (
   <g>
     <rect x={0} y={y} width={RW} height={RH - y} fill={a} />
     {checker
@@ -88,7 +88,7 @@ const Floor: React.FC<{ y: number; a: string; b: string; checker?: boolean }> = 
   </g>
 );
 
-const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number; night?: boolean }> = ({ x, y, w, h, t, night }) => (
+export const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number; night?: boolean }> = ({ x, y, w, h, t, night }) => (
   <g>
     <rect x={x} y={y} width={w} height={h} fill={night ? "#2c3a63" : "#bfe0f0"} {...st} />
     {!night ? (
@@ -103,7 +103,7 @@ const Window: React.FC<{ x: number; y: number; w: number; h: number; t: number; 
   </g>
 );
 
-const Plant: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Plant: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     {[-50, -28, -10, 8, 26, 46].map((a, i) => (
       <path key={i} d={`M0,0 Q${a},${-90 - Math.abs(a)} ${a * 1.9},${-180 + Math.abs(a) * 1.2}`} fill="none" stroke="#5f8f4a" strokeWidth={12} strokeLinecap="round" />
@@ -112,7 +112,7 @@ const Plant: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) 
   </g>
 );
 
-const Frame: React.FC<{ x: number; y: number; w: number; h: number; c: string }> = ({ x, y, w, h, c }) => (
+export const Frame: React.FC<{ x: number; y: number; w: number; h: number; c: string }> = ({ x, y, w, h, c }) => (
   <g>
     <rect x={x} y={y} width={w} height={h} fill="#7a5640" {...st} />
     <rect x={x + 10} y={y + 10} width={w - 20} height={h - 20} fill="#efe4d3" stroke={LINE} strokeWidth={2} />
@@ -122,7 +122,7 @@ const Frame: React.FC<{ x: number; y: number; w: number; h: number; c: string }>
 );
 
 /** kişiyi yerel kutuya yerleştir: ayak (veya oturuşta kalça) noktası */
-const Person: React.FC<{ x: number; foot: number; s: number; sit?: boolean; children: React.ReactNode }> = ({ x, foot, s, sit, children }) => (
+export const Person: React.FC<{ x: number; foot: number; s: number; sit?: boolean; children: React.ReactNode }> = ({ x, foot, s, sit, children }) => (
   <g transform={`translate(${x - 200 * s},${foot - (sit ? 480 : 800) * s}) scale(${s})`}>{children}</g>
 );
 
@@ -515,7 +515,7 @@ const Yemek: React.FC<Ctx> = ({ t, L, W }) => {
 
 // ------------------------------------------------------------ dış cephe
 
-const Outside: React.FC<{ t: number }> = ({ t }) => (
+export const Outside: React.FC<{ t: number }> = ({ t }) => (
   <g>
     <defs>
       <linearGradient id="ev-sky" x1="0" y1="0" x2="0" y2="1">
@@ -563,9 +563,9 @@ const Outside: React.FC<{ t: number }> = ({ t }) => (
 
 // ------------------------------------------------------------ kamera
 
-type CamKey = [number, number, number, number]; // zaman, cx, cy, zoom
+export type CamKey = [number, number, number, number]; // zaman, cx, cy, zoom
 
-const camAt = (t: number, raw: CamKey[]) => {
+export const camAt = (t: number, raw: CamKey[]) => {
   // zamanlar sıralı olsun (ses kısaysa üst üste binmesin)
   const keys: CamKey[] = [];
   for (const k of raw) keys.push([keys.length ? Math.max(k[0], keys[keys.length - 1][0] + 0.05) : k[0], k[1], k[2], k[3]]);

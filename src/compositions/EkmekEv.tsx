@@ -49,7 +49,7 @@ export const EV_LINES: Line[] = [
   { text: "Ekmeği bırakan arkadaşına bunu gönder.", hl: ["arkadaşına"], hold: 0.4 },
 ];
 
-export const EV_TAIL = 2.6;
+export const EV_TAIL = 1.9;
 export const EV_TL = timeline(EV_LINES, EV_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
@@ -623,13 +623,13 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
     [W(5, 13), y4x, y4y, 1.02],
     [W(5, 15) + 0.15, ROOMS.yemek.x + 540, ROOMS.yemek.y + 1150, 1.4], // tabak
     [L(6), y4x, y4y - 40, 1.06],
-    [W(6, 4) + 0.35, y4x, y4y - 40, 1.08],
-    [W(6, 4) + 1.35, ...ov],
-    [T - 0.95, ...ov],
+    [W(6, 4) + 0.25, y4x, y4y - 40, 1.08],
+    // döngü: duraksamadan geri çekil → banyoya dal; son kare = ilk kare
+    [W(6, 4) + 0.95, ...ov],
     [T, ...hook],
   ];
   const [, cx, cy, z] = camAt(t, keys);
-  const loopIn = sm(t, T - 0.35, T - 0.03);
+  const loopIn = sm(t, T - 0.45, T - 0.05);
 
   const FX: { at: number; id: number; v: number; lead?: number; dur?: number; fade?: number }[] = [
     { at: 0, id: 2299, v: 0.24, lead: 0.05 },
@@ -691,7 +691,7 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
             MESELE EKMEK DEĞİL
           </Txt>
         </Card>
-        <Card x={540} y={300} w={900} h={210} o={win(t, L(6), T - 0.6, 0.3)}>
+        <Card x={540} y={300} w={900} h={210} o={win(t, L(6), T - 1.05, 0.3)}>
           <Txt x={0} y={-12} size={56}>
             EKMEĞİ BIRAKAN
           </Txt>
@@ -710,8 +710,11 @@ export const EkmekEv: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audio
           volume={(f) => {
             const mt = f / fps;
             const end = data.durationInSeconds;
-            const base = interpolate(mt, [0, 0.6, end, end + 0.5], [0, 0.04, 0.04, 0.08], { extrapolateRight: "clamp" });
-            return base * interpolate(mt, [T - 0.9, T - 0.1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            // döngü: başta hemen 0.04, sonda tekrar 0.04'e iner (susmaz) → başa bağlanırken boşluk olmaz
+            return interpolate(mt, [0, 0.08, end, end + 0.4, T - 0.6, T], [0.03, 0.04, 0.04, 0.07, 0.07, 0.04], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            });
           }}
         />
       ) : null}

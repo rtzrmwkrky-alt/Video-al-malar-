@@ -460,7 +460,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       fps={FPS}
       durationInFrames={SM_TL.frames}
-      defaultProps={{ audioName: "sadik-musteri", data: null, music: false } satisfies EkmekBirakProps & { music: boolean }}
+      defaultProps={{ audioName: "sadik-musteri", data: null, music: true } satisfies EkmekBirakProps & { music: boolean }}
       calculateMetadata={({ props }) => withVoiceoverTail(SM_TAIL, props)}
     />
     <Composition id="CizimFigur" component={CizimFigur} width={1080} height={1920} fps={FPS} durationInFrames={CIZIM_FIGUR_FRAMES} />

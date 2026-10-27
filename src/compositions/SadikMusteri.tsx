@@ -838,7 +838,7 @@ const Final: React.FC<S & { T: number }> = (s) => {
 
 // ------------------------------------------------------------ kompozisyon
 
-export const SadikMusteri: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audioName, data, music = false }) => {
+export const SadikMusteri: React.FC<EkmekBirakProps & { music?: boolean }> = ({ audioName, data, music = true }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -918,13 +918,14 @@ export const SadikMusteri: React.FC<EkmekBirakProps & { music?: boolean }> = ({ 
       </svg>
       <Captions t={t} tl={tl} lines={SM_LINES} end={T - SM_TAIL + 0.5} />
       {data ? <Audio src={staticFile(`audio/${audioName}.mp3`)} volume={1.6} /> : null}
-      {data && music ? (
+      {music ? (
         <Audio
-          src={staticFile("music/623.mp3")}
+          src={staticFile("audio/sadik-orijinal.mp3")}
           volume={(f) => {
             const mt = f / fps;
-            const b = interpolate(mt, [0, 0.6], [0, 0.04], { extrapolateRight: "clamp" });
-            return b * interpolate(mt, [T - 0.9, T - 0.1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+            // örnek videonun kendi müziği; konuşma varken altta kalır
+            const b = data ? 0.22 : 0.6;
+            return b * interpolate(mt, [0, 0.3, T - 0.9, T - 0.1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
           }}
         />
       ) : null}

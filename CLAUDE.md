@@ -586,6 +586,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   hız 1.1-1.2.** Ekrana eklenen satırlar: "Yani…", "ve en sevmediğin", "Yarıdan aza!". Kelime zamanları Scribe ile (bağlantıda yazıya
   dökme, kredi 0 göründü); dolgu kelimeleri JSON'dan çıkarılıp ekran satırlarıyla eşlendi → `sikistir-ses.py --max-pause 0.15 --tempo 1.2`
   → `sadik-musteri-hizli` 33.8 sn (baş/son kırpıldı), `SM_TAIL` 1.15 → video 35 sn. Son: `out/sadik-musteri-paylas.mp4` (-14 LUFS).
+  Geri bildirim: **müzik çok kısık, biraz aç ama konuşmayı asla bastırmasın** → video yeniden çizilmeden ses ffmpeg ile yeniden
+  karıştırıldı (`python3 scripts/sadik-ses-karistir.py 0.4 out/sadik-musteri-paylas-v2.mp4`): müzik 0.4 + konuşma altında hafif kısma
+  (sidechain, ratio 2) → müzik konuşmadan ~16 dB aşağıda (önce ~22 dB). Son: `out/sadik-musteri-paylas-v2.mp4`.
+  **Genel: sadece ses değişiyorsa videoyu yeniden çizme, görüntüyü kopyalayıp sesi ffmpeg ile yeniden karıştır (dakikalar sürer).**
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -573,6 +573,14 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `icerik/tup-mide.seslendirme.txt` ("Vum" okunuşu). Sessiz taslak `out/tup-mide-sessiz.mp4` (~40 sn tahmini; Manitam %15 hızlı ile ~34 sn
   beklenir). Onay gelince Manitam ile seslendir (kredi → önce sor), hizala (`hizala-ses.py`) + sıkıştır, en fazla 35 sn.
 
+- **SadikMusteri** — kullanıcı bir örnek video gönderdi (kalem çizimi, "Salonun en sadık müşterisi kim biliyor musun? Hiç
+  değişmeyenler.") ve **aynısını bizim avatarla** istedi → siyah saçlı kalem çizimi genç (`SKETCH_CAST.siyah`), örnekteki akış ve metin
+  birebir: giriş turnikesi 186→187 + resepsiyonda sessiz görevli → AYIN ÜYESİ panosu (6 ay aynı foto, HEP AYNI) → 1 yük (1936 grafiği,
+  hep 40 kg, 6. ay takvim) → 2 protein (2018, 49 deney; dolu/boş tabak, kas büyür) → 3 uyku (03:00 telefon; 2010 aynı kişiler aynı
+  diyet, 8,5/5,5 saat, −1,4/−0,6 kg yağ) → yükü artır/protein ye/erken uyu → panoya 7. ay "?" → girişe döner (döngü).
+  Sahneler satır başında kesilir (`src/compositions/SadikMusteri.tsx`). Metin `icerik/sadik-musteri.seslendirme.txt` (ekrandakiyle
+  kelime kelime aynı, yıllar rakamla). Sessiz taslak `out/sadik-musteri-sessiz.mp4`; **onaydan sonra ses konuşulacak, sonra seslendirilecek.**
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan

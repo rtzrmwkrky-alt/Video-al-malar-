@@ -562,6 +562,17 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (`uh-kanca`, 66 kredi), eski sesin "Çünkü…" kısmının başına eklendi → `uc-hirsiz-v2` → hizala + sıkıştır → `uc-hirsiz-v2-hizli` (31.2 sn).
   Kullanıcı kancanın **çok sağlam** olmasını istiyor: kancada merak + "bu benim" + cevabı beklet.
 
+- **TupMide** — "Tüp mide ameliyatı: tartı her şeyi söylemiyor" (kullanıcı konusu; sonu spora bağlı, döngülü). EkmekEv/UcHirsiz ev kesiti
+  tarzı, siyah saçlı kalem çizimi genç, kamera odadan odaya süzülür (`src/compositions/TupMide.tsx`). Kullanıcı isteği: **sporun önemi ve
+  sarkma** öne çıksın → ana görsel **kol kesiti** (`ArmCut`: kas + deri; kas erir → deri boşta kalır/sarkar → sporla kas dolar, deri toparlanır
+  ama tamamen değil; dürüstlük: "sarkmayı tamamen silmez"). 1 banyo (tartı 120→80, −40 KG'nin içi YAĞ + KAS) → 2 mutfak (mide kesilir, tüp
+  kalır; az yemek; kas eriyor) → 3 yatak odası (ayna, DERİ BOŞTA KALIYOR, kollar/karın/bacaklar; metabolizma ibresi, yıl takvimi, kilo geri)
+  → 4 spor odası (kas geri geliyor; SPORSUZ/SPORLU aynı 80 KG; doktor onayı, yürüyüş, haftada 2-3 gün ağırlık, önce protein) → bütün ev
+  "AMELİYAT → KİLO VERDİRİR / SPOR → ŞEKİL VERİR" → gönder → **Voom kartı** (kullanıcı isteği: "Merak etme, Voom her zaman yanında") →
+  **döngü kelimesi "Unutma…"** → kamera banyoya, ilk cümle "Tartı her şeyi söylemiyor." (son kare = ilk kare). Metin
+  `icerik/tup-mide.seslendirme.txt` ("Vum" okunuşu). Sessiz taslak `out/tup-mide-sessiz.mp4` (~40 sn tahmini; Manitam %15 hızlı ile ~34 sn
+  beklenir). Onay gelince Manitam ile seslendir (kredi → önce sor), hizala (`hizala-ses.py`) + sıkıştır, en fazla 35 sn.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan

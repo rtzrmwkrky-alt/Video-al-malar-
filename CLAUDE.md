@@ -579,7 +579,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   hep 40 kg, 6. ay takvim) → 2 protein (2018, 49 deney; dolu/boş tabak, kas büyür) → 3 uyku (03:00 telefon; 2010 aynı kişiler aynı
   diyet, 8,5/5,5 saat, −1,4/−0,6 kg yağ) → yükü artır/protein ye/erken uyu → panoya 7. ay "?" → girişe döner (döngü).
   Sahneler satır başında kesilir (`src/compositions/SadikMusteri.tsx`). Metin `icerik/sadik-musteri.seslendirme.txt` (ekrandakiyle
-  kelime kelime aynı, yıllar rakamla). Sessiz taslak `out/sadik-musteri-sessiz.mp4`; **onaydan sonra ses konuşulacak, sonra seslendirilecek.**
+  kelime kelime aynı, yıllar rakamla). Örnek videonun içinde konuşma yok, sadece müzik → **arka plan müziği örneğin kendisi** (`public/audio/sadik-orijinal.mp3`,
+  kullanıcı "aynı kalacak" dedi; konuşma altında 0.13). Sessiz taslak onaylandı → **seslendirildi**: ortamda anahtar yok → ElevenLabs
+  bağlantısı, Manitam, eleven_v4, tek okuma (655 kredi). Kullanıcı isteği: **canlı/enerjik ses, girişte vurgu (`[excited]`), ortada
+  dolgular ("Yani… ııı…", "Hmm…"), hafif gülme (`[laughs softly]`), başta değil ortada; baştaki/sondaki boşluk kesilsin, toplam 35 sn,
+  hız 1.1-1.2.** Ekrana eklenen satırlar: "Yani…", "ve en sevmediğin", "Yarıdan aza!". Kelime zamanları Scribe ile (bağlantıda yazıya
+  dökme, kredi 0 göründü); dolgu kelimeleri JSON'dan çıkarılıp ekran satırlarıyla eşlendi → `sikistir-ses.py --max-pause 0.15 --tempo 1.2`
+  → `sadik-musteri-hizli` 33.8 sn (baş/son kırpıldı), `SM_TAIL` 1.15 → video 35 sn. Son: `out/sadik-musteri-paylas.mp4` (-14 LUFS).
 
 ## Son durum (yeni oturumda buradan devam)
 

@@ -25,17 +25,17 @@ export const SM_LINES: Line[] = [
   { text: "Vücudun şekillenmiyorsa üç şey eksik.", hl: ["şekillenmiyorsa", "üç"], hold: 0.1 },
   { text: "Birincisi: yük.", hl: ["yük."] },
   { text: "1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur.", hl: ["1936'da", "zorlanınca", "durur."], hold: 0.3 },
-  { text: "Aylardır aynı ağırlıksa, vücudun çoktan alıştı.", hl: ["aynı", "alıştı."], hold: 0.2 },
+  { text: "Yani aylardır aynı ağırlıksa, vücudun çoktan alıştı.", hl: ["aynı", "alıştı."], hold: 0.2 },
   { text: "İkincisi: protein.", hl: ["protein."] },
   { text: "2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı.", hl: ["kırk", "dokuz", "kas"], hold: 0.3 },
-  { text: "Üçüncüsü: uyku.", hl: ["uyku."] },
+  { text: "Üçüncüsü… ve en sevmediğin: uyku.", hl: ["uyku."] },
   { text: "2010'da aynı insanlar aynı diyeti iki kez yaptı.", hl: ["2010'da", "iki"] },
-  { text: "Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü.", hl: ["Az", "yarıdan"], hold: 0.3 },
+  { text: "Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü. Yarıdan aza!", hl: ["Az", "yarıdan", "aza!"], hold: 0.3 },
   { text: "Yükü artır, protein ye, erken uyu.", hl: ["artır,", "protein", "erken"], hold: 0.1 },
   { text: "Yoksa şu sorunun cevabı sen olursun:", hl: ["sen"], hold: 0.2 },
 ];
 
-export const SM_TAIL = 1.2;
+export const SM_TAIL = 1.15;
 export const SM_TL = timeline(SM_LINES, SM_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
@@ -614,18 +614,18 @@ const SameWeight: React.FC<S> = (s) => {
   const { t, u } = s;
   const k = 0.5 - 0.5 * Math.cos(u * 4.2);
   const pose = pressPose(k);
-  const month = 1 + Math.min(5, Math.floor(sm(u, 0.1, wu(s, 3) - wu(s, 0)) * 5.99));
-  const kas = sm(t, wu(s, 4) - 0.1, wu(s, 4) + 0.3);
+  const month = 1 + Math.min(5, Math.floor(sm(u, 0.1, wu(s, 4) - wu(s, 0)) * 5.99));
+  const kas = sm(t, wu(s, 5) - 0.1, wu(s, 5) + 0.3);
   return (
     <g>
       <GymBg t={t} />
       <Calendar x={900} y={200} n={month} o={sm(u, 0, 0.25)} />
-      <Note x={560} y={200} text="hep 40 kg" o={sm(t, wu(s, 1), wu(s, 1) + 0.3)} color={RED} tilt={-2} />
+      <Note x={560} y={200} text="hep 40 kg" o={sm(t, wu(s, 2), wu(s, 2) + 0.3)} color={RED} tilt={-2} />
       <Hero x={mix(540, 400, kas)} foot={1600} s={1.08} t={t} pose={pose} expr={month >= 5 ? "worry" : "flat"}>
         <Barbell l={handAt(pose.l!, -1)} r={handAt(pose.r!, 1)} kg="40 kg" />
       </Hero>
       <MuscleDot x={850} y={760} r={130} o={kas} glow={0} />
-      <Note x={860} y={980} text="alıştı" o={sm(t, wu(s, 6), wu(s, 6) + 0.3)} color={RED} tilt={3} size={50} />
+      <Note x={860} y={980} text="alıştı" o={sm(t, wu(s, 7), wu(s, 7) + 0.3)} color={RED} tilt={3} size={50} />
     </g>
   );
 };
@@ -924,7 +924,7 @@ export const SadikMusteri: React.FC<EkmekBirakProps & { music?: boolean }> = ({ 
           volume={(f) => {
             const mt = f / fps;
             // örnek videonun kendi müziği; konuşma varken altta kalır
-            const b = data ? 0.22 : 0.6;
+            const b = data ? 0.13 : 0.6;
             return b * interpolate(mt, [0, 0.3, T - 0.9, T - 0.1], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
           }}
         />

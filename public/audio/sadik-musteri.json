@@ -1,0 +1,451 @@
+{
+ "text": "Salonun en sadık müşterisi kim biliyor musun? Hiç değişmeyenler. Çünkü hep geri gelirler. Ama bu senin suçun değil. Vücudun şekillenmiyorsa üç şey eksik. Birincisi: yük. 1936'da bir doktor gördü: vücut zorlanınca değişir, alışınca durur. Yani aylardır aynı ağırlıksa, vücudun çoktan alıştı. İkincisi: protein. 2018'de kırk dokuz deney incelendi: proteinini artıranlar daha çok kas kazandı. Üçüncüsü… ve en sevmediğin: uyku. 2010'da aynı insanlar aynı diyeti iki kez yaptı. Az uyudukları haftalarda verdikleri yağ yarıdan aza düştü. Yarıdan aza! Yükü artır, protein ye, erken uyu. Yoksa şu sorunun cevabı sen olursun:",
+ "durationInSeconds": 47.23,
+ "words": [
+  {
+   "word": "Salonun",
+   "start": 0.16,
+   "end": 0.56
+  },
+  {
+   "word": "en",
+   "start": 0.64,
+   "end": 0.72
+  },
+  {
+   "word": "sadık",
+   "start": 0.8,
+   "end": 1.04
+  },
+  {
+   "word": "müşterisi",
+   "start": 1.12,
+   "end": 1.52
+  },
+  {
+   "word": "kim",
+   "start": 1.6,
+   "end": 1.76
+  },
+  {
+   "word": "biliyor",
+   "start": 1.813,
+   "end": 2.0
+  },
+  {
+   "word": "musun?",
+   "start": 2.08,
+   "end": 2.64
+  },
+  {
+   "word": "Hiç",
+   "start": 2.72,
+   "end": 2.88
+  },
+  {
+   "word": "değişmeyenler!",
+   "start": 2.96,
+   "end": 4.0
+  },
+  {
+   "word": "Çünkü",
+   "start": 4.04,
+   "end": 4.4
+  },
+  {
+   "word": "hep",
+   "start": 4.48,
+   "end": 4.72
+  },
+  {
+   "word": "geri",
+   "start": 4.8,
+   "end": 4.96
+  },
+  {
+   "word": "gelirler.",
+   "start": 5.04,
+   "end": 5.68
+  },
+  {
+   "word": "Ama",
+   "start": 6.464,
+   "end": 6.64
+  },
+  {
+   "word": "bu",
+   "start": 6.68,
+   "end": 6.72
+  },
+  {
+   "word": "senin",
+   "start": 6.8,
+   "end": 7.04
+  },
+  {
+   "word": "suçun",
+   "start": 7.12,
+   "end": 7.36
+  },
+  {
+   "word": "değil.",
+   "start": 7.44,
+   "end": 8.16
+  },
+  {
+   "word": "Vücudun",
+   "start": 8.2,
+   "end": 8.56
+  },
+  {
+   "word": "şekillenmiyorsa…",
+   "start": 8.64,
+   "end": 10.0
+  },
+  {
+   "word": "üç",
+   "start": 10.04,
+   "end": 10.16
+  },
+  {
+   "word": "şey",
+   "start": 10.2,
+   "end": 10.32
+  },
+  {
+   "word": "eksik.",
+   "start": 10.4,
+   "end": 11.12
+  },
+  {
+   "word": "Birincisi:",
+   "start": 11.173,
+   "end": 12.08
+  },
+  {
+   "word": "yük.",
+   "start": 12.24,
+   "end": 12.8
+  },
+  {
+   "word": "1936'da",
+   "start": 12.88,
+   "end": 14.0
+  },
+  {
+   "word": "bir",
+   "start": 14.04,
+   "end": 14.08
+  },
+  {
+   "word": "doktor",
+   "start": 14.12,
+   "end": 14.48
+  },
+  {
+   "word": "gördü:",
+   "start": 14.56,
+   "end": 15.28
+  },
+  {
+   "word": "vücut",
+   "start": 15.32,
+   "end": 15.6
+  },
+  {
+   "word": "zorlanınca",
+   "start": 15.64,
+   "end": 16.16
+  },
+  {
+   "word": "değişir,",
+   "start": 16.24,
+   "end": 16.96
+  },
+  {
+   "word": "alışınca",
+   "start": 17.08,
+   "end": 17.44
+  },
+  {
+   "word": "durur.",
+   "start": 17.52,
+   "end": 18.16
+  },
+  {
+   "word": "Yani…",
+   "start": 18.2,
+   "end": 18.773
+  },
+  {
+   "word": "aylardır",
+   "start": 19.52,
+   "end": 20.0
+  },
+  {
+   "word": "aynı",
+   "start": 20.08,
+   "end": 20.32
+  },
+  {
+   "word": "ağırlıksa,",
+   "start": 20.4,
+   "end": 21.12
+  },
+  {
+   "word": "vücudun",
+   "start": 21.173,
+   "end": 21.52
+  },
+  {
+   "word": "çoktan",
+   "start": 21.6,
+   "end": 21.92
+  },
+  {
+   "word": "alıştı.",
+   "start": 22.04,
+   "end": 22.8
+  },
+  {
+   "word": "İkincisi:",
+   "start": 22.84,
+   "end": 23.68
+  },
+  {
+   "word": "protein.",
+   "start": 23.92,
+   "end": 24.48
+  },
+  {
+   "word": "2018'de",
+   "start": 24.52,
+   "end": 25.44
+  },
+  {
+   "word": "kırk",
+   "start": 25.48,
+   "end": 25.6
+  },
+  {
+   "word": "dokuz",
+   "start": 25.68,
+   "end": 25.84
+  },
+  {
+   "word": "deney",
+   "start": 25.92,
+   "end": 26.16
+  },
+  {
+   "word": "incelendi:",
+   "start": 26.24,
+   "end": 27.04
+  },
+  {
+   "word": "proteinini",
+   "start": 27.24,
+   "end": 27.52
+  },
+  {
+   "word": "artıranlar",
+   "start": 27.6,
+   "end": 28.16
+  },
+  {
+   "word": "daha",
+   "start": 28.24,
+   "end": 28.4
+  },
+  {
+   "word": "çok",
+   "start": 28.48,
+   "end": 28.64
+  },
+  {
+   "word": "kas",
+   "start": 28.72,
+   "end": 28.8
+  },
+  {
+   "word": "kazandı.",
+   "start": 28.88,
+   "end": 29.68
+  },
+  {
+   "word": "Üçüncüsü…",
+   "start": 29.76,
+   "end": 30.64
+  },
+  {
+   "word": "ve",
+   "start": 30.72,
+   "end": 30.8
+  },
+  {
+   "word": "en",
+   "start": 30.96,
+   "end": 31.12
+  },
+  {
+   "word": "sevmediğin:",
+   "start": 31.2,
+   "end": 32.16
+  },
+  {
+   "word": "uyku.",
+   "start": 32.24,
+   "end": 32.88
+  },
+  {
+   "word": "2010'da",
+   "start": 32.92,
+   "end": 33.44
+  },
+  {
+   "word": "aynı",
+   "start": 33.52,
+   "end": 33.76
+  },
+  {
+   "word": "insanlar",
+   "start": 33.84,
+   "end": 34.4
+  },
+  {
+   "word": "aynı",
+   "start": 34.56,
+   "end": 34.8
+  },
+  {
+   "word": "diyeti",
+   "start": 34.88,
+   "end": 35.2
+  },
+  {
+   "word": "iki",
+   "start": 35.28,
+   "end": 35.36
+  },
+  {
+   "word": "kez",
+   "start": 35.44,
+   "end": 35.6
+  },
+  {
+   "word": "yaptı.",
+   "start": 35.68,
+   "end": 36.32
+  },
+  {
+   "word": "az",
+   "start": 37.12,
+   "end": 37.2
+  },
+  {
+   "word": "uyudukları",
+   "start": 37.28,
+   "end": 37.68
+  },
+  {
+   "word": "haftalarda",
+   "start": 37.8,
+   "end": 38.24
+  },
+  {
+   "word": "verdikleri",
+   "start": 38.32,
+   "end": 38.8
+  },
+  {
+   "word": "yağ",
+   "start": 38.88,
+   "end": 39.04
+  },
+  {
+   "word": "yarıdan",
+   "start": 39.2,
+   "end": 39.52
+  },
+  {
+   "word": "aza",
+   "start": 39.64,
+   "end": 39.76
+  },
+  {
+   "word": "düştü.",
+   "start": 39.84,
+   "end": 40.48
+  },
+  {
+   "word": "Yarıdan",
+   "start": 40.52,
+   "end": 41.04
+  },
+  {
+   "word": "aza!",
+   "start": 41.12,
+   "end": 41.52
+  },
+  {
+   "word": "Yükü",
+   "start": 41.92,
+   "end": 42.16
+  },
+  {
+   "word": "artır,",
+   "start": 42.28,
+   "end": 42.88
+  },
+  {
+   "word": "protein",
+   "start": 43.12,
+   "end": 43.36
+  },
+  {
+   "word": "ye,",
+   "start": 43.44,
+   "end": 43.76
+  },
+  {
+   "word": "erken",
+   "start": 43.84,
+   "end": 44.08
+  },
+  {
+   "word": "uyu.",
+   "start": 44.16,
+   "end": 44.64
+  },
+  {
+   "word": "Yoksa",
+   "start": 44.693,
+   "end": 44.96
+  },
+  {
+   "word": "şu",
+   "start": 45.0,
+   "end": 45.12
+  },
+  {
+   "word": "sorunun",
+   "start": 45.16,
+   "end": 45.44
+  },
+  {
+   "word": "cevabı…",
+   "start": 45.52,
+   "end": 46.32
+  },
+  {
+   "word": "sen",
+   "start": 46.4,
+   "end": 46.56
+  },
+  {
+   "word": "olursun!",
+   "start": 46.64,
+   "end": 47.28
+  }
+ ]
+}

@@ -615,6 +615,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ardından -14 LUFS paylaşım kopyası (İş akışı 4. adım). Müzik `public/music/623.mp3` git'te yok:
   `curl -o public/music/623.mp3 https://assets.mixkit.co/music/623/623.mp3`.
 - Render ~25-30 dk sürer (SVG gren filtresi yavaş); arka planda çalıştır.
+- **TASLAK KURALI (kullanıcı "çok yavaşsın" dedi):** kontrol için gönderilen taslaklar `--scale=0.5` ile çizilir (~4 kat hızlı);
+  tam kalite (scale 1) sadece kullanıcı onayladıktan sonraki son hâl için. Ortamda 4 çekirdek var, `--concurrency=4`.
 
 ## 3D karakter (src/three/Character.tsx)
 

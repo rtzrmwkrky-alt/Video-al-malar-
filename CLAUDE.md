@@ -617,6 +617,8 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - Render ~25-30 dk sürer (SVG gren filtresi yavaş); arka planda çalıştır.
 - **TASLAK KURALI (kullanıcı "çok yavaşsın" dedi):** kontrol için gönderilen taslaklar `--scale=0.5` ile çizilir (~4 kat hızlı);
   tam kalite (scale 1) sadece kullanıcı onayladıktan sonraki son hâl için. Ortamda 4 çekirdek var, `--concurrency=4`.
+  **SON HÂL KURALI (kullanıcı kesin istedi):** seslendirilmiş son video **en yüksek görüntü ve ses kalitesinde** gönderilir: scale 1
+  (1080x1920), paylaşım kopyası `-crf 18 -preset slow -maxrate 10M -bufsize 20M`, ses `aac 320k 48 kHz`, -14 LUFS. Taslak asla son hâl diye gönderilmez.
 
 ## 3D karakter (src/three/Character.tsx)
 

@@ -38,6 +38,10 @@ export type SketchPose = {
   itemR?: "tea" | "phone" | "remote" | "bread" | "dumbbell" | "pogaca";
   /** oturunca bacakların uzandığı taraf (varsayılan: yüzün döndüğü taraf) */
   legSide?: -1 | 1;
+  /** kilo (0 zayıf … 1 kilolu): gövde genişler, göbek çıkar */
+  belly?: number;
+  /** kol altı sarkan deri (0 … 1); kol kalkınca aşağı sarkar ve sallanır */
+  flap?: number;
 };
 
 const HX = 200;
@@ -283,8 +287,32 @@ export const SketchPerson: React.FC<{
   const r = pose.r ?? { a: 12, e: 6 };
   const sit = !!pose.sit;
   const SY = 278;
-  const L = armPts(150, SY, l, -1);
-  const R = armPts(250, SY, r, 1);
+  const bl = pose.belly ?? 0;
+  const XL = 150 - 34 * bl;
+  const XR = 250 + 34 * bl;
+  const L = armPts(XL, SY, l, -1);
+  const R = armPts(XR, SY, r, 1);
+  const flap = pose.flap ?? 0;
+  /** kol altı derisi: üst kol boyunca aşağı (yerçekimi) sarkan torba, hafif sallanır */
+  const flapPath = (sh: [number, number], e: [number, number], ph: number, f: number) => {
+    const dx = e[0] - sh[0];
+    const dy = e[1] - sh[1];
+    const len = Math.hypot(dx, dy) || 1;
+    let nx = -dy / len;
+    let ny = dx / len;
+    if (ny < 0) {
+      nx = -nx;
+      ny = -ny;
+    }
+    const p = (k: number): [number, number] => [sh[0] + dx * k + nx * 9, sh[1] + dy * k + ny * 9];
+    const a = p(0.4);
+    const b = p(0.96);
+    const m = p(0.66);
+    const sw = Math.sin(t * 9 + ph) * 12 * f;
+    const d = 62 * f;
+    const curve = `M${a[0].toFixed(1)},${a[1].toFixed(1)} Q${(m[0] + sw).toFixed(1)},${(m[1] + d * 1.9).toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
+    return { fill: `${curve} Z`, curve };
+  };
   const leftE = L.e;
   const leftH = L.h;
   const rightE = R.e;
@@ -304,8 +332,8 @@ export const SketchPerson: React.FC<{
         </g>
       ) : (
         <g>
-          <Limb pts={[[178, 470], [174, 772]]} fill={look.bottom} w={legW} />
-          <Limb pts={[[222, 470], [226, 772]]} fill={look.bottom} w={legW} />
+          <Limb pts={[[178 - 20 * bl, 470], [174 - 14 * bl, 772]]} fill={look.bottom} w={legW + 22 * bl} />
+          <Limb pts={[[222 + 20 * bl, 470], [226 + 14 * bl, 772]]} fill={look.bottom} w={legW + 22 * bl} />
           <path d="M176,600 q4,20 -2,40 M224,640 q-4,20 2,36" fill="none" stroke={LINE} strokeWidth={2} opacity={0.4} />
         </g>
       )}
@@ -322,11 +350,11 @@ export const SketchPerson: React.FC<{
       ))}
       <g transform={`translate(0,${breath * 0.5})`}>
         {/* pantolon üstü */}
-        <path d="M148,452 L252,452 L258,500 L148,500 Z" fill={look.bottom} stroke={LINE} strokeWidth={SW} strokeLinejoin="round" />
+        <path d={`M${148 - 30 * bl},452 L${252 + 30 * bl},452 L${258 + 30 * bl},500 L${148 - 30 * bl},500 Z`} fill={look.bottom} stroke={LINE} strokeWidth={SW} strokeLinejoin="round" />
         <path d="M200,460 L200,498" stroke={LINE} strokeWidth={2} opacity={0.5} />
         {/* tişört gövde */}
         <path
-          d={`M148,262 Q200,250 252,262 Q262,360 256,${470 + breath} Q200,${480 + breath} 144,${470 + breath} Q138,360 148,262 Z`}
+          d={`M${148 - 34 * bl},262 Q200,250 ${252 + 34 * bl},262 Q${262 + 90 * bl},${360 + 40 * bl} ${256 + 34 * bl},${470 + breath} Q200,${480 + 24 * bl + breath} ${144 - 34 * bl},${470 + breath} Q${138 - 90 * bl},${360 + 40 * bl} ${148 - 34 * bl},262 Z`}
           fill={look.top}
           stroke={LINE}
           strokeWidth={SW}
@@ -335,8 +363,8 @@ export const SketchPerson: React.FC<{
         {/* kırışık çizgileri (eldeki eşyanın altında kalsın) */}
         <path d="M170,330 q8,30 0,60 M232,350 q-6,24 2,50" fill="none" stroke={LINE} strokeWidth={2} opacity={0.35} />
         {/* kollar (kol derisi) */}
-        <Limb pts={[[150, SY], leftE, leftH]} fill={look.skin} w={22} />
-        <Limb pts={[[250, SY], rightE, rightH]} fill={look.skin} w={22} />
+        <Limb pts={[[XL, SY], leftE, leftH]} fill={look.skin} w={22 + 8 * bl} />
+        <Limb pts={[[XR, SY], rightE, rightH]} fill={look.skin} w={22 + 8 * bl} />
         <Hand x={leftH[0]} y={leftH[1]} ang={L.ang} skin={look.skin} flip />
         <g>
           {pose.itemR ? (
@@ -348,8 +376,8 @@ export const SketchPerson: React.FC<{
         </g>
         {/* kollar: tişört kolları */}
         {[
-          { s: [150, SY] as [number, number], e: leftE },
-          { s: [250, SY] as [number, number], e: rightE },
+          { s: [XL, SY] as [number, number], e: leftE },
+          { s: [XR, SY] as [number, number], e: rightE },
         ].map(({ s: sh, e }, i) => {
           const dx = e[0] - sh[0];
           const dy = e[1] - sh[1];
@@ -362,6 +390,19 @@ export const SketchPerson: React.FC<{
             </g>
           );
         })}
+        {flap > 0
+          ? ([[[XL, SY], leftE, 0, l.a], [[XR, SY], rightE, 1.7, r.a]] as [[number, number], [number, number], number, number][]).map(([sh, e, ph, a], i) => {
+              const f = flap * Math.min(1, Math.max(0, (a - 45) / 35));
+              if (f <= 0) return null;
+              const fp = flapPath(sh, e, ph, f);
+              return (
+                <g key={`fl${i}`}>
+                  <path d={fp.fill} fill={look.skin} />
+                  <path d={fp.curve} fill="none" stroke={LINE} strokeWidth={SW} strokeLinecap="round" />
+                </g>
+              );
+            })
+          : null}
         {/* yaka + kırışık çizgileri */}
         <path d="M178,258 Q200,276 222,258" fill="none" stroke={LINE} strokeWidth={3} strokeLinecap="round" />
         {/* boyun */}

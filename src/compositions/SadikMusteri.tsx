@@ -40,14 +40,14 @@ export const SM_TL = timeline(SM_LINES, SM_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
 const CLERK: SketchLook = { ...SKETCH_CAST.kiz.look, top: "#3f7a55", hair: "#4a2c1c" };
-const INK = "#2d4a8a";
-const BLUE = "#3d6fc4";
+export const INK = "#2d4a8a";
+export const BLUE = "#3d6fc4";
 const GYM_GREEN = "#2f5a45";
 
 const rad = (d: number) => (d * Math.PI) / 180;
 
 /** SketchPerson ile aynı kol hesabı: el noktası (yerel 400x820 kutu) */
-const handAt = (arm: Arm, side: -1 | 1): [number, number] => {
+export const handAt = (arm: Arm, side: -1 | 1): [number, number] => {
   const sx = side < 0 ? 150 : 250;
   const sy = 278;
   const a1 = rad(arm.a);
@@ -58,7 +58,7 @@ const handAt = (arm: Arm, side: -1 | 1): [number, number] => {
 };
 
 /** kişiyi ayak noktasına yerleştirir; çocuklar kişinin yerel kutusunda çizilir */
-const Hero: React.FC<{
+export const Hero: React.FC<{
   x: number;
   foot: number;
   s?: number;
@@ -68,12 +68,13 @@ const Hero: React.FC<{
   pose?: SketchPose;
   expr?: SketchExpr;
   seed?: number;
+  talk?: number;
   children?: React.ReactNode;
   before?: React.ReactNode;
-}> = ({ x, foot, s = 1, flip, t, look = HERO, pose, expr, seed = 0, children, before }) => (
+}> = ({ x, foot, s = 1, flip, t, look = HERO, pose, expr, seed = 0, talk, children, before }) => (
   <g transform={`translate(${x},${foot}) scale(${flip ? -s : s},${s}) translate(-200,-800)`}>
     {before}
-    <SketchPerson t={t} look={look} pose={pose} expr={expr} seed={seed} />
+    <SketchPerson t={t} look={look} pose={pose} expr={expr} seed={seed} talk={talk} />
     {children}
   </g>
 );
@@ -81,7 +82,7 @@ const Hero: React.FC<{
 // ------------------------------------------------------------ küçük parçalar
 
 /** el yazısı not kâğıdı */
-const Note: React.FC<{ x: number; y: number; text: string; o: number; tilt?: number; color?: string; size?: number }> = ({
+export const Note: React.FC<{ x: number; y: number; text: string; o: number; tilt?: number; color?: string; size?: number }> = ({
   x,
   y,
   text,
@@ -122,7 +123,7 @@ const Badge: React.FC<{ n: number; text: string; o: number; x?: number; y?: numb
   );
 };
 
-const Tag: React.FC<{ x: number; y: number; text: string; o: number; tilt?: number; size?: number }> = ({ x, y, text, o, tilt = -3, size = 50 }) =>
+export const Tag: React.FC<{ x: number; y: number; text: string; o: number; tilt?: number; size?: number }> = ({ x, y, text, o, tilt = -3, size = 50 }) =>
   o <= 0 ? null : <Note x={x} y={y} text={text} o={o} tilt={tilt} color={LINE} size={size} />;
 
 /** kas kesiti: koyu daire içinde lifler */
@@ -224,7 +225,7 @@ const QBox: React.FC<{ x: number; y: number; s: number; o: number; tilt: number 
   );
 
 /** yarım kesitli tabak; full = dolu (yumurta, tavuk, süt) */
-const Plate: React.FC<{ x: number; y: number; s?: number; full: number }> = ({ x, y, s = 1, full }) => (
+export const Plate: React.FC<{ x: number; y: number; s?: number; full: number }> = ({ x, y, s = 1, full }) => (
   <g transform={`translate(${x},${y}) scale(${s})`}>
     <ellipse cx={0} cy={8} rx={190} ry={40} fill="#5a3a26" opacity={0.12} />
     <ellipse cx={0} cy={0} rx={190} ry={40} fill="#fbfbf7" {...st} />
@@ -309,7 +310,7 @@ const Board: React.FC<{ x: number; y: number; s: number; t: number; seventh?: nu
 
 // ------------------------------------------------------------ arka planlar
 
-const Specks: React.FC<{ y0: number; y1: number; c: string; n?: number }> = ({ y0, y1, c, n = 50 }) => (
+export const Specks: React.FC<{ y0: number; y1: number; c: string; n?: number }> = ({ y0, y1, c, n = 50 }) => (
   <g>
     {Array.from({ length: n }).map((_, i) => (
       <circle key={i} cx={(i * 211) % 1080} cy={y0 + ((i * 137) % Math.max(1, y1 - y0))} r={2 + (i % 3)} fill={c} opacity={0.35} />
@@ -327,7 +328,7 @@ const GymSign: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 /** salon içi: cam duvar + koyu zemin */
-const GymBg: React.FC<{ t: number }> = ({ t }) => (
+export const GymBg: React.FC<{ t: number }> = ({ t }) => (
   <g>
     <rect width={1080} height={1920} fill="#e9dcc0" />
     <rect x={0} y={330} width={1080} height={880} fill="#cfe6ef" />

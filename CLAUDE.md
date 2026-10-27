@@ -591,6 +591,13 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (sidechain, ratio 2) → müzik konuşmadan ~16 dB aşağıda (önce ~22 dB). Son: `out/sadik-musteri-paylas-v2.mp4`.
   **Genel: sadece ses değişiyorsa videoyu yeniden çizme, görüntüyü kopyalayıp sesi ffmpeg ile yeniden karıştır (dakikalar sürer).**
 
+- **TupMideSarkma** — kullanıcı 2. örnek videoyu (kalem çizimi tüp mide: "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun
+  altı hâlâ sallanıyor…") gönderdi: **SadikMusteri gibi** — akış/metin aynı, figür bizim siyah saçlı kalem çizimi genç, seslendirme ve
+  müzik ayarı SadikMusteri'deki gibi (Manitam canlı, `[excited]`/`[laughs softly]`/"Hmm…", baş/son boşluk kesilir, 1.2 tempo, ~35 sn;
+  müzik örnek videonun kendi sesi `public/audio/tup-sarkma-orijinal.mp3`, son karışım `sadik-ses-karistir.py` gibi 0.4 + sidechain).
+  `SketchPerson`'a `belly` (kilolu gövde) ve `flap` (kol altı sarkan deri, sallanır) eklendi. Sahneler `src/compositions/TupMideSarkma.tsx`,
+  seslendirme metni `icerik/tup-mide-sarkma.seslendirme.txt`. Sessiz taslak `out/tup-sarkma-sessiz.mp4`; seslendirme onayı bekleniyor (~650 kredi).
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan

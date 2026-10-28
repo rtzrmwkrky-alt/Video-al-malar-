@@ -602,7 +602,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   ffmpeg ile müzik 0.4 + sidechain (ratio 2) + -14 LUFS, crf 18 → `out/tup-sarkma-paylas.mp4`.
   Kullanıcı aynı örneği tekrar gönderip **enerjik, inişli çıkışlı arka müzik** istedi → `python3 scripts/tup-sarkma-ses-karistir.py 0.7
   out/tup-sarkma-render.mp4 out/tup-sarkma-enerjik-paylas.mp4` (müzik 0.7, sidechain ratio 4, hızlı geri dönüş: aralarda yükselir,
-  konuşmada ~13-17 dB altına iner). Son: `out/tup-sarkma-enerjik-paylas.mp4`.
+  konuşmada ~13-17 dB altına iner). Son: `out/tup-sarkma-enerjik-paylas.mp4`. **Kullanıcı "çok beğendim" dedi** → örnek müzikli videolarda bu enerjik karışım tarzı kullanılsın.
 
 ## Son durum (yeni oturumda buradan devam)
 

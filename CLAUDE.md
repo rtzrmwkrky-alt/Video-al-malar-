@@ -596,7 +596,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   müzik ayarı SadikMusteri'deki gibi (Manitam canlı, `[excited]`/`[laughs softly]`/"Hmm…", baş/son boşluk kesilir, 1.2 tempo, ~35 sn;
   müzik örnek videonun kendi sesi `public/audio/tup-sarkma-orijinal.mp3`, son karışım `sadik-ses-karistir.py` gibi 0.4 + sidechain).
   `SketchPerson`'a `belly` (kilolu gövde) ve `flap` (kol altı sarkan deri, sallanır) eklendi. Sahneler `src/compositions/TupMideSarkma.tsx`,
-  seslendirme metni `icerik/tup-mide-sarkma.seslendirme.txt`. Sessiz taslak `out/tup-sarkma-sessiz.mp4`; seslendirme onayı bekleniyor (~650 kredi).
+  seslendirme metni `icerik/tup-mide-sarkma.seslendirme.txt`. Sessiz taslak onaylandı → **seslendirildi**: ElevenLabs bağlantısı, Manitam, eleven_v4, tek okuma (646 kredi) → `public/audio/tup-sarkma`
+  (42.8 sn). Kelime zamanları Scribe (0 kredi; `[excited]`, `[laughs softly]`, "Hmm…" JSON'dan çıkarıldı) → `sikistir-ses.py --max-pause 0.15
+  --tempo 1.2` → `tup-sarkma-hizli` 31.8 sn, video 33 sn. Render `--props='{"audioName":"tup-sarkma-hizli","data":null,"music":false}'` →
+  ffmpeg ile müzik 0.4 + sidechain (ratio 2) + -14 LUFS, crf 18 → `out/tup-sarkma-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

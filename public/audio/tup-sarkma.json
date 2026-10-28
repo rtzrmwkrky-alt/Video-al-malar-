@@ -1,0 +1,476 @@
+{
+ "text": "Tüp mide oldun, kırk kilo verdin ama el sallarken kolunun altı hâlâ sallanıyor. Yoksa sana da mı biri 'Tuzu uzatır mısın?' dedi? Tüp mide 1988'de büyük bir ameliyatın sadece ilk adımıydı. Hastalar o kadar kilo verdi ki ikinci adıma gerek kalmadı. 2022'de iki bin hasta incelendi: verilen kilonun sekizi yağ değildi. Kas gidince deri boşta kalır. Bir deneyde ağırlık çalışan hastalar daha güçlü çıktı. Doktorun izin verince kola, karna, bacağa ağırlık çalış; deriyi tamamen toplamaz ama altını kas doldurur. Nereye ne çalışacağını, VOOM'daki koçun sarkan bölgene göre planlar. Bunu tüp mide olan birine gönder.",
+ "words": [
+  {
+   "text": "Tüp",
+   "start": 0.069,
+   "end": 0.24
+  },
+  {
+   "text": "mide",
+   "start": 0.28,
+   "end": 0.48
+  },
+  {
+   "text": "oldun,",
+   "start": 0.56,
+   "end": 1.0
+  },
+  {
+   "text": "kırk",
+   "start": 1.12,
+   "end": 1.28
+  },
+  {
+   "text": "kilo",
+   "start": 1.36,
+   "end": 1.52
+  },
+  {
+   "text": "verdin",
+   "start": 1.6,
+   "end": 2.16
+  },
+  {
+   "text": "ama",
+   "start": 2.32,
+   "end": 2.48
+  },
+  {
+   "text": "el",
+   "start": 2.56,
+   "end": 2.64
+  },
+  {
+   "text": "sallarken",
+   "start": 2.72,
+   "end": 3.28
+  },
+  {
+   "text": "kolunun",
+   "start": 3.36,
+   "end": 3.6
+  },
+  {
+   "text": "altı",
+   "start": 3.68,
+   "end": 3.92
+  },
+  {
+   "text": "hâlâ",
+   "start": 4.0,
+   "end": 4.4
+  },
+  {
+   "text": "sallanıyor.",
+   "start": 4.44,
+   "end": 5.28
+  },
+  {
+   "text": "Yoksa",
+   "start": 6.0,
+   "end": 6.32
+  },
+  {
+   "text": "sana",
+   "start": 6.56,
+   "end": 6.72
+  },
+  {
+   "text": "da",
+   "start": 6.8,
+   "end": 6.88
+  },
+  {
+   "text": "mı",
+   "start": 6.96,
+   "end": 7.04
+  },
+  {
+   "text": "biri",
+   "start": 7.12,
+   "end": 7.28
+  },
+  {
+   "text": "'Tuzu",
+   "start": 7.52,
+   "end": 7.76
+  },
+  {
+   "text": "uzatır",
+   "start": 7.84,
+   "end": 8.16
+  },
+  {
+   "text": "mısın?'",
+   "start": 8.213,
+   "end": 8.48
+  },
+  {
+   "text": "dedi?",
+   "start": 8.56,
+   "end": 8.8
+  },
+  {
+   "text": "Tüp",
+   "start": 9.44,
+   "end": 9.6
+  },
+  {
+   "text": "mide",
+   "start": 9.68,
+   "end": 10.24
+  },
+  {
+   "text": "1988'de",
+   "start": 10.28,
+   "end": 11.68
+  },
+  {
+   "text": "büyük",
+   "start": 11.76,
+   "end": 12.0
+  },
+  {
+   "text": "bir",
+   "start": 12.04,
+   "end": 12.08
+  },
+  {
+   "text": "ameliyatın",
+   "start": 12.16,
+   "end": 12.72
+  },
+  {
+   "text": "sadece",
+   "start": 12.76,
+   "end": 13.2
+  },
+  {
+   "text": "ilk",
+   "start": 13.32,
+   "end": 13.44
+  },
+  {
+   "text": "adımıydı.",
+   "start": 13.48,
+   "end": 14.32
+  },
+  {
+   "text": "Hastalar",
+   "start": 14.36,
+   "end": 14.8
+  },
+  {
+   "text": "o",
+   "start": 14.88,
+   "end": 14.92
+  },
+  {
+   "text": "kadar",
+   "start": 14.96,
+   "end": 15.2
+  },
+  {
+   "text": "kilo",
+   "start": 15.28,
+   "end": 15.44
+  },
+  {
+   "text": "verdi",
+   "start": 15.52,
+   "end": 15.84
+  },
+  {
+   "text": "ki",
+   "start": 15.92,
+   "end": 16.32
+  },
+  {
+   "text": "ikinci",
+   "start": 16.4,
+   "end": 16.64
+  },
+  {
+   "text": "adıma",
+   "start": 16.72,
+   "end": 16.96
+  },
+  {
+   "text": "gerek",
+   "start": 17.0,
+   "end": 17.2
+  },
+  {
+   "text": "kalmadı.",
+   "start": 17.28,
+   "end": 18.16
+  },
+  {
+   "text": "2022'de",
+   "start": 18.2,
+   "end": 19.2
+  },
+  {
+   "text": "iki",
+   "start": 19.28,
+   "end": 19.36
+  },
+  {
+   "text": "bin",
+   "start": 19.44,
+   "end": 19.52
+  },
+  {
+   "text": "hasta",
+   "start": 19.6,
+   "end": 19.84
+  },
+  {
+   "text": "incelendi:",
+   "start": 19.92,
+   "end": 20.8
+  },
+  {
+   "text": "verilen",
+   "start": 20.88,
+   "end": 21.2
+  },
+  {
+   "text": "kilonun",
+   "start": 21.24,
+   "end": 21.6
+  },
+  {
+   "text": "sekizi",
+   "start": 21.72,
+   "end": 22.4
+  },
+  {
+   "text": "yağ",
+   "start": 22.48,
+   "end": 22.64
+  },
+  {
+   "text": "değildi.",
+   "start": 22.72,
+   "end": 23.44
+  },
+  {
+   "text": "Kas",
+   "start": 23.48,
+   "end": 23.68
+  },
+  {
+   "text": "gidince",
+   "start": 23.76,
+   "end": 24.32
+  },
+  {
+   "text": "deri",
+   "start": 24.4,
+   "end": 24.56
+  },
+  {
+   "text": "boşta",
+   "start": 24.6,
+   "end": 24.88
+  },
+  {
+   "text": "kalır.",
+   "start": 24.96,
+   "end": 25.6
+  },
+  {
+   "text": "Bir",
+   "start": 25.627,
+   "end": 25.68
+  },
+  {
+   "text": "deneyde",
+   "start": 25.76,
+   "end": 26.24
+  },
+  {
+   "text": "ağırlık",
+   "start": 26.32,
+   "end": 26.56
+  },
+  {
+   "text": "çalışan",
+   "start": 26.64,
+   "end": 26.96
+  },
+  {
+   "text": "hastalar",
+   "start": 27.0,
+   "end": 27.44
+  },
+  {
+   "text": "daha",
+   "start": 27.48,
+   "end": 27.68
+  },
+  {
+   "text": "güçlü",
+   "start": 27.76,
+   "end": 28.0
+  },
+  {
+   "text": "çıktı.",
+   "start": 28.04,
+   "end": 28.72
+  },
+  {
+   "text": "Doktorun",
+   "start": 28.773,
+   "end": 29.12
+  },
+  {
+   "text": "izin",
+   "start": 29.24,
+   "end": 29.36
+  },
+  {
+   "text": "verince",
+   "start": 29.44,
+   "end": 29.84
+  },
+  {
+   "text": "kola,",
+   "start": 30.0,
+   "end": 30.56
+  },
+  {
+   "text": "karna,",
+   "start": 30.6,
+   "end": 31.2
+  },
+  {
+   "text": "bacağa",
+   "start": 31.28,
+   "end": 31.6
+  },
+  {
+   "text": "ağırlık",
+   "start": 31.68,
+   "end": 31.92
+  },
+  {
+   "text": "çalış;",
+   "start": 32.0,
+   "end": 32.64
+  },
+  {
+   "text": "deriyi",
+   "start": 33.44,
+   "end": 33.68
+  },
+  {
+   "text": "tamamen",
+   "start": 33.76,
+   "end": 34.16
+  },
+  {
+   "text": "toplamaz",
+   "start": 34.28,
+   "end": 34.96
+  },
+  {
+   "text": "ama",
+   "start": 35.04,
+   "end": 35.12
+  },
+  {
+   "text": "altını",
+   "start": 35.2,
+   "end": 35.6
+  },
+  {
+   "text": "kas",
+   "start": 35.72,
+   "end": 35.84
+  },
+  {
+   "text": "doldurur.",
+   "start": 35.88,
+   "end": 36.72
+  },
+  {
+   "text": "Nereye",
+   "start": 36.76,
+   "end": 37.04
+  },
+  {
+   "text": "ne",
+   "start": 37.08,
+   "end": 37.12
+  },
+  {
+   "text": "çalışacağını,",
+   "start": 37.2,
+   "end": 38.08
+  },
+  {
+   "text": "VOOM'daki",
+   "start": 38.12,
+   "end": 38.48
+  },
+  {
+   "text": "koçun",
+   "start": 38.56,
+   "end": 38.88
+  },
+  {
+   "text": "sarkan",
+   "start": 38.92,
+   "end": 39.28
+  },
+  {
+   "text": "bölgene",
+   "start": 39.36,
+   "end": 39.68
+  },
+  {
+   "text": "göre",
+   "start": 39.72,
+   "end": 39.92
+  },
+  {
+   "text": "planlar.",
+   "start": 40.04,
+   "end": 40.72
+  },
+  {
+   "text": "Bunu",
+   "start": 40.8,
+   "end": 41.2
+  },
+  {
+   "text": "tüp",
+   "start": 41.24,
+   "end": 41.36
+  },
+  {
+   "text": "mide",
+   "start": 41.44,
+   "end": 41.6
+  },
+  {
+   "text": "olan",
+   "start": 41.68,
+   "end": 41.84
+  },
+  {
+   "text": "birine",
+   "start": 41.92,
+   "end": 42.16
+  },
+  {
+   "text": "gönder.",
+   "start": 42.24,
+   "end": 42.88
+  }
+ ],
+ "durationInSeconds": 42.84
+}

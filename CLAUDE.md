@@ -600,6 +600,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   (42.8 sn). Kelime zamanları Scribe (0 kredi; `[excited]`, `[laughs softly]`, "Hmm…" JSON'dan çıkarıldı) → `sikistir-ses.py --max-pause 0.15
   --tempo 1.2` → `tup-sarkma-hizli` 31.8 sn, video 33 sn. Render `--props='{"audioName":"tup-sarkma-hizli","data":null,"music":false}'` →
   ffmpeg ile müzik 0.4 + sidechain (ratio 2) + -14 LUFS, crf 18 → `out/tup-sarkma-paylas.mp4`.
+  Kullanıcı aynı örneği tekrar gönderip **enerjik, inişli çıkışlı arka müzik** istedi → `python3 scripts/tup-sarkma-ses-karistir.py 0.7
+  out/tup-sarkma-render.mp4 out/tup-sarkma-enerjik-paylas.mp4` (müzik 0.7, sidechain ratio 4, hızlı geri dönüş: aralarda yükselir,
+  konuşmada ~13-17 dB altına iner). Son: `out/tup-sarkma-enerjik-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

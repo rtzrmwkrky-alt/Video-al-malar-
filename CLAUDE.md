@@ -604,6 +604,16 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   out/tup-sarkma-render.mp4 out/tup-sarkma-enerjik-paylas.mp4` (müzik 0.7, sidechain ratio 4, hızlı geri dönüş: aralarda yükselir,
   konuşmada ~13-17 dB altına iner). Son: `out/tup-sarkma-enerjik-paylas.mp4`. **Kullanıcı "çok beğendim" dedi** → örnek müzikli videolarda bu enerjik karışım tarzı kullanılsın.
 
+- **PilatesDogus** — "Pilates bir esir kampında doğdu" (kullanıcı: "son iki videonun stilinde Pilates'in doğuşu ve Pilates").
+  SadikMusteri/TupMideSarkma tarzı: kalem çizimi siyah saçlı genç (bugün) + Joseph Pilates (`JOSEPH`, geçmiş sahneler **sepya**
+  filtre). Akış: genç reformerda kürek çeker → "esir kampında" dikenli tel → 1883 hasta, cılız çocuk → jimnastik/boks/dambıl →
+  1914 İngiltere kampı → hasta yatağına yay bağlar → yataklı yay ↔ bugünkü reformer "ATASI BU" → 1926 New York, stüdyo dansçılarla
+  dolar → bel ağrısı azalır, gövde güçlenir (Cochrane 2015) → tek başına yağ yakmaz: + yürüyüş + ağırlık → Joseph'in sözü 10/20/30
+  seans → "Bunu Pilates'e başlayacak birine gönder" → döngü. `src/compositions/PilatesDogus.tsx`, metin
+  `icerik/pilates-dogus.seslendirme.txt` ("Joseph" → "Cozef" okunuşu). Müzik şimdilik `tup-sarkma-orijinal.mp3` (Mixkit kapalı).
+  Sessiz taslak `out/pilates-dogus-sessiz.mp4`; onay gelince Manitam (canlı, SadikMusteri gibi) seslendirilecek → Scribe/hizala →
+  `sikistir-ses.py --max-pause 0.15 --tempo 1.2` → `pilates-dogus-hizli` → müzik enerjik karışım (`tup-sarkma-ses-karistir.py` gibi).
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan

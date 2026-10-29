@@ -46,7 +46,7 @@ const STOMACH = "#cf6d66";
 type S = { t: number; u: number; W: (k: number) => number; d: number };
 
 /** kamera: (cx,cy) noktasına k kat yaklaşır */
-const Cam: React.FC<{ cx: number; cy: number; k: number; children: React.ReactNode }> = ({ cx, cy, k, children }) => (
+export const Cam: React.FC<{ cx: number; cy: number; k: number; children: React.ReactNode }> = ({ cx, cy, k, children }) => (
   <g transform={`translate(${mix(540, 540, k)},960) scale(${k}) translate(${-mix(540, cx, Math.min(1, (k - 1) * 3))},${-mix(960, cy, Math.min(1, (k - 1) * 3))})`}>
     {children}
   </g>
@@ -137,7 +137,7 @@ const Salt: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   </g>
 );
 
-const Bubble: React.FC<{ x: number; y: number; text: string; o: number; tail?: number }> = ({ x, y, text, o, tail = -1 }) => {
+export const Bubble: React.FC<{ x: number; y: number; text: string; o: number; tail?: number }> = ({ x, y, text, o, tail = -1 }) => {
   if (o <= 0) return null;
   const w = text.length * 26 + 80;
   return (
@@ -185,7 +185,7 @@ const StepCard: React.FC<{ x: number; y: number; n: number; sub: string; o: numb
     </g>
   );
 
-const Stamp: React.FC<{ x: number; y: number; text: string; k: number }> = ({ x, y, text, k }) =>
+export const Stamp: React.FC<{ x: number; y: number; text: string; k: number }> = ({ x, y, text, k }) =>
   k <= 0 ? null : (
     <g opacity={Math.min(1, k * 1.5)} transform={`translate(${x},${y}) rotate(-12) scale(${mix(1.25, 1, k)})`}>
       <rect x={-200} y={-46} width={400} height={92} rx={10} fill="none" stroke={RED} strokeWidth={8} />
@@ -271,7 +271,7 @@ const Block: React.FC<{ x: number; y: number; red: number; o: number }> = ({ x, 
   );
 
 /** güç tüpü */
-const PowerBar: React.FC<{ x: number; y: number; level: number; color: string }> = ({ x, y, level, color }) => (
+export const PowerBar: React.FC<{ x: number; y: number; level: number; color: string }> = ({ x, y, level, color }) => (
   <g transform={`translate(${x},${y})`}>
     <rect x={-36} y={-260} width={72} height={260} rx={12} fill={PAPER} {...st} strokeWidth={4} />
     <rect x={-30} y={-6 - 248 * level} width={60} height={248 * level} rx={8} fill={color} />
@@ -282,7 +282,7 @@ const PowerBar: React.FC<{ x: number; y: number; level: number; color: string }>
   </g>
 );
 
-const Ring: React.FC<{ x: number; y: number; rx: number; ry?: number; label: string; o: number; lx?: number; ly?: number }> = ({ x, y, rx, ry, label, o, lx, ly }) =>
+export const Ring: React.FC<{ x: number; y: number; rx: number; ry?: number; label: string; o: number; lx?: number; ly?: number }> = ({ x, y, rx, ry, label, o, lx, ly }) =>
   o <= 0 ? null : (
     <g opacity={o}>
       <ellipse cx={x} cy={y} rx={rx * mix(0.7, 1, o)} ry={(ry ?? rx) * mix(0.7, 1, o)} fill="none" stroke={INK} strokeWidth={6} strokeDasharray="18 12" />
@@ -292,7 +292,7 @@ const Ring: React.FC<{ x: number; y: number; rx: number; ry?: number; label: str
     </g>
   );
 
-const CheckMark: React.FC<{ x: number; y: number; o: number; r?: number }> = ({ x, y, o, r = 60 }) =>
+export const CheckMark: React.FC<{ x: number; y: number; o: number; r?: number }> = ({ x, y, o, r = 60 }) =>
   o <= 0 ? null : (
     <g opacity={o} transform={`translate(${x},${y}) scale(${mix(0.8, 1, o)})`}>
       <circle r={r} fill={PAPER} {...st} strokeWidth={4} />
@@ -300,7 +300,7 @@ const CheckMark: React.FC<{ x: number; y: number; o: number; r?: number }> = ({ 
     </g>
   );
 
-const CheckCard: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) =>
+export const CheckCard: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) =>
   o <= 0 ? null : (
     <g opacity={o} transform={`translate(${x + (1 - o) * 30},${y})`}>
       <rect x={-130 + 5} y={-50 + 7} width={260} height={100} rx={14} fill="#5a3a26" opacity={0.15} />

@@ -722,6 +722,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
 - **Seslendirme metni doğal konuşma dili olsun**: cümleler hep "-yor" ile bitmesin ("biliyor,
   giriyorsun, kaydediyor" gibi art arda gelince duyuru/robot gibi duruyor). Yumuşak, gündelik
   ifadeler kullan ("yazman yeterli", "evde de olur", "kayıtta"); abartılı vurgu yok.
+- **"Reformer" seslendirmede "Reformır" diye yazılır** (kullanıcı uyardı; ekranda doğru yazım "reformer" kalır).
 - Okunuşu bozuk kelimeler seslendirme metninde okunduğu gibi yazılır
   (`icerik/<ad>.seslendirme.txt`, ör. "Voom" → "Vum"); ekranda doğru yazım için
   kompozisyondaki `DISPLAY` eşlemesi kullanılır.

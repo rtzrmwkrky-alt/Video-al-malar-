@@ -47,6 +47,7 @@ import { TM_TAIL, TM_TL, TupMide } from "./compositions/TupMide";
 import { SM_TAIL, SM_TL, SadikMusteri } from "./compositions/SadikMusteri";
 import { TS_TAIL, TS_TL, TupMideSarkma } from "./compositions/TupMideSarkma";
 import { PD_TAIL, PD_TL, PilatesDogus } from "./compositions/PilatesDogus";
+import { MR_TAIL, MR_TL, MatReformer } from "./compositions/MatReformer";
 import { ORGU_FRAMES, OrguKiyafet } from "./compositions/OrguKiyafet";
 import { BORA_FRAMES, BoraTanitim } from "./compositions/BoraTanitim";
 import { KIVIRCIK_FRAMES, KivircikGenc } from "./compositions/KivircikGenc";
@@ -484,6 +485,16 @@ export const RemotionRoot: React.FC = () => {
       durationInFrames={PD_TL.frames}
       defaultProps={{ audioName: "pilates-dogus-hizli", data: null, music: true } satisfies EkmekBirakProps & { music: boolean }}
       calculateMetadata={({ props }) => withVoiceoverTail(PD_TAIL, props)}
+    />
+    <Composition
+      id="MatReformer"
+      component={MatReformer}
+      width={1080}
+      height={1920}
+      fps={FPS}
+      durationInFrames={MR_TL.frames}
+      defaultProps={{ audioName: "mat-reformer-hizli", data: null, music: true } satisfies EkmekBirakProps & { music: boolean }}
+      calculateMetadata={({ props }) => withVoiceoverTail(MR_TAIL, props)}
     />
     <Composition id="CizimFigur" component={CizimFigur} width={1080} height={1920} fps={FPS} durationInFrames={CIZIM_FIGUR_FRAMES} />
     <Composition id="FigurUc" component={FigurUc} width={1080} height={1920} fps={FPS} durationInFrames={FIGUR_UC_FRAMES} />

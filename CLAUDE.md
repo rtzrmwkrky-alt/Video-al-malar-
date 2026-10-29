@@ -614,6 +614,15 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Sessiz taslak `out/pilates-dogus-sessiz.mp4`; onay gelince Manitam (canlı, SadikMusteri gibi) seslendirilecek → Scribe/hizala →
   `sikistir-ses.py --max-pause 0.15 --tempo 1.2` → `pilates-dogus-hizli` → müzik enerjik karışım (`tup-sarkma-ses-karistir.py` gibi).
 
+- **MatReformer** — "Mat mı, reformer mı?" (PilatesDogus'un yerine; kullanıcı konuyu "mat ve reformer farkı" yaptı). Kurallar:
+  **önce metin onaylanır, sonra önizleme**; kanca doğrudan acıyla girer, tarihe iner, farkı anlatır, yorum attıran hikâyeyle biter.
+  **Para muhabbeti yok** (fiyat konuşulmaz). Kanca (kullanıcı 1. seçeneği seçti): "Matta aylardır terliyorsun… reformerdaki senden önce mi
+  şekle giriyor?" Hikâye: CAN (siyah saçlı genç, evde mor matta, `SketchPerson` `floor` pozu: yerde oturuş/teaser, yalın ayak) ↔ ECE
+  (kız, stüdyoda reformer, `RowingHero`); ekran yer yer üst/alt ikiye bölünür (`Split`). Tarih sepya (Joseph matta, 34 hareket,
+  yataklı yay). Kapanış: Ece iki haftada bir / Can her akşam (takvimler) → "Ece mi, Can mı? Yorumlara yaz." → döngü.
+  Kullanıcı "eklediğim şekilleri kullanmadın" dedi ama hiçbir şekil/görsel bize ulaşmadı → tekrar göndermesi istendi; gelince onlarla kurulacak.
+  Metin `icerik/mat-reformer.seslendirme.txt`, sahneler `src/compositions/MatReformer.tsx`. Sessiz taslak `out/mat-reformer-sessiz.mp4`.
+
 ## Son durum (yeni oturumda buradan devam)
 
 - **Bekleyen: UcHirsiz müziği.** Kullanıcı ücretsiz yolu seçti (ElevenLabs müzik ~1500 kredi/parça, istemedi). Mixkit açık olan

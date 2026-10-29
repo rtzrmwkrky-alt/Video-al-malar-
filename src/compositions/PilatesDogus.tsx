@@ -38,7 +38,7 @@ export const PD_TAIL = 1.15;
 export const PD_TL = timeline(PD_LINES, PD_TAIL);
 
 const HERO = SKETCH_CAST.siyah.look;
-const JOSEPH: SketchLook = { skin: "#f6e6d6", hair: "#9a7b55", hairStyle: "side", top: "#e9e2d0", bottom: "#4a4a52", shoe: "#3b3530" };
+export const JOSEPH: SketchLook = { skin: "#f6e6d6", hair: "#9a7b55", hairStyle: "side", top: "#e9e2d0", bottom: "#4a4a52", shoe: "#3b3530" };
 const JOSEPH_KID: SketchLook = { ...JOSEPH, top: "#c9b99a", bottom: "#6b5a48" };
 const JOSEPH_OLD: SketchLook = { ...JOSEPH, hair: "#ebe7e0", top: "#f4f1ea", bottom: "#2f3b5a" };
 const PATIENT: SketchLook = { ...SKETCH_CAST.sari.look, top: "#dcd7cc", bottom: "#8d8e92" };
@@ -49,12 +49,12 @@ const WOOD = "#a77b4f";
 type S = { t: number; u: number; W: (k: number) => number; d: number };
 
 /** Hero yerel kutusundaki noktayı sahneye çevirir */
-const toScene = (x: number, foot: number, s: number, p: [number, number]): [number, number] => [x + (p[0] - 200) * s, foot + (p[1] - 800) * s];
+export const toScene = (x: number, foot: number, s: number, p: [number, number]): [number, number] => [x + (p[0] - 200) * s, foot + (p[1] - 800) * s];
 
 // ------------------------------------------------------------ parçalar
 
 /** iki nokta arasında zikzak yay */
-const Spring: React.FC<{ a: [number, number]; b: [number, number]; n?: number; amp?: number; w?: number; color?: string }> = ({ a, b, n = 12, amp = 12, w = 4, color = "#8d8e92" }) => {
+export const Spring: React.FC<{ a: [number, number]; b: [number, number]; n?: number; amp?: number; w?: number; color?: string }> = ({ a, b, n = 12, amp = 12, w = 4, color = "#8d8e92" }) => {
   const dx = b[0] - a[0];
   const dy = b[1] - a[1];
   const len = Math.hypot(dx, dy) || 1;
@@ -77,7 +77,7 @@ const Spring: React.FC<{ a: [number, number]; b: [number, number]; n?: number; a
 };
 
 /** reformer: çerçeve, kayan araba (car = kayma), üstünde kutu, ayak barı, sol uçta makara direği */
-const Reformer: React.FC<{ x: number; y: number; s?: number; car: number; box?: boolean }> = ({ x, y, s = 1, car, box = true }) => {
+export const Reformer: React.FC<{ x: number; y: number; s?: number; car: number; box?: boolean }> = ({ x, y, s = 1, car, box = true }) => {
   const cx = 360 + car;
   return (
     <g transform={`translate(${x},${y}) scale(${s})`}>
@@ -105,7 +105,7 @@ const Reformer: React.FC<{ x: number; y: number; s?: number; car: number; box?: 
   );
 };
 
-const StudioBg: React.FC = () => (
+export const StudioBg: React.FC = () => (
   <g>
     <rect width={1080} height={1920} fill="#f1e2c8" />
     {/* ayna */}
@@ -129,7 +129,7 @@ const StudioBg: React.FC = () => (
 );
 
 /** reformerda kürek çeken genç (kayan araba + kollar + kayışlar) */
-const RowingHero: React.FC<{ t: number; expr?: "grin" | "smile" | "surprise" | "think"; item?: SketchPose["itemR"]; pull?: number }> = ({ t, expr = "grin", item, pull }) => {
+export const RowingHero: React.FC<{ t: number; expr?: "grin" | "smile" | "surprise" | "think" | "worry"; item?: SketchPose["itemR"]; pull?: number; look?: SketchLook; seed?: number }> = ({ t, expr = "grin", item, pull, look = HERO, seed }) => {
   const k = pull ?? 0.5 - 0.5 * Math.cos(t * 2.4);
   const car = mix(0, -110, k);
   const s = 0.95;
@@ -151,7 +151,7 @@ const RowingHero: React.FC<{ t: number; expr?: "grin" | "smile" | "surprise" | "
       <Reformer x={540} y={1300} car={car} />
       <path d={`M${post[0]},${post[1]} L${lh[0]},${lh[1]}`} stroke={LINE} strokeWidth={4} />
       {!item ? <path d={`M${post[0]},${post[1] + 6} L${rh[0]},${rh[1]}`} stroke={LINE} strokeWidth={4} /> : null}
-      <Hero x={hx} foot={foot} s={s} t={t} pose={pose} expr={expr} />
+      <Hero x={hx} foot={foot} s={s} t={t} look={look} seed={seed} pose={pose} expr={expr} />
     </g>
   );
 };
@@ -201,7 +201,7 @@ const CampBg: React.FC<{ t: number }> = ({ t }) => (
   </g>
 );
 
-const OldRoomBg: React.FC<{ fill?: string }> = ({ fill = "#e3d3b4" }) => (
+export const OldRoomBg: React.FC<{ fill?: string }> = ({ fill = "#e3d3b4" }) => (
   <g>
     <rect width={1080} height={1920} fill={fill} />
     {Array.from({ length: 11 }).map((_, i) => (
@@ -216,7 +216,7 @@ const OldRoomBg: React.FC<{ fill?: string }> = ({ fill = "#e3d3b4" }) => (
 );
 
 /** demir hasta yatağı + üst bar; hasta yatarak üst bardan sarkan yayı çeker */
-const SpringBed: React.FC<{ t: number; x: number; y: number; s?: number; spring: number; pull: number; seed?: number }> = ({ t, x, y, s = 1, spring, pull, seed = 0 }) => {
+export const SpringBed: React.FC<{ t: number; x: number; y: number; s?: number; spring: number; pull: number; seed?: number }> = ({ t, x, y, s = 1, spring, pull, seed = 0 }) => {
   const barY = -520;
   const handY = mix(-250, -310, pull);
   return (
@@ -264,9 +264,9 @@ const SketchPersonLying: React.FC<{ t: number; pull: number; seed: number }> = (
 );
 
 /** el yazısı yıl rozeti (Tag gibi, büyük) */
-const Year: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => <Tag x={x} y={y} text={text} o={o} size={64} />;
+export const Year: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => <Tag x={x} y={y} text={text} o={o} size={64} />;
 
-const Arrow: React.FC<{ x1: number; y1: number; x2: number; y2: number; o: number }> = ({ x1, y1, x2, y2, o }) => {
+export const Arrow: React.FC<{ x1: number; y1: number; x2: number; y2: number; o: number }> = ({ x1, y1, x2, y2, o }) => {
   if (o <= 0) return null;
   const ex = mix(x1, x2, o);
   const ey = mix(y1, y2, o);

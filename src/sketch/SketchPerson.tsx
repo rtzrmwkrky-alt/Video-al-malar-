@@ -38,6 +38,8 @@ export type SketchPose = {
   itemR?: "tea" | "phone" | "remote" | "bread" | "dumbbell" | "pogaca";
   /** oturunca bacakların uzandığı taraf (varsayılan: yüzün döndüğü taraf) */
   legSide?: -1 | 1;
+  /** yerde oturuş (sit ile): 0 = bacaklar yerde ileri uzanır, 1 = bacaklar havada V (teaser); yalın ayak */
+  floor?: number;
   /** kilo (0 zayıf … 1 kilolu): gövde genişler, göbek çıkar */
   belly?: number;
   /** kol altı sarkan deri (0 … 1); kol kalkınca aşağı sarkar ve sallanır */
@@ -319,11 +321,30 @@ export const SketchPerson: React.FC<{
   const rightH = R.h;
   const legW = 38;
   const sd = pose.legSide ?? (turn >= 0 ? 1 : -1);
+  const fl = sit && pose.floor !== undefined ? pose.floor : -1;
+  const floorLeg = (hx: number, hy: number, back: number): [number, number][] => [
+    [hx, hy],
+    [hx + sd * (130 - 20 * fl - back * 6), 492 + back * 8 - 92 * fl],
+    [hx + sd * (268 - 70 * fl - back * 8), 500 + back * 10 - 180 * fl],
+  ];
   return (
     <g>
-      <ellipse cx={sit ? 200 + sd * 100 : 200} cy={sit ? 732 : 806} rx={110} ry={13} fill="#5a3a26" opacity={0.13} />
+      <ellipse cx={fl >= 0 ? 200 + sd * 90 : sit ? 200 + sd * 100 : 200} cy={fl >= 0 ? 512 : sit ? 732 : 806} rx={fl >= 0 ? 170 : 110} ry={13} fill="#5a3a26" opacity={0.13} />
       {/* bacaklar */}
-      {sit ? (
+      {fl >= 0 ? (
+        <g>
+          {[floorLeg(222, 478, 0), floorLeg(178, 486, 1)].map((pts, i) => {
+            const [k, f] = [pts[1], pts[2]];
+            const ang = (Math.atan2(f[1] - k[1], f[0] - k[0]) * 180) / Math.PI;
+            return (
+              <g key={i}>
+                <Limb pts={pts} fill={look.bottom} w={legW} />
+                <ellipse cx={f[0] + Math.cos((ang * Math.PI) / 180) * 18} cy={f[1] + Math.sin((ang * Math.PI) / 180) * 18} rx={26} ry={14} transform={`rotate(${ang},${f[0] + Math.cos((ang * Math.PI) / 180) * 18},${f[1] + Math.sin((ang * Math.PI) / 180) * 18})`} fill={look.skin} stroke={LINE} strokeWidth={SW} />
+              </g>
+            );
+          })}
+        </g>
+      ) : sit ? (
         <g>
           {/* oturuş: yüz dönük tarafa uyluk yana uzanır (3/4 görünüş), baldır aşağı sarkar */}
           <Limb pts={[[222, 478], [222 + sd * 92, 494], [222 + sd * 100, 690]]} fill={look.bottom} w={legW} />
@@ -338,7 +359,7 @@ export const SketchPerson: React.FC<{
         </g>
       )}
       {/* ayakkabılar */}
-      {(sit ? [[178 + sd * 100, 718], [222 + sd * 104, 702]] : [[166, 788], [234, 788]]).map(([x, y], i) => (
+      {(fl >= 0 ? [] : sit ? [[178 + sd * 100, 718], [222 + sd * 104, 702]] : [[166, 788], [234, 788]]).map(([x, y], i) => (
         <path
           key={i}
           d={`M${x - 22},${y - 14} Q${x - 26},${y + 10} ${x - 6 + (i ? 10 : -10)},${y + 12} L${x + 20 + (i ? 10 : -10)},${y + 12} Q${x + 30 + (i ? 10 : -10)},${y + 4} ${x + 18},${y - 6} Q${x},${y - 18} ${x - 22},${y - 14} Z`}

@@ -622,6 +622,10 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   yataklı yay). Kapanış: Ece iki haftada bir / Can her akşam (takvimler) → "Ece mi, Can mı? Yorumlara yaz." → döngü.
   Kullanıcı "eklediğim şekilleri kullanmadın" dedi ama hiçbir şekil/görsel bize ulaşmadı → tekrar göndermesi istendi; gelince onlarla kurulacak.
   Metin `icerik/mat-reformer.seslendirme.txt`, sahneler `src/compositions/MatReformer.tsx`. Sessiz taslak `out/mat-reformer-sessiz.mp4`.
+  Önizleme onaylandı → **seslendirildi**: ElevenLabs bağlantısı, Manitam, eleven_v4, tek okuma (744 kredi) → `public/audio/mat-reformer` (48.9 sn).
+  Kelime zamanları kredisiz `hizala-ses.py` (etiketsiz metinle; "Hmm…" sonra JSON'dan çıkarıldı, Cozef→Joseph) → `sikistir-ses.py
+  --max-pause 0.08 --tempo 1.22` → `mat-reformer-hizli` 33.7 sn, `MR_TAIL` 0.9 → video ~34.6 sn. Render `music:false` → enerjik karışım
+  `python3 scripts/tup-sarkma-ses-karistir.py 0.7 out/mat-reformer-render.mp4 out/mat-reformer-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

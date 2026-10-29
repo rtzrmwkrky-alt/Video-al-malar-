@@ -1,0 +1,556 @@
+{
+ "text": "Matta aylardır terliyorsun… reformırdaki senden önce mi şekle giriyor? Ece reformırda çalışıyor. Can evde, matta. Önce şunu bil: Pilates matta doğdu. Cozef Pilates ilk otuz dört hareketi yerde, sadece vücut ağırlığıyla yazdı. Aleti sonra, yataktan kalkamayan hastalar için yaylarla yaptı. Fark tam burada. Matta seni tutan hiçbir şey yok, bütün iş karın kasında. Reformırdaki yay ise hem zorlar hem destek olur. Yeni başlayana, beli ağrıyana, daha çok güç isteyene birebir. Hmm… peki hangisi daha iyi? Araştırmalarda ikisi de gövdeyi güçlendiriyor. Farkı aletten çok, haftada kaç gün yaptığın yaratıyor. Ece iki haftada bir gidiyor… Can her akşam matta. Sence üç ay sonra kim daha güçlü? Ece mi, Can mı? Yorumlara yaz.",
+ "durationInSeconds": 49.45,
+ "words": [
+  {
+   "word": "Matta",
+   "start": 0.0,
+   "end": 0.313
+  },
+  {
+   "word": "aylardır",
+   "start": 0.417,
+   "end": 1.093
+  },
+  {
+   "word": "terliyorsun…",
+   "start": 1.093,
+   "end": 1.967
+  },
+  {
+   "word": "reformırdaki",
+   "start": 2.312,
+   "end": 2.963
+  },
+  {
+   "word": "senden",
+   "start": 2.963,
+   "end": 3.253
+  },
+  {
+   "word": "önce",
+   "start": 3.253,
+   "end": 3.542
+  },
+  {
+   "word": "mi",
+   "start": 3.542,
+   "end": 3.711
+  },
+  {
+   "word": "şekle",
+   "start": 3.711,
+   "end": 4.0
+  },
+  {
+   "word": "giriyor?",
+   "start": 4.0,
+   "end": 4.41
+  },
+  {
+   "word": "Ece",
+   "start": 4.885,
+   "end": 5.199
+  },
+  {
+   "word": "reformırda",
+   "start": 5.199,
+   "end": 5.776
+  },
+  {
+   "word": "çalışıyor.",
+   "start": 5.776,
+   "end": 6.352
+  },
+  {
+   "word": "Can",
+   "start": 6.653,
+   "end": 6.815
+  },
+  {
+   "word": "evde,",
+   "start": 6.815,
+   "end": 7.095
+  },
+  {
+   "word": "matta.",
+   "start": 7.095,
+   "end": 7.374
+  },
+  {
+   "word": "Önce",
+   "start": 8.378,
+   "end": 8.647
+  },
+  {
+   "word": "şunu",
+   "start": 8.647,
+   "end": 8.916
+  },
+  {
+   "word": "bil:",
+   "start": 8.916,
+   "end": 9.073
+  },
+  {
+   "word": "Pilates",
+   "start": 9.428,
+   "end": 9.925
+  },
+  {
+   "word": "matta",
+   "start": 9.925,
+   "end": 10.276
+  },
+  {
+   "word": "doğdu.",
+   "start": 10.276,
+   "end": 10.627
+  },
+  {
+   "word": "Cozef",
+   "start": 11.156,
+   "end": 11.501
+  },
+  {
+   "word": "Pilates",
+   "start": 11.501,
+   "end": 11.99
+  },
+  {
+   "word": "ilk",
+   "start": 11.99,
+   "end": 12.192
+  },
+  {
+   "word": "otuz",
+   "start": 12.192,
+   "end": 12.537
+  },
+  {
+   "word": "dört",
+   "start": 12.537,
+   "end": 12.739
+  },
+  {
+   "word": "hareketi",
+   "start": 12.739,
+   "end": 13.372
+  },
+  {
+   "word": "yerde,",
+   "start": 13.372,
+   "end": 13.717
+  },
+  {
+   "word": "sadece",
+   "start": 13.828,
+   "end": 14.226
+  },
+  {
+   "word": "vücut",
+   "start": 14.226,
+   "end": 14.507
+  },
+  {
+   "word": "ağırlığıyla",
+   "start": 14.507,
+   "end": 15.14
+  },
+  {
+   "word": "yazdı.",
+   "start": 15.14,
+   "end": 15.422
+  },
+  {
+   "word": "Aleti",
+   "start": 15.839,
+   "end": 16.296
+  },
+  {
+   "word": "sonra,",
+   "start": 16.296,
+   "end": 16.618
+  },
+  {
+   "word": "yataktan",
+   "start": 16.98,
+   "end": 17.379
+  },
+  {
+   "word": "kalkamayan",
+   "start": 17.379,
+   "end": 17.895
+  },
+  {
+   "word": "hastalar",
+   "start": 17.895,
+   "end": 18.294
+  },
+  {
+   "word": "için",
+   "start": 18.294,
+   "end": 18.576
+  },
+  {
+   "word": "yaylarla",
+   "start": 18.576,
+   "end": 18.974
+  },
+  {
+   "word": "yaptı.",
+   "start": 18.974,
+   "end": 19.256
+  },
+  {
+   "word": "Fark",
+   "start": 19.922,
+   "end": 20.102
+  },
+  {
+   "word": "tam",
+   "start": 20.102,
+   "end": 20.281
+  },
+  {
+   "word": "burada.",
+   "start": 20.281,
+   "end": 20.718
+  },
+  {
+   "word": "Matta",
+   "start": 21.25,
+   "end": 21.558
+  },
+  {
+   "word": "seni",
+   "start": 21.558,
+   "end": 21.866
+  },
+  {
+   "word": "tutan",
+   "start": 21.866,
+   "end": 22.174
+  },
+  {
+   "word": "hiçbir",
+   "start": 22.174,
+   "end": 22.481
+  },
+  {
+   "word": "şey",
+   "start": 22.481,
+   "end": 22.661
+  },
+  {
+   "word": "yok,",
+   "start": 22.661,
+   "end": 22.841
+  },
+  {
+   "word": "bütün",
+   "start": 23.175,
+   "end": 23.474
+  },
+  {
+   "word": "iş",
+   "start": 23.474,
+   "end": 23.648
+  },
+  {
+   "word": "karın",
+   "start": 23.648,
+   "end": 23.947
+  },
+  {
+   "word": "kasında.",
+   "start": 23.947,
+   "end": 24.37
+  },
+  {
+   "word": "Reformırdaki",
+   "start": 24.657,
+   "end": 25.549
+  },
+  {
+   "word": "yay",
+   "start": 25.549,
+   "end": 25.781
+  },
+  {
+   "word": "ise",
+   "start": 25.781,
+   "end": 26.177
+  },
+  {
+   "word": "hem",
+   "start": 26.316,
+   "end": 26.539
+  },
+  {
+   "word": "zorlar",
+   "start": 26.539,
+   "end": 26.921
+  },
+  {
+   "word": "hem",
+   "start": 26.921,
+   "end": 27.143
+  },
+  {
+   "word": "destek",
+   "start": 27.143,
+   "end": 27.525
+  },
+  {
+   "word": "olur.",
+   "start": 27.525,
+   "end": 27.907
+  },
+  {
+   "word": "Yeni",
+   "start": 28.433,
+   "end": 28.757
+  },
+  {
+   "word": "başlayana,",
+   "start": 28.757,
+   "end": 29.352
+  },
+  {
+   "word": "beli",
+   "start": 29.352,
+   "end": 29.676
+  },
+  {
+   "word": "ağrıyana,",
+   "start": 29.676,
+   "end": 30.27
+  },
+  {
+   "word": "daha",
+   "start": 30.381,
+   "end": 30.777
+  },
+  {
+   "word": "çok",
+   "start": 30.777,
+   "end": 31.008
+  },
+  {
+   "word": "güç",
+   "start": 31.008,
+   "end": 31.24
+  },
+  {
+   "word": "isteyene",
+   "start": 31.24,
+   "end": 31.966
+  },
+  {
+   "word": "birebir.",
+   "start": 32.388,
+   "end": 32.807
+  },
+  {
+   "word": "Hmm…",
+   "start": 33.183,
+   "end": 33.35
+  },
+  {
+   "word": "peki",
+   "start": 33.35,
+   "end": 33.637
+  },
+  {
+   "word": "hangisi",
+   "start": 33.637,
+   "end": 34.043
+  },
+  {
+   "word": "daha",
+   "start": 34.043,
+   "end": 34.329
+  },
+  {
+   "word": "iyi?",
+   "start": 34.329,
+   "end": 34.616
+  },
+  {
+   "word": "Araştırmalarda",
+   "start": 34.999,
+   "end": 35.777
+  },
+  {
+   "word": "ikisi",
+   "start": 35.777,
+   "end": 36.19
+  },
+  {
+   "word": "de",
+   "start": 36.19,
+   "end": 36.36
+  },
+  {
+   "word": "gövdeyi",
+   "start": 36.36,
+   "end": 36.773
+  },
+  {
+   "word": "güçlendiriyor.",
+   "start": 36.773,
+   "end": 37.429
+  },
+  {
+   "word": "Farkı",
+   "start": 37.812,
+   "end": 38.168
+  },
+  {
+   "word": "aletten",
+   "start": 38.168,
+   "end": 38.671
+  },
+  {
+   "word": "çok,",
+   "start": 38.671,
+   "end": 38.879
+  },
+  {
+   "word": "haftada",
+   "start": 39.087,
+   "end": 39.481
+  },
+  {
+   "word": "kaç",
+   "start": 39.481,
+   "end": 39.643
+  },
+  {
+   "word": "gün",
+   "start": 39.643,
+   "end": 39.806
+  },
+  {
+   "word": "yaptığın",
+   "start": 39.806,
+   "end": 40.2
+  },
+  {
+   "word": "yaratıyor.",
+   "start": 40.2,
+   "end": 40.71
+  },
+  {
+   "word": "Ece",
+   "start": 41.24,
+   "end": 41.506
+  },
+  {
+   "word": "iki",
+   "start": 41.506,
+   "end": 41.772
+  },
+  {
+   "word": "haftada",
+   "start": 41.772,
+   "end": 42.149
+  },
+  {
+   "word": "bir",
+   "start": 42.149,
+   "end": 42.304
+  },
+  {
+   "word": "gidiyor…",
+   "start": 42.304,
+   "end": 42.681
+  },
+  {
+   "word": "Can",
+   "start": 43.018,
+   "end": 43.208
+  },
+  {
+   "word": "her",
+   "start": 43.208,
+   "end": 43.399
+  },
+  {
+   "word": "akşam",
+   "start": 43.399,
+   "end": 43.725
+  },
+  {
+   "word": "matta.",
+   "start": 43.725,
+   "end": 44.051
+  },
+  {
+   "word": "Sence",
+   "start": 45.111,
+   "end": 45.427
+  },
+  {
+   "word": "üç",
+   "start": 45.427,
+   "end": 45.612
+  },
+  {
+   "word": "ay",
+   "start": 45.612,
+   "end": 45.796
+  },
+  {
+   "word": "sonra",
+   "start": 45.796,
+   "end": 46.113
+  },
+  {
+   "word": "kim",
+   "start": 46.113,
+   "end": 46.298
+  },
+  {
+   "word": "daha",
+   "start": 46.298,
+   "end": 46.614
+  },
+  {
+   "word": "güçlü?",
+   "start": 46.614,
+   "end": 46.931
+  },
+  {
+   "word": "Ece",
+   "start": 47.276,
+   "end": 47.54
+  },
+  {
+   "word": "mi,",
+   "start": 47.54,
+   "end": 47.694
+  },
+  {
+   "word": "Can",
+   "start": 47.83,
+   "end": 48.018
+  },
+  {
+   "word": "mı?",
+   "start": 48.018,
+   "end": 48.207
+  },
+  {
+   "word": "Yorumlara",
+   "start": 48.541,
+   "end": 49.04
+  },
+  {
+   "word": "yaz.",
+   "start": 49.04,
+   "end": 49.199
+  }
+ ]
+}

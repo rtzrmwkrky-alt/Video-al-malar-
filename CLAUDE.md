@@ -626,6 +626,9 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   Kelime zamanları kredisiz `hizala-ses.py` (etiketsiz metinle; "Hmm…" sonra JSON'dan çıkarıldı, Cozef→Joseph) → `sikistir-ses.py
   --max-pause 0.08 --tempo 1.22` → `mat-reformer-hizli` 33.7 sn, `MR_TAIL` 0.9 → video ~34.6 sn. Render `music:false` → enerjik karışım
   `python3 scripts/tup-sarkma-ses-karistir.py 0.7 out/mat-reformer-render.mp4 out/mat-reformer-paylas.mp4`.
+  Geri bildirim: Manitam "reformer"ı yanlış okudu → **"Reformır"** yazımıyla sadece 3 cümle yeniden okutuldu (kullanıcı ucuz yolu seçti,
+  155 kredi; `public/audio/mr-reformir`), eski sesin içine sessizlik sınırlarından eklendi (yeni parçalar 0.83 kısıldı, ses eşit) →
+  `mat-reformer-v2` → hizala + `--max-pause 0.08 --tempo 1.22` → `mat-reformer-v2-hizli` 34.0 sn. Son: `out/mat-reformer-v2-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 

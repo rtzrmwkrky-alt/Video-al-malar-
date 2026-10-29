@@ -35,7 +35,7 @@ export const MR_LINES: Line[] = [
   { text: "Sence üç ay sonra kim daha güçlü? Ece mi, Can mı? Yorumlara yaz.", hl: ["kim", "güçlü?", "Ece", "Can", "Yorumlara"], hold: 0.2 },
 ];
 
-export const MR_TAIL = 0.9;
+export const MR_TAIL = 0.7;
 export const MR_TL = timeline(MR_LINES, MR_TAIL);
 
 const CAN = SKETCH_CAST.siyah.look;

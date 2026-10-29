@@ -628,7 +628,7 @@ Anahtar sadece ayar eklendikten **sonra açılan** oturumlarda görünür.
   `python3 scripts/tup-sarkma-ses-karistir.py 0.7 out/mat-reformer-render.mp4 out/mat-reformer-paylas.mp4`.
   Geri bildirim: Manitam "reformer"ı yanlış okudu → **"Reformır"** yazımıyla sadece 3 cümle yeniden okutuldu (kullanıcı ucuz yolu seçti,
   155 kredi; `public/audio/mr-reformir`), eski sesin içine sessizlik sınırlarından eklendi (yeni parçalar 0.83 kısıldı, ses eşit) →
-  `mat-reformer-v2` → hizala + `--max-pause 0.08 --tempo 1.22` → `mat-reformer-v2-hizli` 34.0 sn. Son: `out/mat-reformer-v2-paylas.mp4`.
+  `mat-reformer-v2` → hizala + `--max-pause 0.08 --tempo 1.2` (kullanıcı %20 istedi) → `mat-reformer-v2-hizli` 34.6 sn, `MR_TAIL` 0.7. Son: `out/mat-reformer-v2-paylas.mp4`.
 
 ## Son durum (yeni oturumda buradan devam)
 
